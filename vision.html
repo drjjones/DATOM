@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Vision — DATOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+  :root{
+    --maxw: 1120px;
+    --text: #0b0f14;
+    --muted: rgba(11,15,20,0.78);
+    --card-bg: rgba(255,255,255,0.72);
+    --card-border: rgba(0,0,0,0.10);
+    --shadow-soft: 0 10px 32px rgba(0,0,0,0.08);
+  }
+
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: var(--text);
+    background-image: url("./Assets/background.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  header{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 28px 64px;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+    color:#000;
+  }
+
+  .corner-logo{
+    height: 80px;
+    width:auto;
+    display:block;
+  }
+
+  nav a{
+    margin-left: 28px;
+    text-decoration:none;
+    color:#000;
+    font-weight:500;
+  }
+
+  main{
+    max-width: var(--maxw);
+    margin: 92px auto 120px;
+    padding: 0 40px;
+  }
+
+  h1{
+    font-size: 56px;
+    line-height: 1.05;
+    margin: 0 0 18px;
+    letter-spacing: -0.02em;
+  }
+
+  .lede{
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin: 0 0 16px;
+    max-width: 980px;
+  }
+
+  .lede strong{
+    font-weight: 650; /* only for the most important point */
+  }
+
+  .rail{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 26px;
+    align-items: start;
+  }
+
+  .card{
+    border-radius: 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-soft);
+    padding: 18px 18px 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    overflow:hidden;
+  }
+
+  .card:before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    background: radial-gradient(1100px 240px at 20% 0%, rgba(14,165,233,0.12), transparent 60%);
+    pointer-events:none;
+  }
+
+  .card > *{ position:relative; }
+
+  .card h2{
+    margin: 0 0 10px;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+
+  .card p{
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(11,15,20,0.82);
+  }
+
+  .timeline{
+    margin-top: 18px;
+    display:flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .milestone{
+    border-radius: 16px;
+    background: rgba(255,255,255,0.62);
+    border: 1px solid rgba(0,0,0,0.10);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.07);
+    padding: 14px 14px 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .milestone h3{
+    margin: 0 0 6px;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+
+  .milestone p{
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(11,15,20,0.80);
+  }
+
+  .full{
+    margin-top: 18px;
+  }
+
+  footer{
+    text-align:center;
+    padding: 34px;
+    font-size:14px;
+  }
+
+  @media (max-width: 1080px){
+    header{ padding: 22px 26px; }
+    main{ padding: 0 22px; }
+    nav a{ margin-left: 16px; }
+    .corner-logo{ height: 64px; }
+    h1{ font-size: 44px; }
+    .rail{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+
+<body>
+ <header>
+  <a href="index.html">
+    <img src="./Assets/logo.png" style="width:120px;">
+  </a>
+
+  <nav>
+    <a href="product.html">Product</a>
+    <a href="vision.html">Vision</a>
+    <a href="research.html">Research</a>
+    <a href="try.html">Waitlist</a>
+  </nav>
+</header>
+
+  <main>
+    <h1>The long-term vision</h1>
+
+    <p class="lede">
+      As models become faster and cheaper, answers cease to be scarce. What becomes scarce is legitimacy.
+    </p>
+
+    <p class="lede">
+      DATOM builds a new representation layer for knowledge — one where confidence survives scrutiny,
+      disagreement is explicit, and reasoning remains auditable across models and time.
+    </p>
+
+    <p class="lede">
+      Rather than relying on model behavior as a proxy for truth, DATOM encodes knowledge in a way that can be inspected,
+      replicated, and challenged. Confidence is no longer inferred. It is <strong>earned, measured, and defended</strong>.
+    </p>
+
+    <div class="rail">
+      <div class="card">
+        <h2>What changes</h2>
+        <p>
+          When outputs can be produced instantly, the differentiator becomes whether a system can explain itself under scrutiny.
+          DATOM is built for that reality: it makes the structure of evidence and the structure of reasoning explicit.
+        </p>
+
+        <div class="timeline" aria-label="Key shifts">
+          <div class="milestone">
+            <h3>From fluent answers to inspectable structures</h3>
+            <p>
+              Responses stop being disposable text and become artifacts that can be reviewed, reused, and improved.
+            </p>
+          </div>
+
+          <div class="milestone">
+            <h3>From implicit trust to defendable confidence</h3>
+            <p>
+              Confidence is tied to the completeness and quality of evidence, not to tone or model authority.
+            </p>
+          </div>
+
+          <div class="milestone">
+            <h3>From static outputs to cumulative knowledge</h3>
+            <p>
+              Replications strengthen claims, contradictions weaken them, and the system improves through visible iteration.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Who this is for</h2>
+        <p>
+          The vision is simple: if a decision matters, its basis should be legible. DATOM is designed to support stakeholders
+          who need clarity, not just speed — and who need systems that remain reliable as evidence evolves.
+        </p>
+
+        <div class="timeline" aria-label="Stakeholders">
+          <div class="milestone">
+            <h3>Builders</h3>
+            <p>
+              A way to ship faster without guessing where the risks are hiding inside model outputs.
+            </p>
+          </div>
+
+          <div class="milestone">
+            <h3>Leaders</h3>
+            <p>
+              A confidence layer that makes deployment decisions explainable and defensible.
+            </p>
+          </div>
+
+          <div class="milestone">
+            <h3>Reviewers</h3>
+            <p>
+              A structure that makes disagreement actionable and makes audits straightforward.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card full">
+      <h2>Where this goes</h2>
+      <p>
+        The endpoint is a world where evidence-backed reasoning compounds. Teams do not just “use AI.”
+        They build systems that can justify decisions, withstand adversarial review, and improve continuously as evidence accumulates.
+      </p>
+    </div>
+  </main>
+
+  <footer>© DATOM</footer>
+</body>
+</html>
+

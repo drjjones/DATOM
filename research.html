@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Research — DATOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+  :root{
+    --maxw: 1240px;
+    --text: #0b0f14;
+    --muted: rgba(11,15,20,0.78);
+    --card-bg: rgba(255,255,255,0.74);
+    --card-border: rgba(0,0,0,0.10);
+    --shadow-soft: 0 10px 32px rgba(0,0,0,0.08);
+  }
+
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: var(--text);
+    background-image: url("./Assets/background.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  header{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 28px 64px;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+    color:#000;
+  }
+
+  .corner-logo{
+    height: 80px;
+    width:auto;
+    display:block;
+  }
+
+  nav a{
+    margin-left: 28px;
+    text-decoration:none;
+    color:#000;
+    font-weight:500;
+  }
+
+  main{
+    max-width: var(--maxw);
+    margin: 92px auto 120px;
+    padding: 0 40px;
+  }
+
+  h1{
+    font-size: 56px;
+    line-height: 1.05;
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .lede{
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin: 0 0 14px;
+    max-width: 980px;
+  }
+
+  .lede strong{
+    font-weight: 650;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 22px;
+    align-items: start;
+  }
+
+  .card{
+    border-radius: 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-soft);
+    padding: 18px 18px 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    overflow:hidden;
+  }
+
+  .card:before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    background: radial-gradient(1100px 240px at 20% 0%, rgba(14,165,233,0.12), transparent 60%);
+    pointer-events:none;
+  }
+
+  .card > *{ position:relative; }
+
+  .card h2{
+    margin: 0 0 10px;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+
+  .card p{
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(11,15,20,0.82);
+  }
+
+  .stack{
+    display:flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .item{
+    border-radius: 16px;
+    background: rgba(255,255,255,0.62);
+    border: 1px solid rgba(0,0,0,0.10);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.07);
+    padding: 14px 14px 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .item h3{
+    margin: 0 0 6px;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+
+  .item p{
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(11,15,20,0.80);
+  }
+
+  .wide{
+    margin-top: 18px;
+  }
+
+  .cols{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-top: 12px;
+  }
+
+  .mini{
+    border-radius: 16px;
+    background: rgba(255,255,255,0.62);
+    border: 1px solid rgba(0,0,0,0.10);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.07);
+    padding: 14px 14px 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .mini h3{
+    margin: 0 0 6px;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+
+  .mini p{
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(11,15,20,0.80);
+  }
+
+  footer{
+    text-align:center;
+    padding: 34px;
+    font-size:14px;
+  }
+
+  @media (max-width: 1080px){
+    header{ padding: 22px 26px; }
+    main{ padding: 0 22px; }
+    nav a{ margin-left: 16px; }
+    .corner-logo{ height: 64px; }
+    h1{ font-size: 44px; }
+    .grid{ grid-template-columns: 1fr; }
+    .cols{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+
+<body>
+<header>
+  <a href="index.html">
+    <img src="./Assets/logo.png" style="width:120px;">
+  </a>
+
+  <nav>
+    <a href="product.html">Product</a>
+    <a href="vision.html">Vision</a>
+    <a href="research.html">Research</a>
+    <a href="try.html">Waitlist</a>
+  </nav>
+</header>
+
+  <main>
+    <h1>Research foundations</h1>
+
+    <p class="lede">
+      DATOM treats confidence as a property of evidence structure, not model output.
+    </p>
+
+    <p class="lede">
+      The research goal is practical: make reasoning inspectable so teams can validate fast, disagree clearly, and improve safely.
+      DATOM does this by representing claims as discrete units and making relationships explicit.
+    </p>
+
+    <p class="lede">
+      The result is a system where confidence is <strong>defendable</strong>—because it is traceable to evidence, shaped by replication,
+      and penalized by credible contradictions.
+    </p>
+
+    <div class="grid">
+      <section class="card" aria-label="Core idea">
+        <h2>Core idea</h2>
+        <p>
+          Most AI systems turn evidence into latent representations and then produce text that is hard to audit.
+          DATOM keeps evidence explicit and builds a structured layer above it, so reasoning can be examined and improved.
+        </p>
+
+        <div class="stack" aria-label="What DATOM represents explicitly">
+          <div class="item">
+            <h3>Claims as assessable units</h3>
+            <p>
+              A claim is stored as something you can point to, review, test, and refine—rather than a sentence embedded in a chat log.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Relationships between claims</h3>
+            <p>
+              Agreement, contradiction, and gaps are first-class. This makes it possible to see where a conclusion is strong, weak, or unknown.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Confidence as a computable signal</h3>
+            <p>
+              Confidence derives from the shape and quality of evidence: completeness, density, replication, and credible counterevidence.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-label="Why it matters">
+        <h2>Why it matters</h2>
+        <p>
+          Stakeholders need different things from AI: speed, accountability, safety, and repeatability.
+          DATOM is designed so the same underlying structures can serve all of them.
+        </p>
+
+        <div class="stack" aria-label="Stakeholder outcomes">
+          <div class="item">
+            <h3>For leadership</h3>
+            <p>
+              A clearer risk posture: what the system knows, what it doesn’t, and what would change the answer.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>For engineering</h3>
+            <p>
+              Faster iteration with fewer regressions: you can see which evidence supports a behavior and update it deliberately.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>For audit and compliance</h3>
+            <p>
+              A reviewable trail: conclusions map to evidence units and relationships that can be inspected without relying on model authority.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="card wide" aria-label="How confidence is built">
+      <h2>How confidence is built</h2>
+      <p>
+        Confidence should rise when evidence is complete and independently replicated, and fall when high-quality contradictions appear.
+        DATOM is structured around that intuition so updates are rational and auditable.
+      </p>
+
+      <div class="cols" aria-label="Confidence components">
+        <div class="mini">
+          <h3>Evidence quality</h3>
+          <p>
+            Confidence increases when claims are grounded in clear source material and captured with enough detail to assess.
+          </p>
+        </div>
+
+        <div class="mini">
+          <h3>Replication strength</h3>
+          <p>
+            Independent confirmations raise confidence, especially when they agree under similar constraints and methods.
+          </p>
+        </div>
+
+        <div class="mini">
+          <h3>Contradiction handling</h3>
+          <p>
+            Credible counterevidence reduces confidence in a targeted way, preventing overconfidence and highlighting what needs resolution.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card wide" aria-label="Research direction">
+      <h2>Research direction</h2>
+      <p>
+        The focus is to make structured evidence usable in real systems: ingestion that preserves sources, extraction that produces reliable
+        claim units, and reasoning that stays legible when models change.
+      </p>
+
+      <div class="stack" aria-label="Active directions">
+        <div class="item">
+          <h3>Extraction with accountability</h3>
+          <p>
+            Claims must remain tied to their provenance so errors are detectable and correctable, rather than silently propagated.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Reasoning that stays stable over time</h3>
+          <p>
+            When new evidence arrives, the system should update in ways that are explainable and consistent with the evidence structure.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Human + machine collaboration</h3>
+          <p>
+            Experts should be able to challenge, refine, and extend evidence structures without redoing work or losing auditability.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© DATOM</footer>
+</body>
+</html>
+
