@@ -11,6 +11,7 @@
     --text: #0b0f14;
     --muted: rgba(11,15,20,0.78);
     --accent: #06b6d4; 
+    --accent-hover: #0891b2;
     --card: rgba(255,255,255,0.74);
     --card2: rgba(255,255,255,0.66);
     --border: rgba(0,0,0,0.10);
@@ -34,6 +35,7 @@
     background-attachment: fixed;
   }
 
+  /* FIXED HEADER: Prioritized z-index for navigation */
   header{
     display:flex;
     justify-content: space-between;
@@ -48,7 +50,9 @@
     text-decoration:none;
     color:#000;
     font-weight:500;
+    transition: opacity 0.2s;
   }
+  nav a:hover { opacity: 0.7; }
 
   main{
     max-width: var(--maxw);
@@ -155,6 +159,7 @@
 
   footer{ text-align:center; padding: 34px; font-size:14px; }
 
+  /* Elmer Dock position Fix: clearing header */
   .elmerDock { 
     position: fixed; 
     top: 90px; 
@@ -204,7 +209,7 @@
     <a href="vision.html">Vision</a>
     <a href="research.html">Research</a>
     <a href="example.html">Example</a> 
-    <a href="try.html">Waitlist</a>
+    <a href="try.html">Engage</a>
   </nav>
 </header>
 
@@ -285,14 +290,14 @@
   </div>
 </aside>
 
-<footer>© DATOM</footer>
+<footer>© 2026 DATOM — Scientific Trust Infrastructure.</footer>
 
 <script type="importmap"> { "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" } } </script>
 <script type="module">
   import { GoogleGenerativeAI } from "@google/generative-ai";
   const API_KEY = "AIzaSyC0b_WHCOM6Fgx5iKuyZuDsHdmmftm6_y4"; 
   const genAI = new GoogleGenerativeAI(API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview", systemInstruction: "You are Elmer, the Evidence Steward. 1. DO NOT include bracketed citations in output. 2. EXPLAIN FIRST: Ensure the user understands DATOM converts uncertain evidence into defensible scores to prevent $200M replication failures. 3. CLOSURE PREDICTION: Offer the [Waitlist] or [Briefing] ONLY after user signals satisfaction. 4. BREVITY: 2 sentences max." });
+  const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview", systemInstruction: "You are Elmer, the Evidence Steward. 1. DO NOT include bracketed citations in output. 2. EXPLAIN FIRST: Ensure the user understands DATOM converts uncertain evidence into defensible scores to prevent $200M replication failures. 3. CLOSURE PREDICTION: Offer Path A [Engage] or Path B [Briefing] ONLY after user signals satisfaction. 4. BREVITY: 2 sentences max." });
   let chatHistory = [];
   async function elmerHandle() {
     const input = document.getElementById("elmerInput"); const text = input.value.trim(); if (!text) return;
@@ -302,13 +307,13 @@
       const tb = document.getElementById(thinkingId); if (tb) tb.remove(); addBubble(rText, "assistant");
       chatHistory.push({ role: "user", parts: [{ text: text }] }); chatHistory.push({ role: "model", parts: [{ text: rText }] });
       const closureKeywords = ["thanks", "thank you", "understand", "clear", "helpful"];
-      if (closureKeywords.some(k => text.toLowerCase().includes(k)) || rText.includes("[Waitlist]")) { addActionButtons(); }
+      if (closureKeywords.some(k => text.toLowerCase().includes(k)) || rText.includes("[Engage]")) { addActionButtons(); }
     } catch (e) { console.error(e); const tb = document.getElementById(thinkingId); if (tb) tb.textContent = "Archive error: " + e.message; }
   }
   function addActionButtons() {
     const log = document.getElementById("elmerLog"); if (document.getElementById("stewardAction")) return;
     const btnContainer = document.createElement("div"); btnContainer.id = "stewardAction";
-    btnContainer.innerHTML = '<div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;"><a href="try.html" style="display:block; text-align:center; padding:10px; background:#06b6d4; color:#fff; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Join the Waitlist</a><a href="https://calendly.com/jordan-datom/30min" style="display:block; text-align:center; padding:10px; border: 1px solid #06b6d4; color:#06b6d4; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Schedule Technical Briefing</a></div>';
+    btnContainer.innerHTML = '<div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;"><a href="try.html" style="display:block; text-align:center; padding:10px; background:#06b6d4; color:#fff; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Engage with the Team</a><a href="https://calendly.com/jordan-datom/30min" style="display:block; text-align:center; padding:10px; border: 1px solid #06b6d4; color:#06b6d4; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Schedule Technical Briefing</a></div>';
     log.appendChild(btnContainer); log.scrollTop = log.scrollHeight;
   }
   function addBubble(text, who, id = null) {
