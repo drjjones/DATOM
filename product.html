@@ -10,16 +10,14 @@
     --maxw: 1120px;
     --text: #0b0f14;
     --muted: rgba(11,15,20,0.78);
-
+    --accent: #06b6d4; 
     --card: rgba(255,255,255,0.74);
     --card2: rgba(255,255,255,0.66);
     --border: rgba(0,0,0,0.10);
     --shadow: 0 12px 34px rgba(0,0,0,0.08);
-
     --r-xl: 22px;
     --r-lg: 18px;
     --r-md: 16px;
-
     --gap: 18px;
   }
 
@@ -41,19 +39,8 @@
     justify-content: space-between;
     align-items:center;
     padding: 28px 64px;
-  }
-
-  .brand{
-    display:flex;
-    align-items:center;
-    text-decoration:none;
-    color:#000;
-  }
-
-  .corner-logo{
-    height: 84px; /* big corner logo */
-    width:auto;
-    display:block;
+    position: relative;
+    z-index: 10001;
   }
 
   nav a{
@@ -69,7 +56,6 @@
     padding: 0 22px;
   }
 
-  /* Top intro */
   .eyebrow{
     font-size: 13px;
     letter-spacing: 0.12em;
@@ -92,7 +78,6 @@
     margin: 0 0 14px;
   }
 
-  /* Cards */
   .card{
     border-radius: var(--r-xl);
     background: var(--card);
@@ -114,24 +99,10 @@
   }
   .card > *{ position:relative; }
 
-  h2{
-    margin: 0 0 10px;
-    font-size: 18px;
-    letter-spacing: -0.01em;
-  }
+  h2{ margin: 0 0 10px; font-size: 18px; letter-spacing: -0.01em; }
+  p{ margin: 0; font-size: 15px; line-height: 1.75; color: rgba(11,15,20,0.82); }
+  .section{ margin-top: 18px; }
 
-  p{
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.75;
-    color: rgba(11,15,20,0.82);
-  }
-
-  .section{
-    margin-top: 18px;
-  }
-
-  /* Process: clean “smart-art” row */
   .process{
     margin-top: 14px;
     display:grid;
@@ -152,15 +123,6 @@
     overflow:hidden;
   }
 
-  .step:before{
-    content:"";
-    position:absolute;
-    inset:-2px;
-    background: radial-gradient(680px 170px at 28% 0%, rgba(14,165,233,0.10), transparent 72%);
-    pointer-events:none;
-  }
-  .step > *{ position:relative; }
-
   .pill{
     display:inline-flex;
     align-items:center;
@@ -175,26 +137,8 @@
     width: fit-content;
   }
 
-  .step h3{
-    margin: 0 0 8px;
-    font-size: 15px;
-    letter-spacing: -0.01em;
-  }
-
-  .step p{
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.65;
-    color: rgba(11,15,20,0.80);
-  }
-
-  /* What this enables: grid (not cramped) */
-  .grid-2{
-    margin-top: 14px;
-    display:grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-  }
+  .step h3{ margin: 0 0 8px; font-size: 15px; letter-spacing: -0.01em; }
+  .grid-2{ margin-top: 14px; display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 
   .tile{
     border-radius: var(--r-md);
@@ -206,186 +150,172 @@
     -webkit-backdrop-filter: blur(12px);
   }
 
-  .tile h3{
-    margin: 0 0 6px;
-    font-size: 15px;
-    letter-spacing: -0.01em;
-  }
+  .tile h3{ margin: 0 0 6px; font-size: 15px; letter-spacing: -0.01em; }
+  .grid-3{ margin-top: 14px; display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 
-  .tile p{
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.65;
-    color: rgba(11,15,20,0.80);
-  }
+  footer{ text-align:center; padding: 34px; font-size:14px; }
 
-  /* Where it fits: 3-up */
-  .grid-3{
-    margin-top: 14px;
-    display:grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
+  .elmerDock { 
+    position: fixed; 
+    top: 90px; 
+    right: 14px; 
+    width: 360px; 
+    height: calc(100vh - 110px); 
+    z-index: 9999; 
+    border-radius: 18px; 
+    border: 1px solid rgba(15, 23, 42, 0.12); 
+    background: rgba(255, 255, 255, 0.92); 
+    box-shadow: 0 18px 40px rgba(2, 6, 23, 0.12); 
+    overflow: hidden; 
+    display: flex; 
+    flex-direction: column; 
+    backdrop-filter: blur(8px); 
   }
-
-  footer{
-    text-align:center;
-    padding: 34px;
-    font-size:14px;
-  }
+  .elmerHeader { padding: 12px 12px 10px; border-bottom: 1px solid rgba(15, 23, 42, 0.10); background: rgba(248, 250, 252, 0.85); display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; }
+  .elmerMark { width: 42px; height: 42px; border-radius: 12px; overflow: hidden; border: 1px solid var(--accent); }
+  .elmerBody { padding: 10px; display: flex; flex-direction: column; height: 100%; min-height: 0; }
+  .elmerLog { flex: 1 1 auto; overflow: auto; padding: 0 2px 10px; }
+  .bubble { border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.10); background: #fff; padding: 10px; margin: 8px 0; font-size: 13px; line-height: 1.5; white-space: pre-wrap; }
+  .bubble.user { background: rgba(6, 182, 212, 0.08); border-color: rgba(6, 182, 212, 0.2); }
+  .elmerComposer { border-top: 1px solid rgba(15, 23, 42, 0.10); padding: 10px; display: flex; gap: 8px; }
+  .elmerComposer input { flex: 1; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); padding: 8px 12px; outline: none; }
+  .elmerSend { background: var(--accent); color: #fff; border: none; padding: 8px 12px; border-radius: 10px; font-weight: 600; cursor: pointer; }
 
   @media (max-width: 980px){
     header{ padding: 22px 26px; }
-    nav a{ margin-left: 16px; }
-    .corner-logo{ height: 68px; }
-    h1{ font-size: 44px; }
-    main{ margin-top: 70px; }
+    .elmerDock { display: none; }
     .process{ grid-template-columns: 1fr; }
-    .grid-2{ grid-template-columns: 1fr; }
-    .grid-3{ grid-template-columns: 1fr; }
+    .grid-2, .grid-3{ grid-template-columns: 1fr; }
   }
+
+  .faq-section details { margin-bottom: 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.4); border: 1px solid rgba(0, 0, 0, 0.05); overflow: hidden; transition: all 0.2s ease; }
+  .faq-section summary { list-style: none; cursor: pointer; padding: 14px 16px; font-weight: 600; font-size: 15px; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+  .faq-section .faq-body { padding: 0 16px 16px; font-size: 14px; line-height: 1.6; color: rgba(11, 15, 20, 0.75); }
+  .faq-section .chev { font-weight: 900; color: var(--accent); transition: transform 0.2s ease; }
+  .faq-section details[open] .chev { transform: rotate(180deg); }
 </style>
 </head>
 
 <body>
- <header>
-  <a href="index.html">
-    <img src="./Assets/logo.png" style="width:120px;">
-  </a>
-
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" style="width:120px;" alt="DATOM Logo"></a>
   <nav>
     <a href="product.html">Product</a>
     <a href="vision.html">Vision</a>
     <a href="research.html">Research</a>
+    <a href="example.html">Example</a> 
     <a href="try.html">Waitlist</a>
   </nav>
 </header>
 
-  <main>
-    <div class="eyebrow">Product</div>
-    <h1>How DATOM works</h1>
+<main>
+  <div class="eyebrow">Product</div>
+  <h1>How DATOM works</h1>
 
-    <p class="lede">
-      DATOM is not another AI system that produces answers. It is a structural layer that makes claims, evidence, and
-      uncertainty explicit—so AI can move faster without hidden reasoning.
-    </p>
-    <p class="lede">
-      Instead of optimizing for fluency, DATOM optimizes for defensibility. Teams can trace conclusions to specific
-      evidence units, see dependencies, and update reasoning when new information arrives.
-    </p>
+  <p class="lede">
+    DATOM is not another AI system that produces answers. It is a structural layer that makes claims, evidence, and uncertainty explicit—so AI can move faster without hidden reasoning.
+  </p>
+  <p class="lede">
+    Instead of optimizing for fluency, DATOM optimizes for defensibility. Teams can trace conclusions to specific evidence units, see dependencies, and update reasoning when new information arrives.
+  </p>
 
-    <!-- Process -->
-    <section class="card section" aria-label="Process">
-      <h2>Process</h2>
-      <p>
-        A pipeline that converts source material into structures that can be examined, compared, challenged, and improved over time—by people and by machines.
-      </p>
+  <section class="card section" aria-label="Process">
+    <h2>Process</h2>
+    <p>A pipeline that converts source material into structures that can be examined, compared, challenged, and improved over time—by people and by machines.</p>
 
-      <div class="process" aria-label="DATOM process steps">
-        <div class="step">
-          <div class="pill">01</div>
-          <h3>Ingest evidence</h3>
-          <p>
-            Preserve source material as a first-class object with provenance, context, and retrieval intact.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="pill">02</div>
-          <h3>Extract Datoms</h3>
-          <p>
-            Decompose evidence into atomic, assessable claims that can be evaluated independently instead of bundled into one “answer.”
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="pill">03</div>
-          <h3>Build Datomers</h3>
-          <p>
-            Relate claims through agreement, contradiction, and gaps so you can see what a conclusion depends on—and what could change it.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="pill">04</div>
-          <h3>Interrogate</h3>
-          <p>
-            Ask questions against explicit evidence structures. Outputs remain inspectable and reusable across teams, models, and time.
-          </p>
-        </div>
+    <div class="process" aria-label="DATOM process steps">
+      <div class="step">
+        <div class="pill">01</div>
+        <h3>Ingest evidence</h3>
+        <p>Preserve source material as a first-class object with provenance, context, and retrieval intact.</p>
       </div>
-    </section>
-
-    <!-- Enables -->
-    <section class="card section" aria-label="What this enables">
-      <h2>What this enables</h2>
-      <p>
-        DATOM turns AI outputs into reviewable reasoning artifacts. That makes acceleration safe: you gain speed without losing control.
-      </p>
-
-      <div class="grid-2" aria-label="Enablement tiles">
-        <div class="tile">
-          <h3>Fast validation without blind trust</h3>
-          <p>
-            Trace a conclusion to the specific evidence units it depends on and see what would need to change for the conclusion to change.
-          </p>
-        </div>
-
-        <div class="tile">
-          <h3>Auditable reasoning for high-stakes work</h3>
-          <p>
-            Reviewers can challenge dependencies, add counterevidence, and understand exactly how confidence shifts as the evidence evolves.
-          </p>
-        </div>
-
-        <div class="tile">
-          <h3>Acceleration that compounds</h3>
-          <p>
-            Evidence structures improve over time. As they mature, downstream reasoning becomes more reliable without rebuilding your workflow.
-          </p>
-        </div>
-
-        <div class="tile">
-          <h3>Model-agnostic infrastructure</h3>
-          <p>
-            DATOM sits above models. You can swap systems while keeping a consistent evidence and audit layer across the organization.
-          </p>
-        </div>
+      <div class="step">
+        <div class="pill">02</div>
+        <h3>Extract Datoms</h3>
+        <p>Decompose evidence into atomic, assessable claims that can be evaluated independently.</p>
       </div>
-    </section>
-
-    <!-- Fits -->
-    <section class="card section" aria-label="Where DATOM fits">
-      <h2>Where DATOM fits</h2>
-      <p>
-        DATOM integrates wherever “answers” alone are not enough: policy, compliance, research, due diligence, safety reviews,
-        incident response, regulated documentation, and any workflow where you must show your work.
-      </p>
-
-      <div class="grid-3" aria-label="Stakeholder outcomes">
-        <div class="tile">
-          <h3>Leadership</h3>
-          <p>
-            A clearer risk posture: what is well-supported, what is uncertain, and what evidence would change the decision.
-          </p>
-        </div>
-
-        <div class="tile">
-          <h3>Engineering</h3>
-          <p>
-            Faster iteration with fewer regressions: update evidence structures deliberately instead of re-prompting and hoping.
-          </p>
-        </div>
-
-        <div class="tile">
-          <h3>Audit &amp; Compliance</h3>
-          <p>
-            A reviewable trail: conclusions map to evidence units and relationships that can be checked without model authority.
-          </p>
-        </div>
+      <div class="step">
+        <div class="pill">03</div>
+        <h3>Build Datomers</h3>
+        <p>Relate claims through agreement, contradiction, and gaps to see what a conclusion depends on.</p>
       </div>
-    </section>
-  </main>
+      <div class="step">
+        <div class="pill">04</div>
+        <h3>Interrogate</h3>
+        <p>Ask questions against explicit evidence structures. Outputs remain inspectable across teams and time.</p>
+      </div>
+    </div>
+  </section>
 
-  <footer>© DATOM</footer>
+  <section class="card section" aria-label="What this enables">
+    <h2>What this enables</h2>
+    <p>DATOM turns AI outputs into reviewable reasoning artifacts, ensuring you gain speed without losing control.</p>
+
+    <div class="grid-2" aria-label="Enablement tiles">
+      <div class="tile">
+        <h3>Fast validation without blind trust</h3>
+        <p>Trace conclusions to the specific evidence units it depends on.</p>
+      </div>
+      <div class="tile">
+        <h3>Auditable reasoning</h3>
+        <p>Reviewers can challenge dependencies and understand how confidence shifts as evidence evolves.</p>
+      </div>
+      <div class="tile">
+        <h3>Acceleration that compounds</h3>
+        <p>Evidence structures improve over time, making downstream reasoning more reliable.</p>
+      </div>
+      <div class="tile">
+        <h3>Model-agnostic infrastructure</h3>
+        <p>Swap systems while keeping a consistent evidence and audit layer.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<aside class="elmerDock">
+  <div class="elmerHeader">
+    <div style="display:flex;gap:10px;align-items:center;">
+      <div class="elmerMark"><img src="./Assets/ELMER.png" style="width:100%; height:100%; object-fit:cover;"></div>
+      <div><p style="font-weight:800;margin:0;font-size:14px;">Elmer</p><p style="margin:2px 0 0;font-size:11px;opacity:0.7;">Evidence Steward</p></div>
+    </div>
+  </div>
+  <div class="elmerBody">
+    <div class="elmerLog" id="elmerLog"><div class="bubble">Elmer at your service. How may I assist your inquiry into the DATOM product architecture?</div></div>
+    <div class="elmerComposer"><input id="elmerInput" type="text" placeholder="Ask Elmer..." /><button id="elmerSend" class="elmerSend">Send</button></div>
+  </div>
+</aside>
+
+<footer>© DATOM</footer>
+
+<script type="importmap"> { "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" } } </script>
+<script type="module">
+  import { GoogleGenerativeAI } from "@google/generative-ai";
+  const API_KEY = "AIzaSyC0b_WHCOM6Fgx5iKuyZuDsHdmmftm6_y4"; 
+  const genAI = new GoogleGenerativeAI(API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview", systemInstruction: "You are Elmer, the Evidence Steward. 1. DO NOT include bracketed citations in output. 2. EXPLAIN FIRST: Ensure the user understands DATOM converts uncertain evidence into defensible scores to prevent $200M replication failures. 3. CLOSURE PREDICTION: Offer the [Waitlist] or [Briefing] ONLY after user signals satisfaction. 4. BREVITY: 2 sentences max." });
+  let chatHistory = [];
+  async function elmerHandle() {
+    const input = document.getElementById("elmerInput"); const text = input.value.trim(); if (!text) return;
+    addBubble(text, "user"); input.value = ""; const thinkingId = "thinking-" + Date.now(); addBubble("Thinking...", "assistant", thinkingId);
+    try {
+      const chat = model.startChat({ history: chatHistory }); const result = await chat.sendMessage(text); const response = await result.response; const rText = response.text();
+      const tb = document.getElementById(thinkingId); if (tb) tb.remove(); addBubble(rText, "assistant");
+      chatHistory.push({ role: "user", parts: [{ text: text }] }); chatHistory.push({ role: "model", parts: [{ text: rText }] });
+      const closureKeywords = ["thanks", "thank you", "understand", "clear", "helpful"];
+      if (closureKeywords.some(k => text.toLowerCase().includes(k)) || rText.includes("[Waitlist]")) { addActionButtons(); }
+    } catch (e) { console.error(e); const tb = document.getElementById(thinkingId); if (tb) tb.textContent = "Archive error: " + e.message; }
+  }
+  function addActionButtons() {
+    const log = document.getElementById("elmerLog"); if (document.getElementById("stewardAction")) return;
+    const btnContainer = document.createElement("div"); btnContainer.id = "stewardAction";
+    btnContainer.innerHTML = '<div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;"><a href="try.html" style="display:block; text-align:center; padding:10px; background:#06b6d4; color:#fff; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Join the Waitlist</a><a href="https://calendly.com/jordan-datom/30min" style="display:block; text-align:center; padding:10px; border: 1px solid #06b6d4; color:#06b6d4; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Schedule Technical Briefing</a></div>';
+    log.appendChild(btnContainer); log.scrollTop = log.scrollHeight;
+  }
+  function addBubble(text, who, id = null) {
+    const log = document.getElementById("elmerLog"); const b = document.createElement("div"); b.className = "bubble " + who; if (id) b.id = id; b.textContent = text; log.appendChild(b); log.scrollTop = log.scrollHeight;
+  }
+  document.getElementById("elmerSend").addEventListener("click", elmerHandle);
+  document.getElementById("elmerInput").addEventListener("keydown", (e) => { if(e.key === "Enter") elmerHandle(); });
+</script>
 </body>
 </html>

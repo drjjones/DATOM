@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Join the DATOM Waitlist</title>
+<title>Engage — DATOM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <style>
@@ -11,11 +11,9 @@
   --muted:#5b6673;
   --border: rgba(15, 23, 42, 0.14);
   --card: rgba(255, 255, 255, 0.78);
-  --card-strong: rgba(255, 255, 255, 0.9);
   --shadow: 0 18px 40px rgba(2, 8, 23, 0.12);
-  --shadow-soft: 0 10px 24px rgba(2, 8, 23, 0.10);
-  --accent: #06b6d4;
-  --accent-deep:#0891b2;
+  --accent: #06b6d4; /* Brand Cyan */
+  --accent-hover: #0891b2;
 }
 
 *{ box-sizing:border-box; }
@@ -28,165 +26,126 @@ html, body{
 body{
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   color:var(--text);
-
-  background-image:url("./Assets/background.png");
-  background-size:cover;
-  background-position:center top;
-  background-repeat:no-repeat;
-  background-attachment:fixed;
+  background: url("./Assets/background.png") center top / cover no-repeat fixed;
+  line-height: 1.6;
 }
 
 /* ---------- Header ---------- */
 
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 48px;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 64px;
 }
 
-nav a{
-  margin-left:24px;
-  text-decoration:none;
-  color:var(--text);
-  font-weight:500;
+nav a {
+  margin-left: 28px;
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  transition: opacity 0.2s;
 }
 
-nav a:hover{
-  text-decoration:underline;
-  text-underline-offset:4px;
+nav a:hover {
+  opacity: 0.7;
 }
 
 /* ---------- Layout ---------- */
 
-.page{
-  max-width:1080px;
-  margin:0 auto;
-  padding:24px 48px 48px;
+.page {
+  max-width: 1120px;
+  margin: 60px auto 120px;
+  padding: 0 24px;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap:26px;
-  align-items:center;
+h1 { 
+  font-size: 48px; 
+  letter-spacing: -0.02em; 
+  text-align: center; 
+  margin-bottom: 48px; 
 }
 
-.card{
-  background:var(--card);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border:1px solid var(--border);
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  padding:26px;
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
 }
 
-.card.soft{
-  background:var(--card-strong);
-  box-shadow:var(--shadow-soft);
-  transform: translateY(-6px);
+.card {
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
 }
 
-h1{
-  font-size:44px;
-  letter-spacing:-0.02em;
-  margin:0 0 10px;
+.card:hover {
+  transform: translateY(-4px);
 }
 
-.lede{
-  font-size:18px;
-  line-height:1.65;
-  color:var(--muted);
-  margin:0 0 18px;
+.card h2 { 
+  margin: 0 0 16px; 
+  font-size: 24px; 
+  letter-spacing: -0.01em;
 }
 
-.bullets{
-  margin:18px 0 0;
-  padding:0;
-  list-style:none;
-  display:grid;
-  gap:12px;
+.card p { 
+  font-size: 16px; 
+  color: var(--muted); 
+  margin-bottom: 32px; 
+  flex-grow: 1; 
 }
 
-.bullets li{
-  display:flex;
-  gap:10px;
-  align-items:flex-start;
-  color:#111827;
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-block;
+  text-align: center;
+  padding: 16px 24px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--accent);
+  box-shadow: 0 10px 20px rgba(6, 182, 212, 0.2);
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
 }
 
-.dot{
-  width:10px;
-  height:10px;
-  border-radius:999px;
-  background:var(--accent);
-  margin-top:7px;
-  flex:0 0 auto;
-  box-shadow: 0 0 0 4px rgba(6,182,212,0.12);
+.btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(6, 182, 212, 0.3);
 }
 
-.small{
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.6;
-  margin-top:14px;
+.btn:active {
+  transform: translateY(0);
 }
-
-/* ---------- CTA ---------- */
-
-.form-title{
-  font-size:18px;
-  margin:0 0 12px;
-  letter-spacing:-0.01em;
-}
-
-.actions{
-  display:flex;
-  justify-content:center;
-  margin-top:12px;
-}
-
-.actions a{
-  width:100%;
-}
-
-button{
-  appearance:none;
-  border:none;
-  cursor:pointer;
-  border-radius:12px;
-  padding:14px;
-  font-size:16px;
-  font-weight:700;
-  width:100%;
-  background: linear-gradient(180deg, var(--accent), var(--accent-deep));
-  color:white;
-  box-shadow: 0 10px 22px rgba(6,182,212,0.22);
-  transition: transform .08s ease, filter .15s ease;
-}
-
-button:hover{ filter: brightness(1.03); }
-button:active{ transform: translateY(1px); }
 
 /* ---------- Footer ---------- */
 
-footer{
-  text-align:center;
-  padding:22px 20px 26px;
-  color:rgba(15,23,42,0.65);
-  font-size:12px;
+footer {
+  text-align: center;
+  padding: 48px 24px;
+  font-size: 13px;
+  color: rgba(0,0,0,0.5);
 }
 
 /* ---------- Responsive ---------- */
 
-@media (max-width: 980px){
-  .grid{ grid-template-columns:1fr; }
-  header{ padding:14px 18px; }
-  .page{ padding:18px 18px 36px; }
-  h1{ font-size:36px; }
+@media (max-width: 860px){
+  header { padding: 22px 26px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  h1 { font-size: 36px; }
+  .page { margin-top: 40px; }
 }
-
 </style>
 </head>
 
@@ -194,63 +153,41 @@ footer{
 
 <header>
   <a href="index.html">
-    <img src="./Assets/logo.png" style="width:120px;">
+    <img src="./Assets/logo.png" style="width:120px;" alt="DATOM logo">
   </a>
 
   <nav>
     <a href="product.html">Product</a>
     <a href="vision.html">Vision</a>
     <a href="research.html">Research</a>
-    <a href="try.html">Waitlist</a>
+    <a href="example.html">Example</a>
+    <a href="try.html">Engage</a>
   </nav>
 </header>
 
-<div class="page">
-  <div class="grid">
-
-    <!-- Left: message -->
+<main class="page">
+  <h1>Partner with DATOM</h1>
+  
+  <div class="grid-2">
     <section class="card">
-      <h1>Join the DATOM waitlist</h1>
-      <p class="lede">
-        DATOM is launching in limited early access. If you’re building or evaluating AI in workflows where
-        you must show your work—join the waitlist and tell us what you’re trying to accomplish.
+      <h2>Technical Briefing</h2>
+      <p>
+        For enterprise partners and investors. Schedule a direct call to discuss specific use cases, proprietary data integrations, and our technical roadmap.
       </p>
-
-      <ul class="bullets">
-        <li><span class="dot"></span><span>Get early access as soon as we open your cohort.</span></li>
-        <li><span class="dot"></span><span>Help shape product priorities with your use case.</span></li>
-        <li><span class="dot"></span><span>Stay informed on launches, demos, and research updates.</span></li>
-      </ul>
-
-      <p class="small">
-        We’ll only use your information to follow up about DATOM access and onboarding. No spam.
-      </p>
+      <a href="https://calendly.com/jordan-datom/30min" class="btn">Schedule a Briefing</a>
     </section>
 
-    <!-- Right: CTA -->
-    <aside class="card soft">
-      <div class="form-title">Waitlist request</div>
-
-      <p class="lede" style="font-size:15px; margin-bottom:18px;">
-        Join the DATOM early access and due diligence waitlist.  
-        We review requests on a rolling basis.
+    <section class="card">
+      <h2>General Early Access</h2>
+      <p>
+        Join our cohort-based waitlist for updates on research, new Datomer examples, and access to our extraction and visualization tools.
       </p>
-
-      <div class="actions">
-        <a
-          href="https://forms.gle/gGic2gbcEoENU9U78"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <button type="button">Join waitlist</button>
-        </a>
-      </div>
-    </aside>
-
+      <a href="https://forms.gle/gGic2gbcEoENU9U78" class="btn">Join the Waitlist</a>
+    </section>
   </div>
-</div>
+</main>
 
-<footer>© DATOM</footer>
+<footer>© 2026 DATOM — Scientific Trust Infrastructure.</footer>
 
 </body>
 </html>

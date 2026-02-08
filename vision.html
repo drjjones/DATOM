@@ -10,6 +10,7 @@
     --maxw: 1120px;
     --text: #0b0f14;
     --muted: rgba(11,15,20,0.78);
+    --accent: #06b6d4; 
     --card-bg: rgba(255,255,255,0.72);
     --card-border: rgba(0,0,0,0.10);
     --shadow-soft: 0 10px 32px rgba(0,0,0,0.08);
@@ -26,25 +27,14 @@
     background-attachment: fixed;
   }
 
+  /* FIXED HEADER: Prioritized z-index for navigation */
   header{
     display:flex;
     justify-content: space-between;
     align-items:center;
     padding: 28px 64px;
-  }
-
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    text-decoration:none;
-    color:#000;
-  }
-
-  .corner-logo{
-    height: 80px;
-    width:auto;
-    display:block;
+    position: relative;
+    z-index: 10001;
   }
 
   nav a{
@@ -75,9 +65,7 @@
     max-width: 980px;
   }
 
-  .lede strong{
-    font-weight: 650; /* only for the most important point */
-  }
+  .lede strong{ font-weight: 650; }
 
   .rail{
     display:grid;
@@ -108,19 +96,8 @@
   }
 
   .card > *{ position:relative; }
-
-  .card h2{
-    margin: 0 0 10px;
-    font-size: 18px;
-    letter-spacing: -0.01em;
-  }
-
-  .card p{
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.7;
-    color: rgba(11,15,20,0.82);
-  }
+  .card h2{ margin: 0 0 10px; font-size: 18px; letter-spacing: -0.01em; }
+  .card p{ margin: 0; font-size: 15px; line-height: 1.7; color: rgba(11,15,20,0.82); }
 
   .timeline{
     margin-top: 18px;
@@ -139,28 +116,29 @@
     -webkit-backdrop-filter: blur(12px);
   }
 
-  .milestone h3{
-    margin: 0 0 6px;
-    font-size: 15px;
-    letter-spacing: -0.01em;
-  }
+  .milestone h3{ margin: 0 0 6px; font-size: 15px; letter-spacing: -0.01em; }
+  .milestone p{ margin: 0; font-size: 14px; line-height: 1.6; color: rgba(11,15,20,0.80); }
 
-  .milestone p{
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.6;
-    color: rgba(11,15,20,0.80);
-  }
+  .full{ margin-top: 18px; }
 
-  .full{
-    margin-top: 18px;
+  /* Elmer UI Dock Position: clearing header */
+  .elmerDock { 
+    position: fixed; top: 90px; right: 14px; width: 360px; height: calc(100vh - 110px); 
+    z-index: 9999; border-radius: 18px; border: 1px solid rgba(15, 23, 42, 0.12);
+    background: rgba(255,255,255,0.92); box-shadow: 0 18px 40px rgba(2,6,23,0.12);
+    display: flex; flex-direction: column; backdrop-filter: blur(8px); overflow: hidden;
   }
+  .elmerHeader { padding: 12px; border-bottom: 1px solid rgba(0,0,0,0.1); background: rgba(248,250,252,0.8); display: flex; align-items: center; gap: 10px; }
+  .elmerMark { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--accent); overflow: hidden; }
+  .elmerBody { padding: 10px; display: flex; flex-direction: column; flex: 1; min-height: 0; }
+  .elmerLog { flex: 1; overflow-y: auto; padding-bottom: 10px; }
+  .bubble { border-radius: 14px; padding: 10px; margin: 6px 0; font-size: 13px; line-height: 1.5; background: #fff; border: 1px solid rgba(0,0,0,0.05); white-space: pre-wrap; }
+  .bubble.user { background: rgba(6,182,212,0.05); border-color: rgba(6,182,212,0.1); }
+  .elmerComposer { border-top: 1px solid rgba(0,0,0,0.1); padding: 10px; display: flex; gap: 8px; }
+  .elmerComposer input { flex: 1; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 8px; outline: none; }
+  .elmerSend { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 0 14px; cursor: pointer; font-weight: 600; }
 
-  footer{
-    text-align:center;
-    padding: 34px;
-    font-size:14px;
-  }
+  footer{ text-align:center; padding: 34px; font-size:14px; }
 
   @media (max-width: 1080px){
     header{ padding: 22px 26px; }
@@ -169,115 +147,113 @@
     .corner-logo{ height: 64px; }
     h1{ font-size: 44px; }
     .rail{ grid-template-columns: 1fr; }
+    .elmerDock { display: none; }
   }
 </style>
 </head>
 
 <body>
- <header>
-  <a href="index.html">
-    <img src="./Assets/logo.png" style="width:120px;">
-  </a>
-
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" style="width:120px;" alt="DATOM Logo"></a>
   <nav>
     <a href="product.html">Product</a>
     <a href="vision.html">Vision</a>
     <a href="research.html">Research</a>
+    <a href="example.html">Example</a> 
     <a href="try.html">Waitlist</a>
   </nav>
 </header>
 
-  <main>
-    <h1>The long-term vision</h1>
+<main>
+  <h1>The long-term vision</h1>
+  <p class="lede">As models become faster and cheaper, answers cease to be scarce. What becomes scarce is legitimacy.</p>
+  <p class="lede">DATOM builds a new representation layer for knowledge — one where confidence survives scrutiny, disagreement is explicit, and reasoning remains auditable across models and time.</p>
+  <p class="lede">Rather than relying on model behavior as a proxy for truth, DATOM encodes knowledge in a way that can be inspected, replicated, and challenged. Confidence is no longer inferred. It is <strong>earned, measured, and defended</strong>.</p>
 
-    <p class="lede">
-      As models become faster and cheaper, answers cease to be scarce. What becomes scarce is legitimacy.
-    </p>
-
-    <p class="lede">
-      DATOM builds a new representation layer for knowledge — one where confidence survives scrutiny,
-      disagreement is explicit, and reasoning remains auditable across models and time.
-    </p>
-
-    <p class="lede">
-      Rather than relying on model behavior as a proxy for truth, DATOM encodes knowledge in a way that can be inspected,
-      replicated, and challenged. Confidence is no longer inferred. It is <strong>earned, measured, and defended</strong>.
-    </p>
-
-    <div class="rail">
-      <div class="card">
-        <h2>What changes</h2>
-        <p>
-          When outputs can be produced instantly, the differentiator becomes whether a system can explain itself under scrutiny.
-          DATOM is built for that reality: it makes the structure of evidence and the structure of reasoning explicit.
-        </p>
-
-        <div class="timeline" aria-label="Key shifts">
-          <div class="milestone">
-            <h3>From fluent answers to inspectable structures</h3>
-            <p>
-              Responses stop being disposable text and become artifacts that can be reviewed, reused, and improved.
-            </p>
-          </div>
-
-          <div class="milestone">
-            <h3>From implicit trust to defendable confidence</h3>
-            <p>
-              Confidence is tied to the completeness and quality of evidence, not to tone or model authority.
-            </p>
-          </div>
-
-          <div class="milestone">
-            <h3>From static outputs to cumulative knowledge</h3>
-            <p>
-              Replications strengthen claims, contradictions weaken them, and the system improves through visible iteration.
-            </p>
-          </div>
+  <div class="rail">
+    <div class="card">
+      <h2>What changes</h2>
+      <p>When outputs can be produced instantly, the differentiator becomes whether a system can explain itself under scrutiny. DATOM makes the structure of evidence and reasoning explicit.</p>
+      <div class="timeline">
+        <div class="milestone">
+          <h3>From fluent answers to inspectable structures</h3>
+          <p>Responses become artifacts that can be reviewed, reused, and improved.</p>
         </div>
-      </div>
-
-      <div class="card">
-        <h2>Who this is for</h2>
-        <p>
-          The vision is simple: if a decision matters, its basis should be legible. DATOM is designed to support stakeholders
-          who need clarity, not just speed — and who need systems that remain reliable as evidence evolves.
-        </p>
-
-        <div class="timeline" aria-label="Stakeholders">
-          <div class="milestone">
-            <h3>Builders</h3>
-            <p>
-              A way to ship faster without guessing where the risks are hiding inside model outputs.
-            </p>
-          </div>
-
-          <div class="milestone">
-            <h3>Leaders</h3>
-            <p>
-              A confidence layer that makes deployment decisions explainable and defensible.
-            </p>
-          </div>
-
-          <div class="milestone">
-            <h3>Reviewers</h3>
-            <p>
-              A structure that makes disagreement actionable and makes audits straightforward.
-            </p>
-          </div>
+        <div class="milestone">
+          <h3>From implicit trust to defendable confidence</h3>
+          <p>Confidence is tied to the quality of evidence, not to model authority.</p>
         </div>
       </div>
     </div>
 
-    <div class="card full">
-      <h2>Where this goes</h2>
-      <p>
-        The endpoint is a world where evidence-backed reasoning compounds. Teams do not just “use AI.”
-        They build systems that can justify decisions, withstand adversarial review, and improve continuously as evidence accumulates.
-      </p>
+    <div class="card">
+      <h2>Who this is for</h2>
+      <p>The vision is simple: if a decision matters, its basis should be legible. DATOM supports stakeholders who need clarity and reliability as evidence evolves.</p>
+      <div class="timeline">
+        <div class="milestone">
+          <h3>Builders</h3>
+          <p>Ship faster without guessing where risks are hiding in outputs.</p>
+        </div>
+        <div class="milestone">
+          <h3>Leaders</h3>
+          <p>A layer that makes deployment decisions explainable and defensible.</p>
+        </div>
+      </div>
     </div>
-  </main>
+  </div>
 
-  <footer>© DATOM</footer>
+  <div class="card full">
+    <h2>Where this goes</h2>
+    <p>The endpoint is a world where evidence-backed reasoning compounds. Teams build systems that can justify decisions, withstand adversarial review, and improve continuously.</p>
+  </div>
+</main>
+
+<aside class="elmerDock">
+  <div class="elmerHeader">
+    <div class="elmerMark"><img src="./Assets/ELMER.png" style="width:100%; height:100%; object-fit:cover;"></div>
+    <div><p style="font-weight:700;margin:0;font-size:14px;">Elmer</p><p style="margin:0;font-size:11px;opacity:0.6;">Evidence Steward</p></div>
+  </div>
+  <div class="elmerBody">
+    <div class="elmerLog" id="elmerLog"><div class="bubble">Elmer here. How can I help you explore the long-term vision of scientific trust at DATOM?</div></div>
+    <div class="elmerComposer"><input id="elmerInput" type="text" placeholder="Ask Elmer..." /><button id="elmerSend" class="elmerSend">Send</button></div>
+  </div>
+</aside>
+
+<footer>© 2026 DATOM — Scientific Trust Infrastructure</footer>
+
+<script type="importmap"> { "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" } } </script>
+<script type="module">
+  import { GoogleGenerativeAI } from "@google/generative-ai";
+  const API_KEY = "AIzaSyC0b_WHCOM6Fgx5iKuyZuDsHdmmftm6_y4"; 
+  const genAI = new GoogleGenerativeAI(API_KEY);
+  const model = genAI.getGenerativeModel({ 
+    model: "gemini-3-flash-preview", 
+    systemInstruction: "You are Elmer, the Evidence Steward. 1. NEVER include bracketed citations like or hidden cite marks in output. 2. EXPLAIN FIRST: Ensure user understands DATOM vision is built on defensible confidence to prevent high-stakes failures. 3. CLOSURE PREDICTION: Offer [Waitlist] or [Briefing] ONLY after user signals satisfaction. 4. BREVITY: 2 sentences max. 5. Use 'Thinking...' as state." 
+  });
+  
+  let chatHistory = [];
+  async function elmerHandle() {
+    const input = document.getElementById("elmerInput"); const text = input.value.trim(); if (!text) return;
+    addBubble(text, "user"); input.value = ""; const thinkingId = "thinking-" + Date.now(); addBubble("Thinking...", "assistant", thinkingId);
+    try {
+      const chat = model.startChat({ history: chatHistory }); const result = await chat.sendMessage(text); const response = await result.response; const rText = response.text();
+      const tb = document.getElementById(thinkingId); if (tb) tb.remove(); addBubble(rText, "assistant");
+      chatHistory.push({ role: "user", parts: [{ text: text }] }); chatHistory.push({ role: "model", parts: [{ text: rText }] });
+      const closure = ["thanks", "thank you", "clear", "helpful", "makes sense"].some(k => text.toLowerCase().includes(k));
+      if (closure || rText.includes("[Waitlist]")) { addActionButtons(); }
+    } catch (e) { console.error(e); }
+  }
+  function addActionButtons() {
+    const log = document.getElementById("elmerLog"); if (document.getElementById("stewardAction")) return;
+    const btnContainer = document.createElement("div"); btnContainer.id = "stewardAction";
+    btnContainer.innerHTML = '<div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;"><a href="try.html" style="display:block; text-align:center; padding:10px; background:#06b6d4; color:#fff; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Join the Waitlist</a><a href="https://calendly.com/jordan-datom/30min" style="display:block; text-align:center; padding:10px; border: 1px solid #06b6d4; color:#06b6d4; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Schedule Technical Briefing</a></div>';
+    log.appendChild(btnContainer); log.scrollTop = log.scrollHeight;
+  }
+  function addBubble(text, who, id = null) {
+    const log = document.getElementById("elmerLog"); const b = document.createElement("div"); b.className = "bubble " + who; if (id) b.id = id; b.textContent = text; log.appendChild(b); log.scrollTop = log.scrollHeight;
+  }
+  document.getElementById("elmerSend").addEventListener("click", elmerHandle);
+  document.getElementById("elmerInput").addEventListener("keydown", (e) => { if(e.key === "Enter") elmerHandle(); });
+</script>
 </body>
 </html>
-
