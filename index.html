@@ -34,9 +34,19 @@
   main { max-width: var(--maxw); margin: 60px auto 140px; padding: 0 40px; text-align: center; }
   
   /* HERO SECTION */
-  .hero-logo { width: 520px; max-width: 90%; margin-bottom: 40px; }
+  .hero-logo { width: 520px; max-width: 90%; margin-left: auto; margin-right: auto; margin-bottom: 40px; display: block; }
   h1 { font-size: 52px; letter-spacing: -0.04em; margin: 0 0 16px; line-height: 1.1; font-weight: 700; }
-  .lede { font-size: 24px; color: var(--text); margin: 0 auto 48px; font-weight: 400; line-height: 1.4; max-width: 820px; }
+  
+  /* CENTERED SECOND LINE */
+  .lede { 
+    font-size: 24px; 
+    color: var(--text); 
+    margin: 0 auto 48px auto; /* Perfect centering */
+    font-weight: 400; 
+    line-height: 1.4; 
+    max-width: 100%; /* Ensures it aligns with the center of the logo's width */
+    text-align: center;
+  }
 
   /* PROFESSIONAL DIAGRAM */
   .diagram-container {
@@ -103,7 +113,7 @@
 
   /* AUDIENCE LIST */
   .audience-list { list-style: none; padding: 0; text-align: left; }
-  .audience-list li { padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 16px; }
+  .audience-list li { padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 16px; }
 
   /* ROUTING */
   .routing-block { margin-top: 80px; display: flex; gap: 40px; justify-content: center; }
@@ -138,15 +148,15 @@
 
 <main>
   <img src="./Assets/logo.png" class="hero-logo" alt="DATOM logo">
-  <h1>Represent the structural state of evidence.</h1>
-  <p class="lede">DATOM tracks how empirical evidence accumulates over time to make institutional confidence and decision readiness explicit.</p>
+  <h1>Confidence you can defend.</h1>
+  <p class="lede">Track how evidence accumulates &mdash; and what it justifies.</p>
 
   <div class="diagram-container">
     <div class="diagram-flow">
       <div class="node">Evidence</div>
-      <div class="arrow">→</div>
+      <div class="arrow">&rarr;</div>
       <div class="node">Confidence</div>
-      <div class="arrow">→</div>
+      <div class="arrow">&rarr;</div>
       <div class="node">Decision Readiness</div>
     </div>
     <div class="loop-back"></div>
@@ -203,9 +213,5 @@
     &copy; 2026 DATOM &mdash; Scientific Trust Infrastructure.
   </footer>
 </main>
-
-<script type="module">
-  // Elmer logic safely preserved but hidden via CSS
-</script>
 </body>
 </html>
