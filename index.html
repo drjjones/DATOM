@@ -42,68 +42,24 @@
   .btn { display: inline-block; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; color: #fff; background: var(--accent); }
   .btn:hover { transform: translateY(-2px); background: var(--accent-hover); }
 
-  /* COLLAPSIBLE STEWARD UI */
-  .elmerDock { 
-    position: fixed; 
-    bottom: 24px; 
-    right: 24px; 
-    width: 360px; 
-    height: 580px; 
-    max-height: calc(100vh - 120px);
-    z-index: 9999; 
-    border-radius: 22px; 
-    border: 1px solid rgba(15, 23, 42, 0.12); 
-    background: rgba(255, 255, 255, 0.96); 
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); 
-    overflow: hidden; 
-    display: flex; 
-    flex-direction: column; 
-    backdrop-filter: blur(12px);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* ELMER STEWARD UI - CURRENTLY HIDDEN */
+  .elmerDock { display: none !important; }
+
+  /* RESPONSIVE DESIGN BREAKPOINTS */
+  @media (max-width: 980px) {
+    header { padding: 20px 32px; }
+    h1 { font-size: 48px; }
+    .grid-3 { grid-template-columns: 1fr; margin-top: 40px; }
+    .cta-block { flex-direction: column; gap: 12px; align-items: center; }
+    .btn { width: 100%; max-width: 320px; }
   }
 
-  .elmerDock.minimized {
-    height: 64px;
-    width: 200px;
-    cursor: pointer;
-  }
-
-  .elmerHeader { 
-    padding: 12px 16px; 
-    border-bottom: 1px solid rgba(15, 23, 42, 0.08); 
-    background: rgba(248, 250, 252, 0.5); 
-    display: flex; 
-    gap: 12px; 
-    align-items: center; 
-    justify-content: space-between;
-    flex-shrink: 0;
-  }
-  .elmerMark { width: 40px; height: 40px; border-radius: 12px; overflow: hidden; border: 1px solid var(--accent); flex-shrink: 0; }
-  
-  .collapseBtn {
-    background: none; border: none; font-size: 20px; cursor: pointer; opacity: 0.5; transition: opacity 0.2s; padding: 4px 8px;
-  }
-  .collapseBtn:hover { opacity: 1; }
-
-  .elmerBody { 
-    padding: 12px; display: flex; flex-direction: column; flex-grow: 1; min-height: 0;
-    transition: opacity 0.3s;
-  }
-  .elmerDock.minimized .elmerBody { opacity: 0; pointer-events: none; }
-
-  .elmerLog { flex: 1; overflow-y: auto; padding-bottom: 10px; }
-  .bubble { border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.08); background: #fff; padding: 12px; margin: 8px 0; font-size: 13px; line-height: 1.5; white-space: pre-wrap; }
-  .bubble.user { background: rgba(6, 182, 212, 0.06); border-color: rgba(6, 182, 212, 0.15); }
-  
-  .elmerComposer { border-top: 1px solid rgba(15, 23, 42, 0.08); padding: 12px; display: flex; gap: 8px; flex-shrink: 0; }
-  .elmerComposer input { flex: 1; border-radius: 12px; border: 1px solid rgba(0, 0, 0, 0.08); padding: 10px 14px; outline: none; font-size: 13px; }
-  .elmerSend { background: var(--accent); color: #fff; border: none; padding: 10px 16px; border-radius: 12px; font-weight: 600; cursor: pointer; }
-  
-  footer { text-align: center; padding: 48px; font-size: 13px; color: rgba(0, 0, 0, 0.5); }
-  
   @media (max-width: 600px) {
-    .elmerDock { right: 10px; left: 10px; width: auto; bottom: 10px; }
-    .elmerDock.minimized { width: 160px; left: auto; }
+    header { flex-direction: column; padding: 20px; gap: 12px; }
+    nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    nav a { margin: 0; font-size: 14px; }
+    h1 { font-size: 36px; }
+    .lede { font-size: 18px; }
   }
 </style>
 </head>
@@ -112,7 +68,11 @@
 <header>
   <a href="index.html"><img src="./Assets/logo.png" style="width:120px;" alt="DATOM logo"></a>
   <nav>
-    <a href="product.html">Product</a><a href="vision.html">Vision</a><a href="research.html">Research</a><a href="example.html">Example</a><a href="try.html">Engage</a>
+    <a href="product.html">Product</a>
+    <a href="example.html">Example</a>
+    <a href="research.html">Research</a>
+    <a href="vision.html">Vision</a>
+    <a href="try.html">Engage</a>
   </nav>
 </header>
 
@@ -132,82 +92,95 @@
   </div>
 </main>
 
-<aside class="elmerDock" id="elmerDock">
-  <div class="elmerHeader" id="elmerHeader">
-    <div style="display:flex;gap:12px;align-items:center;">
-      <div class="elmerMark"><img src="./Assets/ELMER.png" style="width:100%; height:100%; object-fit:cover;"></div>
-      <div>
-        <p style="font-weight:800;margin:0;font-size:14px;">Elmer</p>
-        <p style="margin:1px 0 0;font-size:11px;opacity:0.6;">Steward</p>
-      </div>
-    </div>
-    <button class="collapseBtn" id="toggleElmer">—</button>
-  </div>
-  <div class="elmerBody">
-    <div class="elmerLog" id="elmerLog">
-      <div class="bubble">Elmer at your service. How may I assist your inquiry into DATOM today?</div>
-    </div>
-    <div class="elmerComposer">
-      <input id="elmerInput" type="text" placeholder="Ask Elmer..." />
-      <button id="elmerSend" class="elmerSend">Send</button>
-    </div>
-  </div>
-</aside>
-
 <footer>© 2026 DATOM — Scientific Trust Infrastructure.</footer>
 
 <script type="importmap"> { "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" } } </script>
 <script type="module">
   import { GoogleGenerativeAI } from "@google/generative-ai";
+
   const API_KEY = "AIzaSyC0b_WHCOM6Fgx5iKuyZuDsHdmmftm6_y4"; 
   const genAI = new GoogleGenerativeAI(API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview", systemInstruction: "You are Elmer, the Evidence Steward. 1. DO NOT include bracketed citations like in output. 2. EXPLAIN FIRST: Ensure the user understands DATOM converts uncertain evidence into defensible scores to prevent $200M replication failures. 3. CLOSURE PREDICTION: Offer the [Engage] or [Briefing] ONLY after user signals satisfaction (e.g., 'thanks', 'clear'). 4. BREVITY: 2 sentences max." });
+  
+  const model = genAI.getGenerativeModel({ 
+    model: "gemini-1.5-flash", 
+    systemInstruction: "You are Elmer, the Evidence Steward. 1. DO NOT include bracketed citations. 2. EXPLAIN FIRST: Ensure the user understands DATOM converts uncertain evidence into defensible scores. 3. CLOSURE: Offer [Engage] or [Briefing] ONLY after user signals satisfaction. 4. BREVITY: 2 sentences max." 
+  });
   
   let chatHistory = [];
 
-  // Toggle Functionality
   const dock = document.getElementById("elmerDock");
   const toggleBtn = document.getElementById("toggleElmer");
-  
-  function toggleElmer() {
-    const isMinimized = dock.classList.toggle("minimized");
-    toggleBtn.textContent = isMinimized ? "+" : "—";
+  const log = document.getElementById("elmerLog");
+  const sendBtn = document.getElementById("elmerSend");
+  const input = document.getElementById("elmerInput");
+
+  // Logic only executes if the HTML elements exist (are uncommented)
+  if (dock && toggleBtn && log && sendBtn && input) {
+      function toggleElmer() {
+        const isMinimized = dock.classList.toggle("minimized");
+        toggleBtn.textContent = isMinimized ? "+" : "—";
+      }
+      toggleBtn.addEventListener("click", (e) => { e.stopPropagation(); toggleElmer(); });
+      dock.addEventListener("click", () => { if (dock.classList.contains("minimized")) toggleElmer(); });
+
+      async function elmerHandle() {
+        const text = input.value.trim();
+        if (!text) return;
+
+        addBubble(text, "user");
+        input.value = "";
+        const thinkingId = "thinking-" + Date.now();
+        addBubble("Thinking...", "assistant", thinkingId);
+
+        try {
+          const chat = model.startChat({ history: chatHistory });
+          const result = await chat.sendMessage(text);
+          const response = await result.response;
+          const rText = response.text();
+
+          const thinkingBubble = document.getElementById(thinkingId);
+          if (thinkingBubble) thinkingBubble.remove();
+          
+          addBubble(rText, "assistant");
+
+          chatHistory.push({ role: "user", parts: [{ text: text }] });
+          chatHistory.push({ role: "model", parts: [{ text: rText }] });
+
+          const closureKeywords = ["thanks", "thank you", "makes sense", "clear", "helpful"];
+          if (closureKeywords.some(k => text.toLowerCase().includes(k))) {
+            addActionButtons();
+          }
+        } catch (e) {
+          console.error("Gemini Error:", e);
+          const thinkingBubble = document.getElementById(thinkingId);
+          if (thinkingBubble) thinkingBubble.textContent = "I'm having trouble connecting. Please try again.";
+        }
+      }
+
+      function addActionButtons() {
+        if (document.getElementById("stewardAction")) return;
+        const btnContainer = document.createElement("div");
+        btnContainer.id = "stewardAction";
+        btnContainer.innerHTML = `
+          <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
+            <a href="try.html" style="display:block; text-align:center; padding:10px; background:#06b6d4; color:#fff; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Engage with the Team</a>
+          </div>`;
+        log.appendChild(btnContainer);
+        log.scrollTop = log.scrollHeight;
+      }
+
+      function addBubble(text, who, id = null) {
+        const b = document.createElement("div");
+        b.className = "bubble " + who;
+        if (id) b.id = id;
+        b.textContent = text;
+        log.appendChild(b);
+        log.scrollTop = log.scrollHeight;
+      }
+
+      sendBtn.addEventListener("click", elmerHandle);
+      input.addEventListener("keydown", (e) => { if(e.key === "Enter") { e.preventDefault(); elmerHandle(); } });
   }
-
-  toggleBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleElmer();
-  });
-
-  dock.addEventListener("click", () => {
-    if (dock.classList.contains("minimized")) toggleElmer();
-  });
-
-  async function elmerHandle() {
-    const input = document.getElementById("elmerInput"); const text = input.value.trim(); if (!text) return;
-    addBubble(text, "user"); input.value = ""; const thinkingId = "thinking-" + Date.now(); addBubble("Thinking...", "assistant", thinkingId);
-    try {
-      const chat = model.startChat({ history: chatHistory }); const result = await chat.sendMessage(text); const response = await result.response; const rText = response.text();
-      const thinkingBubble = document.getElementById(thinkingId); if (thinkingBubble) thinkingBubble.remove(); addBubble(rText, "assistant");
-      chatHistory.push({ role: "user", parts: [{ text: text }] }); chatHistory.push({ role: "model", parts: [{ text: rText }] });
-      const closureKeywords = ["thanks", "thank you", "understand", "makes sense", "clear", "helpful"];
-      if (closureKeywords.some(k => text.toLowerCase().includes(k)) || rText.includes("[Engage]") || rText.includes("[Briefing]")) { addActionButtons(); }
-    } catch (e) { console.error(e); }
-  }
-
-  function addActionButtons() {
-    const log = document.getElementById("elmerLog"); if (document.getElementById("stewardAction")) return;
-    const btnContainer = document.createElement("div"); btnContainer.id = "stewardAction";
-    btnContainer.innerHTML = '<div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;"><a href="try.html" style="display:block; text-align:center; padding:10px; background:#06b6d4; color:#fff; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Engage with the Team</a><a href="https://calendly.com/jordan-datom/30min" style="display:block; text-align:center; padding:10px; border: 1px solid #06b6d4; color:#06b6d4; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Schedule Technical Briefing</a></div>';
-    log.appendChild(btnContainer); log.scrollTop = log.scrollHeight;
-  }
-
-  function addBubble(text, who, id = null) {
-    const log = document.getElementById("elmerLog"); const b = document.createElement("div"); b.className = "bubble " + who; if (id) b.id = id; b.textContent = text; log.appendChild(b); log.scrollTop = log.scrollHeight;
-  }
-
-  document.getElementById("elmerSend").addEventListener("click", elmerHandle);
-  document.getElementById("elmerInput").addEventListener("keydown", (e) => { if(e.key === "Enter") elmerHandle(); });
 </script>
 </body>
 </html>

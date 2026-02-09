@@ -449,130 +449,38 @@ header nav a {
 }
 
     /* ELMER */
-    .elmerDock{
-      position: fixed;
-      top: 14px;
-      right: 14px;
-      width: 360px;
-      height: calc(100vh - 28px);
-      z-index: 9999;
-      border-radius: 18px;
-      border: 1px solid rgba(15,23,42,0.12);
-      background: rgba(255,255,255,0.92);
-      box-shadow: 0 18px 40px rgba(2,6,23,0.12);
-      overflow: hidden;
-      display:flex;
-      flex-direction:column;
-      backdrop-filter: blur(8px);
-    }
-    .elmerHeader{
-      padding: 12px 12px 10px;
-      border-bottom: 1px solid rgba(15,23,42,0.10);
-      background: rgba(248,250,252,0.85);
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      justify-content:space-between;
-    }
-    .elmerTitle{ display:flex; gap:10px; align-items:center; }
-    .elmerMark{
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      border: 1px solid rgba(6,182,212,0.60);
-      background: rgba(6,182,212,0.12);
-      display:grid;
-      place-items:center;
-      flex: 0 0 auto;
-    }
-    .elmerName{ font-weight: 1000; letter-spacing: -0.01em; margin:0; font-size: 14px; line-height:1.2; }
-    .elmerRole{ margin: 4px 0 0; font-size: 12px; color: rgba(15,23,42,0.70); font-weight: 800; }
-    .elmerControls{ display:flex; gap:8px; align-items:center; }
-    .elmerBtn{
-      border: 1px solid rgba(6,182,212,0.42);
-      background: rgba(6,182,212,0.12);
-      border-radius: 12px;
-      padding: 8px 10px;
-      font-weight: 1000;
-      cursor:pointer;
-      font-size: 12px;
-      box-shadow: 0 6px 16px rgba(6,182,212,0.16);
-    }
-    .elmerBtn:hover{ transform: translateY(-1px); box-shadow: 0 10px 22px rgba(6,182,212,0.20); }
+/* --- UPDATED COLLAPSIBLE ELMER UI --- */
+/* FORCE HIDE THE DOCK TO PREVENT LAYOUT SPILL */
+#elmerDock { display: none !important; }
 
-    .elmerBody{
-      padding: 10px 10px 0;
-      display:flex;
-      flex-direction:column;
-      height: 100%;
-      min-height: 0;
+/*
+    .elmerDock { 
+      position: fixed; bottom: 24px; right: 24px; width: 360px; height: 580px; 
+      max-height: calc(100vh - 120px); z-index: 9999; border-radius: 22px; 
+      border: 1px solid rgba(15, 23, 42, 0.12); background: rgba(255, 255, 255, 0.96); 
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); overflow: hidden; display: flex; 
+      flex-direction: column; backdrop-filter: blur(12px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    .elmerDock.minimized { height: 64px; width: 200px; cursor: pointer; }
+    .elmerHeader { padding: 12px 16px; border-bottom: 1px solid rgba(15, 23, 42, 0.08); background: rgba(248, 250, 252, 0.5); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .elmerMark { width: 40px; height: 40px; border-radius: 12px; overflow: hidden; border: 1px solid var(--accent); flex-shrink: 0; }
+    .collapseBtn { background: none; border: none; font-size: 20px; cursor: pointer; opacity: 0.5; transition: opacity 0.2s; padding: 4px 8px; }
+    .elmerBody { display: flex; flex-direction: column; flex-grow: 1; min-height: 0; overflow: hidden; }
+    .elmerLog { flex: 1 1 auto; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; }
+    .bubble { border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.08); background: #fff; padding: 12px; margin: 8px 0; font-size: 13px; line-height: 1.5; white-space: pre-wrap; width: fit-content; max-width: 90%; }
+    .bubble.user { background: rgba(6, 182, 212, 0.06); border-color: rgba(6, 182, 212, 0.15); align-self: flex-end; }
+    .bubble.assistant { align-self: flex-start; }
+    .elmerComposer { border-top: 1px solid rgba(15, 23, 42, 0.08); padding: 12px; display: flex; gap: 8px; flex-shrink: 0; background: #fff; }
+    .elmerComposer input { flex: 1; border-radius: 12px; border: 1px solid rgba(0, 0, 0, 0.08); padding: 10px 14px; outline: none; font-size: 13px; }
+    .elmerSend { background: var(--accent); color: #fff; border: none; padding: 10px 16px; border-radius: 12px; font-weight: 600; cursor: pointer; }
+    .elmerDock.minimized .elmerBody { display: none; }
+*/
 
-    .elmerLog{ flex: 1 1 auto; overflow:auto; padding: 0 2px 10px; min-height: 0; }
-
-    .bubble{
-      border-radius: 16px;
-      border: 1px solid rgba(15,23,42,0.10);
-      background: rgba(255,255,255,0.90);
-      padding: 10px 10px 9px;
-      margin: 8px 0;
-      line-height: 1.5;
-      font-size: 13px;
-      color: rgba(2,6,23,0.86);
-      white-space: pre-wrap;
-    }
-    .bubble.user{
-      background: rgba(6,182,212,0.10);
-      border-color: rgba(6,182,212,0.22);
-    }
-    .bubble .muted{ color: rgba(15,23,42,0.70); font-weight: 800; font-size: 12px; }
-    .bubble .k{ font-family: var(--mono); font-weight: 900; color: rgba(2,6,23,0.78); }
-
-    .elmerComposer{
-      border-top: 1px solid rgba(15,23,42,0.10);
-      background: rgba(248,250,252,0.85);
-      padding: 10px;
-      display:flex;
-      gap: 8px;
-      align-items:center;
-    }
-    .elmerComposer input{
-      flex: 1 1 auto;
-      border-radius: 14px;
-      border: 1px solid rgba(15,23,42,0.12);
-      background: rgba(255,255,255,0.85);
-      padding: 11px 12px;
-      outline:none;
-      font-size: 13.5px;
-      color: rgba(2,6,23,0.92);
-    }
-    .elmerSend{
-      border-radius: 14px;
-      border: 1px solid rgba(6,182,212,0.70);
-      background: var(--accent);
-      color:#ffffff;
-      padding: 11px 12px;
-      font-weight: 1000;
-      cursor:pointer;
-      white-space: nowrap;
-      box-shadow: 0 10px 22px rgba(6,182,212,0.30);
-    }
-    .elmerSend:hover{ transform: translateY(-1px); box-shadow: 0 14px 26px rgba(6,182,212,0.34); }
-
-    @media (min-width: 980px){ body{ padding-right: 390px; } }
-
-    @media (max-width: 979px){
-      body{ padding-right: 0; }
-      .elmerDock{
-        width: calc(100vw - 20px);
-        height: 260px;
-        right: 10px;
-        left: 10px;
-        top: auto;
-        bottom: 10px;
-        border-radius: 18px;
-      }
-      .elmerLog{ max-height: 120px; }
+    @media (max-width: 979px) {
+      header { padding: 22px 26px; flex-direction: column; gap: 16px; }
+      body { padding-right: 0; }
+      /* HIDDEN IN MEDIA QUERY AS WELL */
+      .elmerDock { display: none !important; }
     }
 
     .pulse{
@@ -594,38 +502,35 @@ header nav a {
 
     <nav>
       <a href="product.html">Product</a>
-      <a href="vision.html">Vision</a>
+      <a href="example.html">Example</a>
       <a href="research.html">Research</a>
-      <a href="example.html">Example</a> 
+      <a href="vision.html">Vision</a>
       <a href="try.html">Engage</a>
     </nav>
-  </header>
-  <aside class="elmerDock" aria-label="Elmer steward">
-    <div class="elmerHeader">
-      <div class="elmerTitle">
-       <div class="elmerMark" aria-hidden="true">
-  <img src="./Assets/ELMER.png" alt="Elmer Imes" style="width: 100%; height: 100%; border-radius: 14px; object-fit: cover;">
-</div>
-        <div>
-          <p class="elmerName">Elmer</p>
-          <p class="elmerRole"></p>
-        </div>
+</header>
+
+<aside class="elmerDock" id="elmerDock" aria-label="Elmer steward">
+  <div class="elmerHeader">
+    <div style="display:flex; gap:12px; align-items:center;">
+      <div class="elmerMark">
+        <img src="./Assets/ELMER.png" style="width: 100%; height: 100%; object-fit: cover;">
       </div>
-      <div class="elmerControls">
-        <button class="elmerBtn" id="elmerHelp" type="button">Help</button>
-        <button class="elmerBtn" id="elmerClear" type="button">Clear</button>
+      <div>
+        <p class="elmerName" style="font-weight:800; margin:0; font-size:14px;">Elmer</p>
+        <p class="elmerRole" style="margin:1px 0 0; font-size:11px; opacity:0.6;">Steward</p>
       </div>
     </div>
+    <button class="collapseBtn" id="toggleElmer">—</button>
+  </div>
 
-    <div class="elmerBody">
-      <div class="elmerLog" id="elmerLog" aria-live="polite" aria-relevant="additions"></div>
-
-      <div class="elmerComposer">
-        <input id="elmerInput" type="text" placeholder='Analyze evidence (e.g., "is B6 reliable?", "why is confidence moderate?")' />
-        <button class="elmerSend" id="elmerSend" type="button">Send</button>
-      </div>
+  <div class="elmerBody">
+    <div class="elmerLog" id="elmerLog" aria-live="polite"></div>
+    <div class="elmerComposer">
+      <input id="elmerInput" type="text" placeholder='Analyze evidence (e.g. "is B6 reliable?")' />
+      <button class="elmerSend" id="elmerSend">Send</button>
     </div>
-  </aside>
+  </div>
+</aside>
 
   <main class="page">
     <section class="card hero" id="top">
@@ -1061,6 +966,20 @@ header nav a {
     import { GoogleGenerativeAI } from "@google/generative-ai";
 
     const API_KEY = "AIzaSyAJOYuM4yInfB5sxS4HOuR7l18CKBFOZB0"; // INSERT KEY HERE
+
+const dock = document.getElementById("elmerDock");
+  const toggleBtn = document.getElementById("toggleElmer");
+
+  function toggleElmer() {
+    const isMinimized = dock.classList.toggle("minimized");
+    toggleBtn.textContent = isMinimized ? "+" : "—";
+  }
+
+  // Handle toggle button click
+  if (toggleBtn) toggleBtn.addEventListener("click", (e) => { e.stopPropagation(); toggleElmer(); });
+  
+  // Re-open if the dock is clicked while minimized
+  if (dock) dock.addEventListener("click", () => { if (dock.classList.contains("minimized")) toggleElmer(); });
 
     const DATOMERS = [{"id": "A", "name": "Aggregate productivity metrics", "tagline": "Firm-level macro signals.", "anchor": "Does remote work reduce measured output at the aggregate level?", "datoms": [{"id": "A1", "claim": "Firm-level output unchanged after remote transition in several knowledge-work teams.", "source": "COVID Economics Issue 74 (Working from Home and Productivity)", "year": "2021", "population": "Knowledge workers (multiple firms / surveys & admin data)", "setting": "Hybrid/remote adoption during COVID", "measure": "Output / productivity indices (varies by study)", "direction": "Mixed / often ~ no change", "method": "Review / synthesis of empirical studies", "confounds": "Pandemic shocks; selection into WFH; industry mix", "notes": "Many studies separate short-run COVID disruption from steady-state remote work effects."}, {"id": "A2", "claim": "Call-center performance improved under remote work (handling time / throughput).", "source": "Onsite versus remote working: Medical call center", "year": "2021", "population": "Medical call-center staff", "setting": "Remote vs onsite shifts", "measure": "Performance KPIs (calls handled, resolution time, ratings)", "direction": "Contradicts claim (productivity ↑)", "method": "Observational comparison (within org)", "confounds": "Task standardization; monitoring; selection effects", "notes": "Call-center tasks are measurable and individually scoped; may not generalize to R&D teams."}, {"id": "A3", "claim": "Self-reported productivity often increases with remote work when autonomy is high.", "source": "AUB 2024-02 paper (remote work outcomes)", "year": "2024", "population": "Employees surveyed (sector mixed)", "setting": "Remote/hybrid arrangements", "measure": "Self-report productivity scales", "direction": "Contradicts claim (productivity ↑)", "method": "Survey + regression", "confounds": "Common-method bias; survivorship; role heterogeneity", "notes": "Use with caution: self-report ≠ output."}, {"id": "A4", "claim": "Performance ratings show small decline for some roles during fully-remote periods.", "source": "Large edited volume: Remote Work / Productivity chapters", "year": "2024", "population": "Managers evaluating employees (varies)", "setting": "Fully remote periods", "measure": "Manager ratings / appraisal outcomes", "direction": "Supports claim (productivity ↓)", "method": "Secondary analysis summarized in chapter", "confounds": "Manager visibility bias; changing evaluation criteria", "notes": "Ratings may reflect visibility/availability rather than output."}, {"id": "A5", "claim": "Hours worked increased but efficiency per hour may fall due to interruptions.", "source": "Work stress / teamwork during COVID (WFH)", "year": "2020", "population": "Remote workers during COVID", "setting": "Forced remote, home constraints", "measure": "Hours, perceived efficiency", "direction": "Supports claim (efficiency ↓)", "method": "Survey", "confounds": "Childcare; stress; crisis conditions", "notes": "This is crisis-remote, not designed remote."}, {"id": "A6", "claim": "Productivity dispersion increases: some workers improve, others decline.", "source": "Social isolation & remote work (whitepaper)", "year": "2020", "population": "Remote employees (general)", "setting": "Remote/hybrid", "measure": "Self-report + qualitative outcomes", "direction": "Mixed (variance ↑)", "method": "Conceptual + cited evidence", "confounds": "Role differences; home setup; personality", "notes": "Investor-relevant: remote shifts distribution, not just mean."}, {"id": "A7", "claim": "Team output can remain stable while coordination costs rise (hidden cost).", "source": "COVID Economics + coordination literature", "year": "2021", "population": "Teams", "setting": "Remote", "measure": "Deliverables vs time-to-deliver", "direction": "Mixed", "method": "Synthesis", "confounds": "Project selection; tooling maturity", "notes": "Important: ‘output unchanged’ can coexist with higher cost."}, {"id": "A8", "claim": "Remote work can reduce measurable output in roles requiring high interdependence.", "source": "Article Text 4244 (2024)", "year": "2024", "population": "Interdependent teams (varies)", "setting": "Remote/hybrid", "measure": "Output metrics / project velocity", "direction": "Supports claim (productivity ↓)", "method": "Empirical study (reported)", "confounds": "Measurement definitions; turnover; policy timing", "notes": "Effect tends to be conditional on task interdependence."}]}, {"id": "B", "name": "Task-level performance", "tagline": "Individual / task-scoped performance (micro signals).", "anchor": "Does remote work change efficiency on discrete tasks (deep work, tickets, cases)?", "datoms": [{"id": "B1", "claim": "Deep-focus tasks improve due to fewer office interruptions.", "source": "Remote work edited volume chapter", "year": "2024", "population": "Knowledge workers", "setting": "Home / remote", "measure": "Time-to-complete deep work", "direction": "Contradicts claim (productivity ↑)", "method": "Synthesis + survey evidence", "confounds": "Home distractions vary widely", "notes": "Mechanism: fewer ambient interruptions, more control over environment."}, {"id": "B2", "claim": "Routine individual tasks show minimal change under remote conditions.", "source": "COVID Economics Issue 74", "year": "2021", "population": "Mixed roles", "setting": "Remote/hybrid", "measure": "Task completion metrics", "direction": "Mixed / no change", "method": "Review", "confounds": "Measurement varies across organizations", "notes": "Use as baseline: remote effects are task-specific."}, {"id": "B3", "claim": "Multitasking and context switching increase at home for caregivers.", "source": "Work stress / teamwork during COVID", "year": "2020", "population": "Employees with caregiving duties", "setting": "Home during COVID", "measure": "Self-reported interruptions", "direction": "Supports claim (productivity ↓)", "method": "Survey", "confounds": "COVID-specific childcare constraints", "notes": "Highlights moderating factor rather than general remote effect."}, {"id": "B4", "claim": "For tasks requiring rapid feedback loops, remote can slow iteration.", "source": "Onsite vs remote medical call center (discussion)", "year": "2021", "population": "Operational teams", "setting": "Remote", "measure": "Escalation / feedback cycle time", "direction": "Supports claim (productivity ↓)", "method": "Observational + qualitative", "confounds": "Tooling maturity; supervisor availability", "notes": "The ‘iteration latency’ mechanism generalizes to engineering / design."}, {"id": "B5", "claim": "Asynchronous communication enables longer uninterrupted work blocks.", "source": "AUB 2024-02 paper", "year": "2024", "population": "Remote/hybrid employees", "setting": "Remote", "measure": "Reported workflow quality", "direction": "Contradicts claim (productivity ↑)", "method": "Survey", "confounds": "Self-selection into remote-friendly roles", "notes": "Mechanism is organizational norms, not location per se."}, {"id": "B6", "claim": "Task throughput improves when work is easily measurable and monitored.", "source": "Medical call center study", "year": "2021", "population": "Call-center agents", "setting": "Remote vs onsite", "measure": "Tickets/calls per hour", "direction": "Contradicts claim (productivity ↑)", "method": "Org KPI analysis", "confounds": "Incentives; queueing effects", "notes": "‘Measurable work’ is a key conditioning variable."}, {"id": "B7", "claim": "Skill development and informal learning slow without co-location.", "source": "Remote work edited volume", "year": "2024", "population": "Early-career employees", "setting": "Remote", "measure": "Learning rate / mentoring access", "direction": "Supports claim (future productivity ↓)", "method": "Qualitative + survey synthesis", "confounds": "Mentorship programs vary", "notes": "This is a lagging effect: shows up later."}, {"id": "B8", "claim": "Task errors can increase when coordination cues are missing.", "source": "Article Text 4244 (2024)", "year": "2024", "population": "Teams with handoffs", "setting": "Remote", "measure": "Rework / defect rates", "direction": "Supports claim (productivity ↓)", "method": "Empirical (reported)", "confounds": "Process changes; documentation quality", "notes": "Rework is productivity loss even if output appears stable."}]}, {"id": "C", "name": "Collaboration & coordination", "tagline": "Team processes: communication, handoffs, creativity, and integration work.", "anchor": "Does remote work increase coordination costs that reduce effective productivity?", "datoms": [{"id": "C1", "claim": "Communication latency increases and slows handoffs.", "source": "Remote work edited volume / coordination chapter", "year": "2024", "population": "Interdependent teams", "setting": "Remote", "measure": "Response time / handoff delay", "direction": "Supports claim (productivity ↓)", "method": "Synthesis", "confounds": "Tool choice; async norms", "notes": "Mechanism: fewer ‘ambient’ pings, more scheduled communication."}, {"id": "C2", "claim": "Meeting load increases to compensate for lost informal coordination.", "source": "COVID work stress & teamwork paper", "year": "2020", "population": "Remote teams", "setting": "COVID remote", "measure": "Meeting hours/week", "direction": "Supports claim (productivity ↓)", "method": "Survey", "confounds": "Crisis management meetings", "notes": "Even post-COVID, some orgs keep the meeting-heavy norm."}, {"id": "C3", "claim": "Weak ties degrade; cross-team knowledge flow slows.", "source": "Social isolation & remote work", "year": "2020", "population": "Knowledge workers", "setting": "Remote/hybrid", "measure": "Network connectivity indicators (qualitative)", "direction": "Supports claim (innovation/productivity ↓)", "method": "Conceptual + cited studies", "confounds": "Company size; onboarding practices", "notes": "Investor angle: impacts discovery and innovation throughput."}, {"id": "C4", "claim": "For small, stable teams with strong documentation, coordination costs can drop.", "source": "COVID Economics Issue 74", "year": "2021", "population": "Stable teams", "setting": "Remote", "measure": "Cycle time / coordination overhead", "direction": "Contradicts claim (productivity ↑)", "method": "Review (reported cases)", "confounds": "Selection of mature teams", "notes": "Mechanism: written-first processes + async clarity."}, {"id": "C5", "claim": "Creativity and complex problem solving can suffer without rich co-presence.", "source": "Edited volume chapter on creativity", "year": "2024", "population": "R&D / creative teams", "setting": "Remote", "measure": "Ideation quality / novelty (reported)", "direction": "Supports claim (productivity ↓)", "method": "Synthesis", "confounds": "Tooling; facilitation quality", "notes": "Not all collaboration is equal; ‘brainstorm’ vs ‘execute’."}, {"id": "C6", "claim": "Cross-functional coordination is the main failure mode for remote scale-ups.", "source": "Article Text 4244 (2024)", "year": "2024", "population": "Multi-team orgs", "setting": "Remote/hybrid", "measure": "Project slippage / dependencies", "direction": "Supports claim (productivity ↓)", "method": "Empirical (reported)", "confounds": "Re-orgs; hiring surges", "notes": "This links directly to Datomer D (context + policy)."}, {"id": "C7", "claim": "Structured async tools (ticketing, docs) partially substitute for hallway talk.", "source": "AUB 2024-02 paper", "year": "2024", "population": "Remote employees", "setting": "Remote/hybrid", "measure": "Coordination quality (survey)", "direction": "Mixed", "method": "Survey", "confounds": "Tool adoption vs culture", "notes": "Suggests interventions: documentation standards, decision logs."}, {"id": "C8", "claim": "Hybrid schedules can create ‘coordination tax’ when overlap windows are small.", "source": "Edited volume hybrid work chapter", "year": "2024", "population": "Hybrid teams", "setting": "Hybrid (partial overlap)", "measure": "Scheduling friction / delays", "direction": "Supports claim (productivity ↓)", "method": "Synthesis", "confounds": "Time zones; policy design", "notes": "This is a policy-design lever: define core hours."}]}, {"id": "D", "name": "Contextual & moderating factors", "tagline": "Conditions that explain *when* remote work helps vs hurts.", "anchor": "Which conditions shift remote work effects (role, autonomy, home setup, norms)?", "datoms": [{"id": "D1", "claim": "Autonomy and control over schedule are associated with higher productivity under remote work.", "source": "AUB 2024-02 paper", "year": "2024", "population": "Remote/hybrid employees", "setting": "Remote", "measure": "Self-report productivity", "direction": "Contradicts claim (productivity ↑)", "method": "Survey + modeling", "confounds": "Self-selection into remote roles", "notes": "Autonomy is a moderating variable; not all roles have it."}, {"id": "D2", "claim": "Social isolation increases burnout risk and can reduce sustained performance.", "source": "Social isolation & remote work", "year": "2020", "population": "Remote employees", "setting": "Remote", "measure": "Isolation, burnout indicators", "direction": "Supports claim (productivity ↓ over time)", "method": "Conceptual + cited evidence", "confounds": "Individual differences; support systems", "notes": "Time horizon matters: short-run vs long-run."}, {"id": "D3", "claim": "Role interdependence moderates outcomes: high-interdependence roles suffer more.", "source": "Article Text 4244 (2024)", "year": "2024", "population": "Interdependent teams", "setting": "Remote/hybrid", "measure": "Velocity / delays", "direction": "Supports claim (productivity ↓)", "method": "Empirical (reported)", "confounds": "Process maturity", "notes": "This links Datomer D → Datomer C directly."}, {"id": "D4", "claim": "Home environment quality (space, noise, equipment) predicts productivity.", "source": "COVID work stress & teamwork paper", "year": "2020", "population": "Remote workers", "setting": "Home during COVID", "measure": "Workspace quality; productivity", "direction": "Mixed (moderates)", "method": "Survey", "confounds": "Socioeconomic differences", "notes": "Policy lever: stipend, equipment, coworking budget."}, {"id": "D5", "claim": "Manager practices (goal clarity, feedback cadence) determine whether remote succeeds.", "source": "Edited volume / management chapter", "year": "2024", "population": "Managers + teams", "setting": "Remote/hybrid", "measure": "Goal clarity, performance outcomes", "direction": "Mixed (moderates)", "method": "Synthesis", "confounds": "Org culture; incentive alignment", "notes": "Remote work is a management system, not a location."}, {"id": "D6", "claim": "Pandemic-era remote work is a confounded treatment; estimates should not be generalized blindly.", "source": "COVID Economics Issue 74", "year": "2021", "population": "COVID-period workers", "setting": "Crisis remote", "measure": "All outcomes", "direction": "Mixed", "method": "Meta/Review", "confounds": "Health risk; school closures; demand shocks", "notes": "DATOM: separate ‘remote work’ from ‘remote during crisis’ datoms."}, {"id": "D7", "claim": "Hybrid can outperform fully-remote when it preserves co-presence for high-bandwidth coordination.", "source": "Edited volume hybrid chapter", "year": "2024", "population": "Hybrid teams", "setting": "Hybrid", "measure": "Coordination + output", "direction": "Contradicts claim (productivity ↑ vs fully remote)", "method": "Synthesis", "confounds": "Policy design; commute cost", "notes": "Intervention: anchor days for collaboration; remote days for deep work."}, {"id": "D8", "claim": "Individual preferences and personality influence productivity response to remote work.", "source": "Social isolation & remote work", "year": "2020", "population": "Employees", "setting": "Remote/hybrid", "measure": "Personality, satisfaction, productivity", "direction": "Mixed (moderates)", "method": "Conceptual + cited studies", "confounds": "Measurement; cultural context", "notes": "Supports decision: allow opt-in/opt-out by role/person fit."}]}];
 

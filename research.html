@@ -6,185 +6,161 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <style>
-  :root{
-    --maxw: 1240px;
+  :root {
+    --maxw: 1000px;
     --text: #0b0f14;
-    --muted: rgba(11,15,20,0.78);
+    --muted: rgba(11,15,20,0.72);
     --accent: #06b6d4; 
-    --card-bg: rgba(255,255,255,0.74);
-    --card-border: rgba(0,0,0,0.10);
-    --shadow-soft: 0 10px 32px rgba(0,0,0,0.08);
+    --card-bg: rgba(255,255,255,0.8);
+    --border: rgba(15, 23, 42, 0.12);
   }
 
-  body{
-    margin:0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  body {
+    margin: 0;
+    font-family: "SF Mono", "Inter", system-ui, sans-serif;
     color: var(--text);
-    background-image: url("./Assets/background.png");
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background: url("./Assets/background.png") center top / cover no-repeat fixed;
+    line-height: 1.6;
   }
 
-  /* FIXED HEADER: Synchronized with index and product */
-  header{
-    display:flex;
+  header {
+    display: flex;
     justify-content: space-between;
-    align-items:center;
+    align-items: center;
     padding: 28px 64px;
-    position: relative;
     z-index: 10001;
+    position: relative;
   }
 
-  nav a{
-    margin-left: 28px;
-    text-decoration:none;
-    color:#000;
-    font-weight:500;
-    transition: opacity 0.2s;
-  }
+  nav a { margin-left: 28px; text-decoration: none; color: #000; font-weight: 500; transition: opacity 0.2s; }
   nav a:hover { opacity: 0.7; }
 
-  main{
+  main {
     max-width: var(--maxw);
-    margin: 92px auto 120px;
+    margin: 80px auto 120px;
     padding: 0 40px;
   }
 
-  h1{ font-size: 56px; line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.02em; }
-  .lede{ font-size: 18px; line-height: 1.8; color: var(--muted); margin: 0 0 14px; max-width: 980px; }
-  .lede strong{ font-weight: 650; }
+  /* TYPOGRAPHY */
+  h1 { font-size: 48px; letter-spacing: -0.04em; margin-bottom: 8px; font-weight: 700; }
+  .subtitle { font-size: 20px; color: var(--muted); margin-bottom: 60px; font-weight: 500; border-bottom: 1px solid var(--border); padding-bottom: 24px; }
+  h2 { font-size: 20px; margin: 48px 0 16px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); border-left: 3px solid var(--accent); padding-left: 16px; }
+  h3 { font-size: 17px; font-weight: 700; margin: 24px 0 8px; }
 
-  .grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 22px; align-items: start; }
-
-  .card{
-    border-radius: 18px;
+  p, li { font-size: 15px; margin-bottom: 16px; }
+  .research-block { margin-bottom: 64px; }
+  
+  .thread-card {
     background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    box-shadow: var(--shadow-soft);
-    padding: 18px 18px 16px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    position: relative;
-    overflow:hidden;
+    border: 1px solid var(--border);
+    padding: 24px;
+    border-radius: 8px;
+    margin-bottom: 20px;
   }
 
-  .card:before{
-    content:"";
-    position:absolute;
-    inset:-2px;
-    background: radial-gradient(1100px 240px at 20% 0%, rgba(14,165,233,0.12), transparent 60%);
-    pointer-events:none;
-  }
+  .status-tag { display: inline-block; font-family: monospace; font-size: 11px; padding: 2px 8px; border-radius: 4px; background: #eee; margin-bottom: 12px; font-weight: 700; }
 
-  .card > *{ position:relative; }
-  .card h2{ margin: 0 0 10px; font-size: 18px; letter-spacing: -0.01em; }
-  .card p{ margin: 0; font-size: 15px; line-height: 1.7; color: rgba(11,15,20,0.82); }
+  /* ELMER STEWARD UI - FORCED HIDDEN */
+  .elmerDock { display: none !important; }
 
-  .stack{ display:flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+  footer { text-align: center; padding: 48px; font-size: 12px; color: rgba(0, 0, 0, 0.4); border-top: 1px solid var(--border); }
 
-  .item{
-    border-radius: 16px;
-    background: rgba(255,255,255,0.62);
-    border: 1px solid rgba(0,0,0,0.10);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.07);
-    padding: 14px 14px 12px;
-    backdrop-filter: blur(12px);
-  }
-
-  .item h3{ margin: 0 0 6px; font-size: 15px; letter-spacing: -0.01em; }
-  .item p{ margin: 0; font-size: 14px; line-height: 1.6; color: rgba(11,15,20,0.80); }
-
-  /* Elmer Dock position: clearing header navigation */
-  .elmerDock { 
-    position: fixed; top: 90px; right: 14px; width: 360px; height: calc(100vh - 110px); 
-    z-index: 9999; border-radius: 18px; border: 1px solid rgba(15, 23, 42, 0.12);
-    background: rgba(255, 255, 255, 0.92); box-shadow: 0 18px 40px rgba(2, 6, 23, 0.12);
-    display: flex; flex-direction: column; backdrop-filter: blur(8px); overflow: hidden;
-  }
-  .elmerHeader { padding: 12px 12px 10px; border-bottom: 1px solid rgba(15, 23, 42, 0.10); background: rgba(248, 250, 252, 0.85); display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; }
-  .elmerMark { width: 42px; height: 42px; border-radius: 12px; overflow: hidden; border: 1px solid var(--accent); }
-  .elmerBody { padding: 10px; display: flex; flex-direction: column; height: 100%; min-height: 0; }
-  .elmerLog { flex: 1 1 auto; overflow: auto; padding: 0 2px 10px; }
-  .bubble { border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.10); background: #fff; padding: 10px; margin: 8px 0; font-size: 13px; line-height: 1.5; white-space: pre-wrap; }
-  .bubble.user { background: rgba(6,182,212,0.08); border-color: rgba(6,182,212,0.2); }
-  .elmerComposer { border-top: 1px solid rgba(15, 23, 42, 0.10); padding: 10px; display: flex; gap: 8px; }
-  .elmerComposer input { flex: 1; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); padding: 8px 12px; outline: none; }
-  .elmerSend { background: var(--accent); color: #fff; border: none; padding: 8px 12px; border-radius: 10px; font-weight: 600; cursor: pointer; }
-
-  @media (max-width: 1080px){
-    header{ padding: 22px 26px; }
-    main{ padding: 0 22px; }
-    .grid { grid-template-columns: 1fr; }
-    .elmerDock { display: none; }
+  @media (max-width: 900px) {
+    header { padding: 20px 32px; flex-direction: column; gap: 16px; }
+    nav a { margin: 0 12px; }
   }
 </style>
 </head>
 
 <body>
+
 <header>
   <a href="index.html"><img src="./Assets/logo.png" style="width:120px;" alt="DATOM Logo"></a>
   <nav>
     <a href="product.html">Product</a>
-    <a href="vision.html">Vision</a>
+    <a href="example.html">Example</a>
     <a href="research.html">Research</a>
-    <a href="example.html">Example</a> 
+    <a href="vision.html">Vision</a>
     <a href="try.html">Engage</a>
   </nav>
 </header>
 
 <main>
-  <h1>Research foundations</h1>
-  <p class="lede">DATOM treats confidence as a property of evidence structure, not model output.</p>
-  <p class="lede">The research goal is practical: make reasoning inspectable so teams can validate fast, disagree clearly, and improve safely. DATOM does this by representing claims as discrete units and making relationships explicit.</p>
-  <p class="lede">The result is a system where confidence is <strong>defendable</strong>—because it is traceable to evidence, shaped by replication, and penalized by credible contradictions.</p>
+  <section class="research-block">
+    <h1>Research</h1>
+    <div class="subtitle">Evaluating how evidence structure affects decision quality</div>
+    
+    <p>DATOM represents claims about how evidence should be represented and used in high-stakes environments. These claims are not self-evident; they must be tested against empirical results. This page documents our methodology, the questions we are currently testing, and the areas where our assumptions have failed or remain unproven.</p>
+  </section>
 
-  <div class="grid">
-    <section class="card" aria-label="Core idea">
-      <h2>Core idea</h2>
-      <p>Most AI systems produce text that is hard to audit. DATOM keeps evidence explicit and builds a structured layer above it, so reasoning can be examined and improved.</p>
-      <div class="stack">
-        <div class="item">
-          <h3>Claims as assessable units</h3>
-          <p>A claim is stored as a DATOM—something you can review and test, rather than a sentence in a chat log.</p>
-        </div>
-        <div class="item">
-          <h3>Relationships between claims</h3>
-          <p>Agreement, contradiction, and gaps are first-class, making it possible to see where a conclusion is strong or weak.</p>
-        </div>
-      </div>
-    </section>
+  <section class="research-block">
+    <h2>Explicit Research Questions</h2>
+    <ul>
+      <li><strong>Q1:</strong> Under what conditions does the aggregation of replication outcomes reduce decision error compared to narrative synthesis?</li>
+      <li><strong>Q2:</strong> How should the presence of unresolved contradictory evidence materially affect quantified action thresholds?</li>
+      <li><strong>Q3:</strong> At what point of structural density does additional evidence cease to meaningfully reduce operational risk?</li>
+      <li><strong>Q4:</strong> Can a structured representation of "what was known when" successfully mitigate hindsight bias in institutional accountability audits?</li>
+    </ul>
+  </section>
 
-    <section class="card" aria-label="Why it matters">
-      <h2>Why it matters</h2>
-      <p>DATOM optimizes decision credibility, serving stakeholders through speed, accountability, and safety.</p>
-      <div class="stack">
-        <div class="item">
-          <h3>For leadership</h3>
-          <p>A clearer risk posture for high-stakes decisions ($50M-$200M).</p>
-        </div>
-        <div class="item">
-          <h3>For engineering</h3>
-          <p>Faster iteration with fewer regressions by seeing which evidence supports a behavior.</p>
-        </div>
-      </div>
-    </section>
-  </div>
-</main>
+  <section class="research-block">
+    <h2>Methodological Stance</h2>
+    <p>We treat evidence as atomic. This means decomposing research into discrete units—Datoms—that capture population, measure, setting, and result. We do not aggregate via averaging; we represent structure via bipolar bonds (Supports/Contradicts).</p>
+    <ul>
+      <li><strong>Negative Results:</strong> Failures to replicate are treated as high-resolution data that narrow the boundaries of a claim, rather than as noise.</li>
+      <li><strong>Disagreement:</strong> We preserve contradictory findings within the knowledge graph. Consensus is not a goal; legibility is.</li>
+      <li><strong>Provisional Confidence:</strong> Confidence scores are time-dependent and update as the graph evolves. They reflect structural stability, not absolute truth.</li>
+    </ul>
+  </section>
 
-<aside class="elmerDock">
-  <div class="elmerHeader">
-    <div style="display:flex;gap:10px;align-items:center;">
-      <div class="elmerMark"><img src="./Assets/ELMER.png" style="width:100%; height:100%; object-fit:cover;"></div>
-      <div><p style="font-weight:700;margin:0;font-size:14px;">Elmer</p><p style="margin:0;font-size:11px;opacity:0.6;">Evidence Steward</p></div>
+  <section class="research-block">
+    <h2>Active Research Threads</h2>
+
+    <div class="thread-card">
+      <div class="status-tag">STATUS: CONVERGING</div>
+      <h3>Thread: Quantified Confidence as Structural Density</h3>
+      <p><strong>Impact:</strong> Determining if decision-makers can trust a score derived purely from evidence geometry.</p>
+      <p><strong>Evidence to date:</strong> Initial trials using the Remote Work Datomer show that the SCS-64 score correctly identified volatility in coordination-heavy tasks.</p>
+      <p><strong>Falsification:</strong> This assessment would change if a claim with high structural density consistently resulted in unforeseen operational failure.</p>
     </div>
-  </div>
-  <div class="elmerBody">
-    <div class="elmerLog" id="elmerLog"><div class="bubble">Elmer here. How can I help you explore the research foundations of scientific trust?</div></div>
-    <div class="elmerComposer"><input id="elmerInput" type="text" placeholder="Ask Elmer..." /><button id="elmerSend" class="elmerSend">Send</button></div>
-  </div>
-</aside>
+
+    <div class="thread-card">
+      <div class="status-tag">STATUS: EXPLORATORY</div>
+      <h3>Thread: Next-Best Evidence (NBE) Optimization</h3>
+      <p><strong>Impact:</strong> Identifying which specific experiment would resolve the most uncertainty for the lowest cost.</p>
+      <p><strong>Evidence to date:</strong> Proof-of-concept modeling indicates that targeting "structural gaps" in the graph provides higher information gain than repeating established measures.</p>
+      <p><strong>Falsification:</strong> This would change if experimental results in NBE-targeted areas failed to update the global confidence score.</p>
+    </div>
+  </section>
+
+  <section class="research-block">
+    <h2>Known Limitations & Failures</h2>
+    <ul>
+      <li><strong>Assumption Fragility:</strong> Early versions of the extraction logic relied too heavily on LLM-based summarization, which smoothed over critical methodological nuances. This approach was discarded in favor of human-in-the-loop atomic verification.</li>
+      <li><strong>Inconclusive Evidence:</strong> Our current framework struggle to represent qualitative evidence with the same precision as quantitative measures. This is an unresolved gap in the DATOM standard.</li>
+      <li><strong>Scalability Limits:</strong> The manual effort required to build a "Canonical Proof Object" remains high. We have not yet proven that this can be done at the scale of an entire scientific field.</li>
+    </ul>
+  </section>
+
+  <section class="research-block">
+    <h2>Research vs. Product</h2>
+    <p>DATOM is a work in progress. While the representation of evidence as atomic units is sufficiently stable for operational use in diligence workflows, the automated confidence updating algorithms remain exploratory. Limitations are documented in our technical appendices to prevent over-trust by users.</p>
+  </section>
+
+  <section class="research-block">
+    <h2>Relationship to Prior Work</h2>
+    <p>Our work builds upon the <strong>Open Science Framework (OSF)</strong> regarding transparency and the <strong>Causal Mapping</strong> literature for representing relationships. However, the use of structural density as a proxy for decision readiness remains largely unresolved in the existing literature.</p>
+  </section>
+
+  <section class="research-block">
+    <h2>Engagement</h2>
+    <p>We invite technical partners to <strong>replicate</strong> our extraction methods, <strong>challenge</strong> our confidence scoring logic, or <strong>contribute</strong> evidence to existing Datomers. Falsification is the primary mechanism of improvement for this system.</p>
+  </section>
+
+  <section style="margin-top: 100px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 40px;">
+    <p>Uncertainty is unavoidable. Decisions under uncertainty are hard. DATOM exists to make that difficulty explicit rather than hide it.</p>
+  </section>
+</main>
 
 <footer>© 2026 DATOM — Scientific Trust Infrastructure</footer>
 
@@ -194,33 +170,59 @@
   const API_KEY = "AIzaSyC0b_WHCOM6Fgx5iKuyZuDsHdmmftm6_y4"; 
   const genAI = new GoogleGenerativeAI(API_KEY);
   const model = genAI.getGenerativeModel({ 
-    model: "gemini-3-flash-preview", 
-    systemInstruction: "You are Elmer, the Evidence Steward. 1. DO NOT include bracketed citations in output. 2. EXPLAIN FIRST: Ensure user understands DATOM research focuses on preventing $200M replication failures. 3. CLOSURE PREDICTION: Offer the Path A [Engage] or Path B [Briefing] ONLY after user signals satisfaction. 4. BREVITY: 2 sentences max. 5. Use 'Thinking...' as state." 
+    model: "gemini-1.5-flash", 
+    systemInstruction: "You are Elmer, the Evidence Steward. Professional librarian persona. 1. NO citations. 2. BOUNDED: Only discuss DATOM research. 3. 2 sentences max. 4. Offer Path A [Engage] or Path B [Briefing] ONLY after user signals satisfaction." 
   });
   
   let chatHistory = [];
-  async function elmerHandle() {
-    const input = document.getElementById("elmerInput"); const text = input.value.trim(); if (!text) return;
-    addBubble(text, "user"); input.value = ""; const thinkingId = "thinking-" + Date.now(); addBubble("Thinking...", "assistant", thinkingId);
-    try {
-      const chat = model.startChat({ history: chatHistory }); const result = await chat.sendMessage(text); const response = await result.response; const rText = response.text();
-      const tb = document.getElementById(thinkingId); if (tb) tb.remove(); addBubble(rText, "assistant");
-      chatHistory.push({ role: "user", parts: [{ text: text }] }); chatHistory.push({ role: "model", parts: [{ text: rText }] });
-      const closure = ["thanks", "thank you", "clear", "helpful", "makes sense"].some(k => text.toLowerCase().includes(k));
-      if (closure || rText.includes("[Engage]")) { addActionButtons(); }
-    } catch (e) { console.error(e); }
+  const dock = document.getElementById("elmerDock");
+  const toggleBtn = document.getElementById("toggleElmer");
+  const sendBtn = document.getElementById("elmerSend");
+  const input = document.getElementById("elmerInput");
+
+  // Logic only executes if Elmer is uncommented
+  if (dock && toggleBtn && sendBtn && input) {
+    function toggleElmer() {
+      const isMinimized = dock.classList.toggle("minimized");
+      toggleBtn.textContent = isMinimized ? "+" : "—";
+    }
+
+    toggleBtn.addEventListener("click", (e) => { e.stopPropagation(); toggleElmer(); });
+    dock.addEventListener("click", () => { if (dock.classList.contains("minimized")) toggleElmer(); });
+
+    async function elmerHandle() {
+      const text = input.value.trim();
+      if (!text) return;
+
+      elmerAddBubble(text, "user");
+      input.value = "";
+      const tid = "thinking-" + Date.now();
+      elmerAddBubble("Thinking...", "assistant", tid);
+
+      try {
+        const result = await model.generateContent(text);
+        const rText = result.response.text();
+        const tb = document.getElementById(tid);
+        if (tb) tb.remove();
+        elmerAddBubble(rText, "assistant");
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function elmerAddBubble(text, who, id = null) {
+      const log = document.getElementById("elmerLog");
+      const b = document.createElement("div");
+      b.className = "bubble " + who;
+      if (id) b.id = id;
+      b.textContent = text;
+      log.appendChild(b);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    sendBtn.addEventListener("click", elmerHandle);
+    input.addEventListener("keydown", (e) => { if(e.key === "Enter") { e.preventDefault(); elmerHandle(); } });
   }
-  function addActionButtons() {
-    const log = document.getElementById("elmerLog"); if (document.getElementById("stewardAction")) return;
-    const btnContainer = document.createElement("div"); btnContainer.id = "stewardAction";
-    btnContainer.innerHTML = '<div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;"><a href="try.html" style="display:block; text-align:center; padding:10px; background:#06b6d4; color:#fff; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Engage with the Team</a><a href="https://calendly.com/jordan-datom/30min" style="display:block; text-align:center; padding:10px; border: 1px solid #06b6d4; color:#06b6d4; border-radius:8px; text-decoration:none; font-size:12px; font-weight:700;">Schedule Technical Briefing</a></div>';
-    log.appendChild(btnContainer); log.scrollTop = log.scrollHeight;
-  }
-  function addBubble(text, who, id = null) {
-    const log = document.getElementById("elmerLog"); const b = document.createElement("div"); b.className = "bubble " + who; if (id) b.id = id; b.textContent = text; log.appendChild(b); log.scrollTop = log.scrollHeight;
-  }
-  document.getElementById("elmerSend").addEventListener("click", elmerHandle);
-  document.getElementById("elmerInput").addEventListener("keydown", (e) => { if(e.key === "Enter") elmerHandle(); });
 </script>
 </body>
 </html>
