@@ -17,14 +17,14 @@
   }
   body { margin: 0; font-family: system-ui, sans-serif; background: url("./Assets/background.png") center top / cover no-repeat fixed; color: var(--text); line-height: 1.6; }
   
-  header { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 28px 64px; 
-    position: relative;
-    z-index: 10001; 
-  }
+header { 
+  display: flex; 
+  justify-content: flex-end; /* This pushes the nav to the right side */
+  align-items: center; 
+  padding: 28px 64px; 
+  position: relative;
+  z-index: 10001; 
+}
   nav a { margin-left: 28px; text-decoration: none; color: #000; font-weight: 500; transition: opacity 0.2s; }
   nav a:hover { opacity: 0.7; }
   
@@ -66,7 +66,6 @@
 <body>
 
 <header>
-  <a href="index.html"><img src="./Assets/logo.png" style="width:120px;" alt="DATOM logo"></a>
   <nav>
     <a href="product.html">Product</a>
     <a href="example.html">Example</a>
