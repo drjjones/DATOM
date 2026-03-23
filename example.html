@@ -556,6 +556,28 @@
       color: var(--text-muted);
       font-size: 13px;
     }
+
+    /* ── Mobile responsive ── */
+    @media (max-width: 768px) {
+      .figureViewport svg { min-width: 600px; }
+      .figureFrame { max-height: 50vh; -webkit-overflow-scrolling: touch; }
+      .hero h1 { font-size: 1.5rem; }
+      .hero .tagline { font-size: 0.95rem; }
+      .section { padding: 20px 12px; }
+      .card { padding: 16px; }
+      .steps { grid-template-columns: 1fr; gap: 10px; }
+      .twoCol, .threeCol, .decisionGrid { grid-template-columns: 1fr; }
+      .datomsGrid { grid-template-columns: 1fr; }
+      .filterBar { flex-wrap: wrap; gap: 8px; }
+      .filterBar input, .filterBar select { width: 100%; }
+      .anchorClaim blockquote { font-size: 1rem; padding: 16px; }
+    }
+
+    @media (max-width: 400px) {
+      .figureViewport svg { min-width: 450px; }
+      .section { padding: 14px 8px; }
+      .datomCard { padding: 10px; }
+    }
   </style>
 </head>
 

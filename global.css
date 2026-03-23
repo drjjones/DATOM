@@ -416,19 +416,37 @@ footer {
   border-top: 1px solid var(--border);
 }
 
-/* ── Responsive ── */
-@media (max-width: 800px) {
-  header { padding: 14px 20px; }
-  .header-logo { height: 36px; }
-  main { padding: 40px 20px 80px; }
-  section { margin-bottom: 64px; }
+/* ── Responsive — Tablet ── */
+@media (max-width: 1024px) {
+  main { padding: 50px 28px 100px; }
+  .hero-actions { flex-wrap: wrap; justify-content: center; }
+}
 
-  h1 { font-size: 32px; }
-  h2 { font-size: 22px; }
-  .lede { font-size: 17px; }
+/* ── Responsive — Mobile ── */
+@media (max-width: 800px) {
+  header { padding: 14px 20px; padding-bottom: 22px; }
+  .header-logo { height: 36px; }
+  main { padding: 32px 16px 80px; }
+  section { margin-bottom: 56px; }
+
+  h1 { font-size: 28px; letter-spacing: -0.02em; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 17px; }
+  .lede { font-size: 16px; }
+  p, li { font-size: 15px; }
 
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-  .card { padding: 24px; }
+  .card { padding: 20px; }
+
+  .hero-actions { flex-direction: column; align-items: center; gap: 12px; }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-secondary { width: 100%; max-width: 300px; text-align: center; }
+
+  .trust-bar { flex-direction: column; gap: 8px; align-items: center; }
+
+  .diagram-flow { flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .diagram-node { font-size: 13px; padding: 8px 14px; }
+  .diagram-arrow { font-size: 16px; }
 
   .menu-toggle { display: block; }
   nav {
@@ -436,20 +454,34 @@ footer {
     flex-direction: column;
     position: absolute;
     top: 100%;
-    right: 20px;
+    right: 16px;
+    left: 16px;
     background: rgba(255, 255, 255, 0.96);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 20px 28px;
-    gap: 18px;
+    padding: 20px 24px;
+    gap: 16px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
     z-index: 1001;
   }
   nav.open { display: flex; }
   nav a { font-size: 15px; }
+  nav .btn-cta, nav .btn-login { width: 100%; text-align: center; justify-content: center; }
 
   .table-glass { font-size: 13px; }
   .table-glass th, .table-glass td { padding: 10px 12px; }
+  .table-glass { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  footer { padding: 24px 16px; font-size: 13px; }
+}
+
+/* ── Responsive — Small phones ── */
+@media (max-width: 400px) {
+  header { padding: 10px 12px; padding-bottom: 18px; }
+  .header-logo { height: 30px; }
+  main { padding: 24px 12px 60px; }
+  h1 { font-size: 24px; }
+  .card { padding: 16px; }
 }
