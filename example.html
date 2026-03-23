@@ -4,51 +4,38 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>DATOM Demo Datomer — Remote Work → Productivity</title>
+  <link rel="icon" type="image/png" href="./Assets/favicon.png">
+  <link rel="stylesheet" href="global.css?v=2">
+  <link rel="stylesheet" href="elmer.css">
   <style>
     :root{
-      --bg: transparent;
-      --card-bg: rgba(255,255,255,0.92);
-      --card-border: rgba(15,23,42,0.10);
-      --muted: rgba(15,23,42,0.70);
-      --text: rgba(2,6,23,0.92);
-      --accent: #06b6d4;
-      --accent-2: #0ea5e9;
-      --warn: #f59e0b;
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --accent: #0d9488;
+      --accent-dim: rgba(13, 148, 136, 0.08);
+      --accent-hover: #0f766e;
+      --text-primary: #0f172a;
+      --text-muted: #64748b;
+      --border: rgba(15, 23, 42, 0.08);
 
-      /* Evidence direction accents (UI) */
-      --support: #dc2626; /* red */
-      --contradict: #16a34a; /* green */
-      --moderate: #2563eb; /* blue */
-      --neutral: rgba(15,23,42,0.55);
+      /* Dashboard relationship colors */
+      --support: #0d9488;
+      --contradict: #ef4444;
+      --moderate: #3b82f6;
+      --neutral: #6b7280;
 
-      --radius: 18px;
-      --shadow: 0 10px 30px rgba(2,6,23,0.08);
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-hover: 0 4px 24px rgba(0, 0, 0, 0.06);
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+
+      /* Override global.css variables for dashboard feel */
+      --card-bg: #ffffff;
+      --card-hover: #ffffff;
+      --muted: #64748b;
+      --text: #0f172a;
     }
-
-    html,body{height:100%;}
- body {
-  margin: 0;
-  font-family: var(--sans);
-  color: var(--text);
-  /* Use the canonical background from your Assets folder */
-  background: url("./Assets/background.png") center top / cover no-repeat fixed;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 28px 64px;
-}
-
-header nav a {
-  margin-left: 28px;
-  text-decoration: none;
-  color: #000;
-  font-weight: 500;
-}
 
     .page{
       max-width: 1060px;
@@ -57,56 +44,69 @@ header nav a {
     }
 
     .card{
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      transition: box-shadow 0.2s ease;
+    }
+    .card:hover{
+      box-shadow: var(--shadow-hover);
     }
 
     .hero{
-      padding: 22px 22px 16px;
+      padding: 24px 24px 20px;
     }
 
-    .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px;}
+    .pillRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
     .pill{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding: 8px 12px;
+      gap:6px;
+      padding: 5px 12px;
       border-radius: 999px;
-      border:1px solid rgba(15,23,42,0.10);
-      background: rgba(255,255,255,0.70);
-      font-size: 13px;
-      color: rgba(2,6,23,0.85);
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      font-size: 12px;
+      color: var(--text-primary);
       font-weight: 600;
+      letter-spacing: 0.01em;
     }
-    .dot{width:10px;height:10px;border-radius:50%;
+    .dot{width:8px;height:8px;border-radius:50%;
       background: var(--accent);
-      box-shadow:0 0 0 3px rgba(6,182,212,0.20);
     }
 
-    h1{margin:0; font-size: 34px; letter-spacing: -0.02em;}
-    h2{margin:0; font-size: 20px; letter-spacing: -0.01em;}
-    h3{margin:0; font-size: 16px; letter-spacing: -0.01em;}
+    h1{margin:0; font-size: 28px; letter-spacing: -0.02em; color: var(--text-primary);}
+    h2{margin:0; font-size: 20px; letter-spacing: -0.01em; color: var(--text-primary);}
+    h3{margin:0; font-size: 15px; letter-spacing: -0.01em; color: var(--text-primary);}
 
     .sub{
       margin:10px 0 0;
-      color: var(--muted);
+      color: var(--text-muted);
       line-height:1.55;
       max-width: 82ch;
+      font-size: 14px;
     }
-    .sub b{color: rgba(2,6,23,0.92);}
+    .sub b{color: var(--text-primary);}
 
+    /* Dashboard section label pattern */
     .section{ margin-top: 18px; }
-    .sectionTitle{ font-size: 16px; font-weight: 800; margin: 0 0 10px; }
+    .sectionTitle{
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin: 0 0 12px;
+    }
 
-    .figureCard{ padding: 16px 16px 10px; }
+    .figureCard{ padding: 24px; }
 
     /* Figure + zoom */
     .figureFrame{
-      border-radius: 14px;
-      background: rgba(248,250,252,0.65);
-      border: 1px solid rgba(15,23,42,0.08);
+      border-radius: var(--radius);
+      background: #f8fafc;
+      border: 1px solid var(--border);
       overflow: auto;
       max-height: 70vh;
       cursor: default;
@@ -127,14 +127,14 @@ header nav a {
 
     .caption{
       margin:10px 2px 0;
-      font-size: 12.5px;
-      color: rgba(15,23,42,0.70);
+      font-size: 12px;
+      color: var(--text-muted);
       line-height:1.45;
     }
 
     .toolbar{
       display:flex;
-      gap:10px;
+      gap:8px;
       align-items:center;
       flex-wrap:wrap;
       margin-top: 14px;
@@ -144,146 +144,158 @@ header nav a {
       flex: 1 1 340px;
       display:flex;
       align-items:center;
-      gap:10px;
-      padding: 11px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(15,23,42,0.12);
-      background: rgba(255,255,255,0.80);
+      gap:8px;
+      padding: 9px 12px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
     }
     .search input{
       border:0;
       outline:0;
       width:100%;
-      font-size: 14px;
+      font-size: 13px;
       background: transparent;
-      color: rgba(2,6,23,0.92);
+      color: var(--text-primary);
     }
+    .search input::placeholder{ color: var(--text-muted); }
 
     .btn{
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(6,182,212,0.42);
-      background: rgba(6,182,212,0.12);
-      color: rgba(2,6,23,0.92);
-      font-weight: 900;
+      padding: 8px 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 13px;
       cursor:pointer;
-      box-shadow: 0 6px 16px rgba(6,182,212,0.18);
+      transition: all 0.15s ease;
     }
-    .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 22px rgba(6,182,212,0.20); }
+    .btn:hover{ background: #f1f5f9; border-color: rgba(15,23,42,0.12); }
 
     .btnPrimary{
-      border-color: rgba(6,182,212,0.65);
+      border-color: var(--accent);
       background: var(--accent);
       color: #ffffff;
-      box-shadow: 0 10px 24px rgba(6,182,212,0.30);
     }
-    .btnPrimary:hover{ transform: translateY(-1px); box-shadow: 0 14px 28px rgba(6,182,212,0.34); }
+    .btnPrimary:hover{ background: var(--accent-hover); border-color: var(--accent-hover); }
 
     .zoomCtl{
       display:flex;
       align-items:center;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(15,23,42,0.12);
-      background: rgba(255,255,255,0.80);
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
     }
     .zoomCtl label{
-      font-size: 12.5px;
-      color: rgba(15,23,42,0.72);
-      font-weight: 800;
-      letter-spacing: .01em;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
     .zoomCtl input[type="range"]{
-      width: 170px;
+      width: 150px;
       accent-color: var(--accent);
     }
     .zoomPct{
       font-family: var(--mono);
       font-size: 12px;
-      font-weight: 900;
-      color: rgba(2,6,23,0.78);
-      min-width: 44px;
+      font-weight: 700;
+      color: var(--text-muted);
+      min-width: 40px;
       text-align: right;
     }
 
     .grid{
       display:grid;
       grid-template-columns: 1fr;
-      gap: 14px;
+      gap: 12px;
     }
 
+    /* Datomer accordion — dashboard pattern */
     details.domer{
-      border-radius: 16px;
-      border: 1px solid rgba(15,23,42,0.10);
-      background: rgba(255,255,255,0.78);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
       overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.2s ease;
+    }
+    details.domer:hover{
+      box-shadow: var(--shadow-hover);
     }
     details.domer > summary{
       list-style: none;
       cursor: pointer;
-      padding: 14px 14px 12px;
+      padding: 16px 20px 14px;
       display:flex;
-      align-items:flex-start;
+      align-items:center;
       justify-content:space-between;
       gap:12px;
     }
     details.domer > summary::-webkit-details-marker{display:none;}
 
-    .domerTitleRow{display:flex; flex-wrap:wrap; gap:10px; align-items:center;}
-    .domerTitle{ font-weight: 900; }
-    .domerMeta{ font-size: 13px; color: rgba(15,23,42,0.72); margin-top: 5px; line-height:1.45; }
+    .domerTitleRow{display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
+    .domerTitle{ font-weight: 700; font-size: 14px; color: var(--text-primary); }
+    .domerMeta{ font-size: 12px; color: var(--text-muted); margin-top: 3px; line-height:1.45; }
 
-    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 10px; }
+    .chips{ display:flex; flex-wrap:wrap; gap:6px; margin-top: 8px; }
     .chip{
-      font-size: 12px;
-      font-weight: 800;
-      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(15,23,42,0.10);
-      background: rgba(248,250,252,0.80);
-      color: rgba(2,6,23,0.78);
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      color: var(--text-muted);
     }
 
     .chev{
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
       display:grid;
       place-items:center;
-      border: 1px solid rgba(15,23,42,0.10);
-      background: rgba(248,250,252,0.85);
+      border: 1px solid var(--border);
+      background: #f8fafc;
       flex: 0 0 auto;
+      color: var(--text-muted);
+      font-size: 14px;
+      transition: transform 0.2s ease;
     }
     details[open] .chev{ transform: rotate(180deg); }
 
-    .domerBody{ padding: 0 14px 14px; }
+    .domerBody{ padding: 0 20px 20px; }
     .intentRow{display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0 12px;}
 
     .miniCard{
-      padding: 12px 12px 10px;
-      border-radius: 14px;
-      border: 1px solid rgba(15,23,42,0.08);
-      background: rgba(255,255,255,0.86);
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: #f8fafc;
     }
     .miniCard h4{
       margin:0 0 6px;
-      font-size: 12px;
-      letter-spacing: .02em;
+      font-size: 11px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(15,23,42,0.65);
+      color: var(--text-muted);
+      font-weight: 700;
     }
     .miniCard p{
       margin:0;
       font-size: 13px;
-      color: rgba(2,6,23,0.82);
+      color: var(--text-primary);
       line-height:1.45;
     }
 
     .datomsGrid{
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 12px;
+      gap: 10px;
     }
     @media (max-width: 860px) {
       .intentRow{ grid-template-columns: 1fr; }
@@ -292,250 +304,281 @@ header nav a {
       .zoomCtl input[type="range"]{ flex: 1 1 auto; width: auto; }
     }
 
+    /* Evidence card — dashboard accordion row style */
     .datomCard{
-      border-radius: 14px;
-      border: 1px solid rgba(15,23,42,0.10);
-      background: rgba(255,255,255,0.90);
-      padding: 12px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      padding: 14px;
+      transition: box-shadow 0.15s ease;
     }
-    /* Left accent indicates direction */
-    .datomCard.support{ box-shadow: inset 4px 0 0 rgba(220,38,38,0.60); }
-    .datomCard.contradict{ box-shadow: inset 4px 0 0 rgba(22,163,74,0.60); }
-    .datomCard.moderate{ box-shadow: inset 4px 0 0 rgba(37,99,235,0.60); }
-    .datomCard.scope{ box-shadow: inset 4px 0 0 rgba(15,23,42,0.35); }
-    .datomCard.mixed{ box-shadow: inset 4px 0 0 rgba(15,23,42,0.22); }
+    .datomCard:hover{
+      box-shadow: var(--shadow-hover);
+    }
+    /* Left accent stripe by relationship type */
+    .datomCard.support{ border-left: 3px solid var(--support); }
+    .datomCard.contradict{ border-left: 3px solid var(--contradict); }
+    .datomCard.moderate{ border-left: 3px solid var(--moderate); }
+    .datomCard.scope{ border-left: 3px solid var(--neutral); }
+    .datomCard.mixed{ border-left: 3px solid var(--neutral); }
 
-    .datomHead{display:flex; justify-content:space-between; gap:10px; align-items:flex-start;}
-    .datomId{ font-family: var(--mono); font-size: 12px; font-weight: 900; color: rgba(2,6,23,0.78); }
+    .datomHead{display:flex; justify-content:space-between; gap:8px; align-items:center;}
+    .datomId{
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: var(--text-muted);
+    }
 
+    /* Dashboard badge pills — colored text + dim bg */
     .badge{
       font-size: 11px;
-      font-weight: 900;
-      padding: 6px 10px;
+      font-weight: 600;
+      padding: 3px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(15,23,42,0.10);
-      background: rgba(248,250,252,0.90);
-      color: rgba(2,6,23,0.72);
+      border: none;
       white-space: nowrap;
     }
-    .badge.support{ border-color: rgba(220,38,38,0.25); background: rgba(220,38,38,0.08); color: rgba(153,27,27,0.95); }
-    .badge.contradict{ border-color: rgba(22,163,74,0.25); background: rgba(22,163,74,0.08); color: rgba(20,83,45,0.95); }
-    .badge.moderate{ border-color: rgba(37,99,235,0.25); background: rgba(37,99,235,0.08); color: rgba(30,58,138,0.95); }
-    .badge.scope{ border-color: rgba(15,23,42,0.18); background: rgba(15,23,42,0.05); color: rgba(15,23,42,0.78); }
-    .badge.mixed{ border-color: rgba(15,23,42,0.12); background: rgba(15,23,42,0.04); color: rgba(15,23,42,0.70); }
+    .badge.support{
+      background: rgba(13, 148, 136, 0.08);
+      color: #0d9488;
+    }
+    .badge.contradict{
+      background: rgba(239, 68, 68, 0.08);
+      color: #ef4444;
+    }
+    .badge.moderate{
+      background: rgba(59, 130, 246, 0.08);
+      color: #3b82f6;
+    }
+    .badge.scope{
+      background: rgba(107, 114, 128, 0.06);
+      color: #6b7280;
+    }
+    .badge.mixed{
+      background: rgba(107, 114, 128, 0.06);
+      color: #6b7280;
+    }
 
-    .datomClaim{ margin: 8px 0 10px; font-weight: 900; font-size: 14px; line-height:1.35; }
-    .kv{ display:grid; grid-template-columns: 130px 1fr; gap: 6px 10px; font-size: 12.5px; color: rgba(2,6,23,0.80); }
-    .k{ color: rgba(15,23,42,0.55); font-weight: 800; }
-    .v{ color: rgba(2,6,23,0.82); }
+    .datomClaim{ margin: 8px 0 10px; font-weight: 600; font-size: 13px; line-height:1.4; color: var(--text-primary); }
 
-    /* New guide sections */
-    .guideCard{ padding: 18px 18px 16px; }
-    .twoCol{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    /* 2-column metadata grid */
+    .kv{ display:grid; grid-template-columns: 110px 1fr; gap: 4px 10px; font-size: 12px; }
+    .k{ color: var(--text-muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .v{ color: var(--text-primary); line-height: 1.4; }
+
+    /* Guide sections */
+    .guideCard{ padding: 24px; }
+    .twoCol{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .threeCol{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
     @media (max-width: 860px) { .twoCol, .threeCol, .decisionGrid{ grid-template-columns: 1fr; } }
 
     .callout{
-      border-radius: 16px;
-      border: 1px solid rgba(15,23,42,0.10);
-      background: rgba(248,250,252,0.75);
-      padding: 14px 14px 12px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      padding: 16px;
     }
-    .callout h3{ margin-bottom: 6px; font-weight: 900; }
-    .callout p{ margin:0; color: rgba(15,23,42,0.74); line-height:1.55; font-size: 13.5px; }
+    .callout h3{ margin-bottom: 8px; font-weight: 700; font-size: 14px; }
+    .callout p{ margin:0; color: var(--text-muted); line-height:1.55; font-size: 13px; }
 
-    /* Score Card UI */
+    /* Score Card — dashboard confidence display */
     .scoreCard{
-        background: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%);
-        color: white; padding: 24px; display: flex; align-items: center; gap: 32px; border-radius: 18px; margin-top: 18px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 16px;
     }
-    .scoreCircle{
-        width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.2);
-        border: 4px solid rgba(255,255,255,0.4); display: grid; place-items: center;
-        font-family: var(--mono); font-size: 32px; font-weight: 900; flex-shrink: 0;
+    .scoreNumber{
+      font-family: var(--mono);
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1;
+      flex-shrink: 0;
     }
+    .scoreNumber.score-high{ color: var(--accent); }
+    .scoreNumber.score-mid{ color: #f59e0b; }
+    .scoreNumber.score-low{ color: #ef4444; }
+    .scoreBar{
+      width: 120px;
+      height: 6px;
+      border-radius: 3px;
+      background: #f1f5f9;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    .scoreBarFill{
+      height: 100%;
+      border-radius: 3px;
+    }
+    .scoreBarFill.score-high{ background: var(--accent); }
+    .scoreBarFill.score-mid{ background: #f59e0b; }
+    .scoreBarFill.score-low{ background: #ef4444; }
     .scoreDetails{ flex: 1; }
-    .scoreDetails h2{ color: white; margin: 0 0 8px; }
-    .scoreDetails p{ margin: 0; font-size: 14px; opacity: 0.9; line-height: 1.5; }
+    .scoreDetails h2{ color: var(--text-primary); margin: 0 0 6px; font-size: 16px; font-weight: 700; }
+    .scoreDetails p{ margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.55; }
 
-    .steps{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-top: 12px; }
+    .steps{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-top: 14px; }
     .step{
-      border-radius: 16px;
-      border: 1px solid rgba(15,23,42,0.10);
-      background: rgba(255,255,255,0.80);
-      padding: 12px 12px 10px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      padding: 14px;
     }
-    .stepNum{ font-family: var(--mono); font-weight: 900; font-size: 12px; color: rgba(2,6,23,0.78); margin-bottom: 6px; }
-    .stepTitle{ font-weight: 900; margin-bottom: 6px; letter-spacing: -0.01em; }
-    .stepBody{ margin:0; font-size: 13px; color: rgba(15,23,42,0.74); line-height: 1.5; }
+    .stepNum{
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .stepTitle{ font-weight: 700; font-size: 13px; margin-bottom: 4px; color: var(--text-primary); }
+    .stepBody{ margin:0; font-size: 12px; color: var(--text-muted); line-height: 1.5; }
 
-    .linkRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .linkRow{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 14px; }
 
     .anchorLink{
       display:inline-flex;
       align-items:center;
-      gap:8px;
+      gap:6px;
       text-decoration:none;
       color: #ffffff;
-      border: 1px solid rgba(6,182,212,0.65);
       background: var(--accent);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-weight: 1000;
-      box-shadow: 0 10px 22px rgba(6,182,212,0.28);
+      padding: 8px 14px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 13px;
+      border: none;
+      transition: background 0.15s ease;
     }
     .anchorLink:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 14px 26px rgba(6,182,212,0.32);
+      background: var(--accent-hover);
     }
 
     .decisionGrid{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
 
     .decisionCard{
-      border-radius: 16px;
-      border: 1px solid rgba(15,23,42,0.10);
-      background: rgba(255,255,255,0.86);
-      padding: 14px 14px 12px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      padding: 16px;
     }
-    .decisionCard h3{ margin-bottom: 8px; font-weight: 900; }
-    .bullets{ margin:0; padding-left: 18px; color: rgba(15,23,42,0.78); line-height: 1.55; font-size: 13.5px; }
+    .decisionCard h3{ margin-bottom: 8px; font-weight: 700; font-size: 14px; }
+    .bullets{ margin:0; padding-left: 18px; color: var(--text-muted); line-height: 1.55; font-size: 13px; }
     .bullets li{ margin: 6px 0; }
+    .bullets b{ color: var(--text-primary); }
 
- .faq-section details {
-  margin-bottom: 12px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  transition: all 0.2s ease;
-}
-
-.faq-section summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-weight: 600;
-  font-size: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  user-select: none;
-}
-
-.faq-section summary::-webkit-details-marker {
-  display: none;
-}
-
-.faq-section .faq-body {
-  padding: 0 16px 16px;
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(11, 15, 20, 0.75);
-}
-
-.faq-section .chev {
-  font-family: var(--mono);
-  font-weight: 900;
-  color: var(--accent);
-  transition: transform 0.2s ease;
-}
-
-.faq-section details[open] .chev {
-  transform: rotate(180deg);
-}
-
-.faq-section details:hover {
-  background: rgba(255, 255, 255, 0.6);
-}
-
-    /* ELMER */
-/* --- UPDATED COLLAPSIBLE ELMER UI --- */
-/* FORCE HIDE THE DOCK TO PREVENT LAYOUT SPILL */
-#elmerDock { display: none !important; }
-
-/*
-    .elmerDock { 
-      position: fixed; bottom: 24px; right: 24px; width: 360px; height: 580px; 
-      max-height: calc(100vh - 120px); z-index: 9999; border-radius: 22px; 
-      border: 1px solid rgba(15, 23, 42, 0.12); background: rgba(255, 255, 255, 0.96); 
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); overflow: hidden; display: flex; 
-      flex-direction: column; backdrop-filter: blur(12px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* FAQ — dashboard card/expand styling */
+    .faq-section details {
+      margin-bottom: 8px;
+      border-radius: var(--radius);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: box-shadow 0.2s ease;
     }
-    .elmerDock.minimized { height: 64px; width: 200px; cursor: pointer; }
-    .elmerHeader { padding: 12px 16px; border-bottom: 1px solid rgba(15, 23, 42, 0.08); background: rgba(248, 250, 252, 0.5); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-    .elmerMark { width: 40px; height: 40px; border-radius: 12px; overflow: hidden; border: 1px solid var(--accent); flex-shrink: 0; }
-    .collapseBtn { background: none; border: none; font-size: 20px; cursor: pointer; opacity: 0.5; transition: opacity 0.2s; padding: 4px 8px; }
-    .elmerBody { display: flex; flex-direction: column; flex-grow: 1; min-height: 0; overflow: hidden; }
-    .elmerLog { flex: 1 1 auto; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; }
-    .bubble { border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.08); background: #fff; padding: 12px; margin: 8px 0; font-size: 13px; line-height: 1.5; white-space: pre-wrap; width: fit-content; max-width: 90%; }
-    .bubble.user { background: rgba(6, 182, 212, 0.06); border-color: rgba(6, 182, 212, 0.15); align-self: flex-end; }
-    .bubble.assistant { align-self: flex-start; }
-    .elmerComposer { border-top: 1px solid rgba(15, 23, 42, 0.08); padding: 12px; display: flex; gap: 8px; flex-shrink: 0; background: #fff; }
-    .elmerComposer input { flex: 1; border-radius: 12px; border: 1px solid rgba(0, 0, 0, 0.08); padding: 10px 14px; outline: none; font-size: 13px; }
-    .elmerSend { background: var(--accent); color: #fff; border: none; padding: 10px 16px; border-radius: 12px; font-weight: 600; cursor: pointer; }
-    .elmerDock.minimized .elmerBody { display: none; }
-*/
+    .faq-section details:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .faq-section summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 12px 16px;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .faq-section summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-section .faq-body {
+      padding: 0 16px 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .faq-section .chev {
+      font-family: var(--mono);
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-section details[open] .chev {
+      transform: rotate(180deg);
+    }
+
+    .faq-section h2 {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
 
     @media (max-width: 979px) {
-      header { padding: 22px 26px; flex-direction: column; gap: 16px; }
-      body { padding-right: 0; }
-      /* HIDDEN IN MEDIA QUERY AS WELL */
-      .elmerDock { display: none !important; }
+      .steps{ grid-template-columns: 1fr 1fr; }
     }
 
     .pulse{
-      outline: 2px solid rgba(6,182,212,0.45);
-      box-shadow: 0 0 0 6px rgba(6,182,212,0.12);
-      border-radius: 14px;
+      outline: 2px solid rgba(13,148,136,0.35);
+      box-shadow: 0 0 0 6px rgba(13,148,136,0.08);
+      border-radius: var(--radius);
       transition: box-shadow .2s ease, outline .2s ease;
     }
 
-    html{ scroll-behavior: smooth; }
+    /* Confidence section bullets override */
+    .confidence-content p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .confidence-content .bullets {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
   </style>
 </head>
 
 <body>
 <header>
-    <a href="index.html">
-      <img src="./Assets/logo.png" style="width:120px;" alt="DATOM logo">
-    </a>
-
-    <nav>
-      <a href="product.html">Product</a>
-      <a href="example.html">Example</a>
-      <a href="research.html">Research</a>
-      <a href="vision.html">Vision</a>
-      <a href="try.html">Engage</a>
-    </nav>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="product.html">How It Works</a>
+    <a href="example.html">Live Example</a>
+    <a href="research.html">Research</a>
+    <a href="/app/login" class="btn-login">Log In</a>
+    <a href="try.html" class="btn-cta">Get Started</a>
+  </nav>
 </header>
 
-<aside class="elmerDock" id="elmerDock" aria-label="Elmer steward">
-  <div class="elmerHeader">
-    <div style="display:flex; gap:12px; align-items:center;">
-      <div class="elmerMark">
-        <img src="./Assets/ELMER.png" style="width: 100%; height: 100%; object-fit: cover;">
-      </div>
-      <div>
-        <p class="elmerName" style="font-weight:800; margin:0; font-size:14px;">Elmer</p>
-        <p class="elmerRole" style="margin:1px 0 0; font-size:11px; opacity:0.6;">Steward</p>
-      </div>
-    </div>
-    <button class="collapseBtn" id="toggleElmer">—</button>
-  </div>
-
-  <div class="elmerBody">
-    <div class="elmerLog" id="elmerLog" aria-live="polite"></div>
-    <div class="elmerComposer">
-      <input id="elmerInput" type="text" placeholder='Analyze evidence (e.g. "is B6 reliable?")' />
-      <button class="elmerSend" id="elmerSend">Send</button>
-    </div>
-  </div>
-</aside>
 
   <main class="page">
-    <section class="card hero" id="top">
-      <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:8px;">
-        <span class="pill" style="border-color:rgba(6,182,212,0.35);background:rgba(6,182,212,0.10);">
+    <section class="card hero reveal" id="top">
+      <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="pill" style="border-color:rgba(13,148,136,0.25);background:rgba(13,148,136,0.06);">
           <span class="dot"></span> CANONICAL PROOF OBJECT
         </span>
       </div>
@@ -543,18 +586,18 @@ header nav a {
       <h1>Example Datomer: Remote Work → Productivity</h1>
 
       <p class="sub">
-        This is a <b>scientific trust object</b> demonstrating how empirical claims are decomposed into atomic, inspectable units of evidence. 
+        This is a <b>scientific trust object</b> demonstrating how empirical claims are decomposed into atomic, inspectable units of evidence.
         DATOM preserves disagreement and makes the underlying structure of a claim auditable for enterprise-grade decision support.
       </p>
 
       <div class="pillRow" aria-label="summary statistics">
         <span class="pill"><span class="dot"></span>4 Mechanism Clusters</span>
-        <span class="pill"><span class="dot" style="background:var(--accent-2);box-shadow:0 0 0 3px rgba(14,165,233,0.20);"></span>32 Evidence Datoms</span>
+        <span class="pill"><span class="dot"></span>32 Evidence Datoms</span>
       </div>
     </section>
 
-    <section class="section card guideCard" id="guide">
-      <div class="sectionTitle">A Guided Walkthrough</div>
+    <section class="section card guideCard reveal" id="guide">
+      <div class="sectionTitle">Guided Walkthrough</div>
 
       <div class="twoCol">
         <div class="callout">
@@ -572,10 +615,10 @@ header nav a {
       </div>
 
       <div class="steps" aria-label="Step-by-step walkthrough">
-        <div class="step"><div class="stepNum">STEP 1</div><div class="stepTitle">Inspect Graph</div><p class="stepBody">Scan mechanisms across the cluster set.</p></div>
-        <div class="step"><div class="stepNum">STEP 2</div><div class="stepTitle">Audit Datoms</div><p class="stepBody">Read Datoms like audit cards: population and measure are explicit.</p></div>
-        <div class="step"><div class="stepNum">STEP 3</div><div class="stepTitle">Check Score</div><p class="stepBody">See the Quantified Confidence Score derived from structural stability.</p></div>
-        <div class="step"><div class="stepNum">STEP 4</div><div class="stepTitle">Decision Summary</div><p class="stepBody">Translate structural signals into risk-adjusted strategy.</p></div>
+        <div class="step"><div class="stepNum">Step 1</div><div class="stepTitle">Inspect Graph</div><p class="stepBody">Scan mechanisms across the cluster set.</p></div>
+        <div class="step"><div class="stepNum">Step 2</div><div class="stepTitle">Audit Datoms</div><p class="stepBody">Read Datoms like audit cards: population and measure are explicit.</p></div>
+        <div class="step"><div class="stepNum">Step 3</div><div class="stepTitle">Check Score</div><p class="stepBody">See the Quantified Confidence Score derived from structural stability.</p></div>
+        <div class="step"><div class="stepNum">Step 4</div><div class="stepTitle">Decision Summary</div><p class="stepBody">Translate structural signals into risk-adjusted strategy.</p></div>
       </div>
 
       <div class="linkRow">
@@ -587,156 +630,25 @@ header nav a {
       </div>
     </section>
 
-    <section class="section card figureCard" id="figure">
+    <section class="section card figureCard reveal" id="figure">
       <div class="sectionTitle">Knowledge Graph Structure</div>
 
       <div id="figureFrame" class="figureFrame" role="img" aria-label="Datomer Knowledge Graph">
+        <!-- Legend -->
+        <div style="display:flex;gap:16px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--border);font-size:11px;color:var(--text-muted);">
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#0d9488;"></span> Supports</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#ef4444;"></span> Contradicts</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;"></span> Conditional</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#6b7280;"></span> Mixed</span>
+          <span style="display:flex;align-items:center;gap:4px;"><svg width="20" height="8"><line x1="0" y1="4" x2="20" y2="4" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="6,3"/></svg> Tension</span>
+          <span style="display:flex;align-items:center;gap:4px;"><svg width="20" height="8"><line x1="0" y1="4" x2="20" y2="4" stroke="#94a3b8" stroke-width="0.8" stroke-dasharray="3,3"/></svg> Co-source</span>
+        </div>
         <div id="figureViewport" class="figureViewport">
-          <svg width="1600" height="1200" viewBox="0 0 1600 1200" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <filter id="softShadow_restored" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.10"></feDropShadow>
-              </filter>
-              <filter id="labelShadow_restored" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.10"></feDropShadow>
-              </filter>
-            </defs>
+          <svg id="graphSvg" viewBox="0 0 800 520" style="width:100%;height:auto;min-width:700px;cursor:grab;user-select:none;">
+            <!-- Populated by JS -->
 
-            <style>
-              .claimBox{ fill: #f8fafc; stroke:none; stroke-width: 1.6; filter: url(#softShadow_restored); }
-              .hex{ fill: rgba(6,182,212,0.035); stroke: rgba(6,182,212,0.52); stroke-width: 1.7; filter: url(#softShadow_restored); }
-              .datom_node{ fill: #ffffff; stroke: #475569; stroke-width: 1.25; filter: url(#softShadow_restored); }
-              .bondBase{ fill: none; stroke-linecap: round; stroke-width: 2.6; stroke-dasharray: 1.4 7; opacity: 0.95; }
-              .bondSupport{ stroke: #dc2626; }
-              .bondContradict{ stroke: #16a34a; }
-              .bondModerate{ stroke: #2563eb; }
-              .bondStruct{ stroke: #475569; opacity: 0.90; }
-              .labelPill{ fill:#ffffff; rx:10; ry:10; filter:url(#labelShadow_restored); }
-            </style>
 
-            <rect x="500" y="48" width="600" height="78" rx="16" ry="16" class="claimBox"></rect>
-            <text x="800" y="78" text-anchor="middle" font-weight="800" font-size="14" font-family="Inter, sans-serif">Datomer Knowledge Graph</text>
-            <text x="800" y="104" text-anchor="middle" font-size="12" font-family="Inter, sans-serif" fill="#334155">Claim: “Remote work reduces employee productivity”</text>
-
-            <polygon class="hex" points="800,190 1015,275 1015,445 800,530 585,445 585,275"></polygon>
-            <polygon class="hex" points="1180,470 1395,555 1395,725 1180,810 965,725 965,555"></polygon>
-            <polygon class="hex" points="800,750 1015,835 1015,1005 800,1090 585,1005 585,835"></polygon>
-            <polygon class="hex" points="420,470 635,555 635,725 420,810 205,725 205,555"></polygon>
-
-            <rect x="665" y="245" width="270" height="44" class="labelPill"></rect>
-            <text x="800" y="272" text-anchor="middle" font-weight="800" font-size="14" font-family="Inter, sans-serif">Datomer A</text>
-            <text x="800" y="288" text-anchor="middle" font-size="12" font-family="Inter, sans-serif" fill="#334155">Aggregate productivity metrics</text>
-
-            <rect x="1055" y="535" width="250" height="44" class="labelPill"></rect>
-            <text x="1180" y="562" text-anchor="middle" font-weight="800" font-size="14" font-family="Inter, sans-serif">Datomer B</text>
-            <text x="1180" y="578" text-anchor="middle" font-size="12" font-family="Inter, sans-serif" fill="#334155">Task-level performance</text>
-
-            <rect x="655" y="815" width="290" height="44" class="labelPill"></rect>
-            <text x="800" y="842" text-anchor="middle" font-weight="800" font-size="14" font-family="Inter, sans-serif">Datomer C</text>
-            <text x="800" y="858" text-anchor="middle" font-size="12" font-family="Inter, sans-serif" fill="#334155">Collaboration &amp; coordination</text>
-
-            <rect x="285" y="535" width="270" height="44" class="labelPill"></rect>
-            <text x="420" y="562" text-anchor="middle" font-weight="800" font-size="14" font-family="Inter, sans-serif">Datomer D</text>
-            <text x="420" y="578" text-anchor="middle" font-size="12" font-family="Inter, sans-serif" fill="#334155">Contextual &amp; moderating factors</text>
-
-            <g id="A_datoms">
-              <circle cx="720" cy="315" r="16" class="datom_node"></circle><text x="720" y="319.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">A1</text>
-              <circle cx="840" cy="315" r="16" class="datom_node"></circle><text x="840" y="319.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">A4</text>
-              <circle cx="680" cy="370" r="16" class="datom_node"></circle><text x="680" y="374.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">A2</text>
-              <circle cx="760" cy="395" r="16" class="datom_node"></circle><text x="760" y="399.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">A3</text>
-              <circle cx="840" cy="395" r="16" class="datom_node"></circle><text x="840" y="399.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">A6</text>
-              <circle cx="920" cy="370" r="16" class="datom_node"></circle><text x="920" y="374.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">A8</text>
-              <circle cx="710" cy="430" r="16" class="datom_node"></circle><text x="710" y="434.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">A5</text>
-              <circle cx="890" cy="430" r="16" class="datom_node"></circle><text x="890" y="434.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">A7</text>
-              <path d="M720 315 Q780 300 840 315" class="bondBase bondStruct"></path>
-              <path d="M720 315 Q700 340 680 370" class="bondBase bondStruct"></path>
-              <path d="M840 315 Q880 340 920 370" class="bondBase bondStruct"></path>
-              <path d="M760 395 Q800 380 840 395" class="bondBase bondStruct"></path>
-              <path d="M710 430 Q735 412 760 395" class="bondBase bondStruct"></path>
-              <path d="M890 430 Q865 412 840 395" class="bondBase bondStruct"></path>
-            </g>
-            <g id="B_datoms">
-              <circle cx="1100" cy="600" r="16" class="datom_node"></circle><text x="1100" y="604.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">B1</text>
-              <circle cx="1260" cy="600" r="16" class="datom_node"></circle><text x="1260" y="604.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">B8</text>
-              <circle cx="1060" cy="655" r="16" class="datom_node"></circle><text x="1060" y="659.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">B2</text>
-              <circle cx="1140" cy="695" r="16" class="datom_node"></circle><text x="1140" y="699.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">B3</text>
-              <circle cx="1220" cy="695" r="16" class="datom_node"></circle><text x="1220" y="699.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">B6</text>
-              <circle cx="1300" cy="655" r="16" class="datom_node"></circle><text x="1300" y="659.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">B5</text>
-              <circle cx="1120" cy="735" r="16" class="datom_node"></circle><text x="1120" y="739.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">B4</text>
-              <circle cx="1240" cy="735" r="16" class="datom_node"></circle><text x="1240" y="739.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">B7</text>
-              <path d="M1100 600 Q1180 585 1260 600" class="bondBase bondStruct"></path>
-              <path d="M1100 600 Q1080 627 1060 655" class="bondBase bondStruct"></path>
-              <path d="M1260 600 Q1280 627 1300 655" class="bondBase bondStruct"></path>
-              <path d="M1140 695 Q1180 680 1220 695" class="bondBase bondStruct"></path>
-              <path d="M1120 735 Q1130 715 1140 695" class="bondBase bondStruct"></path>
-              <path d="M1240 735 Q1230 715 1220 695" class="bondBase bondStruct"></path>
-            </g>
-            <g id="C_datoms">
-              <circle cx="720" cy="880" r="16" class="datom_node"></circle><text x="720" y="884.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">C1</text>
-              <circle cx="880" cy="880" r="16" class="datom_node"></circle><text x="880" y="884.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">C2</text>
-              <circle cx="680" cy="935" r="16" class="datom_node"></circle><text x="680" y="939.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">C3</text>
-              <circle cx="760" cy="975" r="16" class="datom_node"></circle><text x="760" y="979.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">C6</text>
-              <circle cx="840" cy="975" r="16" class="datom_node"></circle><text x="840" y="979.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">C7</text>
-              <circle cx="920" cy="935" r="16" class="datom_node"></circle><text x="920" y="939.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">C8</text>
-              <circle cx="700" cy="1010" r="16" class="datom_node"></circle><text x="700" y="1014.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">C4</text>
-              <circle cx="900" cy="1010" r="16" class="datom_node"></circle><text x="900" y="1014.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">C5</text>
-              <path d="M720 880 Q800 865 880 880" class="bondBase bondStruct"></path>
-              <path d="M720 880 Q700 907 680 935" class="bondBase bondStruct"></path>
-              <path d="M880 880 Q900 907 920 935" class="bondBase bondStruct"></path>
-              <path d="M760 975 Q800 960 840 975" class="bondBase bondStruct"></path>
-              <path d="M700 1010 Q730 993 760 975" class="bondBase bondStruct"></path>
-              <path d="M900 1010 Q870 993 840 975" class="bondBase bondStruct"></path>
-            </g>
-            <g id="D_datoms">
-              <circle cx="340" cy="600" r="16" class="datom_node"></circle><text x="340" y="604.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">D4</text>
-              <circle cx="500" cy="600" r="16" class="datom_node"></circle><text x="500" y="604.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">D7</text>
-              <circle cx="300" cy="655" r="16" class="datom_node"></circle><text x="300" y="659.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">D1</text>
-              <circle cx="380" cy="695" r="16" class="datom_node"></circle><text x="380" y="699.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">D2</text>
-              <circle cx="460" cy="695" r="16" class="datom_node"></circle><text x="460" y="699.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">D8</text>
-              <circle cx="540" cy="655" r="16" class="datom_node"></circle><text x="540" y="659.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">D3</text>
-              <circle cx="360" cy="735" r="16" class="datom_node"></circle><text x="360" y="739.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">D5</text>
-              <circle cx="480" cy="735" r="16" class="datom_node"></circle><text x="480" y="739.5" text-anchor="middle" font-family="monospace" font-size="11" font-weight="850">D6</text>
-              <path d="M340 600 Q420 585 500 600" class="bondBase bondStruct"></path>
-              <path d="M340 600 Q320 627 300 655" class="bondBase bondStruct"></path>
-              <path d="M500 600 Q520 627 540 655" class="bondBase bondStruct"></path>
-              <path d="M380 695 Q420 680 460 695" class="bondBase bondStruct"></path>
-              <path d="M360 735 Q370 715 380 695" class="bondBase bondStruct"></path>
-              <path d="M480 735 Q470 715 460 695" class="bondBase bondStruct"></path>
-            </g>
-
-            <g id="cross_links_restored">
-              <path d="M920 370 Q1060 470 1260 600" class="bondBase bondStruct"></path>
-              <path d="M840 395 Q1020 520 1220 695" class="bondBase bondStruct"></path>
-              <path d="M1140 695 Q1040 760 880 880" class="bondBase bondStruct"></path>
-              <path d="M1220 695 Q1060 780 720 880" class="bondBase bondStruct"></path>
-              <path d="M1300 655 Q1180 820 900 1010" class="bondBase bondContradict"></path>
-              <path d="M760 975 Q540 880 300 655" class="bondBase bondStruct"></path>
-              <path d="M840 975 Q720 820 540 655" class="bondBase bondStruct"></path>
-              <path d="M880 880 Q690 820 480 735" class="bondBase bondModerate"></path>
-              <path d="M500 600 Q820 540 1260 600" class="bondBase bondModerate"></path>
-              <path d="M360 735 Q820 810 1240 735" class="bondBase bondSupport"></path>
-              <path d="M500 600 Q610 440 720 315" class="bondBase bondContradict"></path>
-              <path d="M500 600 Q720 540 890 430" class="bondBase bondModerate"></path>
-            </g>
-
-            <g id="legend_restored">
-              <rect x="1128" y="860" width="420" height="300" class="legendOuter" fill="#ffffff" stroke="none" rx="14"></rect>
-              <rect x="1140" y="872" width="396" height="44" class="legendHeader" fill="#f8fafc" rx="12"></rect>
-              <text x="1338" y="900" text-anchor="middle" font-weight="900" font-size="12" font-family="Inter, sans-serif">Audit Legend</text>
-              <line x1="1140" y1="924" x2="1536" y2="924" stroke="#e2e8f0"></line>
-              <polygon points="1175,945 1215,961 1215,993 1175,1009 1135,993 1135,961" fill="rgba(6,182,212,0.035)" stroke="rgba(6,182,212,0.55)"></polygon>
-              <text x="1245" y="982" font-size="11" font-family="Inter, sans-serif" fill="#334155">Datomer (Mechanism Cluster)</text>
-              <circle cx="1175" cy="1034" r="10" fill="#ffffff" stroke="#475569"></circle>
-              <text x="1245" y="1038" font-size="11" font-family="Inter, sans-serif" fill="#334155">Datom (Atomic Evidence Unit)</text>
-              <line x1="1145" y1="1072" x2="1218" y2="1072" class="bondBase bondStruct"></line>
-              <text x="1245" y="1076" font-size="11" font-family="Inter, sans-serif" fill="#334155">Structural Linkage</text>
-              <line x1="1145" y1="1106" x2="1218" y2="1106" class="bondBase bondModerate"></line>
-              <text x="1245" y="1110" font-size="11" font-family="Inter, sans-serif" fill="#334155">Conditioning Relation</text>
-              <line x1="1145" y1="1140" x2="1218" y2="1140" class="bondBase bondSupport"></line>
-              <text x="1245" y="1144" font-size="11" font-family="Inter, sans-serif" fill="#334155">Supports claim direction</text>
-              <line x1="1145" y1="1174" x2="1218" y2="1174" class="bondBase bondContradict"></line>
-              <text x="1245" y="1178" font-size="11" font-family="Inter, sans-serif" fill="#334155">Contradicts claim direction</text>
-            </g>
+            <!-- Generated by JS buildGraph() -->
           </svg>
         </div>
       </div>
@@ -747,34 +659,34 @@ header nav a {
 
       <div class="toolbar">
         <div class="search">
-          <span style="font-family:var(--mono);font-weight:900;color:rgba(15,23,42,0.55);">⌕</span>
-          <input id="q" type="text" placeholder='Audit specific evidence (e.g., "call center", "2024")…'/>
+          <span style="font-family:var(--mono);font-weight:700;color:var(--text-muted);font-size:14px;">&#x2315;</span>
+          <input id="q" type="text" placeholder='Audit specific evidence (e.g., "call center", "2024")...'/>
         </div>
 
         <div class="zoomCtl" title="Zoom the knowledge graph">
           <label for="zoom">Zoom</label>
           <input id="zoom" type="range" min="60" max="180" step="5" value="100" />
           <div id="zoomPct" class="zoomPct">100%</div>
-          <button class="btn" id="zoomReset" type="button" style="padding:8px 10px;border-radius:10px;">Reset</button>
+          <button class="btn" id="zoomReset" type="button">Reset</button>
         </div>
 
-        <button class="btn btnPrimary" id="expandAll">Expand All Datomers</button>
+        <button class="btn btnPrimary" id="expandAll">Expand All</button>
         <button class="btn btnPrimary" id="collapseAll">Collapse All</button>
       </div>
     </section>
 
-    <section class="section" id="anchor">
+    <section class="section reveal" id="anchor">
       <details class="domer" id="anchorCard" open>
         <summary>
           <div>
             <div class="domerTitleRow"><div class="domerTitle">Anchor Datom — Claim Definition</div></div>
             <div class="domerMeta">Establishes the ground truth for directional labeling (Supports vs. Contradicts).</div>
             <div class="chips">
-              <span class="chip">Vector: ↓ Productivity</span>
+              <span class="chip">Vector: &#8595; Productivity</span>
               <span class="chip">Decision Grade: 70%</span>
             </div>
           </div>
-          <div class="chev" aria-hidden="true">⌄</div>
+          <div class="chev" aria-hidden="true">&#x2304;</div>
         </summary>
         <div class="domerBody">
           <div class="datomsGrid">
@@ -787,7 +699,7 @@ header nav a {
               <div class="kv">
                 <div class="k">Scope</div><div class="v">Permanent knowledge-work arrangements (Excluding crisis modes)</div>
                 <div class="k">Metric</div><div class="v">Throughput, manager-rated output, or objective performance KPIs</div>
-                <div class="k">Unit</div><div class="v">Decomposed by mechanism (Clusters A–D)</div>
+                <div class="k">Unit</div><div class="v">Decomposed by mechanism (Clusters A-D)</div>
               </div>
             </div>
           </div>
@@ -795,22 +707,25 @@ header nav a {
       </details>
     </section>
 
-    <section class="section">
+    <section class="section reveal" id="evidence">
       <div class="sectionTitle">Atomic Evidence Registry</div>
       <div class="grid" id="domerGrid"></div>
     </section>
 
-    <section class="section card guideCard" id="confidence-scoring">
+    <section class="section card guideCard reveal" id="confidence-scoring">
       <div class="sectionTitle">Confidence Scoring</div>
       <div class="scoreCard">
-          <div class="scoreCircle">64</div>
+          <div>
+            <div class="scoreNumber score-mid">64</div>
+            <div class="scoreBar"><div class="scoreBarFill score-mid" style="width:64%"></div></div>
+          </div>
           <div class="scoreDetails">
               <h2>Moderate / Conditional Confidence</h2>
               <p>Structural Stability: 64/100. Contradictory evidence (28% of data) reduces absolute confidence by narrowing the conditions under which the claim holds.</p>
           </div>
       </div>
-      <div style="margin-top: 20px;">
-          <p>Confidence in DATOM is not assigned by authority, citation count, or consensus language. It is derived from the structure of the evidence itself. This Datomer’s confidence reflects:</p>
+      <div class="confidence-content" style="margin-top: 20px;">
+          <p>Confidence in DATOM is not assigned by authority, citation count, or consensus language. It is derived from the structure of the evidence itself. This Datomer's confidence reflects:</p>
           <ul class="bullets">
             <li>The density of Datoms across multiple Datomers</li>
             <li>The presence of independent replications</li>
@@ -818,13 +733,13 @@ header nav a {
             <li>The inclusion of explicit, unresolved contradictions</li>
           </ul>
           <p>Contradictory evidence is not removed or discounted. Instead, it reduces confidence by narrowing the conditions under which the claim holds. For this claim, the resulting confidence is moderate and conditional: productivity gains appear consistently in discrete, individually scoped work, while coordination-heavy contexts show weaker or negative effects.</p>
-          <p>As new Datomers are added — whether supportive or contradictory — this confidence will update transparently and reversibly. DATOM does not decide what is true. It makes confidence inspectable, computable, and revisable.</p>
+          <p>As new Datomers are added -- whether supportive or contradictory -- this confidence will update transparently and reversibly. DATOM does not decide what is true. It makes confidence inspectable, computable, and revisable.</p>
       </div>
     </section>
 
-    <section class="section card guideCard" id="summary">
+    <section class="section card guideCard reveal" id="summary">
       <div class="sectionTitle">Decision Summary (from this evidence set)</div>
-      <div class="callout" style="background: rgba(14, 165, 233, 0.05); border-color: var(--accent-2);">
+      <div class="callout" style="background: rgba(13, 148, 136, 0.04); border-color: rgba(13, 148, 136, 0.15);">
         <h3>Operational Outcome</h3>
         <p>Remote work effects are strictly conditional: measurable individual tasks tend to improve, while coordination-heavy work requires specific management interventions to remain productive.</p>
       </div>
@@ -848,146 +763,130 @@ header nav a {
       </div>
     </section>
 
-  <section class="card section faq-section" id="faq">
+  <section class="card section faq-section reveal" id="faq">
   <h2>Frequently Asked Questions</h2>
   <div class="grid-2">
     <div class="faq-column">
       <details>
-        <summary>What is DATOM, in one sentence? <span class="chev">⌄</span></summary>
+        <summary>What is DATOM, in one sentence? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">DATOM is an infrastructure for representing scientific evidence as atomic, inspectable units, so confidence in empirical claims can be computed, audited, and updated transparently.</div>
       </details>
       <details>
-        <summary>What am I looking at on this page? <span class="chev">⌄</span></summary>
+        <summary>What am I looking at on this page? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">You are looking at an Example Datomer: a single empirical claim decomposed into its underlying evidence, structured as atomic units called Datoms, and organized so agreement, contradiction, and uncertainty are explicit.</div>
       </details>
       <details>
-        <summary>Is this a summary of the literature? <span class="chev">⌄</span></summary>
+        <summary>Is this a summary of the literature? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">No. DATOM does not summarize, paraphrase, or average research. It preserves evidence at the atomic level so conclusions can be inspected rather than inferred from narrative.</div>
       </details>
       <details>
-        <summary>Is this an AI opinion or model output? <span class="chev">⌄</span></summary>
+        <summary>Is this an AI opinion or model output? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">No. DATOM does not generate opinions or conclusions. AI can assist with extraction or navigation, but the evidence objects themselves are explicit, referenceable, and auditable.</div>
       </details>
       <details>
-        <summary>What is a Datom? <span class="chev">⌄</span></summary>
-        <div class="faq-body">A Datom is an atomic unit of evidence — for example, a specific measurement, method, dataset, assumption, constraint, or replication condition. Datoms cannot be merged or simplified without losing meaning.</div>
+        <summary>What is a Datom? <span class="chev">&#x2304;</span></summary>
+        <div class="faq-body">A Datom is an atomic unit of evidence -- for example, a specific measurement, method, dataset, assumption, constraint, or replication condition. Datoms cannot be merged or simplified without losing meaning.</div>
       </details>
       <details>
-        <summary>What is a Datomer? <span class="chev">⌄</span></summary>
+        <summary>What is a Datomer? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">A Datomer is a structured evidence object composed of Datoms that together answer a specific empirical question. Datomers are built from inspectable components, not summaries.</div>
       </details>
       <details>
-        <summary>How is this different from a meta-analysis? <span class="chev">⌄</span></summary>
+        <summary>How is this different from a meta-analysis? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Meta-analyses aggregate results. DATOM preserves structure, provenance, and disagreement. Each contribution remains visible and comparable.</div>
       </details>
       <details>
-        <summary>How is this different from a knowledge graph? <span class="chev">⌄</span></summary>
+        <summary>How is this different from a knowledge graph? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Knowledge graphs encode relationships. DATOM encodes epistemic structure, supporting confidence calculation rather than just linkage.</div>
       </details>
       <details>
-        <summary>How is confidence determined? <span class="chev">⌄</span></summary>
+        <summary>How is confidence determined? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Confidence is derived from evidence structure (density, replication, agreement, and contradictions) rather than authority. It updates as evidence changes.</div>
       </details>
       <details>
-        <summary>Why are contradictions included? <span class="chev">⌄</span></summary>
+        <summary>Why are contradictions included? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Contradictions are information. They reduce confidence and narrow applicability without erasing supporting evidence or forcing false consensus.</div>
       </details>
       <details>
-        <summary>Does DATOM decide what is true? <span class="chev">⌄</span></summary>
+        <summary>Does DATOM decide what is true? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">No. DATOM makes confidence inspectable and computable, but decisions remain with the user.</div>
       </details>
       <details>
-        <summary>Why no final verdict? <span class="chev">⌄</span></summary>
+        <summary>Why no final verdict? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Verdicts without inspectable structure are untrustworthy. DATOM shows how a conclusion is justified or challenged.</div>
       </details>
     </div>
 
     <div class="faq-column">
       <details>
-        <summary>Is this specific to remote work? <span class="chev">⌄</span></summary>
+        <summary>Is this specific to remote work? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">No. The structure generalizes to any empirical domain: biotech, climate science, medicine, economics, and more.</div>
       </details>
       <details>
-        <summary>How would this scale? <span class="chev">⌄</span></summary>
+        <summary>How would this scale? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">The structure applies across thousands of claims and millions of Datoms. It is reusable infrastructure.</div>
       </details>
       <details>
-        <summary>Different from research databases? <span class="chev">⌄</span></summary>
+        <summary>Different from research databases? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Databases store documents. DATOM stores evidence structure: what was measured, how, and under what conditions.</div>
       </details>
       <details>
-        <summary>Who is this for? <span class="chev">⌄</span></summary>
+        <summary>Who is this for? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Investors performing diligence, enterprises making high-stakes decisions, researchers, and AI systems needing auditable inputs.</div>
       </details>
       <details>
-        <summary>Is this replacing peer review? <span class="chev">⌄</span></summary>
+        <summary>Is this replacing peer review? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">No. It complements peer review by making underlying evidence explicit and reusable.</div>
       </details>
       <details>
-        <summary>Work with proprietary data? <span class="chev">⌄</span></summary>
+        <summary>Work with proprietary data? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Yes. DATOM supports private Datomers and internal confidence scoring while maintaining structural logic.</div>
       </details>
       <details>
-        <summary>How are new studies handled? <span class="chev">⌄</span></summary>
+        <summary>How are new studies handled? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">New evidence is added as new Datoms. Confidence updates transparently as the graph evolves.</div>
       </details>
       <details>
-        <summary>What prevents misuse? <span class="chev">⌄</span></summary>
+        <summary>What prevents misuse? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">DATOM makes cherry-picking visible. Omitting data reduces credibility because the structure is inspectable.</div>
       </details>
       <details>
-        <summary>Database, product, or standard? <span class="chev">⌄</span></summary>
+        <summary>Database, product, or standard? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Infrastructure: a data model, a confidence framework, and a trust primitive.</div>
       </details>
       <details>
-        <summary>What does adoption look like? <span class="chev">⌄</span></summary>
+        <summary>What does adoption look like? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Starting with high-value claims or diligence workflows and expanding as evidence accumulates.</div>
       </details>
       <details>
-        <summary>Why hasn’t this existed? <span class="chev">⌄</span></summary>
+        <summary>Why hasn't this existed? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Scientific communication previously optimized for publication, not computation. DATOM treats evidence as a first-class object.</div>
       </details>
       <details>
-        <summary>Long-term implication? <span class="chev">⌄</span></summary>
+        <summary>Long-term implication? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Trust becomes auditable, disagreement becomes usable, and scientific reasoning becomes composable.</div>
       </details>
     </div>
   </div>
 </section>
 
-    <div class="footerNote">© DATOM — Scientific Trust Infrastructure. Proof Object v1.02.</div>
   </main>
 
-<script type="importmap">
-  { "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" } }
-</script>
+  <footer>&copy; 2026 DATOM — Scientific Trust Infrastructure.</footer>
 
-  <script type="module">
-    import { GoogleGenerativeAI } from "@google/generative-ai";
+  <script src="shared.js"></script>
+  <script src="particles.js"></script>
+  <script>
 
-    const API_KEY = "AIzaSyAJOYuM4yInfB5sxS4HOuR7l18CKBFOZB0"; // INSERT KEY HERE
 
-const dock = document.getElementById("elmerDock");
-  const toggleBtn = document.getElementById("toggleElmer");
-
-  function toggleElmer() {
-    const isMinimized = dock.classList.toggle("minimized");
-    toggleBtn.textContent = isMinimized ? "+" : "—";
-  }
-
-  // Handle toggle button click
-  if (toggleBtn) toggleBtn.addEventListener("click", (e) => { e.stopPropagation(); toggleElmer(); });
-  
-  // Re-open if the dock is clicked while minimized
-  if (dock) dock.addEventListener("click", () => { if (dock.classList.contains("minimized")) toggleElmer(); });
-
-    const DATOMERS = [{"id": "A", "name": "Aggregate productivity metrics", "tagline": "Firm-level macro signals.", "anchor": "Does remote work reduce measured output at the aggregate level?", "datoms": [{"id": "A1", "claim": "Firm-level output unchanged after remote transition in several knowledge-work teams.", "source": "COVID Economics Issue 74 (Working from Home and Productivity)", "year": "2021", "population": "Knowledge workers (multiple firms / surveys & admin data)", "setting": "Hybrid/remote adoption during COVID", "measure": "Output / productivity indices (varies by study)", "direction": "Mixed / often ~ no change", "method": "Review / synthesis of empirical studies", "confounds": "Pandemic shocks; selection into WFH; industry mix", "notes": "Many studies separate short-run COVID disruption from steady-state remote work effects."}, {"id": "A2", "claim": "Call-center performance improved under remote work (handling time / throughput).", "source": "Onsite versus remote working: Medical call center", "year": "2021", "population": "Medical call-center staff", "setting": "Remote vs onsite shifts", "measure": "Performance KPIs (calls handled, resolution time, ratings)", "direction": "Contradicts claim (productivity ↑)", "method": "Observational comparison (within org)", "confounds": "Task standardization; monitoring; selection effects", "notes": "Call-center tasks are measurable and individually scoped; may not generalize to R&D teams."}, {"id": "A3", "claim": "Self-reported productivity often increases with remote work when autonomy is high.", "source": "AUB 2024-02 paper (remote work outcomes)", "year": "2024", "population": "Employees surveyed (sector mixed)", "setting": "Remote/hybrid arrangements", "measure": "Self-report productivity scales", "direction": "Contradicts claim (productivity ↑)", "method": "Survey + regression", "confounds": "Common-method bias; survivorship; role heterogeneity", "notes": "Use with caution: self-report ≠ output."}, {"id": "A4", "claim": "Performance ratings show small decline for some roles during fully-remote periods.", "source": "Large edited volume: Remote Work / Productivity chapters", "year": "2024", "population": "Managers evaluating employees (varies)", "setting": "Fully remote periods", "measure": "Manager ratings / appraisal outcomes", "direction": "Supports claim (productivity ↓)", "method": "Secondary analysis summarized in chapter", "confounds": "Manager visibility bias; changing evaluation criteria", "notes": "Ratings may reflect visibility/availability rather than output."}, {"id": "A5", "claim": "Hours worked increased but efficiency per hour may fall due to interruptions.", "source": "Work stress / teamwork during COVID (WFH)", "year": "2020", "population": "Remote workers during COVID", "setting": "Forced remote, home constraints", "measure": "Hours, perceived efficiency", "direction": "Supports claim (efficiency ↓)", "method": "Survey", "confounds": "Childcare; stress; crisis conditions", "notes": "This is crisis-remote, not designed remote."}, {"id": "A6", "claim": "Productivity dispersion increases: some workers improve, others decline.", "source": "Social isolation & remote work (whitepaper)", "year": "2020", "population": "Remote employees (general)", "setting": "Remote/hybrid", "measure": "Self-report + qualitative outcomes", "direction": "Mixed (variance ↑)", "method": "Conceptual + cited evidence", "confounds": "Role differences; home setup; personality", "notes": "Investor-relevant: remote shifts distribution, not just mean."}, {"id": "A7", "claim": "Team output can remain stable while coordination costs rise (hidden cost).", "source": "COVID Economics + coordination literature", "year": "2021", "population": "Teams", "setting": "Remote", "measure": "Deliverables vs time-to-deliver", "direction": "Mixed", "method": "Synthesis", "confounds": "Project selection; tooling maturity", "notes": "Important: ‘output unchanged’ can coexist with higher cost."}, {"id": "A8", "claim": "Remote work can reduce measurable output in roles requiring high interdependence.", "source": "Article Text 4244 (2024)", "year": "2024", "population": "Interdependent teams (varies)", "setting": "Remote/hybrid", "measure": "Output metrics / project velocity", "direction": "Supports claim (productivity ↓)", "method": "Empirical study (reported)", "confounds": "Measurement definitions; turnover; policy timing", "notes": "Effect tends to be conditional on task interdependence."}]}, {"id": "B", "name": "Task-level performance", "tagline": "Individual / task-scoped performance (micro signals).", "anchor": "Does remote work change efficiency on discrete tasks (deep work, tickets, cases)?", "datoms": [{"id": "B1", "claim": "Deep-focus tasks improve due to fewer office interruptions.", "source": "Remote work edited volume chapter", "year": "2024", "population": "Knowledge workers", "setting": "Home / remote", "measure": "Time-to-complete deep work", "direction": "Contradicts claim (productivity ↑)", "method": "Synthesis + survey evidence", "confounds": "Home distractions vary widely", "notes": "Mechanism: fewer ambient interruptions, more control over environment."}, {"id": "B2", "claim": "Routine individual tasks show minimal change under remote conditions.", "source": "COVID Economics Issue 74", "year": "2021", "population": "Mixed roles", "setting": "Remote/hybrid", "measure": "Task completion metrics", "direction": "Mixed / no change", "method": "Review", "confounds": "Measurement varies across organizations", "notes": "Use as baseline: remote effects are task-specific."}, {"id": "B3", "claim": "Multitasking and context switching increase at home for caregivers.", "source": "Work stress / teamwork during COVID", "year": "2020", "population": "Employees with caregiving duties", "setting": "Home during COVID", "measure": "Self-reported interruptions", "direction": "Supports claim (productivity ↓)", "method": "Survey", "confounds": "COVID-specific childcare constraints", "notes": "Highlights moderating factor rather than general remote effect."}, {"id": "B4", "claim": "For tasks requiring rapid feedback loops, remote can slow iteration.", "source": "Onsite vs remote medical call center (discussion)", "year": "2021", "population": "Operational teams", "setting": "Remote", "measure": "Escalation / feedback cycle time", "direction": "Supports claim (productivity ↓)", "method": "Observational + qualitative", "confounds": "Tooling maturity; supervisor availability", "notes": "The ‘iteration latency’ mechanism generalizes to engineering / design."}, {"id": "B5", "claim": "Asynchronous communication enables longer uninterrupted work blocks.", "source": "AUB 2024-02 paper", "year": "2024", "population": "Remote/hybrid employees", "setting": "Remote", "measure": "Reported workflow quality", "direction": "Contradicts claim (productivity ↑)", "method": "Survey", "confounds": "Self-selection into remote-friendly roles", "notes": "Mechanism is organizational norms, not location per se."}, {"id": "B6", "claim": "Task throughput improves when work is easily measurable and monitored.", "source": "Medical call center study", "year": "2021", "population": "Call-center agents", "setting": "Remote vs onsite", "measure": "Tickets/calls per hour", "direction": "Contradicts claim (productivity ↑)", "method": "Org KPI analysis", "confounds": "Incentives; queueing effects", "notes": "‘Measurable work’ is a key conditioning variable."}, {"id": "B7", "claim": "Skill development and informal learning slow without co-location.", "source": "Remote work edited volume", "year": "2024", "population": "Early-career employees", "setting": "Remote", "measure": "Learning rate / mentoring access", "direction": "Supports claim (future productivity ↓)", "method": "Qualitative + survey synthesis", "confounds": "Mentorship programs vary", "notes": "This is a lagging effect: shows up later."}, {"id": "B8", "claim": "Task errors can increase when coordination cues are missing.", "source": "Article Text 4244 (2024)", "year": "2024", "population": "Teams with handoffs", "setting": "Remote", "measure": "Rework / defect rates", "direction": "Supports claim (productivity ↓)", "method": "Empirical (reported)", "confounds": "Process changes; documentation quality", "notes": "Rework is productivity loss even if output appears stable."}]}, {"id": "C", "name": "Collaboration & coordination", "tagline": "Team processes: communication, handoffs, creativity, and integration work.", "anchor": "Does remote work increase coordination costs that reduce effective productivity?", "datoms": [{"id": "C1", "claim": "Communication latency increases and slows handoffs.", "source": "Remote work edited volume / coordination chapter", "year": "2024", "population": "Interdependent teams", "setting": "Remote", "measure": "Response time / handoff delay", "direction": "Supports claim (productivity ↓)", "method": "Synthesis", "confounds": "Tool choice; async norms", "notes": "Mechanism: fewer ‘ambient’ pings, more scheduled communication."}, {"id": "C2", "claim": "Meeting load increases to compensate for lost informal coordination.", "source": "COVID work stress & teamwork paper", "year": "2020", "population": "Remote teams", "setting": "COVID remote", "measure": "Meeting hours/week", "direction": "Supports claim (productivity ↓)", "method": "Survey", "confounds": "Crisis management meetings", "notes": "Even post-COVID, some orgs keep the meeting-heavy norm."}, {"id": "C3", "claim": "Weak ties degrade; cross-team knowledge flow slows.", "source": "Social isolation & remote work", "year": "2020", "population": "Knowledge workers", "setting": "Remote/hybrid", "measure": "Network connectivity indicators (qualitative)", "direction": "Supports claim (innovation/productivity ↓)", "method": "Conceptual + cited studies", "confounds": "Company size; onboarding practices", "notes": "Investor angle: impacts discovery and innovation throughput."}, {"id": "C4", "claim": "For small, stable teams with strong documentation, coordination costs can drop.", "source": "COVID Economics Issue 74", "year": "2021", "population": "Stable teams", "setting": "Remote", "measure": "Cycle time / coordination overhead", "direction": "Contradicts claim (productivity ↑)", "method": "Review (reported cases)", "confounds": "Selection of mature teams", "notes": "Mechanism: written-first processes + async clarity."}, {"id": "C5", "claim": "Creativity and complex problem solving can suffer without rich co-presence.", "source": "Edited volume chapter on creativity", "year": "2024", "population": "R&D / creative teams", "setting": "Remote", "measure": "Ideation quality / novelty (reported)", "direction": "Supports claim (productivity ↓)", "method": "Synthesis", "confounds": "Tooling; facilitation quality", "notes": "Not all collaboration is equal; ‘brainstorm’ vs ‘execute’."}, {"id": "C6", "claim": "Cross-functional coordination is the main failure mode for remote scale-ups.", "source": "Article Text 4244 (2024)", "year": "2024", "population": "Multi-team orgs", "setting": "Remote/hybrid", "measure": "Project slippage / dependencies", "direction": "Supports claim (productivity ↓)", "method": "Empirical (reported)", "confounds": "Re-orgs; hiring surges", "notes": "This links directly to Datomer D (context + policy)."}, {"id": "C7", "claim": "Structured async tools (ticketing, docs) partially substitute for hallway talk.", "source": "AUB 2024-02 paper", "year": "2024", "population": "Remote employees", "setting": "Remote/hybrid", "measure": "Coordination quality (survey)", "direction": "Mixed", "method": "Survey", "confounds": "Tool adoption vs culture", "notes": "Suggests interventions: documentation standards, decision logs."}, {"id": "C8", "claim": "Hybrid schedules can create ‘coordination tax’ when overlap windows are small.", "source": "Edited volume hybrid work chapter", "year": "2024", "population": "Hybrid teams", "setting": "Hybrid (partial overlap)", "measure": "Scheduling friction / delays", "direction": "Supports claim (productivity ↓)", "method": "Synthesis", "confounds": "Time zones; policy design", "notes": "This is a policy-design lever: define core hours."}]}, {"id": "D", "name": "Contextual & moderating factors", "tagline": "Conditions that explain *when* remote work helps vs hurts.", "anchor": "Which conditions shift remote work effects (role, autonomy, home setup, norms)?", "datoms": [{"id": "D1", "claim": "Autonomy and control over schedule are associated with higher productivity under remote work.", "source": "AUB 2024-02 paper", "year": "2024", "population": "Remote/hybrid employees", "setting": "Remote", "measure": "Self-report productivity", "direction": "Contradicts claim (productivity ↑)", "method": "Survey + modeling", "confounds": "Self-selection into remote roles", "notes": "Autonomy is a moderating variable; not all roles have it."}, {"id": "D2", "claim": "Social isolation increases burnout risk and can reduce sustained performance.", "source": "Social isolation & remote work", "year": "2020", "population": "Remote employees", "setting": "Remote", "measure": "Isolation, burnout indicators", "direction": "Supports claim (productivity ↓ over time)", "method": "Conceptual + cited evidence", "confounds": "Individual differences; support systems", "notes": "Time horizon matters: short-run vs long-run."}, {"id": "D3", "claim": "Role interdependence moderates outcomes: high-interdependence roles suffer more.", "source": "Article Text 4244 (2024)", "year": "2024", "population": "Interdependent teams", "setting": "Remote/hybrid", "measure": "Velocity / delays", "direction": "Supports claim (productivity ↓)", "method": "Empirical (reported)", "confounds": "Process maturity", "notes": "This links Datomer D → Datomer C directly."}, {"id": "D4", "claim": "Home environment quality (space, noise, equipment) predicts productivity.", "source": "COVID work stress & teamwork paper", "year": "2020", "population": "Remote workers", "setting": "Home during COVID", "measure": "Workspace quality; productivity", "direction": "Mixed (moderates)", "method": "Survey", "confounds": "Socioeconomic differences", "notes": "Policy lever: stipend, equipment, coworking budget."}, {"id": "D5", "claim": "Manager practices (goal clarity, feedback cadence) determine whether remote succeeds.", "source": "Edited volume / management chapter", "year": "2024", "population": "Managers + teams", "setting": "Remote/hybrid", "measure": "Goal clarity, performance outcomes", "direction": "Mixed (moderates)", "method": "Synthesis", "confounds": "Org culture; incentive alignment", "notes": "Remote work is a management system, not a location."}, {"id": "D6", "claim": "Pandemic-era remote work is a confounded treatment; estimates should not be generalized blindly.", "source": "COVID Economics Issue 74", "year": "2021", "population": "COVID-period workers", "setting": "Crisis remote", "measure": "All outcomes", "direction": "Mixed", "method": "Meta/Review", "confounds": "Health risk; school closures; demand shocks", "notes": "DATOM: separate ‘remote work’ from ‘remote during crisis’ datoms."}, {"id": "D7", "claim": "Hybrid can outperform fully-remote when it preserves co-presence for high-bandwidth coordination.", "source": "Edited volume hybrid chapter", "year": "2024", "population": "Hybrid teams", "setting": "Hybrid", "measure": "Coordination + output", "direction": "Contradicts claim (productivity ↑ vs fully remote)", "method": "Synthesis", "confounds": "Policy design; commute cost", "notes": "Intervention: anchor days for collaboration; remote days for deep work."}, {"id": "D8", "claim": "Individual preferences and personality influence productivity response to remote work.", "source": "Social isolation & remote work", "year": "2020", "population": "Employees", "setting": "Remote/hybrid", "measure": "Personality, satisfaction, productivity", "direction": "Mixed (moderates)", "method": "Conceptual + cited studies", "confounds": "Measurement; cultural context", "notes": "Supports decision: allow opt-in/opt-out by role/person fit."}]}];
+    const DATOMERS = [{"id": "A", "name": "Aggregate productivity metrics", "tagline": "Firm-level macro signals.", "anchor": "Does remote work reduce measured output at the aggregate level?", "datoms": [{"id": "A1", "claim": "Firm-level output unchanged after remote transition in several knowledge-work teams.", "source": "COVID Economics Issue 74 (Working from Home and Productivity)", "year": "2021", "population": "Knowledge workers (multiple firms / surveys & admin data)", "setting": "Hybrid/remote adoption during COVID", "measure": "Output / productivity indices (varies by study)", "direction": "Mixed / often ~ no change", "method": "Review / synthesis of empirical studies", "confounds": "Pandemic shocks; selection into WFH; industry mix", "notes": "Many studies separate short-run COVID disruption from steady-state remote work effects."}, {"id": "A2", "claim": "Call-center performance improved under remote work (handling time / throughput).", "source": "Onsite versus remote working: Medical call center", "year": "2021", "population": "Medical call-center staff", "setting": "Remote vs onsite shifts", "measure": "Performance KPIs (calls handled, resolution time, ratings)", "direction": "Contradicts claim (productivity \u2191)", "method": "Observational comparison (within org)", "confounds": "Task standardization; monitoring; selection effects", "notes": "Call-center tasks are measurable and individually scoped; may not generalize to R&D teams."}, {"id": "A3", "claim": "Self-reported productivity often increases with remote work when autonomy is high.", "source": "AUB 2024-02 paper (remote work outcomes)", "year": "2024", "population": "Employees surveyed (sector mixed)", "setting": "Remote/hybrid arrangements", "measure": "Self-report productivity scales", "direction": "Contradicts claim (productivity \u2191)", "method": "Survey + regression", "confounds": "Common-method bias; survivorship; role heterogeneity", "notes": "Use with caution: self-report \u2260 output."}, {"id": "A4", "claim": "Performance ratings show small decline for some roles during fully-remote periods.", "source": "Large edited volume: Remote Work / Productivity chapters", "year": "2024", "population": "Managers evaluating employees (varies)", "setting": "Fully remote periods", "measure": "Manager ratings / appraisal outcomes", "direction": "Supports claim (productivity \u2193)", "method": "Secondary analysis summarized in chapter", "confounds": "Manager visibility bias; changing evaluation criteria", "notes": "Ratings may reflect visibility/availability rather than output."}, {"id": "A5", "claim": "Hours worked increased but efficiency per hour may fall due to interruptions.", "source": "Work stress / teamwork during COVID (WFH)", "year": "2020", "population": "Remote workers during COVID", "setting": "Forced remote, home constraints", "measure": "Hours, perceived efficiency", "direction": "Supports claim (efficiency \u2193)", "method": "Survey", "confounds": "Childcare; stress; crisis conditions", "notes": "This is crisis-remote, not designed remote."}, {"id": "A6", "claim": "Productivity dispersion increases: some workers improve, others decline.", "source": "Social isolation & remote work (whitepaper)", "year": "2020", "population": "Remote employees (general)", "setting": "Remote/hybrid", "measure": "Self-report + qualitative outcomes", "direction": "Mixed (variance \u2191)", "method": "Conceptual + cited evidence", "confounds": "Role differences; home setup; personality", "notes": "Investor-relevant: remote shifts distribution, not just mean."}, {"id": "A7", "claim": "Team output can remain stable while coordination costs rise (hidden cost).", "source": "COVID Economics + coordination literature", "year": "2021", "population": "Teams", "setting": "Remote", "measure": "Deliverables vs time-to-deliver", "direction": "Mixed", "method": "Synthesis", "confounds": "Project selection; tooling maturity", "notes": "Important: 'output unchanged' can coexist with higher cost."}, {"id": "A8", "claim": "Remote work can reduce measurable output in roles requiring high interdependence.", "source": "Article Text 4244 (2024)", "year": "2024", "population": "Interdependent teams (varies)", "setting": "Remote/hybrid", "measure": "Output metrics / project velocity", "direction": "Supports claim (productivity \u2193)", "method": "Empirical study (reported)", "confounds": "Measurement definitions; turnover; policy timing", "notes": "Effect tends to be conditional on task interdependence."}]}, {"id": "B", "name": "Task-level performance", "tagline": "Individual / task-scoped performance (micro signals).", "anchor": "Does remote work change efficiency on discrete tasks (deep work, tickets, cases)?", "datoms": [{"id": "B1", "claim": "Deep-focus tasks improve due to fewer office interruptions.", "source": "Remote work edited volume chapter", "year": "2024", "population": "Knowledge workers", "setting": "Home / remote", "measure": "Time-to-complete deep work", "direction": "Contradicts claim (productivity \u2191)", "method": "Synthesis + survey evidence", "confounds": "Home distractions vary widely", "notes": "Mechanism: fewer ambient interruptions, more control over environment."}, {"id": "B2", "claim": "Routine individual tasks show minimal change under remote conditions.", "source": "COVID Economics Issue 74", "year": "2021", "population": "Mixed roles", "setting": "Remote/hybrid", "measure": "Task completion metrics", "direction": "Mixed / no change", "method": "Review", "confounds": "Measurement varies across organizations", "notes": "Use as baseline: remote effects are task-specific."}, {"id": "B3", "claim": "Multitasking and context switching increase at home for caregivers.", "source": "Work stress / teamwork during COVID", "year": "2020", "population": "Employees with caregiving duties", "setting": "Home during COVID", "measure": "Self-reported interruptions", "direction": "Supports claim (productivity \u2193)", "method": "Survey", "confounds": "COVID-specific childcare constraints", "notes": "Highlights moderating factor rather than general remote effect."}, {"id": "B4", "claim": "For tasks requiring rapid feedback loops, remote can slow iteration.", "source": "Onsite vs remote medical call center (discussion)", "year": "2021", "population": "Operational teams", "setting": "Remote", "measure": "Escalation / feedback cycle time", "direction": "Supports claim (productivity \u2193)", "method": "Observational + qualitative", "confounds": "Tooling maturity; supervisor availability", "notes": "The 'iteration latency' mechanism generalizes to engineering / design."}, {"id": "B5", "claim": "Asynchronous communication enables longer uninterrupted work blocks.", "source": "AUB 2024-02 paper", "year": "2024", "population": "Remote/hybrid employees", "setting": "Remote", "measure": "Reported workflow quality", "direction": "Contradicts claim (productivity \u2191)", "method": "Survey", "confounds": "Self-selection into remote-friendly roles", "notes": "Mechanism is organizational norms, not location per se."}, {"id": "B6", "claim": "Task throughput improves when work is easily measurable and monitored.", "source": "Medical call center study", "year": "2021", "population": "Call-center agents", "setting": "Remote vs onsite", "measure": "Tickets/calls per hour", "direction": "Contradicts claim (productivity \u2191)", "method": "Org KPI analysis", "confounds": "Incentives; queueing effects", "notes": "'Measurable work' is a key conditioning variable."}, {"id": "B7", "claim": "Skill development and informal learning slow without co-location.", "source": "Remote work edited volume", "year": "2024", "population": "Early-career employees", "setting": "Remote", "measure": "Learning rate / mentoring access", "direction": "Supports claim (future productivity \u2193)", "method": "Qualitative + survey synthesis", "confounds": "Mentorship programs vary", "notes": "This is a lagging effect: shows up later."}, {"id": "B8", "claim": "Task errors can increase when coordination cues are missing.", "source": "Article Text 4244 (2024)", "year": "2024", "population": "Teams with handoffs", "setting": "Remote", "measure": "Rework / defect rates", "direction": "Supports claim (productivity \u2193)", "method": "Empirical (reported)", "confounds": "Process changes; documentation quality", "notes": "Rework is productivity loss even if output appears stable."}]}, {"id": "C", "name": "Collaboration & coordination", "tagline": "Team processes: communication, handoffs, creativity, and integration work.", "anchor": "Does remote work increase coordination costs that reduce effective productivity?", "datoms": [{"id": "C1", "claim": "Communication latency increases and slows handoffs.", "source": "Remote work edited volume / coordination chapter", "year": "2024", "population": "Interdependent teams", "setting": "Remote", "measure": "Response time / handoff delay", "direction": "Supports claim (productivity \u2193)", "method": "Synthesis", "confounds": "Tool choice; async norms", "notes": "Mechanism: fewer 'ambient' pings, more scheduled communication."}, {"id": "C2", "claim": "Meeting load increases to compensate for lost informal coordination.", "source": "COVID work stress & teamwork paper", "year": "2020", "population": "Remote teams", "setting": "COVID remote", "measure": "Meeting hours/week", "direction": "Supports claim (productivity \u2193)", "method": "Survey", "confounds": "Crisis management meetings", "notes": "Even post-COVID, some orgs keep the meeting-heavy norm."}, {"id": "C3", "claim": "Weak ties degrade; cross-team knowledge flow slows.", "source": "Social isolation & remote work", "year": "2020", "population": "Knowledge workers", "setting": "Remote/hybrid", "measure": "Network connectivity indicators (qualitative)", "direction": "Supports claim (innovation/productivity \u2193)", "method": "Conceptual + cited studies", "confounds": "Company size; onboarding practices", "notes": "Investor angle: impacts discovery and innovation throughput."}, {"id": "C4", "claim": "For small, stable teams with strong documentation, coordination costs can drop.", "source": "COVID Economics Issue 74", "year": "2021", "population": "Stable teams", "setting": "Remote", "measure": "Cycle time / coordination overhead", "direction": "Contradicts claim (productivity \u2191)", "method": "Review (reported cases)", "confounds": "Selection of mature teams", "notes": "Mechanism: written-first processes + async clarity."}, {"id": "C5", "claim": "Creativity and complex problem solving can suffer without rich co-presence.", "source": "Edited volume chapter on creativity", "year": "2024", "population": "R&D / creative teams", "setting": "Remote", "measure": "Ideation quality / novelty (reported)", "direction": "Supports claim (productivity \u2193)", "method": "Synthesis", "confounds": "Tooling; facilitation quality", "notes": "Not all collaboration is equal; 'brainstorm' vs 'execute'."}, {"id": "C6", "claim": "Cross-functional coordination is the main failure mode for remote scale-ups.", "source": "Article Text 4244 (2024)", "year": "2024", "population": "Multi-team orgs", "setting": "Remote/hybrid", "measure": "Project slippage / dependencies", "direction": "Supports claim (productivity \u2193)", "method": "Empirical (reported)", "confounds": "Re-orgs; hiring surges", "notes": "This links directly to Datomer D (context + policy)."}, {"id": "C7", "claim": "Structured async tools (ticketing, docs) partially substitute for hallway talk.", "source": "AUB 2024-02 paper", "year": "2024", "population": "Remote employees", "setting": "Remote/hybrid", "measure": "Coordination quality (survey)", "direction": "Mixed", "method": "Survey", "confounds": "Tool adoption vs culture", "notes": "Suggests interventions: documentation standards, decision logs."}, {"id": "C8", "claim": "Hybrid schedules can create 'coordination tax' when overlap windows are small.", "source": "Edited volume hybrid work chapter", "year": "2024", "population": "Hybrid teams", "setting": "Hybrid (partial overlap)", "measure": "Scheduling friction / delays", "direction": "Supports claim (productivity \u2193)", "method": "Synthesis", "confounds": "Time zones; policy design", "notes": "This is a policy-design lever: define core hours."}]}, {"id": "D", "name": "Contextual & moderating factors", "tagline": "Conditions that explain *when* remote work helps vs hurts.", "anchor": "Which conditions shift remote work effects (role, autonomy, home setup, norms)?", "datoms": [{"id": "D1", "claim": "Autonomy and control over schedule are associated with higher productivity under remote work.", "source": "AUB 2024-02 paper", "year": "2024", "population": "Remote/hybrid employees", "setting": "Remote", "measure": "Self-report productivity", "direction": "Contradicts claim (productivity \u2191)", "method": "Survey + modeling", "confounds": "Self-selection into remote roles", "notes": "Autonomy is a moderating variable; not all roles have it."}, {"id": "D2", "claim": "Social isolation increases burnout risk and can reduce sustained performance.", "source": "Social isolation & remote work", "year": "2020", "population": "Remote employees", "setting": "Remote", "measure": "Isolation, burnout indicators", "direction": "Supports claim (productivity \u2193 over time)", "method": "Conceptual + cited evidence", "confounds": "Individual differences; support systems", "notes": "Time horizon matters: short-run vs long-run."}, {"id": "D3", "claim": "Role interdependence moderates outcomes: high-interdependence roles suffer more.", "source": "Article Text 4244 (2024)", "year": "2024", "population": "Interdependent teams", "setting": "Remote/hybrid", "measure": "Velocity / delays", "direction": "Supports claim (productivity \u2193)", "method": "Empirical (reported)", "confounds": "Process maturity", "notes": "This links Datomer D \u2192 Datomer C directly."}, {"id": "D4", "claim": "Home environment quality (space, noise, equipment) predicts productivity.", "source": "COVID work stress & teamwork paper", "year": "2020", "population": "Remote workers", "setting": "Home during COVID", "measure": "Workspace quality; productivity", "direction": "Mixed (moderates)", "method": "Survey", "confounds": "Socioeconomic differences", "notes": "Policy lever: stipend, equipment, coworking budget."}, {"id": "D5", "claim": "Manager practices (goal clarity, feedback cadence) determine whether remote succeeds.", "source": "Edited volume / management chapter", "year": "2024", "population": "Managers + teams", "setting": "Remote/hybrid", "measure": "Goal clarity, performance outcomes", "direction": "Mixed (moderates)", "method": "Synthesis", "confounds": "Org culture; incentive alignment", "notes": "Remote work is a management system, not a location."}, {"id": "D6", "claim": "Pandemic-era remote work is a confounded treatment; estimates should not be generalized blindly.", "source": "COVID Economics Issue 74", "year": "2021", "population": "COVID-period workers", "setting": "Crisis remote", "measure": "All outcomes", "direction": "Mixed", "method": "Meta/Review", "confounds": "Health risk; school closures; demand shocks", "notes": "DATOM: separate 'remote work' from 'remote during crisis' datoms."}, {"id": "D7", "claim": "Hybrid can outperform fully-remote when it preserves co-presence for high-bandwidth coordination.", "source": "Edited volume hybrid chapter", "year": "2024", "population": "Hybrid teams", "setting": "Hybrid", "measure": "Coordination + output", "direction": "Contradicts claim (productivity \u2191 vs fully remote)", "method": "Synthesis", "confounds": "Policy design; commute cost", "notes": "Intervention: anchor days for collaboration; remote days for deep work."}, {"id": "D8", "claim": "Individual preferences and personality influence productivity response to remote work.", "source": "Social isolation & remote work", "year": "2020", "population": "Employees", "setting": "Remote/hybrid", "measure": "Personality, satisfaction, productivity", "direction": "Mixed (moderates)", "method": "Conceptual + cited studies", "confounds": "Measurement; cultural context", "notes": "Supports decision: allow opt-in/opt-out by role/person fit."}]}];
 
     function classifyKind(dirText) {
       const t = (dirText || "").toLowerCase();
-      if (t.includes("supports")) return { label: "Supports Claim", kind: "support" };
-      if (t.includes("contrad")) return { label: "Contradicts Claim", kind: "contradict" };
-      return { label: "Conditional", kind: "moderate" };
+      if (t.includes("supports")) return { label: "Supports", kind: "support" };
+      if (t.includes("contrad")) return { label: "Contradicts", kind: "contradict" };
+      if (t.includes("mixed") || t.includes("moderate")) return { label: "Conditional", kind: "moderate" };
+      return { label: "Unclassified", kind: "mixed" };
     }
 
     function render() {
@@ -998,7 +897,7 @@ const dock = document.getElementById("elmerDock");
         det.className = "domer";
         det.dataset.domer = domer.id;
         const summary = document.createElement("summary");
-        summary.innerHTML = `<div><div class="domerTitle">Datomer ${domer.id} — ${domer.name}</div><div class="domerMeta">${domer.tagline}</div></div><div class="chev">⌄</div>`;
+        summary.innerHTML = `<div><div class="domerTitleRow"><div class="domerTitle">Datomer ${domer.id} \u2014 ${domer.name}</div></div><div class="domerMeta">${domer.tagline}</div></div><div class="chev">\u2304</div>`;
         det.appendChild(summary);
 
         const body = document.createElement("div");
@@ -1063,89 +962,170 @@ const dock = document.getElementById("elmerDock");
       frame.addEventListener("pointerup", () => { dragging = false; frame.classList.remove("panning"); });
     }
 
-    /* GEMINI POWERED ELMER */
-    const genAI = new GoogleGenerativeAI(API_KEY);
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-3-flash-preview",
-      systemInstruction: `You are Elmer, an Evidence Steward for the DATOM system. 
-Your persona is that of a professional, polite, and helpful librarian. 
+    /* ── Force-directed knowledge graph (matches dashboard UI) ── */
+    function buildGraph() {
+      const svg = document.getElementById("graphSvg");
+      if (!svg) return;
+      const ns = "http://www.w3.org/2000/svg";
+      const CX = 400, CY = 260;
 
-CORE DIRECTIVES:
-1. DO NOT explain your job or role to the user unless they specifically ask. 
-2. State only that you are here to help them understand this specific example.
-3. Only provide information the user explicitly asks for. Do not volunteer extra analysis.
-4. Your knowledge is STRICTLY BOUNDED to the 32 Datoms provided in context. 
-5. When asked about confidence, reference the 64/100 score as a matter of record.
-6. If a user asks for an ID (like B6), provide the details from that Datom concisely.`
-    });
+      // Flatten all datoms with their cluster + direction info
+      const allDatoms = [];
+      DATOMERS.forEach(domer => {
+        domer.datoms.forEach(d => {
+          const dir = (d.direction || "").toLowerCase();
+          let rel = "mixed";
+          if (dir.includes("supports")) rel = "supports";
+          else if (dir.includes("contrad")) rel = "contradicts";
+          else if (dir.includes("mixed") || dir.includes("moderate") || dir.includes("conditional")) rel = "conditional";
+          allDatoms.push({ id: d.id, cluster: domer.id, rel, source: d.source, claim: d.claim });
+        });
+      });
 
-    async function elmerHandle(text) {
-      const log = document.getElementById("elmerLog");
-      const userBubble = document.createElement("div");
-      userBubble.className = "bubble user";
-      userBubble.textContent = text;
-      log.appendChild(userBubble);
-      log.scrollTop = log.scrollHeight;
+      const relColorMap = { supports: "#0d9488", contradicts: "#ef4444", conditional: "#3b82f6", mixed: "#6b7280" };
 
-try {
-  // Optimized prompt for efficiency
-  const prompt = `EVIDENCE_BASE: ${JSON.stringify(DATOMERS)}
-  USER_QUERY: ${text}
-  INSTRUCTION: Respond in < 60 words. Cite IDs. Detail Population/Measure for decision context.`;
-  
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-  
-  const assistantBubble = document.createElement("div");
-  assistantBubble.className = "bubble";
-  assistantBubble.textContent = response.text();
-  log.appendChild(assistantBubble);
-  log.scrollTop = log.scrollHeight;
-  
-  // Navigation trigger logic (looking for ID in text)
-  const idMatch = response.text().match(/\b([abcd]\d)\b/i);
-  if (idMatch) {
-      const id = idMatch[1].toUpperCase();
-      const target = document.getElementById(id);
-      if (target) {
-        document.querySelector(`details[data-domer="${id[0]}"]`).open = true;
-        target.scrollIntoView({behavior:"smooth", block:"center"});
-        target.classList.add("pulse");
-        setTimeout(() => target.classList.remove("pulse"), 2000);
+      // Initialize positions radially by cluster
+      const clusterAngles = { A: -Math.PI/2, B: 0, C: Math.PI/2, D: Math.PI };
+      const pos = {};
+      allDatoms.forEach((d, i) => {
+        const base = clusterAngles[d.cluster] || 0;
+        const spread = 0.8;
+        const idx = allDatoms.filter(x => x.cluster === d.cluster).indexOf(d);
+        const count = allDatoms.filter(x => x.cluster === d.cluster).length;
+        const angle = base + (idx - count/2) * spread / count;
+        const r = 140 + Math.random() * 50;
+        pos[d.id] = { x: CX + r * Math.cos(angle), y: CY + r * Math.sin(angle) };
+      });
+
+      // Force simulation: 120 iterations
+      for (let tick = 0; tick < 120; tick++) {
+        const forces = {};
+        allDatoms.forEach(d => { forces[d.id] = { fx: 0, fy: 0 }; });
+
+        // Nucleus attraction
+        allDatoms.forEach(d => {
+          const p = pos[d.id];
+          const dx = p.x - CX, dy = p.y - CY;
+          const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+          const diff = dist - 160;
+          forces[d.id].fx -= (dx/dist) * diff * 0.02;
+          forces[d.id].fy -= (dy/dist) * diff * 0.02;
+        });
+
+        // Repulsion
+        for (let i = 0; i < allDatoms.length; i++) {
+          for (let j = i+1; j < allDatoms.length; j++) {
+            const a = pos[allDatoms[i].id], b = pos[allDatoms[j].id];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+            if (dist < 44) {
+              const repel = (44 - dist) * 0.35;
+              const ux = dx/dist, uy = dy/dist;
+              forces[allDatoms[i].id].fx += ux*repel;
+              forces[allDatoms[i].id].fy += uy*repel;
+              forces[allDatoms[j].id].fx -= ux*repel;
+              forces[allDatoms[j].id].fy -= uy*repel;
+            }
+          }
+        }
+
+        // Same-cluster attraction
+        allDatoms.forEach((d, i) => {
+          allDatoms.forEach((e, j) => {
+            if (i >= j || d.cluster !== e.cluster) return;
+            const a = pos[d.id], b = pos[e.id];
+            const dx = b.x - a.x, dy = b.y - a.y;
+            const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+            const pull = dist * 0.008;
+            forces[d.id].fx += (dx/dist)*pull;
+            forces[d.id].fy += (dy/dist)*pull;
+            forces[e.id].fx -= (dx/dist)*pull;
+            forces[e.id].fy -= (dy/dist)*pull;
+          });
+        });
+
+        allDatoms.forEach(d => {
+          pos[d.id].x += forces[d.id].fx * 0.8;
+          pos[d.id].y += forces[d.id].fy * 0.8;
+          pos[d.id].x = Math.max(30, Math.min(770, pos[d.id].x));
+          pos[d.id].y = Math.max(30, Math.min(490, pos[d.id].y));
+        });
       }
-  }
-} catch (e) { console.error("Gemini Steward Error:", e); }
+
+      // Build co-source edges
+      const sourceGroups = {};
+      allDatoms.forEach(d => {
+        if (!sourceGroups[d.source]) sourceGroups[d.source] = [];
+        sourceGroups[d.source].push(d.id);
+      });
+
+      // Build tension edges (contradicts → nearest supports)
+      const contradicts = allDatoms.filter(d => d.rel === "contradicts");
+      const supports = allDatoms.filter(d => d.rel === "supports");
+      const tensionEdges = [];
+      contradicts.forEach(cd => {
+        let closest = null, minDist = Infinity;
+        supports.forEach(sd => {
+          const dx = pos[cd.id].x - pos[sd.id].x, dy = pos[cd.id].y - pos[sd.id].y;
+          const dist = Math.sqrt(dx*dx+dy*dy);
+          if (dist < minDist) { minDist = dist; closest = sd.id; }
+        });
+        if (closest) tensionEdges.push({ from: cd.id, to: closest });
+      });
+
+      // Render SVG
+      let svgContent = "";
+
+      // Co-source edges
+      Object.values(sourceGroups).forEach(ids => {
+        if (ids.length < 2) return;
+        for (let i = 0; i < Math.min(ids.length, 3); i++) {
+          for (let j = i+1; j < Math.min(ids.length, 3); j++) {
+            const a = pos[ids[i]], b = pos[ids[j]];
+            if (a && b) svgContent += `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="#94a3b8" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.4"/>`;
+          }
+        }
+      });
+
+      // Tension edges
+      tensionEdges.forEach(e => {
+        const a = pos[e.from], b = pos[e.to];
+        svgContent += `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.6"/>`;
+      });
+
+      // Nucleus → node edges
+      allDatoms.forEach(d => {
+        const p = pos[d.id];
+        svgContent += `<line x1="${CX}" y1="${CY}" x2="${p.x}" y2="${p.y}" stroke="${relColorMap[d.rel]}" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.2"/>`;
+      });
+
+      // Nucleus
+      svgContent += `<circle cx="${CX}" cy="${CY}" r="28" fill="#0d9488" opacity="0.1" stroke="#0d9488" stroke-width="2"/>`;
+      svgContent += `<text x="${CX}" y="${CY-4}" text-anchor="middle" font-size="9" font-weight="700" fill="#0d9488" letter-spacing="0.08em" font-family="system-ui">NUCLEUS</text>`;
+      svgContent += `<text x="${CX}" y="${CY+10}" text-anchor="middle" font-size="8" fill="#64748b" font-family="system-ui">32 datoms</text>`;
+
+      // Nodes
+      allDatoms.forEach(d => {
+        const p = pos[d.id];
+        const color = relColorMap[d.rel];
+        svgContent += `<circle cx="${p.x}" cy="${p.y}" r="16" fill="${color}" opacity="0.15" stroke="${color}" stroke-width="1.5"/>`;
+        svgContent += `<text x="${p.x}" y="${p.y+4}" text-anchor="middle" font-size="10" font-weight="700" fill="${color}" font-family="ui-monospace,monospace">${d.id}</text>`;
+      });
+
+      svg.innerHTML = svgContent;
     }
 
     document.addEventListener("DOMContentLoaded", () => {
       render();
+      buildGraph();
       document.getElementById("q").addEventListener("input", (e) => applyFilter(e.target.value));
       document.getElementById("expandAll").addEventListener("click", () => document.querySelectorAll("details.domer").forEach(d => d.open = true));
       document.getElementById("collapseAll").addEventListener("click", () => document.querySelectorAll("details.domer").forEach(d => d.id !== "anchorCard" && (d.open = false)));
       document.getElementById("zoom").addEventListener("input", (e) => setZoom(Number(e.target.value)));
       document.getElementById("zoomReset").addEventListener("click", () => { document.getElementById("zoom").value = 100; setZoom(100); });
-      const input = document.getElementById("elmerInput");
-
-// Handle Send Button click
-document.getElementById("elmerSend").addEventListener("click", () => { 
-  elmerHandle(input.value); 
-  input.value = ""; 
-});
-
-// Handle Enter Key press
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    elmerHandle(input.value);
-    input.value = "";
-    e.preventDefault(); // Prevents line breaks if it were a textarea
-  }
-});
-      document.getElementById("elmerClear").addEventListener("click", () => document.getElementById("elmerLog").innerHTML = "");
-      document.getElementById("elmerHelp").addEventListener("click", () => elmerAddBubble("Partner with me to audit this structure. Ask about the SCS 64 score, or tell me to show the figure, anchor, or a Datom ID."));
 
       setZoom(100);
       setupDragPan();
-      elmerAddBubble("System ready. I am Elmer, your partner in auditing this structure. How shall we begin?");
     });
 
     function elmerAddBubble(text, who="assistant"){
@@ -1158,5 +1138,7 @@ input.addEventListener("keydown", (e) => {
       log.scrollTop = log.scrollHeight;
     }
   </script>
+<script>window.DATOMERS_CONTEXT = true;</script>
+<script src="elmer.js"></script>
 </body>
 </html>

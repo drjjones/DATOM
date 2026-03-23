@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>DATOM</title>
+  <script>
+    // GitHub Pages SPA redirect for /app/* routes
+    // Encodes the path into a query param and redirects to /app/index.html
+    var path = window.location.pathname;
+    if (path.startsWith('/app')) {
+      var search = window.location.search;
+      var hash = window.location.hash;
+      window.location.replace(
+        '/app/index.html?p=' + encodeURIComponent(path.slice(4) + search + hash)
+      );
+    }
+  </script>
+</head>
+<body>
+</body>
+</html>

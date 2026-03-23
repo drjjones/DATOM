@@ -2,216 +2,243 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>DATOM — Decision Infrastructure</title>
+<title>DATOM — The Trust Layer for Scientific Claims</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="DATOM scores the structural integrity of research claims so institutions can make defensible decisions before certainty exists. Provisional patent pending.">
+<link rel="icon" type="image/png" href="./Assets/favicon.png">
+<link rel="stylesheet" href="global.css?v=2">
+<link rel="stylesheet" href="elmer.css">
 <style>
-  :root {
-    --text: #0b0f14;
-    --muted: rgba(11,15,20,0.72);
-    --accent: #06b6d4; 
-    --border: rgba(15, 23, 42, 0.12);
-    --maxw: 1000px;
-  }
-  body { 
-    margin: 0; 
-    font-family: system-ui, -apple-system, sans-serif; 
-    background: url("./Assets/background.png") center top / cover no-repeat fixed; 
-    color: var(--text); 
-    line-height: 1.6; 
-  }
-  
-  header { 
-    display: flex; 
-    justify-content: flex-end; 
-    align-items: center; 
-    padding: 28px 64px; 
-    position: relative;
-    z-index: 10001; 
-  }
-  nav a { margin-left: 28px; text-decoration: none; color: var(--text); font-weight: 500; transition: opacity 0.2s; }
-  nav a:hover { opacity: 0.7; }
-  
-  main { max-width: var(--maxw); margin: 60px auto 140px; padding: 0 40px; text-align: center; }
-  
-  /* HERO SECTION */
-  .hero-logo { width: 520px; max-width: 90%; margin-left: auto; margin-right: auto; margin-bottom: 40px; display: block; }
-  h1 { font-size: 52px; letter-spacing: -0.04em; margin: 0 0 16px; line-height: 1.1; font-weight: 700; }
-  
-  /* CENTERED SECOND LINE */
-  .lede { 
-    font-size: 24px; 
-    color: var(--text); 
-    margin: 0 auto 48px auto; /* Perfect centering */
-    font-weight: 400; 
-    line-height: 1.4; 
-    max-width: 100%; /* Ensures it aligns with the center of the logo's width */
+  /* ── Hero ── */
+  .hero {
     text-align: center;
+    padding: 60px 0 40px;
+    position: relative;
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-canvas-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .hero-canvas-wrap canvas {
+    width: 100%;
+    height: 100%;
+  }
+  .hero > *:not(.hero-canvas-wrap) {
+    position: relative;
+    z-index: 1;
+  }
+  .hero-logo {
+    width: 360px;
+    max-width: 70%;
+    margin-bottom: 28px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .trust-bar {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    flex-wrap: wrap;
   }
 
-  /* PROFESSIONAL DIAGRAM */
-  .diagram-container {
-    margin: 80px auto;
-    max-width: 700px;
-    padding: 40px;
-    background: rgba(255, 255, 255, 0.4);
+  /* ── Diagram ── */
+  .diagram {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 36px;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
     border: 1px solid var(--border);
-    border-radius: 24px;
+    border-radius: var(--radius-lg);
     position: relative;
-    backdrop-filter: blur(8px);
   }
   .diagram-flow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-    z-index: 2;
   }
-  .node {
-    background: #fff;
+  .diagram-node {
+    background: rgba(255,255,255,0.8);
     border: 1px solid var(--border);
-    padding: 12px 20px;
-    border-radius: 12px;
-    font-family: ui-monospace, monospace;
-    font-size: 14px;
+    padding: 11px 20px;
+    border-radius: 10px;
+    font-family: var(--mono);
+    font-size: 13px;
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   }
-  .arrow { color: var(--accent); font-size: 20px; font-weight: bold; }
-  .loop-back {
+  .diagram-arrow { color: var(--accent); font-size: 18px; font-weight: bold; }
+  .diagram-loop {
     position: absolute;
-    bottom: -20px;
-    left: 10%;
-    right: 10%;
-    height: 40px;
+    bottom: -18px;
+    left: 12%;
+    right: 12%;
+    height: 36px;
     border: 2px dashed var(--accent);
     border-top: none;
-    border-radius: 0 0 40px 40px;
-    opacity: 0.4;
+    border-radius: 0 0 36px 36px;
+    opacity: 0.35;
   }
-  .loop-label {
+  .diagram-loop-label {
     position: absolute;
-    bottom: -32px;
+    bottom: -30px;
     left: 50%;
     transform: translateX(-50%);
-    background: #f8fafc;
-    padding: 2px 12px;
-    font-size: 11px;
+    background: #f0f9ff;
+    padding: 2px 14px;
+    font-size: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     font-weight: 800;
     color: var(--accent);
+    white-space: nowrap;
   }
 
-  /* SECTION TYPOGRAPHY */
-  h2 { font-size: 18px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin: 80px 0 24px; text-align: left; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
-  p { margin-bottom: 24px; text-align: left; }
+  /* ── Stats ── */
+  .stat-value {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
 
-  /* MECHANISM GRID */
-  .mechanism-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; text-align: left; }
-  .mechanism-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
-  .mechanism-card p { font-size: 15px; color: var(--muted); }
-
-  /* AUDIENCE LIST */
-  .audience-list { list-style: none; padding: 0; text-align: left; }
-  .audience-list li { padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 16px; }
-
-  /* ROUTING */
-  .routing-block { margin-top: 80px; display: flex; gap: 40px; justify-content: center; }
-  .route-link { text-decoration: none; color: var(--text); font-weight: 700; font-size: 18px; border-bottom: 2px solid var(--accent); padding-bottom: 4px; transition: opacity 0.2s; }
-  .route-link:hover { opacity: 0.6; }
-
-  /* ELMER STEWARD UI - HIDDEN */
-  .elmerDock { display: none !important; }
-
-  footer { margin-top: 120px; padding: 48px 0; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); }
+  /* ── Audience Paths ── */
+  .audience-card h3 { margin-bottom: 10px; }
+  .audience-card p { margin-bottom: 18px; }
+  .card-link {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: gap 0.2s;
+  }
+  .card-link:hover { gap: 8px; }
 
   @media (max-width: 800px) {
-    h1 { font-size: 42px; }
-    .mechanism-grid { grid-template-columns: 1fr; }
-    .routing-block { flex-direction: column; align-items: center; gap: 24px; }
-    header { padding: 20px 32px; }
-    .node { font-size: 12px; padding: 8px 12px; }
+    .hero { min-height: 420px; padding: 40px 0 20px; }
+    .hero-logo { width: 260px; }
+    .diagram-flow { flex-direction: column; gap: 16px; }
+    .diagram-arrow { transform: rotate(90deg); }
+    .diagram-loop, .diagram-loop-label { display: none; }
   }
 </style>
 </head>
 <body>
 
 <header>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
   <nav>
-    <a href="product.html">Product</a>
-    <a href="example.html">Example</a>
+    <a href="product.html">How It Works</a>
+    <a href="example.html">Live Example</a>
     <a href="research.html">Research</a>
-    <a href="vision.html">Vision</a>
-    <a href="try.html">Engage</a>
+    <a href="/app/login" class="btn-login">Log In</a>
+    <a href="try.html" class="btn-cta">Get Started</a>
   </nav>
 </header>
 
 <main>
-  <img src="./Assets/logo.png" class="hero-logo" alt="DATOM logo">
-  <h1>Confidence you can defend.</h1>
-  <p class="lede">Track how evidence accumulates &mdash; and what it justifies.</p>
-
-  <div class="diagram-container">
-    <div class="diagram-flow">
-      <div class="node">Evidence</div>
-      <div class="arrow">&rarr;</div>
-      <div class="node">Confidence</div>
-      <div class="arrow">&rarr;</div>
-      <div class="node">Decision Readiness</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-canvas-wrap">
+      <canvas id="particleCanvas"></canvas>
     </div>
-    <div class="loop-back"></div>
-    <div class="loop-label">Updates over time</div>
-  </div>
-
-  <section>
-    <h2>The Problem</h2>
-    <p>Important decisions are frequently made before certainty exists. While evidence accumulates unevenly, institutions often lack an auditable representation of that evidence state, relying instead on informal inference. This loss of context ensures that hindsight bias eventually replaces true accountability.</p>
-    <p><strong>Without a shared ledger of evidence structure, institutional memory degrades and risk becomes unmeasurable.</strong></p>
-  </section>
-
-  <section>
-    <h2>DATOM vs. Generative AI</h2>
-    <p>DATOM is not an AI assistant. While Large Language Models prioritize generating plausible answers, DATOM maintains the structural state of evidence. It does not recommend actions; it makes the basis for action legible.</p>
-  </section>
-
-  <section>
-    <h2>Mechanism</h2>
-    <div class="mechanism-grid">
-      <div class="mechanism-card">
-        <h3>Confidence</h3>
-        <p>A property of evidence structure, derived from the density, replication, and agreement of underlying atomic claims.</p>
-      </div>
-      <div class="mechanism-card">
-        <h3>Decision Readiness</h3>
-        <p>An explicit threshold indicating when the current evidence structure supports a specific operational commitment.</p>
-      </div>
-      <div class="mechanism-card">
-        <h3>Next-Best Evidence</h3>
-        <p>The specific data or replication required to resolve the highest remaining uncertainty for a given claim.</p>
-      </div>
+    <img src="./Assets/logo.png" class="hero-logo" alt="DATOM logo">
+    <h1>Confidence you can <span class="text-gradient">defend.</span></h1>
+    <p class="lede" style="text-align:center; margin: 0 auto;">DATOM scores the structural integrity of scientific claims so institutions can make defensible decisions before certainty exists.</p>
+    <div class="hero-actions">
+      <a href="example.html" class="btn-primary">See a live example</a>
+      <a href="try.html" class="btn-secondary">Get Started</a>
+    </div>
+    <div class="trust-bar">
+      <span><span class="pill-dot"></span> Provisional patent pending</span>
+      <span><span class="pill-dot"></span> Built on AWS</span>
+      <span><span class="pill-dot"></span> Active pilot program</span>
     </div>
   </section>
 
-  <section>
-    <h2>Application</h2>
-    <ul class="audience-list">
-      <li><strong>Researchers:</strong> Manage claim provenance and preserve disagreement as data.</li>
-      <li><strong>Founders:</strong> Demonstrate technical maturity bands to stakeholders and boards.</li>
-      <li><strong>Investors:</strong> Audit the structural integrity of technical claims during diligence.</li>
-      <li><strong>Policymakers:</strong> Anchor regulatory frameworks in auditable evidence states.</li>
-    </ul>
+  <!-- DIAGRAM -->
+  <section class="reveal" style="margin-bottom:120px;">
+    <div class="diagram">
+      <div class="diagram-flow">
+        <div class="diagram-node">Evidence</div>
+        <div class="diagram-arrow">&rarr;</div>
+        <div class="diagram-node">Confidence</div>
+        <div class="diagram-arrow">&rarr;</div>
+        <div class="diagram-node">Decision Readiness</div>
+      </div>
+      <div class="diagram-loop"></div>
+      <div class="diagram-loop-label">Updates over time</div>
+    </div>
   </section>
 
-  <section class="routing-block">
-    <a href="example.html" class="route-link">See a real example</a>
-    <a href="product.html" class="route-link">Read how DATOM works</a>
-    <a href="research.html" class="route-link">Learn about the research</a>
+  <!-- THE PROBLEM -->
+  <section class="reveal">
+    <p class="section-label">The Problem</p>
+    <h2>The reproducibility crisis is an infrastructure problem.</h2>
+    <div class="grid-2" style="margin-top:28px;">
+      <div class="card reveal reveal-d1">
+        <div class="stat-value">70%</div>
+        <p>of researchers have failed to reproduce another scientist's experiments. Evidence is lost, not structured.</p>
+      </div>
+      <div class="card reveal reveal-d2">
+        <div class="stat-value">$28B</div>
+        <p>wasted annually in the U.S. on irreproducible preclinical research. No tools exist to structurally audit the evidence behind a claim.</p>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    <p>Responsibility for decisions remains human. We provide the infrastructure to make them defensible.</p>
-    &copy; 2026 DATOM &mdash; Scientific Trust Infrastructure.
-  </footer>
+  <!-- AUDIENCE -->
+  <section class="reveal">
+    <p class="section-label">Who it's for</p>
+    <h2>Built for those who manage high-stakes evidence</h2>
+    <div class="grid-2" style="margin-top:28px;">
+      <div class="card audience-card reveal reveal-d1">
+        <h3>Research Labs</h3>
+        <p>Manage claim provenance, eliminate circular research, and turn evidence into a compounding institutional asset.</p>
+        <a href="product.html" class="card-link">See how it works &rarr;</a>
+      </div>
+      <div class="card audience-card reveal reveal-d2">
+        <h3>Investors &amp; Decision Makers</h3>
+        <p>Audit the structural integrity of technical claims during diligence. Know what the evidence actually supports.</p>
+        <a href="product.html#see-yourself" class="card-link">See the use cases &rarr;</a>
+      </div>
+    </div>
+  </section>
+
 </main>
+
+<footer>
+  <p style="margin-bottom:6px;">Responsibility for decisions remains human. We provide the infrastructure to make them defensible.</p>
+  &copy; 2026 DATOM &mdash; Scientific Trust Infrastructure.
+</footer>
+
+<script src="shared.js"></script>
+<script src="particles.js"></script>
+<script src="elmer.js"></script>
 </body>
 </html>

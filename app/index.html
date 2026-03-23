@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DATOM — Research Intelligence</title>
+    <link rel="icon" type="image/svg+xml" href="/app/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+      // Restore SPA route after GitHub Pages 404.html redirect
+      (function() {
+        var q = new URLSearchParams(window.location.search);
+        var p = q.get('p');
+        if (p) {
+          q.delete('p');
+          var remaining = q.toString();
+          var newUrl = '/app' + decodeURIComponent(p) + (remaining ? '?' + remaining : '');
+          window.history.replaceState(null, '', newUrl);
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/app/assets/index-D8kjxTo0.js"></script>
+    <link rel="modulepreload" crossorigin href="/app/assets/vendor-D6afILek.js">
+    <link rel="modulepreload" crossorigin href="/app/assets/auth-DuXNtqBc.js">
+    <link rel="stylesheet" crossorigin href="/app/assets/index-C8aOdO4Q.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Polyfill Node.js `global` for amazon-cognito-identity-js in the browser
+      if (typeof global === 'undefined') { window.global = window; }
+    </script>
+  </body>
+</html>
