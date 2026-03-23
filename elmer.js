@@ -1,13 +1,40 @@
 /* ============================================================
    Elmer — Evidence Steward Chatbot
-   Uses DATOM's existing /api/chat endpoint (Bedrock Haiku)
-   Page-aware, navigation-capable, conversation-persistent
+   Page-aware, physically navigates the website, scrolls to sections
    ============================================================ */
 
 // ── Config ──
 const API_BASE = "https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com";
 
-// ── Detect current page context ──
+// ── Navigation map: all scrollable sections across the site ──
+const NAV_MAP = {
+  // index.html
+  "home:hero":      { page: "index.html",    selector: ".hero" },
+  "home:problem":   { page: "index.html",    selector: "#problem" },
+  "home:audience":  { page: "index.html",    selector: "#audience" },
+  // product.html
+  "product:hero":          { page: "product.html",  selector: "#hero" },
+  "product:proof":         { page: "product.html",  selector: "#proof-preview" },
+  "product:comparison":    { page: "product.html",  selector: "#comparison" },
+  "product:pillars":       { page: "product.html",  selector: "#pillars" },
+  "product:use-cases":     { page: "product.html",  selector: "#see-yourself" },
+  "product:responsibility":{ page: "product.html",  selector: "#responsibility" },
+  // example.html
+  "example:top":           { page: "example.html",  selector: "#top" },
+  "example:guide":         { page: "example.html",  selector: "#guide" },
+  "example:graph":         { page: "example.html",  selector: "#figure" },
+  "example:anchor":        { page: "example.html",  selector: "#anchor" },
+  "example:evidence":      { page: "example.html",  selector: "#evidence" },
+  "example:confidence":    { page: "example.html",  selector: "#confidence-scoring" },
+  "example:summary":       { page: "example.html",  selector: "#summary" },
+  "example:faq":           { page: "example.html",  selector: "#faq" },
+  // research.html
+  "research:top":          { page: "research.html", selector: "main" },
+  // try.html
+  "try:top":               { page: "try.html",      selector: "main" },
+};
+
+// ── Detect current page ──
 function detectPage() {
   const path = window.location.pathname;
   if (path.includes("example"))  return "example";
@@ -17,32 +44,76 @@ function detectPage() {
   return "home";
 }
 
+function getCurrentPageFile() {
+  const page = detectPage();
+  const map = { home: "index.html", example: "example.html", product: "product.html", research: "research.html", try: "try.html" };
+  return map[page] || "index.html";
+}
+
+// ── Physical navigation ──
+function navigateTo(navKey) {
+  const target = NAV_MAP[navKey];
+  if (!target) return;
+
+  const currentFile = getCurrentPageFile();
+
+  if (target.page !== currentFile) {
+    // Different page — navigate with hash to trigger scroll on load
+    window.location.href = target.page + "?elmer_nav=" + encodeURIComponent(navKey);
+  } else {
+    // Same page — scroll directly
+    scrollToSelector(target.selector);
+  }
+}
+
+function scrollToSelector(selector) {
+  const el = document.querySelector(selector);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    // Flash highlight
+    el.style.transition = "box-shadow 0.3s";
+    el.style.boxShadow = "0 0 0 3px rgba(6, 182, 212, 0.4), 0 0 20px rgba(6, 182, 212, 0.15)";
+    el.style.borderRadius = "12px";
+    setTimeout(() => {
+      el.style.boxShadow = "";
+      el.style.borderRadius = "";
+    }, 2500);
+  }
+}
+
+// On page load, check if we arrived via Elmer navigation
+function checkPendingNav() {
+  const params = new URLSearchParams(window.location.search);
+  const navKey = params.get("elmer_nav");
+  if (navKey && NAV_MAP[navKey]) {
+    // Clean up URL
+    const clean = window.location.pathname;
+    window.history.replaceState(null, "", clean);
+    // Scroll after page renders
+    setTimeout(() => {
+      scrollToSelector(NAV_MAP[navKey].selector);
+      // Re-open Elmer panel if it was open
+      toggle(true);
+    }, 600);
+  }
+}
+
+// ── Page context for the API ──
 function getPageContext() {
   const page = detectPage();
   let context = `The visitor is currently on the ${page.toUpperCase()} page of datom.science.\n`;
 
   if (page === "example" && typeof DATOMERS !== "undefined") {
-    context += `\nThis page shows an interactive datomer: "Remote Work → Productivity" with 32 datoms across 4 clusters:\n`;
-    context += `- Cluster A: Aggregate productivity metrics (${DATOMERS[0]?.datoms?.length || 8} datoms)\n`;
-    context += `- Cluster B: Task-level performance (${DATOMERS[1]?.datoms?.length || 8} datoms)\n`;
-    context += `- Cluster C: Collaboration & coordination (${DATOMERS[2]?.datoms?.length || 8} datoms)\n`;
-    context += `- Cluster D: Contextual & moderating factors (${DATOMERS[3]?.datoms?.length || 8} datoms)\n`;
-    context += `\nThe datomer's Structural Confidence Score is 64/100 (Moderate/Conditional).\n`;
-    context += `This means: evidence supports the claim conditionally — remote work effects are task-dependent.\n\n`;
-    context += `FULL DATOMER DATA:\n` + JSON.stringify(DATOMERS) + `\n`;
-    context += `\nWhen the user asks about a specific datom (like "B6"), look it up and provide: the claim, direction, source, year, and population.\n`;
-    context += `Walk the user through the evidence structure: clusters, how datoms relate, what the confidence score means.\n`;
+    context += `\nThis page shows an interactive datomer: "Remote Work → Productivity" with 32 datoms across 4 clusters.\n`;
+    context += `Navigable sections: example:top (overview), example:guide (DATOM standard explanation), example:graph (interactive knowledge graph), example:anchor (anchor claim), example:evidence (all 4 cluster cards), example:confidence (confidence scoring breakdown), example:summary (operational outcome), example:faq (FAQ).\n`;
+    context += `\nFULL DATOMER DATA:\n` + JSON.stringify(DATOMERS) + `\n`;
+    context += `\nWhen discussing a specific datom or cluster, use [[NAV:example:evidence]] to scroll to it.\n`;
   } else if (page === "product") {
-    context += `This page explains how DATOM works — the pipeline from raw research to structured evidence.\n`;
-    context += `Key sections: Atomic Extraction, Datomer Assembly, Confidence Scoring, Knowledge Graph.\n`;
-  } else if (page === "research") {
-    context += `This page covers DATOM's academic foundations and methodology.\n`;
+    context += `Navigable sections: product:hero (intro), product:proof (real-time inspectability demo), product:comparison (DATOM vs LLMs table), product:pillars (3 pillars of legibility), product:use-cases (Research Ledger / Maturity Framework / Diligence Primitive), product:responsibility (human judgment statement).\n`;
+  } else if (page === "home") {
+    context += `Navigable sections: home:hero (main headline), home:problem (reproducibility crisis stats), home:audience (who it's for — labs & investors).\n`;
   } else if (page === "try") {
-    context += `This page has two CTAs: Schedule a Technical Briefing (Calendly) and Join the Early Access Waitlist (Google Form).\n`;
-    context += `The Calendly link is: https://calendly.com/jordan-datom/30min\n`;
-    context += `The waitlist form is: https://forms.gle/gGic2gbcEoENU9U78\n`;
-  } else {
-    context += `This is the homepage with the hero: "Confidence you can defend." and links to all other pages.\n`;
+    context += `This page has: Schedule a Technical Briefing (Calendly) and Join the Early Access Waitlist (Google Form).\n`;
   }
 
   return context;
@@ -97,11 +168,13 @@ function toggle(forceState) {
       const page = detectPage();
       let greeting;
       if (page === "example") {
-        greeting = "Welcome to the Live Example! I'm Elmer, your Evidence Steward. This page shows a real datomer — **Remote Work → Productivity** — with 32 atomic evidence units across 4 clusters. I can walk you through the evidence structure, explain any specific datom, or show you how confidence scoring works. What would you like to explore?";
+        greeting = "Welcome to the Live Example! I'm Elmer, your Evidence Steward. This page shows a real datomer — **Remote Work \u2192 Productivity** — with 32 atomic evidence units across 4 clusters. I can walk you through the evidence, explain any specific datom, or show you how confidence scoring works. What would you like to explore?";
       } else if (page === "try") {
-        greeting = "Hello! I'm Elmer. You're on our engagement page. You can [schedule a 30-minute briefing](https://calendly.com/jordan-datom/30min) or [join the early access waitlist](https://forms.gle/gGic2gbcEoENU9U78). How can I help you decide?";
+        greeting = "Hello! I'm Elmer. You're on our engagement page \u2014 here you can schedule a 30-minute technical briefing or join the early access waitlist. How can I help you decide?";
+      } else if (page === "product") {
+        greeting = "Hello! I'm Elmer. This page explains how DATOM works at a high level. I can walk you through any section \u2014 the three pillars, how we differ from LLMs, or our use cases. What interests you?";
       } else {
-        greeting = "Hello! I'm Elmer, your Evidence Steward. I can help you understand DATOM — what it is, how it works, and how it can fit your workflow. What would you like to know?";
+        greeting = "Hello! I'm Elmer, your Evidence Steward. I can help you understand DATOM, walk you through any page on the site, or discuss how it applies to your workflow. What would you like to know?";
       }
       addBubble(greeting, "elmer");
     }
@@ -121,11 +194,13 @@ function showSuggestions() {
   const page = detectPage();
   let chips;
   if (page === "example") {
-    chips = ["Walk me through the evidence", "What is datom B6?", "How is the confidence score calculated?", "How can I use this?"];
+    chips = ["Walk me through the evidence", "What is datom B6?", "Show me the confidence score", "How can I use this?"];
+  } else if (page === "product") {
+    chips = ["Show me the three pillars", "How is DATOM different from AI?", "Show me the use cases"];
   } else if (page === "try") {
     chips = ["What happens in a briefing?", "What is early access?", "Tell me about DATOM first"];
   } else {
-    chips = ["What is DATOM?", "How is it different from AI?", "Show me the live example", "How do I get started?"];
+    chips = ["What is DATOM?", "Show me the live example", "Who is this for?", "How do I get started?"];
   }
 
   container.innerHTML = "";
@@ -148,23 +223,28 @@ function addBubble(text, who) {
   const bubble = document.createElement("div");
   bubble.className = who === "user" ? "elmer-bubble elmer-bubble-user" : "elmer-bubble";
 
-  // Convert markdown: **bold**, [links](url), and navigation shortcuts
-  let html = text
+  // Process navigation commands: [[NAV:key]] or [[NAV:key|Label]]
+  let html = text.replace(/\[\[NAV:([a-z\-:]+?)(?:\|([^\]]+?))?\]\]/gi, (match, key, label) => {
+    const displayText = label || key.replace(/.*:/, '').replace(/-/g, ' ');
+    return `<a href="#" class="elmer-nav-link" data-nav="${key}">\u{1F4CD} ${displayText}</a>`;
+  });
+
+  // Standard markdown
+  html = html
     .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
     .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" style="color:#06b6d4;text-decoration:underline;">$1</a>')
     .replace(/\n/g, "<br>");
 
-  // Convert page references to clickable navigation links
-  html = html.replace(/\b(example\.html|Live Example page|live example)\b/gi,
-    '<a href="example.html" style="color:#06b6d4;text-decoration:underline;cursor:pointer;">Live Example</a>');
-  html = html.replace(/\b(product\.html|How It Works page)\b/gi,
-    '<a href="product.html" style="color:#06b6d4;text-decoration:underline;cursor:pointer;">How It Works</a>');
-  html = html.replace(/\b(try\.html|Get Started page|engagement page)\b/gi,
-    '<a href="try.html" style="color:#06b6d4;text-decoration:underline;cursor:pointer;">Get Started</a>');
-  html = html.replace(/\b(research\.html|Research page)\b/gi,
-    '<a href="research.html" style="color:#06b6d4;text-decoration:underline;cursor:pointer;">Research</a>');
-
   bubble.innerHTML = html;
+
+  // Attach click handlers for navigation links
+  bubble.querySelectorAll(".elmer-nav-link").forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      navigateTo(link.dataset.nav);
+    });
+  });
+
   messages.appendChild(bubble);
   messages.scrollTop = messages.scrollHeight;
   return bubble;
@@ -216,7 +296,15 @@ async function handleSend(overrideText) {
     if (!res.ok) throw new Error(`API returned ${res.status}`);
 
     const data = await res.json();
-    const reply = data.reply || data.message || data.response || "I couldn't generate a response. Please try again.";
+    let reply = data.reply || data.message || data.response || "I couldn't generate a response. Please try again.";
+
+    // Auto-execute any [[NAV:...]] that appears alone (direct navigation without user clicking)
+    // Only auto-nav if the response has a single NAV command and seems like a "let me show you" intent
+    const navMatches = reply.match(/\[\[NAV:([a-z\-:]+?)\]\]/gi);
+    if (navMatches && navMatches.length === 1 && /let me (show|take|bring|scroll|navigate)/i.test(reply)) {
+      const autoNavKey = navMatches[0].replace(/\[\[NAV:|]]/g, '');
+      setTimeout(() => navigateTo(autoNavKey), 800);
+    }
 
     removeTyping();
     addBubble(reply, "elmer");
@@ -245,6 +333,7 @@ function autoResize(textarea) {
 // ── Init ──
 document.addEventListener("DOMContentLoaded", () => {
   createUI();
+  checkPendingNav();
 
   document.getElementById("elmerDock").addEventListener("click", () => toggle(true));
   document.getElementById("elmerClose").addEventListener("click", () => toggle(false));

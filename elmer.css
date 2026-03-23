@@ -200,6 +200,28 @@
   background: rgba(6, 182, 212, 0.05);
 }
 
+/* ── Navigation links in bubbles ── */
+.elmer-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #06b6d4;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 13px;
+  margin: 2px 0;
+}
+.elmer-nav-link:hover {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: #06b6d4;
+}
+
 /* ── Input bar ── */
 .elmer-input-bar {
   display: flex;
