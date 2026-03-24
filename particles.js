@@ -27,12 +27,12 @@
 
   const ctx = canvas.getContext('2d');
 
-  /* ── Color palette ── */
-  const CYAN     = [0, 130, 200];
-  const TEAL     = [0, 100, 160];
-  const DEEP_CY  = [0, 80, 130];
-  const DIM_TEAL = [5, 55, 95];
-  const FAINT    = [8, 40, 70];
+  /* ── Color palette — dark navy blues, visible on light background ── */
+  const CYAN     = [20, 90, 185];
+  const TEAL     = [14, 65, 148];
+  const DEEP_CY  = [10, 48, 115];
+  const DIM_TEAL = [6, 32, 85];
+  const FAINT    = [3, 18, 58];
 
   /* ── Five depth layers ── */
   const LAYERS = [
