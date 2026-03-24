@@ -208,7 +208,8 @@ function showSuggestions() {
     const chip = document.createElement("button");
     chip.className = "elmer-chip";
     chip.textContent = text;
-    chip.addEventListener("click", () => {
+    chip.addEventListener("click", (e) => {
+      e.stopPropagation();
       container.innerHTML = "";
       handleSend(text);
     });
@@ -380,7 +381,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   send.addEventListener("click", () => handleSend());
 
-  document.addEventListener("click", (e) => {
+  document.addEventListener("mousedown", (e) => {
     if (isOpen && !e.target.closest("#elmerPanel") && !e.target.closest("#elmerDock")) {
       toggle(false);
     }
