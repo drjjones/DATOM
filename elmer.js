@@ -89,11 +89,25 @@ function checkPendingNav() {
     // Clean up URL
     const clean = window.location.pathname;
     window.history.replaceState(null, "", clean);
-    // Scroll after page renders
+
+    // Restore conversation history from before navigation
+    const savedHistory = sessionStorage.getItem("elmer_history");
+    if (savedHistory) {
+      try { conversationHistory = JSON.parse(savedHistory); } catch {}
+      sessionStorage.removeItem("elmer_history");
+    }
+
+    // Scroll after page renders, then open Elmer and show pending reply
     setTimeout(() => {
       scrollToSelector(NAV_MAP[navKey].selector);
-      // Re-open Elmer panel if it was open
       toggle(true);
+
+      // Show the pending reply that was queued before navigation
+      const pendingReply = sessionStorage.getItem("elmer_pending_reply");
+      if (pendingReply) {
+        sessionStorage.removeItem("elmer_pending_reply");
+        setTimeout(() => addBubble(pendingReply, "elmer"), 400);
+      }
     }, 600);
   }
 }
@@ -327,16 +341,14 @@ async function handleSend(overrideText) {
     let reply = data.reply || data.message || data.response || "I couldn't generate a response. Please try again.";
 
     removeTyping();
-    addBubble(reply, "elmer");
-    conversationHistory.push({ role: "assistant", content: reply });
 
-    // Auto-navigate: find the first [[NAV:...]] command and execute it automatically
+    // Determine if we need to navigate
+    let navKey = null;
     const navMatch = reply.match(/\[\[NAV:([a-z\-:]+?)(?:\|[^\]]+?)?\]\]/i);
     if (navMatch) {
-      const autoNavKey = navMatch[1];
-      setTimeout(() => navigateTo(autoNavKey), 1000);
+      navKey = navMatch[1];
     } else {
-      // Fallback: check for plain page links in the response
+      // Fallback: check for plain page links
       const pageLinkMatch = reply.match(/\b(example\.html|product\.html|research\.html|try\.html)\b/i);
       if (pageLinkMatch) {
         const pageNavMap = {
@@ -345,10 +357,31 @@ async function handleSend(overrideText) {
           "research.html": "research:top",
           "try.html": "try:top",
         };
-        const navKey = pageNavMap[pageLinkMatch[1].toLowerCase()];
-        if (navKey) setTimeout(() => navigateTo(navKey), 1000);
+        navKey = pageNavMap[pageLinkMatch[1].toLowerCase()] || null;
       }
     }
+
+    if (navKey) {
+      const target = NAV_MAP[navKey];
+      const currentFile = getCurrentPageFile();
+
+      if (target && target.page !== currentFile) {
+        // Cross-page: navigate first, reply will be shown after page loads
+        // Store the reply so it can be displayed after navigation
+        sessionStorage.setItem("elmer_pending_reply", reply);
+        conversationHistory.push({ role: "assistant", content: reply });
+        sessionStorage.setItem("elmer_history", JSON.stringify(conversationHistory));
+        navigateTo(navKey);
+        return;
+      } else {
+        // Same page: scroll first, then show reply after a beat
+        scrollToSelector(target.selector);
+        await new Promise(r => setTimeout(r, 600));
+      }
+    }
+
+    addBubble(reply, "elmer");
+    conversationHistory.push({ role: "assistant", content: reply });
   } catch (e) {
     console.error("Elmer error:", e);
     removeTyping();
