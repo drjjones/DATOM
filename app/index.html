@@ -18,6 +18,13 @@
     <script>
       // Polyfill Node.js `global` for amazon-cognito-identity-js in the browser
       if (typeof global === 'undefined') { window.global = window; }
+      // GitHub Pages SPA redirect: restore path encoded by 404.html
+      (function() {
+        var p = new URLSearchParams(window.location.search).get('p');
+        if (p) {
+          window.history.replaceState(null, '', '/app' + p);
+        }
+      })();
     </script>
   </body>
 </html>
