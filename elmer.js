@@ -326,17 +326,29 @@ async function handleSend(overrideText) {
     const data = await res.json();
     let reply = data.reply || data.message || data.response || "I couldn't generate a response. Please try again.";
 
-    // Auto-execute any [[NAV:...]] that appears alone (direct navigation without user clicking)
-    // Only auto-nav if the response has a single NAV command and seems like a "let me show you" intent
-    const navMatches = reply.match(/\[\[NAV:([a-z\-:]+?)\]\]/gi);
-    if (navMatches && navMatches.length === 1 && /let me (show|take|bring|scroll|navigate)/i.test(reply)) {
-      const autoNavKey = navMatches[0].replace(/\[\[NAV:|]]/g, '');
-      setTimeout(() => navigateTo(autoNavKey), 800);
-    }
-
     removeTyping();
     addBubble(reply, "elmer");
     conversationHistory.push({ role: "assistant", content: reply });
+
+    // Auto-navigate: find the first [[NAV:...]] command and execute it automatically
+    const navMatch = reply.match(/\[\[NAV:([a-z\-:]+?)(?:\|[^\]]+?)?\]\]/i);
+    if (navMatch) {
+      const autoNavKey = navMatch[1];
+      setTimeout(() => navigateTo(autoNavKey), 1000);
+    } else {
+      // Fallback: check for plain page links in the response
+      const pageLinkMatch = reply.match(/\b(example\.html|product\.html|research\.html|try\.html)\b/i);
+      if (pageLinkMatch) {
+        const pageNavMap = {
+          "example.html": "example:top",
+          "product.html": "product:hero",
+          "research.html": "research:top",
+          "try.html": "try:top",
+        };
+        const navKey = pageNavMap[pageLinkMatch[1].toLowerCase()];
+        if (navKey) setTimeout(() => navigateTo(navKey), 1000);
+      }
+    }
   } catch (e) {
     console.error("Elmer error:", e);
     removeTyping();
