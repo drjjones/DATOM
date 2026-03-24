@@ -35,11 +35,11 @@ body {
   -webkit-font-smoothing: antialiased;
   background:
     linear-gradient(170deg,
-      #dbeafe  0%,
-      #bfdbfe 25%,
-      #93c5fd 55%,
-      #bfdbfe 80%,
-      #dbeafe 100%);
+      #eaf3ff  0%,
+      #d0e8ff 25%,
+      #add3fe 55%,
+      #d0e8ff 80%,
+      #eaf3ff 100%);
   background-attachment: fixed;
   min-height: 100vh;
   cursor: url('./Assets/cursor-cloud.png') 16 16, auto;
