@@ -238,54 +238,19 @@ function addBubble(text, who) {
   const bubble = document.createElement("div");
   bubble.className = who === "user" ? "elmer-bubble elmer-bubble-user" : "elmer-bubble";
 
-  // Process explicit [[NAV:key]] or [[NAV:key|Label]] commands
-  let html = text.replace(/\[\[NAV:([a-z\-:]+?)(?:\|([^\]]+?))?\]\]/gi, (match, key, label) => {
-    const displayText = label || key.replace(/.*:/, '').replace(/-/g, ' ');
-    return `<a href="#" class="elmer-nav-link" data-nav="${key}">\u{1F4CD} ${displayText}</a>`;
-  });
+  // Strip [[NAV:...]] commands — navigation happens automatically, not via links
+  let html = text.replace(/\s*\[\[NAV:[^\]]*?\]\]\s*/gi, ' ').trim();
 
-  // Standard markdown
+  // Convert markdown page links [Text](page.html) to just the text — no links shown
+  html = html.replace(/\[([^\]]+)\]\(((?:example|product|research|try|index)\.html[^)]*)\)/g, '$1');
+
+  // Standard markdown — keep external links (Calendly, Google Forms, etc.)
   html = html
     .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
     .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" style="color:#06b6d4;text-decoration:underline;">$1</a>')
     .replace(/\n/g, "<br>");
 
   bubble.innerHTML = html;
-
-  // Fallback: convert any plain page links (example.html, product.html, etc.) into navigation actions
-  const pageToNav = {
-    "example.html": "example:top", "example": "example:top",
-    "product.html": "product:hero", "product": "product:hero",
-    "research.html": "research:top", "research": "research:top",
-    "try.html": "try:top", "try": "try:top",
-    "index.html": "home:hero",
-  };
-
-  bubble.querySelectorAll("a").forEach(link => {
-    const href = link.getAttribute("href") || "";
-    // Check if it's a local page link (not external)
-    if (!href.startsWith("http") || href.includes("datom.science")) {
-      for (const [page, navKey] of Object.entries(pageToNav)) {
-        if (href.includes(page)) {
-          link.classList.add("elmer-nav-link");
-          link.dataset.nav = navKey;
-          link.removeAttribute("target");
-          if (!link.textContent.includes("\u{1F4CD}")) {
-            link.textContent = "\u{1F4CD} " + link.textContent;
-          }
-          break;
-        }
-      }
-    }
-  });
-
-  // Attach click handlers for ALL navigation links (explicit + fallback)
-  bubble.querySelectorAll(".elmer-nav-link").forEach(link => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      navigateTo(link.dataset.nav);
-    });
-  });
 
   messages.appendChild(bubble);
   messages.scrollTop = messages.scrollHeight;
