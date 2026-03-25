@@ -9,53 +9,21 @@
   <link rel="stylesheet" href="elmer.css">
   <style>
     :root{
-      --bg-base: #f8fafc;
-      --bg-surface: #ffffff;
-      --accent: #06b6d4;
+      /* Example-page-specific variables */
+      --bg-surface: rgba(255, 255, 255, 0.55);
       --accent-dim: rgba(13, 148, 136, 0.08);
-      --accent-hover: #0891b2;
-      --text-primary: #0f172a;
-      --text-muted: #64748b;
-      --border: rgba(15, 23, 42, 0.08);
+      --text-primary: var(--text);
+      --text-muted: var(--muted);
 
       /* Dashboard relationship colors */
       --support: #06b6d4;
       --contradict: #ef4444;
       --moderate: #3b82f6;
       --neutral: #6b7280;
-
-      --radius: 12px;
-      --shadow: 0 1px 3px rgba(0,0,0,0.04);
-      --shadow-hover: 0 4px 24px rgba(0, 0, 0, 0.06);
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-
-      /* Override global.css variables for dashboard feel */
-      --card-bg: #ffffff;
-      --card-hover: #ffffff;
-      --muted: #64748b;
-      --text: #0f172a;
-    }
-
-    .page{
-      max-width: 1060px;
-      margin: 0 auto;
-      padding: 36px 18px 80px;
-    }
-
-    .card{
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      transition: box-shadow 0.2s ease;
-    }
-    .card:hover{
-      box-shadow: var(--shadow-hover);
     }
 
     .hero{
-      padding: 24px 24px 20px;
+      padding: 36px;
     }
 
     .pillRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
@@ -63,22 +31,18 @@
       display:inline-flex;
       align-items:center;
       gap:6px;
-      padding: 5px 12px;
+      padding: 5px 14px;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--bg-surface);
+      border: 1px solid rgba(6, 182, 212, 0.18);
+      background: rgba(6, 182, 212, 0.08);
       font-size: 12px;
-      color: var(--text-primary);
+      color: var(--accent);
       font-weight: 600;
       letter-spacing: 0.01em;
     }
     .dot{width:8px;height:8px;border-radius:50%;
       background: var(--accent);
     }
-
-    h1{margin:0; font-size: 28px; letter-spacing: -0.02em; color: var(--text-primary);}
-    h2{margin:0; font-size: 20px; letter-spacing: -0.01em; color: var(--text-primary);}
-    h3{margin:0; font-size: 15px; letter-spacing: -0.01em; color: var(--text-primary);}
 
     .sub{
       margin:10px 0 0;
@@ -92,20 +56,20 @@
     /* Dashboard section label pattern */
     .section{ margin-top: 18px; }
     .sectionTitle{
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      color: var(--accent);
       margin: 0 0 12px;
     }
 
-    .figureCard{ padding: 24px; }
+    .figureCard{ padding: 36px; }
 
     /* Figure + zoom */
     .figureFrame{
       border-radius: var(--radius);
-      background: #f8fafc;
+      background: rgba(255,255,255,0.35);
       border: 1px solid var(--border);
       overflow: auto;
       max-height: 70vh;
@@ -148,7 +112,7 @@
       padding: 9px 12px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: var(--bg-surface);
+      background: rgba(255,255,255,0.7);
     }
     .search input{
       border:0;
@@ -164,14 +128,14 @@
       padding: 8px 14px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: var(--bg-surface);
+      background: rgba(255,255,255,0.7);
       color: var(--text-primary);
       font-weight: 600;
       font-size: 13px;
       cursor:pointer;
       transition: all 0.15s ease;
     }
-    .btn:hover{ background: #f1f5f9; border-color: rgba(15,23,42,0.12); }
+    .btn:hover{ background: rgba(255,255,255,0.4); border-color: rgba(15,23,42,0.12); }
 
     .btnPrimary{
       border-color: var(--accent);
@@ -187,7 +151,7 @@
       padding: 8px 12px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: var(--bg-surface);
+      background: rgba(255,255,255,0.7);
     }
     .zoomCtl label{
       font-size: 11px;
@@ -219,7 +183,7 @@
     details.domer{
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: var(--bg-surface);
+      background: rgba(255,255,255,0.7);
       overflow: hidden;
       box-shadow: var(--shadow);
       transition: box-shadow 0.2s ease;
@@ -249,7 +213,7 @@
       padding: 4px 10px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: #f8fafc;
+      background: rgba(255,255,255,0.35);
       color: var(--text-muted);
     }
 
@@ -260,7 +224,7 @@
       display:grid;
       place-items:center;
       border: 1px solid var(--border);
-      background: #f8fafc;
+      background: rgba(255,255,255,0.35);
       flex: 0 0 auto;
       color: var(--text-muted);
       font-size: 14px;
@@ -275,7 +239,7 @@
       padding: 14px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: #f8fafc;
+      background: rgba(255,255,255,0.35);
     }
     .miniCard h4{
       margin:0 0 6px;
@@ -308,7 +272,7 @@
     .datomCard{
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: var(--bg-surface);
+      background: rgba(255,255,255,0.7);
       padding: 14px;
       transition: box-shadow 0.15s ease;
     }
@@ -329,7 +293,7 @@
       font-weight: 700;
       padding: 2px 8px;
       border-radius: 6px;
-      background: #f1f5f9;
+      background: rgba(255,255,255,0.4);
       color: var(--text-muted);
     }
 
@@ -371,15 +335,15 @@
     .v{ color: var(--text-primary); line-height: 1.4; }
 
     /* Guide sections */
-    .guideCard{ padding: 24px; }
-    .twoCol{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .threeCol{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+    .guideCard{ padding: 36px; }
+    .twoCol{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .threeCol{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
     @media (max-width: 860px) { .twoCol, .threeCol, .decisionGrid{ grid-template-columns: 1fr; } }
 
     .callout{
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: #f8fafc;
+      background: rgba(255,255,255,0.35);
       padding: 16px;
     }
     .callout h3{ margin-bottom: 8px; font-weight: 700; font-size: 14px; }
@@ -387,7 +351,7 @@
 
     /* Score Card — dashboard confidence display */
     .scoreCard{
-      background: var(--bg-surface);
+      background: rgba(255,255,255,0.7);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 24px;
@@ -410,7 +374,7 @@
       width: 120px;
       height: 6px;
       border-radius: 3px;
-      background: #f1f5f9;
+      background: rgba(255,255,255,0.4);
       margin-top: 6px;
       overflow: hidden;
     }
@@ -429,7 +393,7 @@
     .step{
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: var(--bg-surface);
+      background: rgba(255,255,255,0.7);
       padding: 14px;
     }
     .stepNum{
@@ -469,7 +433,7 @@
     .decisionCard{
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: var(--bg-surface);
+      background: rgba(255,255,255,0.7);
       padding: 16px;
     }
     .decisionCard h3{ margin-bottom: 8px; font-weight: 700; font-size: 14px; }
@@ -481,7 +445,7 @@
     .faq-section details {
       margin-bottom: 8px;
       border-radius: var(--radius);
-      background: var(--bg-surface);
+      background: rgba(255,255,255,0.7);
       border: 1px solid var(--border);
       overflow: hidden;
       transition: box-shadow 0.2s ease;
@@ -597,7 +561,7 @@
 </header>
 
 
-  <main class="page">
+  <main>
     <section class="card hero reveal" id="top">
       <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:8px;">
         <span class="pill" style="border-color:rgba(13,148,136,0.25);background:rgba(13,148,136,0.06);">
