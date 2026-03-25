@@ -368,10 +368,30 @@ function autoResize(textarea) {
   textarea.style.height = Math.min(textarea.scrollHeight, 80) + "px";
 }
 
+// ── Auto-open on new page ──
+function autoOpenForPage() {
+  // Don't auto-open if we arrived via Elmer navigation (checkPendingNav handles that)
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("elmer_nav")) return;
+
+  const page = detectPage();
+  const seenKey = "elmer_seen_" + page;
+
+  // Only auto-open once per page per session
+  if (sessionStorage.getItem(seenKey)) return;
+  sessionStorage.setItem(seenKey, "1");
+
+  // Small delay so the page renders first
+  setTimeout(() => {
+    toggle(true);
+  }, 1200);
+}
+
 // ── Init ──
 document.addEventListener("DOMContentLoaded", () => {
   createUI();
   checkPendingNav();
+  autoOpenForPage();
 
   document.getElementById("elmerDock").addEventListener("click", () => toggle(true));
   document.getElementById("elmerClose").addEventListener("click", () => toggle(false));
