@@ -279,11 +279,12 @@
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .elmer-panel {
-    width: calc(100vw - 16px);
-    height: calc(100vh - 100px);
-    bottom: 8px;
-    right: 8px;
-    border-radius: 12px;
+    width: calc(100vw - 32px);
+    height: 55vh;
+    max-height: 420px;
+    bottom: 16px;
+    right: 16px;
+    border-radius: 14px;
   }
   .elmer-dock { bottom: 16px; right: 16px; font-size: 13px; padding: 8px 16px 8px 10px; }
   .elmer-dock-avatar { width: 24px; height: 24px; }
@@ -293,11 +294,12 @@
 
 @media (max-width: 400px) {
   .elmer-panel {
-    width: 100vw;
-    height: calc(100vh - 60px);
-    bottom: 0;
-    right: 0;
-    border-radius: 12px 12px 0 0;
+    width: calc(100vw - 24px);
+    height: 50vh;
+    max-height: 360px;
+    bottom: 12px;
+    right: 12px;
+    border-radius: 14px;
   }
   .elmer-dock { bottom: 12px; right: 12px; }
 }
