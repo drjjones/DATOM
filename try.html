@@ -37,27 +37,6 @@
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
-  /* ── Bullets ── */
-  .process-list {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 32px;
-  }
-  .process-list li {
-    position: relative;
-    padding-left: 28px;
-    margin-bottom: 12px;
-    font-size: 15px;
-    color: var(--muted);
-  }
-  .process-list li::before {
-    content: "\2192";
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-weight: 900;
-  }
-
   /* ── Application form ── */
   .apply-form {
     margin-top: 40px;
@@ -139,11 +118,11 @@
     border: 1px solid rgba(239,68,68,0.2);
     color: var(--text);
   }
-  .complimentary-note {
-    font-size: 13px;
+  .tab-subheading {
+    font-size: 18px;
+    font-weight: 600;
     color: var(--muted);
-    margin-top: 16px;
-    font-style: italic;
+    margin: 8px 0 28px;
   }
 
   @media (max-width: 800px) {
@@ -188,13 +167,8 @@
 
     <!-- Lab tab -->
     <div class="tab-panel active" id="panel-lab" role="tabpanel" aria-labelledby="tab-lab">
-      <h2>Apply for a Pilot Lab</h2>
-      <p>We work with a limited number of labs at a time. Each pilot begins with a 30-minute scoping call to confirm fit.</p>
-      <ul class="process-list">
-        <li>Submit your primary claim and relevant evidence context below</li>
-        <li>We return a full Confidence Report within one week</li>
-        <li>You decide whether DATOM belongs in your workflow</li>
-      </ul>
+      <h2>For Research Labs</h2>
+      <h3 class="tab-subheading">Apply for the Pilot Program</h3>
 
       <a href="https://calendly.com/jordan-datom/30min" class="btn-primary">Schedule a Briefing &rarr;</a>
 
@@ -218,8 +192,8 @@
               <input type="text" id="institution" name="institution" required>
             </div>
             <div class="form-field">
-              <label for="email">Email <span class="req">*</span></label>
-              <input type="email" id="email" name="email" required autocomplete="email">
+              <label for="labEmail">Email <span class="req">*</span></label>
+              <input type="email" id="labEmail" name="email" required autocomplete="email">
             </div>
             <div class="form-field">
               <label for="researchDomain">Research domain <span class="req">*</span></label>
@@ -233,8 +207,8 @@
               </select>
             </div>
             <div class="form-field">
-              <label for="referralSource">How did you hear about DATOM?</label>
-              <select id="referralSource" name="referralSource">
+              <label for="labReferralSource">How did you hear about DATOM?</label>
+              <select id="labReferralSource" name="referralSource">
                 <option value="">Select…</option>
                 <option value="colleague">Colleague or referral</option>
                 <option value="linkedin">LinkedIn</option>
@@ -245,33 +219,54 @@
               </select>
             </div>
             <div class="form-field full">
-              <label for="claimToEvaluate">What claim do you want to evaluate? <span class="req">*</span></label>
-              <textarea id="claimToEvaluate" name="claimToEvaluate" required maxlength="500" rows="4" placeholder="Describe the scientific claim you want DATOM to analyze…"></textarea>
-              <div class="char-count"><span id="claim-count">0</span>/500</div>
+              <label for="primaryClaim">What is the most critical scientific claim your lab is currently building on? <span class="req">*</span></label>
+              <textarea id="primaryClaim" name="primaryClaim" required maxlength="500" rows="4"></textarea>
+              <div class="char-count"><span id="primaryClaim-count">0</span>/500</div>
             </div>
             <div class="form-field full">
-              <label for="datapRelevance">Why is DATOM relevant to your work? <span class="req">*</span></label>
-              <textarea id="datapRelevance" name="datapRelevance" required maxlength="300" rows="3" placeholder="Briefly describe the decision or workflow this would support…"></textarea>
-              <div class="char-count"><span id="relevance-count">0</span>/300</div>
+              <label for="claimUncertainty">How confident are you in the evidence behind it, and what's driving that uncertainty? <span class="req">*</span></label>
+              <textarea id="claimUncertainty" name="claimUncertainty" required maxlength="300" rows="3"></textarea>
+              <div class="char-count"><span id="claimUncertainty-count">0</span>/300</div>
             </div>
             <div class="form-field full">
-              <label>Do you have internal experimental data? <span class="req">*</span></label>
-              <div class="radio-group" role="group" aria-label="Internal experimental data">
-                <label><input type="radio" name="hasInternalData" value="yes" required> Yes</label>
-                <label><input type="radio" name="hasInternalData" value="not yet"> Not yet</label>
-                <label><input type="radio" name="hasInternalData" value="unsure"> Unsure</label>
+              <label for="decisionStakes">What decision, publication, or funding milestone depends on getting that claim right? <span class="req">*</span></label>
+              <textarea id="decisionStakes" name="decisionStakes" required maxlength="300" rows="3"></textarea>
+              <div class="char-count"><span id="decisionStakes-count">0</span>/300</div>
+            </div>
+            <div class="form-field full">
+              <label for="priorAttempts">What have you already tried to verify or stress-test this claim? <span class="req">*</span></label>
+              <textarea id="priorAttempts" name="priorAttempts" required maxlength="300" rows="3"></textarea>
+              <div class="char-count"><span id="priorAttempts-count">0</span>/300</div>
+            </div>
+            <div class="form-field full">
+              <label for="impliedValue">What would it mean for your lab if you could make that decision with full confidence in the evidence? <span class="req">*</span></label>
+              <textarea id="impliedValue" name="impliedValue" required maxlength="300" rows="3"></textarea>
+              <div class="char-count"><span id="impliedValue-count">0</span>/300</div>
+            </div>
+            <div class="form-field full">
+              <label for="decisionAuthority">Who else on your team or institution would be involved in evaluating a tool like this? <span class="req">*</span></label>
+              <textarea id="decisionAuthority" name="decisionAuthority" required maxlength="200" rows="2"></textarea>
+              <div class="char-count"><span id="decisionAuthority-count">0</span>/200</div>
+            </div>
+            <div class="form-field full">
+              <label>Do you have internal experimental data relevant to this claim, or are you working primarily from published literature? <span class="req">*</span></label>
+              <div class="radio-group" role="group" aria-label="Internal data or published literature">
+                <label><input type="radio" name="hasInternalData" value="Internal experimental data" required> Internal experimental data</label>
+                <label><input type="radio" name="hasInternalData" value="Published literature only"> Published literature only</label>
+                <label><input type="radio" name="hasInternalData" value="Both"> Both</label>
+                <label><input type="radio" name="hasInternalData" value="Unsure"> Unsure</label>
               </div>
             </div>
           </div>
 
           <div class="form-actions">
-            <button type="submit" class="btn-primary" id="submit-btn">Submit Application</button>
+            <button type="submit" class="btn-primary" id="lab-submit-btn">Submit Application</button>
           </div>
 
-          <div class="form-message success" id="form-success" role="alert">
+          <div class="form-message success" id="lab-form-success" role="alert">
             <strong>Application received.</strong> We will review your submission and follow up within one business day.
           </div>
-          <div class="form-message error" id="form-error" role="alert">
+          <div class="form-message error" id="lab-form-error" role="alert">
             <strong>Submission failed.</strong> Please try again or <a href="mailto:jordan@datom.science">email us directly</a>.
           </div>
         </form>
@@ -283,15 +278,85 @@
     <!-- Investor tab -->
     <div class="tab-panel" id="panel-vc" role="tabpanel" aria-labelledby="tab-vc">
       <h2>Request a VC Confidence Report</h2>
-      <p>The first report is complimentary. We assess the structural integrity of a portfolio company's core scientific claims.</p>
-      <ul class="process-list">
-        <li>Submit the company name and the claim you want evaluated</li>
-        <li>Optional 20-minute intake call to align on scope</li>
-        <li>Structured report delivered within one week</li>
-      </ul>
+      <h3 class="tab-subheading">The first report is complimentary — and begins with a required intake call.</h3>
+      <p>This is a structured engagement, not an automated output. Complete the form below and we will reach out to schedule a 20-minute intake call to confirm scope before any analysis begins.</p>
 
-      <a href="https://calendly.com/jordan-datom/30min" class="btn-primary">Request a Report &rarr;</a>
-      <p class="complimentary-note">First report is complimentary.</p>
+      <a href="https://calendly.com/jordan-datom/30min" class="btn-primary">Schedule a Briefing &rarr;</a>
+
+      <div class="apply-form">
+        <h3 style="margin-bottom:6px;">Or apply directly</h3>
+        <p style="color:var(--muted); font-size:14px; margin-bottom:28px;">Submit your request and we will reach out to schedule the intake call.</p>
+
+        <form id="vc-form" novalidate>
+          <div class="form-grid">
+            <div class="form-field full">
+              <label for="vcEmail">Email <span class="req">*</span></label>
+              <input type="email" id="vcEmail" name="email" required autocomplete="email">
+            </div>
+            <div class="form-field full">
+              <label for="vcReferralSource">How did you hear about DATOM?</label>
+              <select id="vcReferralSource" name="referralSource">
+                <option value="">Select…</option>
+                <option value="colleague">Colleague or referral</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="paper">Research paper or publication</option>
+                <option value="conference">Conference or event</option>
+                <option value="search">Search engine</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-field full">
+              <label for="scientificClaim">What is the scientific claim you want evaluated? <span class="req">*</span></label>
+              <textarea id="scientificClaim" name="scientificClaim" required maxlength="500" rows="4"></textarea>
+              <div class="char-count"><span id="scientificClaim-count">0</span>/500</div>
+            </div>
+            <div class="form-field full">
+              <label for="decisionContext">What decision does this analysis need to support? <span class="req">*</span></label>
+              <textarea id="decisionContext" name="decisionContext" required maxlength="300" rows="3"></textarea>
+              <div class="char-count"><span id="decisionContext-count">0</span>/300</div>
+            </div>
+            <div class="form-field full">
+              <label for="claimConfidence">How confident are you in the science behind this claim right now, and what's creating that uncertainty? <span class="req">*</span></label>
+              <textarea id="claimConfidence" name="claimConfidence" required maxlength="300" rows="3"></textarea>
+              <div class="char-count"><span id="claimConfidence-count">0</span>/300</div>
+            </div>
+            <div class="form-field full">
+              <label for="investmentImplication">What happens to this investment decision if the science behind the claim turns out to be weaker than expected? <span class="req">*</span></label>
+              <textarea id="investmentImplication" name="investmentImplication" required maxlength="300" rows="3"></textarea>
+              <div class="char-count"><span id="investmentImplication-count">0</span>/300</div>
+            </div>
+            <div class="form-field full">
+              <label>What evidence are you working with? <span class="req">*</span></label>
+              <div class="radio-group" role="group" aria-label="Evidence type">
+                <label><input type="radio" name="evidenceType" value="I have proprietary data, reports, or documents I can submit" required> I have proprietary data, reports, or documents I can submit</label>
+                <label><input type="radio" name="evidenceType" value="I want a report generated from publicly available information about this claim"> I want a report generated from publicly available information about this claim</label>
+                <label><input type="radio" name="evidenceType" value="Both — I have some materials and want them supplemented with public sources"> Both — I have some materials and want them supplemented with public sources</label>
+              </div>
+            </div>
+            <div class="form-field full">
+              <label for="priorDiligence">Have you done any prior technical diligence on this claim? What did that look like?</label>
+              <textarea id="priorDiligence" name="priorDiligence" maxlength="300" rows="3"></textarea>
+              <div class="char-count"><span id="priorDiligence-count">0</span>/300</div>
+            </div>
+            <div class="form-field full">
+              <label for="vcDecisionAuthority">Who else at your fund is involved in this decision? <span class="req">*</span></label>
+              <textarea id="vcDecisionAuthority" name="decisionAuthority" required maxlength="200" rows="2"></textarea>
+              <div class="char-count"><span id="vcDecisionAuthority-count">0</span>/200</div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="vc-submit-btn">Submit Request</button>
+          </div>
+
+          <div class="form-message success" id="vc-form-success" role="alert">
+            <strong>Request received.</strong> We will reach out to schedule the intake call within one business day.
+          </div>
+          <div class="form-message error" id="vc-form-error" role="alert">
+            <strong>Submission failed.</strong> Please try again or <a href="mailto:jordan@datom.science">email us directly</a>.
+          </div>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -330,54 +395,66 @@
   var hash = window.location.hash.replace('#', '');
   if (hash === 'lab' || hash === 'vc') activateTab(hash);
 
-  // ── Char counters ──
-  var claimField = document.getElementById('claimToEvaluate');
-  var claimCount = document.getElementById('claim-count');
-  if (claimField) {
-    claimField.addEventListener('input', function () {
-      claimCount.textContent = claimField.value.length;
-    });
-  }
-  var relField = document.getElementById('datapRelevance');
-  var relCount = document.getElementById('relevance-count');
-  if (relField) {
-    relField.addEventListener('input', function () {
-      relCount.textContent = relField.value.length;
-    });
-  }
+  // ── Char counters (generic) ──
+  var counterFields = [
+    ['primaryClaim', 'primaryClaim-count'],
+    ['claimUncertainty', 'claimUncertainty-count'],
+    ['decisionStakes', 'decisionStakes-count'],
+    ['priorAttempts', 'priorAttempts-count'],
+    ['impliedValue', 'impliedValue-count'],
+    ['decisionAuthority', 'decisionAuthority-count'],
+    ['scientificClaim', 'scientificClaim-count'],
+    ['decisionContext', 'decisionContext-count'],
+    ['claimConfidence', 'claimConfidence-count'],
+    ['investmentImplication', 'investmentImplication-count'],
+    ['priorDiligence', 'priorDiligence-count'],
+    ['vcDecisionAuthority', 'vcDecisionAuthority-count']
+  ];
+  counterFields.forEach(function (pair) {
+    var field = document.getElementById(pair[0]);
+    var counter = document.getElementById(pair[1]);
+    if (field && counter) {
+      field.addEventListener('input', function () {
+        counter.textContent = field.value.length;
+      });
+    }
+  });
 
-  // ── Form submission ──
-  var form = document.getElementById('pilot-form');
-  var successEl = document.getElementById('form-success');
-  var errorEl = document.getElementById('form-error');
-  var submitBtn = document.getElementById('submit-btn');
+  // ── Lab form submission ──
+  var labForm = document.getElementById('pilot-form');
+  var labSuccess = document.getElementById('lab-form-success');
+  var labError = document.getElementById('lab-form-error');
+  var labSubmitBtn = document.getElementById('lab-submit-btn');
 
-  if (form) {
-    form.addEventListener('submit', function (e) {
+  if (labForm) {
+    labForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      successEl.style.display = 'none';
-      errorEl.style.display = 'none';
+      labSuccess.style.display = 'none';
+      labError.style.display = 'none';
 
-      // Basic required field validation
-      var hasInternalData = form.querySelector('input[name="hasInternalData"]:checked');
-      if (!form.checkValidity() || !hasInternalData) {
-        form.reportValidity();
+      var hasInternalData = labForm.querySelector('input[name="hasInternalData"]:checked');
+      if (!labForm.checkValidity() || !hasInternalData) {
+        labForm.reportValidity();
         return;
       }
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Submitting…';
+      labSubmitBtn.disabled = true;
+      labSubmitBtn.textContent = 'Submitting…';
 
       var payload = {
-        labName: form.labName.value.trim(),
-        piName: form.piName.value.trim(),
-        institution: form.institution.value.trim(),
-        email: form.email.value.trim(),
-        researchDomain: form.researchDomain.value,
-        claimToEvaluate: form.claimToEvaluate.value.trim(),
-        datapRelevance: form.datapRelevance.value.trim(),
+        labName: labForm.labName.value.trim(),
+        piName: labForm.piName.value.trim(),
+        institution: labForm.institution.value.trim(),
+        email: labForm.email.value.trim(),
+        researchDomain: labForm.researchDomain.value,
+        primaryClaim: labForm.primaryClaim.value.trim(),
+        claimUncertainty: labForm.claimUncertainty.value.trim(),
+        decisionStakes: labForm.decisionStakes.value.trim(),
+        priorAttempts: labForm.priorAttempts.value.trim(),
+        impliedValue: labForm.impliedValue.value.trim(),
+        decisionAuthority: labForm.decisionAuthority.value.trim(),
         hasInternalData: hasInternalData.value,
-        referralSource: form.referralSource.value || undefined
+        referralSource: labForm.referralSource.value || undefined
       };
 
       fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/pilot-applications', {
@@ -390,13 +467,68 @@
           return res.json();
         })
         .then(function () {
-          form.style.display = 'none';
-          successEl.style.display = 'block';
+          labForm.style.display = 'none';
+          labSuccess.style.display = 'block';
         })
         .catch(function () {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Submit Application';
-          errorEl.style.display = 'block';
+          labSubmitBtn.disabled = false;
+          labSubmitBtn.textContent = 'Submit Application';
+          labError.style.display = 'block';
+        });
+    });
+  }
+
+  // ── VC form submission ──
+  var vcForm = document.getElementById('vc-form');
+  var vcSuccess = document.getElementById('vc-form-success');
+  var vcError = document.getElementById('vc-form-error');
+  var vcSubmitBtn = document.getElementById('vc-submit-btn');
+
+  if (vcForm) {
+    vcForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      vcSuccess.style.display = 'none';
+      vcError.style.display = 'none';
+
+      var evidenceType = vcForm.querySelector('input[name="evidenceType"]:checked');
+      if (!vcForm.checkValidity() || !evidenceType) {
+        vcForm.reportValidity();
+        return;
+      }
+
+      vcSubmitBtn.disabled = true;
+      vcSubmitBtn.textContent = 'Submitting…';
+
+      var payload = {
+        formType: 'vc',
+        email: vcForm.email.value.trim(),
+        scientificClaim: vcForm.scientificClaim.value.trim(),
+        decisionContext: vcForm.decisionContext.value.trim(),
+        claimConfidence: vcForm.claimConfidence.value.trim(),
+        investmentImplication: vcForm.investmentImplication.value.trim(),
+        evidenceType: evidenceType.value,
+        decisionAuthority: vcForm.decisionAuthority.value.trim(),
+        referralSource: vcForm.referralSource.value || undefined,
+        priorDiligence: vcForm.priorDiligence.value.trim() || undefined
+      };
+
+      fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/pilot-applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) {
+          if (!res.ok) return res.json().then(function (d) { throw new Error(d.error || res.status); });
+          return res.json();
+        })
+        .then(function () {
+          vcForm.style.display = 'none';
+          vcSuccess.style.display = 'block';
+        })
+        .catch(function () {
+          vcSubmitBtn.disabled = false;
+          vcSubmitBtn.textContent = 'Submit Request';
+          vcError.style.display = 'block';
         });
     });
   }
