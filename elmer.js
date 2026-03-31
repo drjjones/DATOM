@@ -3,8 +3,97 @@
    Page-aware, physically navigates the website, scrolls to sections
    ============================================================ */
 
-// ── Config ──
-const API_BASE = "https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com";
+// ── Pre-scripted response tree (board-approved 2026-03-31, DAT-141) ──
+const INTENTS = [
+  {
+    keywords: ["datom", "what is", "tell me about", "explain", "how does it work", "overview"],
+    response:
+      "DATOM is decision infrastructure for scientific work. It takes claims — from published literature, from your own experimental data, or both — and maps the evidence structure that sits behind them.\n\n" +
+      "The output isn't a summary or a recommendation. It's a structured Confidence Report: a timestamped, auditable map of how much evidence exists for a claim, where it comes from, what it supports, and what it contradicts.\n\n" +
+      "The goal is to make confidence legible at the exact moment a decision has to be made — whether that's a resource allocation, a pivot, or an investment.\n\n" +
+      "Would you like to see what a Confidence Report looks like in practice? There's a live example at [datom.science/example](https://datom.science/example).",
+  },
+  {
+    keywords: ["confidence report", "report", "output", "deliverable", "what do i get", "what does it produce"],
+    response:
+      "A Confidence Report is the core deliverable DATOM produces. It's a structured document — not a narrative — that maps the evidence state of a specific scientific claim at a specific point in time.\n\n" +
+      "Each report includes:\n" +
+      "- The claim being evaluated, stated precisely\n" +
+      "- The evidence units (Datoms) that support or contradict it, each with full provenance\n" +
+      "- A confidence score reflecting evidence density — not our opinion, but the structural weight of what exists\n" +
+      "- A decision-readiness assessment: where the evidence is strong, where it's thin, and where the remaining de-risking work lives\n\n" +
+      "Reports are timestamped and auditable. If the evidence changes, the confidence changes — and you can see exactly why.\n\n" +
+      "If you're curious what this looks like for a real claim, the live example at [datom.science/example](https://datom.science/example) walks through the full structure.",
+  },
+  {
+    keywords: ["confidence score", "score", "how do you calculate", "algorithm", "what does the number mean", "how is it calculated", "scoring"],
+    response:
+      "The confidence score is a measure of evidence density — not truth, and not certainty. It reflects how much structured evidence exists for a claim, weighted by the credibility of its sources and the consistency of what they show.\n\n" +
+      "A higher score means the claim is well-supported by credible, replicable evidence. A lower score means the evidence is thin, mixed, or contested — which is valuable information in itself. Disagreement is preserved, not averaged away.\n\n" +
+      "The score is not a probability. It doesn't tell you the claim is correct. It tells you how defensible your confidence in the claim is, given what currently exists in the literature and your own data.\n\n" +
+      "The methodology is transparent — every component of the score traces back to specific evidence units you can inspect. If you want to challenge a score, you can see exactly what's driving it.\n\n" +
+      "The live example at [datom.science/example](https://datom.science/example) shows how scores are structured in practice.",
+  },
+  {
+    keywords: ["access", "sign up", "get started", "try", "pilot", "how do i start", "how to use", "onboard", "apply"],
+    response:
+      "DATOM runs in a structured pilot model right now. We work with a limited number of labs and investors at a time to make sure each engagement is properly scoped.\n\n" +
+      "For research labs: you can apply for a pilot at [datom.science/try](https://datom.science/try). The process starts with a 30-minute scoping call — we confirm the claim you want to evaluate, understand your data environment, and make sure DATOM is the right fit. If it's a fit, we'll scope the engagement together and agree on next steps from there.\n\n" +
+      "For investors: you submit the company and the claim you want evaluated, and we scope the engagement from there — useful for active due diligence or preliminary evaluation.\n\n" +
+      "Either way, the right starting point is [datom.science/try](https://datom.science/try) — or you can reach Jordan directly at jordan@datom.science.",
+  },
+  {
+    keywords: ["lab", "research", "institution", "university", "academic", "researcher", "pi", "principal investigator", "for scientists", "my team"],
+    response:
+      "DATOM was designed with research labs in mind. The core problem it addresses is one most labs encounter: evidence accumulates across literature and internal experiments, but it stays disconnected — in papers, in notebooks, in people's heads. When you need to make a decision about where to invest effort, that evidence doesn't speak with one voice.\n\n" +
+      "DATOM consolidates it. You submit the claim you're working around, and the system maps what the published literature shows, what your internal data shows, and where the two agree or diverge. The result is a Confidence Report you can actually defend to collaborators, funders, or your own team.\n\n" +
+      "It's particularly useful when you're deciding whether to replicate, pivot, or commit resources to a line of research — and you want to know what the evidence actually supports before you do.\n\n" +
+      "If that sounds relevant, the best next step is a brief scoping conversation. You can apply at [datom.science/try](https://datom.science/try).",
+  },
+  {
+    keywords: ["investor", "vc", "venture", "fund", "due diligence", "portfolio", "investment", "biotech", "investor relations", "lp", "capital"],
+    response:
+      "DATOM produces VC Confidence Reports for technical due diligence. The use case is straightforward: a portfolio company or prospective investment makes claims about their science — efficacy, mechanism, reproducibility — and you need to know how much structural evidence exists behind those claims before you make a decision.\n\n" +
+      "A VC Confidence Report maps the evidence structure for a specific scientific claim: what the literature shows, how credible the sources are, where the evidence is strong, and where the remaining uncertainty lives. It doesn't tell you whether to invest — it tells you what the science actually supports, so that decision rests on something defensible.\n\n" +
+      "If you'd like to request a report, the best starting point is a brief intake call where we confirm the claim and scope the engagement. You can initiate that at [datom.science/try](https://datom.science/try) — or reach Jordan directly at jordan@datom.science.",
+  },
+  {
+    keywords: ["literature review", "meta-analysis", "systematic review", "different", "compare", "versus", "alternative", "how is this different", "what makes this different", "is this just", "existing tools"],
+    response:
+      "A literature review produces a narrative. DATOM produces a structure.\n\n" +
+      "The distinction matters: a narrative synthesizes and summarizes — it's useful, but the reasoning is inside the prose. You can't inspect a literature review to see exactly which finding drove a conclusion, or what was weighted against what.\n\n" +
+      "DATOM decomposes claims into atomic evidence units — each one sourced, tagged with provenance, and weighted by credibility. The result is a map you can interrogate, not a summary you have to trust.\n\n" +
+      "A few other differences worth noting:\n" +
+      "- DATOM handles contradiction explicitly — conflicting findings are preserved and reflected in the confidence score, not smoothed over\n" +
+      "- It can incorporate your own experimental data alongside published literature, not just external sources\n" +
+      "- The output is timestamped and auditable — if new evidence changes the picture, the system updates; you can see what changed and why\n\n" +
+      "The goal isn't to replace literature review as a research practice. It's to make the evidence structure behind a claim legible — especially when a decision depends on it.\n\n" +
+      "The live example at [datom.science/example](https://datom.science/example) shows the difference concretely.",
+  },
+  {
+    keywords: ["reproducibility", "replicate", "replication", "crisis", "retraction", "p-hacking", "fraud", "scientific integrity", "irreproducible", "failed to replicate"],
+    response:
+      "The reproducibility crisis is real, and DATOM was built in direct response to it — though not in the way most responses work.\n\n" +
+      "Most interventions focus on individual researcher behavior: better protocols, pre-registration, open data. Those matter. But DATOM addresses something further upstream: the infrastructure problem. Evidence from published research and internal experiments exists — it's just not structured in a way that lets decision-makers use it.\n\n" +
+      "When evidence isn't consolidated and auditable, irreproducible work propagates. Labs replicate failed findings not because they're careless, but because there was no clear signal that the evidence was weak.\n\n" +
+      "DATOM makes the evidence structure explicit. You can see how much weight exists behind a claim, where it comes from, and whether it's been replicated in different populations or conditions. That doesn't guarantee correct science — but it makes the current state of knowledge defensible and inspectable, rather than hidden inside narrative.\n\n" +
+      "If that framing resonates with work you're doing, I'm happy to discuss what it would look like applied to your specific domain. You can reach us at [datom.science/try](https://datom.science/try).",
+  },
+];
+
+const FALLBACK =
+  "That's a question I'd rather not answer imprecisely. DATOM is a specific tool for a specific kind of problem — and whether it fits your situation depends on details I don't have yet.\n\n" +
+  "If you'd like to explore whether DATOM is right for your lab or your fund, the best next step is a short conversation with Jordan. You can request access or schedule a briefing at [datom.science/try](https://datom.science/try) — or reach out directly at jordan@datom.science.";
+
+function matchResponse(input) {
+  const lower = input.toLowerCase();
+  for (const intent of INTENTS) {
+    if (intent.keywords.some(kw => lower.includes(kw))) {
+      return intent.response;
+    }
+  }
+  return FALLBACK;
+}
 
 // ── Navigation map: all scrollable sections across the site ──
 const NAV_MAP = {
@@ -271,7 +360,7 @@ function removeTyping() {
   document.getElementById("elmerTyping")?.remove();
 }
 
-// ── API call ──
+// ── Pre-scripted response handler (no backend calls) ──
 async function handleSend(overrideText) {
   const input = document.getElementById("elmerInput");
   const text = overrideText || input?.value?.trim();
@@ -287,71 +376,14 @@ async function handleSend(overrideText) {
 
   showTyping();
 
-  try {
-    const res = await fetch(`${API_BASE}/api/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        message: text,
-        source: "website",
-        page: detectPage(),
-        pageContext: getPageContext(),
-        history: conversationHistory.slice(0, -1),
-      }),
-    });
+  // Brief thinking pause before responding
+  await new Promise(r => setTimeout(r, 600));
 
-    if (!res.ok) throw new Error(`API returned ${res.status}`);
+  removeTyping();
 
-    const data = await res.json();
-    let reply = data.reply || data.message || data.response || "I couldn't generate a response. Please try again.";
-
-    removeTyping();
-
-    // Determine if we need to navigate
-    let navKey = null;
-    const navMatch = reply.match(/\[\[NAV:([a-z\-:]+?)(?:\|[^\]]+?)?\]\]/i);
-    if (navMatch) {
-      navKey = navMatch[1];
-    } else {
-      // Fallback: check for plain page links
-      const pageLinkMatch = reply.match(/\b(example\.html|product\.html|research\.html|try\.html)\b/i);
-      if (pageLinkMatch) {
-        const pageNavMap = {
-          "example.html": "example:top",
-          "product.html": "product:hero",
-          "research.html": "research:top",
-          "try.html": "try:top",
-        };
-        navKey = pageNavMap[pageLinkMatch[1].toLowerCase()] || null;
-      }
-    }
-
-    if (navKey) {
-      const target = NAV_MAP[navKey];
-      const currentFile = getCurrentPageFile();
-
-      if (target && target.page !== currentFile) {
-        // Cross-page: navigate first, reply will be shown after page loads
-        // Store the reply so it can be displayed after navigation
-        sessionStorage.setItem("elmer_pending_reply", reply);
-        conversationHistory.push({ role: "assistant", content: reply });
-        sessionStorage.setItem("elmer_history", JSON.stringify(conversationHistory));
-        navigateTo(navKey);
-        return;
-      } else {
-        // Same page: scroll first, then show reply after a beat
-        scrollToSelector(target.selector);
-        await new Promise(r => setTimeout(r, 600));
-      }
-    }
-
-    addBubble(reply, "elmer");
-    conversationHistory.push({ role: "assistant", content: reply });
-  } catch (e) {
-    console.error("Elmer error:", e);
-    removeTyping();
-    addBubble("I'm having trouble connecting right now. Please try again in a moment.", "elmer");
-  }
+  const reply = matchResponse(text);
+  addBubble(reply, "elmer");
+  conversationHistory.push({ role: "assistant", content: reply });
 }
 
 // ── Input handling ──
