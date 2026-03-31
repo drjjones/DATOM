@@ -209,10 +209,134 @@
               <label for="researchDomain">Research domain <span class="req">*</span></label>
               <select id="researchDomain" name="researchDomain" required>
                 <option value="">Select…</option>
-                <option value="oncology">Oncology</option>
-                <option value="neuroscience">Neuroscience</option>
-                <option value="immunology">Immunology</option>
-                <option value="genomics">Genomics</option>
+
+                <optgroup label="Life Sciences &amp; Biomedical">
+                  <option value="oncology">Oncology</option>
+                  <option value="neuroscience">Neuroscience</option>
+                  <option value="immunology">Immunology &amp; Inflammation</option>
+                  <option value="genomics">Genomics &amp; Genomic Medicine</option>
+                  <option value="cell-biology">Cell Biology</option>
+                  <option value="molecular-biology">Molecular Biology</option>
+                  <option value="structural-biology">Structural Biology</option>
+                  <option value="biochemistry">Biochemistry</option>
+                  <option value="pharmacology">Pharmacology &amp; Toxicology</option>
+                  <option value="drug-discovery">Drug Discovery &amp; Development</option>
+                  <option value="infectious-disease">Infectious Disease &amp; Virology</option>
+                  <option value="cardiology">Cardiology &amp; Cardiovascular</option>
+                  <option value="metabolic-disease">Metabolic Disease &amp; Endocrinology</option>
+                  <option value="rare-disease">Rare &amp; Genetic Disease</option>
+                  <option value="aging">Aging &amp; Longevity</option>
+                  <option value="microbiome">Microbiome &amp; Gut Health</option>
+                  <option value="biomarkers">Biomarker Discovery &amp; Development</option>
+                  <option value="reproductive-biology">Reproductive Biology</option>
+                  <option value="developmental-biology">Developmental Biology</option>
+                  <option value="stem-cell">Stem Cell Biology</option>
+                  <option value="ophthalmology">Ophthalmology</option>
+                  <option value="dermatology">Dermatology</option>
+                  <option value="musculoskeletal">Musculoskeletal &amp; Orthopedics</option>
+                  <option value="pulmonology">Pulmonology &amp; Respiratory</option>
+                  <option value="nephrology">Nephrology</option>
+                  <option value="hepatology">Hepatology</option>
+                  <option value="gastroenterology">Gastroenterology</option>
+                  <option value="hematology">Hematology</option>
+                  <option value="psychiatry">Psychiatry &amp; Mental Health</option>
+                  <option value="pain-research">Pain Research</option>
+                  <option value="sleep-science">Sleep Science</option>
+                </optgroup>
+
+                <optgroup label="Clinical &amp; Translational">
+                  <option value="clinical-trials">Clinical Trials &amp; Research</option>
+                  <option value="epidemiology">Epidemiology</option>
+                  <option value="public-health">Public Health &amp; Preventive Medicine</option>
+                  <option value="health-outcomes">Health Outcomes &amp; Health Economics</option>
+                  <option value="precision-medicine">Precision &amp; Personalized Medicine</option>
+                  <option value="global-health">Global Health</option>
+                  <option value="nutrition">Nutrition Science</option>
+                  <option value="occupational-health">Occupational Health</option>
+                </optgroup>
+
+                <optgroup label="Bioengineering &amp; Biotechnology">
+                  <option value="biomedical-engineering">Biomedical Engineering</option>
+                  <option value="synthetic-biology">Synthetic Biology</option>
+                  <option value="computational-biology">Computational Biology &amp; Bioinformatics</option>
+                  <option value="cellular-agriculture">Cellular Agriculture &amp; Alternative Protein</option>
+                  <option value="biomaterials">Biomaterials &amp; Tissue Engineering</option>
+                  <option value="medical-devices">Medical Devices &amp; Diagnostics</option>
+                  <option value="genetic-engineering">Genetic Engineering &amp; CRISPR</option>
+                  <option value="protein-engineering">Protein Engineering</option>
+                  <option value="drug-delivery">Drug Delivery Systems</option>
+                  <option value="regenerative-medicine">Regenerative Medicine</option>
+                  <option value="biosensors">Biosensors &amp; Wearables</option>
+                </optgroup>
+
+                <optgroup label="Physical &amp; Chemical Sciences">
+                  <option value="chemistry">Chemistry &amp; Chemical Biology</option>
+                  <option value="organic-chemistry">Organic Chemistry</option>
+                  <option value="inorganic-chemistry">Inorganic Chemistry</option>
+                  <option value="analytical-chemistry">Analytical Chemistry</option>
+                  <option value="materials-science">Materials Science &amp; Engineering</option>
+                  <option value="nanotechnology">Nanotechnology</option>
+                  <option value="physics">Physics &amp; Biophysics</option>
+                  <option value="quantum-science">Quantum Computing &amp; Quantum Science</option>
+                  <option value="energy-science">Thermodynamics &amp; Energy Science</option>
+                  <option value="nuclear-science">Nuclear Science</option>
+                  <option value="photonics">Photonics &amp; Optics</option>
+                  <option value="acoustics">Acoustics</option>
+                </optgroup>
+
+                <optgroup label="Environmental &amp; Earth Sciences">
+                  <option value="environmental-science">Environmental Science</option>
+                  <option value="climate-science">Climate Science &amp; Climatology</option>
+                  <option value="ecology">Ecology &amp; Evolutionary Biology</option>
+                  <option value="marine-biology">Marine Biology &amp; Oceanography</option>
+                  <option value="atmospheric-science">Atmospheric Science</option>
+                  <option value="geoscience">Geoscience &amp; Geology</option>
+                  <option value="conservation-biology">Conservation Biology</option>
+                  <option value="agricultural-science">Agricultural Science &amp; Agronomy</option>
+                  <option value="soil-science">Soil Science</option>
+                  <option value="water-science">Water Science &amp; Hydrology</option>
+                  <option value="forestry">Forestry &amp; Plant Science</option>
+                  <option value="environmental-toxicology">Toxicology &amp; Environmental Health</option>
+                </optgroup>
+
+                <optgroup label="Computer Science &amp; Engineering">
+                  <option value="ai-ml">Artificial Intelligence &amp; Machine Learning</option>
+                  <option value="data-science">Data Science &amp; Statistics</option>
+                  <option value="computer-vision">Computer Vision</option>
+                  <option value="nlp">Natural Language Processing</option>
+                  <option value="robotics">Robotics &amp; Automation</option>
+                  <option value="hci">Human-Computer Interaction</option>
+                  <option value="cybersecurity">Cybersecurity</option>
+                  <option value="software-engineering">Software Engineering</option>
+                  <option value="electrical-engineering">Electrical Engineering</option>
+                  <option value="mechanical-engineering">Mechanical Engineering</option>
+                  <option value="civil-engineering">Civil &amp; Structural Engineering</option>
+                  <option value="aerospace-engineering">Aerospace Engineering</option>
+                  <option value="chemical-engineering">Chemical Engineering</option>
+                </optgroup>
+
+                <optgroup label="Social &amp; Behavioral Sciences">
+                  <option value="psychology">Psychology &amp; Behavioral Science</option>
+                  <option value="cognitive-science">Cognitive Science</option>
+                  <option value="neuropsychology">Neurology &amp; Neuropsychology</option>
+                  <option value="economics">Economics &amp; Behavioral Economics</option>
+                  <option value="sociology">Sociology</option>
+                  <option value="anthropology">Anthropology</option>
+                  <option value="political-science">Political Science</option>
+                  <option value="education-research">Education Research</option>
+                  <option value="communication-science">Communication Science</option>
+                  <option value="criminology">Criminology</option>
+                </optgroup>
+
+                <optgroup label="Humanities &amp; Interdisciplinary">
+                  <option value="philosophy-of-science">Philosophy of Science</option>
+                  <option value="history-of-science">History &amp; Sociology of Science</option>
+                  <option value="science-policy">Science Policy &amp; Ethics</option>
+                  <option value="bioethics">Bioethics</option>
+                  <option value="science-communication">Science Communication</option>
+                  <option value="library-science">Library &amp; Information Science</option>
+                </optgroup>
+
                 <option value="other">Other</option>
               </select>
             </div>
