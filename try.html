@@ -178,6 +178,12 @@
     <div class="tab-panel active" id="panel-lab" role="tabpanel" aria-labelledby="tab-lab">
       <h2>For Research Labs</h2>
       <h3 class="tab-subheading">Apply for the Pilot Program</h3>
+      <ol>
+        <li>Tell us about your research and the claim you want to evaluate</li>
+        <li>Schedule a 30-minute scoping call directly from this page</li>
+        <li>We confirm fit and discuss your data environment on the call</li>
+        <li>If there's a match, we scope the engagement together and get you started</li>
+      </ol>
 
       <!-- On-site application form -->
       <div class="apply-form">
@@ -285,8 +291,14 @@
     <!-- Investor tab -->
     <div class="tab-panel" id="panel-vc" role="tabpanel" aria-labelledby="tab-vc">
       <h2>Request a VC Confidence Report</h2>
-      <h3 class="tab-subheading">The first report is complimentary &mdash; and begins with a required intake call.</h3>
-      <p>This is a structured engagement, not an automated output. Complete the form below and we will reach out to schedule a 20-minute intake call to confirm scope before any analysis begins.</p>
+      <h3 class="tab-subheading">The first VC Confidence Report is complimentary.</h3>
+      <p>Every engagement begins with a short intake call. Tell us about the claim below and pick a time that works for you &mdash; we'll confirm scope and framing together before any analysis begins.</p>
+      <ol>
+        <li>Tell us about the claim you want evaluated and your evidence context</li>
+        <li>Schedule a 20-minute intake call directly from this page</li>
+        <li>We confirm the scope and framing on the call</li>
+        <li>Your Confidence Report is delivered after the intake call</li>
+      </ol>
 
       <div class="apply-form">
         <form id="vc-form" novalidate>
@@ -450,7 +462,10 @@
   }
 
   function submitApplication(payload) {
-    return fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/pilot-applications', {
+    var url = payload.formType === 'vc'
+      ? 'https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/vc-applications'
+      : 'https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/pilot-applications';
+    return fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
