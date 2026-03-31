@@ -159,7 +159,10 @@ const INTENTS = [
 function matchResponse(input) {
   const lower = input.toLowerCase();
   for (const intent of INTENTS) {
-    if (intent.keywords.some(kw => lower.includes(kw))) {
+    if (intent.keywords.some(kw => {
+      const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(`(^|\\s)${escaped}(\\s|$|[?!.,])`, 'i').test(lower);
+    })) {
       if (Array.isArray(intent.responses)) {
         return intent.responses[Math.floor(Math.random() * intent.responses.length)];
       }
