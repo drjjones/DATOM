@@ -542,6 +542,63 @@
       .section { padding: 14px 8px; }
       .datomCard { padding: 10px; }
     }
+
+    /* Post-demo conversion CTA */
+    .cta-conversion {
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .cta-card {
+      padding: 28px 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.7);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .cta-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .cta-card p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .cta-card .cta-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 9px 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      align-self: flex-start;
+    }
+    .cta-card .cta-btn:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+    @media (max-width: 767px) {
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -852,6 +909,21 @@
         <summary>Long-term implication? <span class="chev">&#x2304;</span></summary>
         <div class="faq-body">Trust becomes auditable, disagreement becomes usable, and scientific reasoning becomes composable.</div>
       </details>
+    </div>
+  </div>
+</section>
+
+<section class="section card cta-conversion reveal">
+  <div class="cta-grid">
+    <div class="cta-card">
+      <h3>Ready to run this on your lab's claim?</h3>
+      <p>DATOM maps evidence structure on the claims that matter to your research — not a hypothetical dataset.</p>
+      <a class="cta-btn" href="try.html">Apply for a Pilot Lab →</a>
+    </div>
+    <div class="cta-card">
+      <h3>Evaluating a company's scientific claims?</h3>
+      <p>We produce structured Confidence Reports for technical due diligence — no fluff, no narrative summary.</p>
+      <a class="cta-btn" href="try.html">Request a VC Confidence Report →</a>
     </div>
   </div>
 </section>
