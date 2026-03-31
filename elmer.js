@@ -374,7 +374,12 @@ function showSuggestions() {
   const page = detectPage();
   let chips;
   if (page === "example") {
-    chips = ["Walk me through the evidence", "What is datom B6?", "Show me the confidence score", "How can I use this?"];
+    chips = [
+      "Walk me through the evidence",
+      "What is the confidence score here?",
+      "What is the nucleus claim?",
+      "How is this different from a literature review?"
+    ];
   } else if (page === "product") {
     chips = ["Show me the three pillars", "How is DATOM different from AI?", "Show me the use cases"];
   } else if (page === "try") {
@@ -437,7 +442,7 @@ function removeTyping() {
   document.getElementById("elmerTyping")?.remove();
 }
 
-// ── Response handler with AI fallback ──
+// ── Response handler — AI first, pre-scripted safety net ──
 async function handleSend(overrideText) {
   const input = document.getElementById("elmerInput");
   const text = overrideText || input?.value?.trim();
@@ -452,36 +457,40 @@ async function handleSend(overrideText) {
   conversationHistory.push({ role: "user", content: text });
 
   showTyping();
-  await new Promise(r => setTimeout(r, 600));
-  removeTyping();
 
-  // Try pre-scripted tree first
-  const scripted = matchResponse(text);
-  if (scripted) {
-    addBubble(scripted, "elmer");
-    conversationHistory.push({ role: "assistant", content: scripted });
-    return;
-  }
-
-  // Fall back to AI endpoint
   try {
+    // AI first — always
     const res = await fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/elmer-public-chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: text,
-        history: conversationHistory.slice(-6) // last 3 turns only — keep context window small
+        history: conversationHistory.slice(-6),
+        page: detectPage() // pass page context so AI knows where the visitor is
       })
     });
-    if (!res.ok) throw new Error('API error');
+
+    removeTyping();
+
+    if (!res.ok) throw new Error(`API ${res.status}`);
     const data = await res.json();
     addBubble(data.reply, "elmer");
     conversationHistory.push({ role: "assistant", content: data.reply });
-  } catch {
-    // Final fallback if AI endpoint fails
-    const fallback = "That's a question I'd rather answer in more depth than I can here. If you'd like to explore whether DATOM is right for your work, the best next step is a short conversation with Jordan at [datom.science/try](https://datom.science/try).";
-    addBubble(fallback, "elmer");
-    conversationHistory.push({ role: "assistant", content: fallback });
+
+  } catch (err) {
+    removeTyping();
+    console.warn('[Elmer] AI fallback triggered:', err);
+
+    // Pre-scripted tree as safety net only
+    const scripted = matchResponse(text);
+    if (scripted) {
+      addBubble(scripted, "elmer");
+      conversationHistory.push({ role: "assistant", content: scripted });
+    } else {
+      const fallback = "I'm having trouble connecting right now. You can reach Jordan directly at jordan@datom.science or visit [datom.science/try](https://datom.science/try).";
+      addBubble(fallback, "elmer");
+      conversationHistory.push({ role: "assistant", content: fallback });
+    }
   }
 }
 
