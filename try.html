@@ -124,6 +124,15 @@
     color: var(--muted);
     margin: 8px 0 28px;
   }
+  .calendly-step-msg {
+    font-size: 15px;
+    color: var(--text);
+    background: rgba(6,182,212,0.06);
+    border: 1px solid rgba(6,182,212,0.2);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    margin-bottom: 20px;
+  }
 
   @media (max-width: 800px) {
     .tab-btn { font-size: 14px; padding: 14px 12px; }
@@ -170,13 +179,8 @@
       <h2>For Research Labs</h2>
       <h3 class="tab-subheading">Apply for the Pilot Program</h3>
 
-      <a href="https://calendly.com/jordan-datom/30min" class="btn-primary">Schedule a Briefing &rarr;</a>
-
       <!-- On-site application form -->
       <div class="apply-form">
-        <h3 style="margin-bottom:6px;">Or apply directly</h3>
-        <p style="color:var(--muted); font-size:14px; margin-bottom:28px;">Submit your application and we will follow up within one business day.</p>
-
         <form id="pilot-form" novalidate>
           <div class="form-grid">
             <div class="form-field">
@@ -260,33 +264,31 @@
           </div>
 
           <div class="form-actions">
-            <button type="submit" class="btn-primary" id="lab-submit-btn">Submit Application</button>
-          </div>
-
-          <div class="form-message success" id="lab-form-success" role="alert">
-            <strong>Application received.</strong> We will review your submission and follow up within one business day.
-          </div>
-          <div class="form-message error" id="lab-form-error" role="alert">
-            <strong>Submission failed.</strong> Please try again or <a href="mailto:jordan@datom.science">email us directly</a>.
+            <button type="submit" class="btn-primary" id="lab-submit-btn">Schedule Your Meeting &rarr;</button>
           </div>
         </form>
-      </div>
 
-      <p style="margin-top:28px; font-size:14px; color:var(--muted);">Not ready to apply? <a href="https://forms.gle/gGic2gbcEoENU9U78" style="color:var(--accent);">Join the waitlist</a></p>
+        <div id="lab-calendly-container" style="display:none;">
+          <p class="calendly-step-msg">One last step &mdash; pick a time that works for you. Your application will be submitted automatically once your meeting is confirmed.</p>
+          <div class="calendly-inline-widget" data-url="https://calendly.com/jordan-datom/30min" style="min-width:320px;height:700px;"></div>
+        </div>
+
+        <div class="form-message success" id="lab-form-success" role="alert">
+          Your application has been received and your meeting is confirmed. Jordan will be in touch shortly.
+        </div>
+        <div class="form-message error" id="lab-form-error" role="alert">
+          <strong>Submission failed.</strong> Please try again or email us directly at <a href="mailto:jordan@datom.science">jordan@datom.science</a>.
+        </div>
+      </div>
     </div>
 
     <!-- Investor tab -->
     <div class="tab-panel" id="panel-vc" role="tabpanel" aria-labelledby="tab-vc">
       <h2>Request a VC Confidence Report</h2>
-      <h3 class="tab-subheading">The first report is complimentary — and begins with a required intake call.</h3>
+      <h3 class="tab-subheading">The first report is complimentary &mdash; and begins with a required intake call.</h3>
       <p>This is a structured engagement, not an automated output. Complete the form below and we will reach out to schedule a 20-minute intake call to confirm scope before any analysis begins.</p>
 
-      <a href="https://calendly.com/jordan-datom/30min" class="btn-primary">Schedule a Briefing &rarr;</a>
-
       <div class="apply-form">
-        <h3 style="margin-bottom:6px;">Or apply directly</h3>
-        <p style="color:var(--muted); font-size:14px; margin-bottom:28px;">Submit your request and we will reach out to schedule the intake call.</p>
-
         <form id="vc-form" novalidate>
           <div class="form-grid">
             <div class="form-field full">
@@ -330,7 +332,7 @@
               <div class="radio-group" role="group" aria-label="Evidence type">
                 <label><input type="radio" name="evidenceType" value="I have proprietary data, reports, or documents I can submit" required> I have proprietary data, reports, or documents I can submit</label>
                 <label><input type="radio" name="evidenceType" value="I want a report generated from publicly available information about this claim"> I want a report generated from publicly available information about this claim</label>
-                <label><input type="radio" name="evidenceType" value="Both — I have some materials and want them supplemented with public sources"> Both — I have some materials and want them supplemented with public sources</label>
+                <label><input type="radio" name="evidenceType" value="Both — I have some materials and want them supplemented with public sources"> Both &mdash; I have some materials and want them supplemented with public sources</label>
               </div>
             </div>
             <div class="form-field full">
@@ -346,16 +348,21 @@
           </div>
 
           <div class="form-actions">
-            <button type="submit" class="btn-primary" id="vc-submit-btn">Submit Request</button>
-          </div>
-
-          <div class="form-message success" id="vc-form-success" role="alert">
-            <strong>Request received.</strong> We will reach out to schedule the intake call within one business day.
-          </div>
-          <div class="form-message error" id="vc-form-error" role="alert">
-            <strong>Submission failed.</strong> Please try again or <a href="mailto:jordan@datom.science">email us directly</a>.
+            <button type="submit" class="btn-primary" id="vc-submit-btn">Schedule Your Meeting &rarr;</button>
           </div>
         </form>
+
+        <div id="vc-calendly-container" style="display:none;">
+          <p class="calendly-step-msg">One last step &mdash; pick a time that works for you. Your application will be submitted automatically once your meeting is confirmed.</p>
+          <div class="calendly-inline-widget" data-url="https://calendly.com/jordan-datom/30min" style="min-width:320px;height:700px;"></div>
+        </div>
+
+        <div class="form-message success" id="vc-form-success" role="alert">
+          Your application has been received and your meeting is confirmed. Jordan will be in touch shortly.
+        </div>
+        <div class="form-message error" id="vc-form-error" role="alert">
+          <strong>Submission failed.</strong> Please try again or email us directly at <a href="mailto:jordan@datom.science">jordan@datom.science</a>.
+        </div>
       </div>
     </div>
   </section>
@@ -420,27 +427,80 @@
     }
   });
 
-  // ── Lab form submission ──
-  var labForm = document.getElementById('pilot-form');
-  var labSuccess = document.getElementById('lab-form-success');
-  var labError = document.getElementById('lab-form-error');
-  var labSubmitBtn = document.getElementById('lab-submit-btn');
+  // ── Calendly-gated submission ──
+  var activePayload = null;
+  var activeFormType = null;
+  var calendlyScriptLoaded = false;
 
+  function loadCalendlyScript(callback) {
+    if (calendlyScriptLoaded) { callback(); return; }
+    var script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.type = 'text/javascript';
+    script.onload = function () { calendlyScriptLoaded = true; callback(); };
+    document.head.appendChild(script);
+  }
+
+  function showCalendly(formType, payload) {
+    activePayload = payload;
+    activeFormType = formType;
+    var container = document.getElementById(formType + '-calendly-container');
+    container.style.display = 'block';
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function submitApplication(payload) {
+    return fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/pilot-applications', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      if (!res.ok) return res.json().then(function (d) { throw new Error(d.error || res.status); });
+      return res.json();
+    });
+  }
+
+  // Listen for Calendly booking confirmation — fires once per booking
+  window.addEventListener('message', function (e) {
+    if (!e.data || !e.data.event || e.data.event !== 'calendly.event_scheduled') return;
+    if (!activePayload || !activeFormType) return;
+
+    var payload = Object.assign({}, activePayload);
+    if (e.data.payload && e.data.payload.event && e.data.payload.event.uri) {
+      payload.calendlyEventUri = e.data.payload.event.uri;
+    }
+
+    var formType = activeFormType;
+    activePayload = null;
+    activeFormType = null;
+
+    submitApplication(payload)
+      .then(function () {
+        document.getElementById(formType + '-calendly-container').style.display = 'none';
+        var successEl = document.getElementById(formType + '-form-success');
+        successEl.style.display = 'block';
+        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      })
+      .catch(function () {
+        try {
+          localStorage.setItem('datom_failed_submission_' + Date.now(), JSON.stringify(payload));
+        } catch (err) {}
+        var errorEl = document.getElementById(formType + '-form-error');
+        errorEl.style.display = 'block';
+        errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+  });
+
+  // ── Lab form ──
+  var labForm = document.getElementById('pilot-form');
   if (labForm) {
     labForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      labSuccess.style.display = 'none';
-      labError.style.display = 'none';
-
       var hasInternalData = labForm.querySelector('input[name="hasInternalData"]:checked');
       if (!labForm.checkValidity() || !hasInternalData) {
         labForm.reportValidity();
         return;
       }
-
-      labSubmitBtn.disabled = true;
-      labSubmitBtn.textContent = 'Submitting…';
-
       var payload = {
         labName: labForm.labName.value.trim(),
         piName: labForm.piName.value.trim(),
@@ -456,49 +516,21 @@
         hasInternalData: hasInternalData.value,
         referralSource: labForm.referralSource.value || undefined
       };
-
-      fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/pilot-applications', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-        .then(function (res) {
-          if (!res.ok) return res.json().then(function (d) { throw new Error(d.error || res.status); });
-          return res.json();
-        })
-        .then(function () {
-          labForm.style.display = 'none';
-          labSuccess.style.display = 'block';
-        })
-        .catch(function () {
-          labSubmitBtn.disabled = false;
-          labSubmitBtn.textContent = 'Submit Application';
-          labError.style.display = 'block';
-        });
+      labForm.style.display = 'none';
+      loadCalendlyScript(function () { showCalendly('lab', payload); });
     });
   }
 
-  // ── VC form submission ──
+  // ── VC form ──
   var vcForm = document.getElementById('vc-form');
-  var vcSuccess = document.getElementById('vc-form-success');
-  var vcError = document.getElementById('vc-form-error');
-  var vcSubmitBtn = document.getElementById('vc-submit-btn');
-
   if (vcForm) {
     vcForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      vcSuccess.style.display = 'none';
-      vcError.style.display = 'none';
-
       var evidenceType = vcForm.querySelector('input[name="evidenceType"]:checked');
       if (!vcForm.checkValidity() || !evidenceType) {
         vcForm.reportValidity();
         return;
       }
-
-      vcSubmitBtn.disabled = true;
-      vcSubmitBtn.textContent = 'Submitting…';
-
       var payload = {
         formType: 'vc',
         email: vcForm.email.value.trim(),
@@ -511,25 +543,8 @@
         referralSource: vcForm.referralSource.value || undefined,
         priorDiligence: vcForm.priorDiligence.value.trim() || undefined
       };
-
-      fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/pilot-applications', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-        .then(function (res) {
-          if (!res.ok) return res.json().then(function (d) { throw new Error(d.error || res.status); });
-          return res.json();
-        })
-        .then(function () {
-          vcForm.style.display = 'none';
-          vcSuccess.style.display = 'block';
-        })
-        .catch(function () {
-          vcSubmitBtn.disabled = false;
-          vcSubmitBtn.textContent = 'Submit Request';
-          vcError.style.display = 'block';
-        });
+      vcForm.style.display = 'none';
+      loadCalendlyScript(function () { showCalendly('vc', payload); });
     });
   }
 })();
