@@ -310,7 +310,7 @@ async function handleSend(overrideText) {
 
   } catch (err) {
     removeTyping();
-    const fallback = "I'm having trouble connecting right now. You can reach Jordan directly at jordan@datom.science or visit [datom.science/try](https://datom.science/try).";
+    const fallback = "I'm having trouble connecting right now. You can reach the DATOM team at info@datom.science or visit [datom.science/try](https://datom.science/try).";
     addBubble(fallback, "elmer");
     conversationHistory.push({ role: "assistant", content: fallback });
   }
