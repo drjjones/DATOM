@@ -167,6 +167,11 @@
     <p class="lede" style="margin:0 auto;">Science advances on trust. We build the infrastructure to verify it.</p>
   </section>
 
+  <!-- Cancellation message (shown when returning from abandoned Stripe checkout) -->
+  <div id="cancelled-message" style="display:none;max-width:680px;margin:0 auto 32px;padding:16px 20px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:var(--radius);font-size:14px;color:var(--text);">
+    Your checkout session was cancelled. Your application has been saved &mdash; you can complete payment at any time. Questions? Email <a href="mailto:info@datom.science" style="color:var(--accent);">info@datom.science</a>.
+  </div>
+
   <!-- Tabs -->
   <section class="reveal">
     <div class="tab-nav" role="tablist">
@@ -432,6 +437,10 @@
               <input type="email" id="vcEmail" name="email" required autocomplete="email">
             </div>
             <div class="form-field full">
+              <label for="vcInstitution">Fund / Firm name <span class="req">*</span></label>
+              <input type="text" id="vcInstitution" name="institution" required autocomplete="organization">
+            </div>
+            <div class="form-field full">
               <label for="vcReferralSource">How did you hear about DATOM?</label>
               <select id="vcReferralSource" name="referralSource">
                 <option value="">Select…</option>
@@ -484,7 +493,7 @@
           </div>
 
           <div class="form-actions">
-            <button type="submit" class="btn-primary" id="vc-submit-btn">Schedule Your Meeting &rarr;</button>
+            <button type="submit" class="btn-primary" id="vc-submit-btn">Continue &rarr;</button>
           </div>
         </form>
 
@@ -538,6 +547,13 @@
   var hash = window.location.hash.replace('#', '');
   if (hash === 'lab' || hash === 'vc') activateTab(hash);
 
+  // Show cancellation message if returning from abandoned Stripe checkout
+  var pageParams = new URLSearchParams(window.location.search);
+  if (pageParams.get('cancelled') === 'true') {
+    document.getElementById('cancelled-message').style.display = 'block';
+    activateTab('vc');
+  }
+
   // ── Char counters (generic) ──
   var counterFields = [
     ['primaryClaim', 'primaryClaim-count'],
@@ -567,6 +583,7 @@
   var activePayload = null;
   var activeFormType = null;
   var calendlyScriptLoaded = false;
+  var currentApplicationId = '';
 
   function loadCalendlyScript(callback) {
     if (calendlyScriptLoaded) { callback(); return; }
@@ -602,14 +619,25 @@
   // Listen for Calendly booking confirmation — fires once per booking
   window.addEventListener('message', function (e) {
     if (!e.data || !e.data.event || e.data.event !== 'calendly.event_scheduled') return;
-    if (!activePayload || !activeFormType) return;
+    if (!activeFormType) return;
 
+    var formType = activeFormType;
+
+    // VC (Confidence Report) flow: backend already recorded application — just redirect
+    if (formType === 'vc') {
+      activePayload = null;
+      activeFormType = null;
+      window.location.href = 'thankyou.html?applicationId=' + encodeURIComponent(currentApplicationId) + '&flow=calendly';
+      return;
+    }
+
+    // Lab form flow: submit application after Calendly booking
+    if (!activePayload) return;
     var payload = Object.assign({}, activePayload);
     if (e.data.payload && e.data.payload.event && e.data.payload.event.uri) {
       payload.calendlyEventUri = e.data.payload.event.uri;
     }
 
-    var formType = activeFormType;
     activePayload = null;
     activeFormType = null;
 
@@ -660,7 +688,7 @@
     });
   }
 
-  // ── VC form ──
+  // ── VC form (Confidence Report — routes to Stripe or Calendly based on institution history) ──
   var vcForm = document.getElementById('vc-form');
   if (vcForm) {
     vcForm.addEventListener('submit', function (e) {
@@ -670,9 +698,15 @@
         vcForm.reportValidity();
         return;
       }
+
+      var submitBtn = document.getElementById('vc-submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting\u2026';
+
       var payload = {
         formType: 'vc',
         email: vcForm.email.value.trim(),
+        institution: vcForm.institution.value.trim(),
         scientificClaim: vcForm.scientificClaim.value.trim(),
         decisionContext: vcForm.decisionContext.value.trim(),
         claimConfidence: vcForm.claimConfidence.value.trim(),
@@ -682,8 +716,35 @@
         referralSource: vcForm.referralSource.value || undefined,
         priorDiligence: vcForm.priorDiligence.value.trim() || undefined
       };
-      vcForm.style.display = 'none';
-      loadCalendlyScript(function () { showCalendly('vc', payload); });
+
+      fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/confidence-report-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) {
+          if (!res.ok) return res.json().then(function (d) { throw new Error(d.error || res.status); });
+          return res.json();
+        })
+        .then(function (data) {
+          currentApplicationId = data.applicationId || '';
+          if (data.flow === 'stripe') {
+            // Returning institution — redirect to Stripe Checkout
+            window.location.href = data.checkoutUrl;
+          } else {
+            // First-time institution — show Calendly embed
+            activeFormType = 'vc';
+            vcForm.style.display = 'none';
+            loadCalendlyScript(function () { showCalendly('vc', null); });
+          }
+        })
+        .catch(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Continue \u2192';
+          var errorEl = document.getElementById('vc-form-error');
+          errorEl.style.display = 'block';
+          errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
     });
   }
 })();
