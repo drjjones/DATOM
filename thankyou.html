@@ -9,15 +9,16 @@
 <link rel="stylesheet" href="elmer.css" />
 <style>
   .upload-zone {
-    border: 2px dashed var(--border);
+    border: 2px dashed var(--accent);
     border-radius: var(--radius);
-    padding: 40px;
+    padding: 60px 40px;
     text-align: center;
     cursor: pointer;
-    transition: border-color 0.2s;
+    background: rgba(6,182,212,0.04);
+    transition: border-color 0.2s, background 0.2s;
   }
-  .upload-zone:hover { border-color: var(--accent); }
-  .upload-zone.dragover { border-color: var(--accent); background: rgba(6,182,212,0.05); }
+  .upload-zone:hover { border-color: var(--accent); background: rgba(6,182,212,0.08); }
+  .upload-zone.dragover { border-color: var(--accent); background: rgba(6,182,212,0.12); }
   .upload-success {
     background: rgba(6,182,212,0.08);
     border: 1px solid rgba(6,182,212,0.25);
@@ -83,7 +84,7 @@
   </section>
 
   <!-- Document Upload -->
-  <section class="reveal">
+  <section class="reveal" id="uploadSection">
     <h2>Submit Your Evidence Context</h2>
     <p style="color:var(--muted); margin-bottom:24px;">
       Help us understand your claim by submitting any relevant materials &mdash;
@@ -97,20 +98,22 @@
       </svg>
       <p style="margin:0 0 8px;font-weight:600;">Drop files here or click to browse</p>
       <p style="margin:0;font-size:13px;color:var(--muted);">
-        Accepted: PDF, Word, Excel, CSV, PNG, JPG &mdash; max 10 files, 50MB each
+        PDF files only &mdash; max 10 files, 50MB each
       </p>
-      <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.png,.jpg,.jpeg" style="display:none" aria-hidden="true">
+      <input type="file" id="fileInput" multiple accept=".pdf" style="display:none" aria-hidden="true">
     </div>
 
     <div id="fileList" style="margin-top:16px;" aria-live="polite"></div>
 
+    <div id="fileError" role="alert" style="display:none;margin-top:12px;color:#e05252;font-size:14px;"></div>
+
     <div style="margin-top:20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
       <button class="btn-primary" id="uploadBtn" style="display:none;">Upload Documents &rarr;</button>
-      <span style="font-size:14px;color:var(--muted);">
-        Or email documents to
-        <a href="mailto:info@datom.science" style="color:var(--accent);">info@datom.science</a>
-      </span>
     </div>
+    <p style="font-size:16px;color:var(--text);margin-top:16px;text-align:center;">
+      Or email your documents directly to
+      <a href="mailto:info@datom.science" style="color:var(--accent);font-weight:600;">info@datom.science</a>
+    </p>
 
     <div class="upload-success" id="uploadSuccess" role="alert">
       <strong>Documents received.</strong> The DATOM team will be in touch within one business day.
@@ -154,6 +157,7 @@
   var params = new URLSearchParams(window.location.search);
   var applicationId = params.get('applicationId') || '';
   var flow = params.get('flow') || 'stripe';
+  var evidenceType = (params.get('evidenceType') || '').toLowerCase();
 
   // Show schedule section for Stripe customers only
   if (flow !== 'calendly') {
@@ -166,11 +170,26 @@
       'Your meeting is confirmed. Submit your evidence context below and we will be in touch.';
   }
 
+  // Fix 4 — Hide upload section for "publicly available" evidence type
+  if (evidenceType.indexOf('publicly available') !== -1 && evidenceType.indexOf('both') === -1) {
+    var uploadSection = document.getElementById('uploadSection');
+    uploadSection.style.display = 'none';
+    var msg = document.createElement('section');
+    msg.className = 'reveal';
+    msg.style.cssText = 'text-align:center;';
+    msg.innerHTML = '<p style="font-size:16px;color:var(--text);max-width:600px;margin:0 auto;">' +
+      'We are running a literature review on your claim using publicly available sources. ' +
+      'No document upload is required.' +
+      '</p>';
+    uploadSection.parentNode.insertBefore(msg, uploadSection.nextSibling);
+  }
+
   // ── File upload ──
   var uploadZone = document.getElementById('uploadZone');
   var fileInput = document.getElementById('fileInput');
   var fileList = document.getElementById('fileList');
   var uploadBtn = document.getElementById('uploadBtn');
+  var fileError = document.getElementById('fileError');
   var selectedFiles = [];
 
   uploadZone.addEventListener('click', function () { fileInput.click(); });
@@ -198,8 +217,23 @@
     handleFiles(Array.from(fileInput.files));
   });
 
+  function isPdf(file) {
+    return file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+  }
+
   function handleFiles(files) {
-    selectedFiles = files.slice(0, 10);
+    var rejected = files.filter(function (f) { return !isPdf(f); });
+    var accepted = files.filter(isPdf).slice(0, 10);
+
+    if (rejected.length > 0) {
+      fileError.textContent = 'Only PDF files are accepted. ' + rejected.length +
+        ' file(s) were skipped: ' + rejected.map(function (f) { return f.name; }).join(', ');
+      fileError.style.display = 'block';
+    } else {
+      fileError.style.display = 'none';
+    }
+
+    selectedFiles = accepted;
     fileList.innerHTML = selectedFiles.map(function (f) {
       return '<div style="padding:8px 0;font-size:14px;color:var(--muted);border-bottom:1px solid var(--border);">' +
         '\uD83D\uDCC4 ' + f.name + ' (' + (f.size / 1024 / 1024).toFixed(1) + 'MB)' +
