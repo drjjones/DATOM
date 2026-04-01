@@ -3,55 +3,6 @@
    Page-aware, physically navigates the website, scrolls to sections
    ============================================================ */
 
-// ── Pre-scripted response tree (DAT-163: only harmless social intents — no topic responses) ──
-// Topic questions go to AI. If AI is down, honest error fallback is shown. No scripted
-// topic responses — they actively deceive users when the API is unavailable.
-const INTENTS = [
-  // ── Greetings ──
-  {
-    keywords: ["hello", "hi", "hey", "good morning", "good afternoon", "good evening", "howdy", "greetings"],
-    responses: [
-      "Hello! I'm Elmer, DATOM's Evidence Steward. I can help you understand how DATOM works, what a Confidence Report looks like, or whether DATOM might be right for your lab or fund. What would you like to know?",
-      "Hi there. I'm Elmer — here to help you understand DATOM and whether it's relevant to your work. What's on your mind?",
-      "Hello! Happy to help. You can ask me about DATOM, Confidence Reports, how confidence scoring works, or how to get started. What would you like to explore?",
-    ],
-  },
-  // ── Thank you ──
-  {
-    keywords: ["thank you", "thanks", "thank you so much", "appreciate it", "helpful"],
-    responses: [
-      "Happy to help. Is there anything else you'd like to know about DATOM?",
-      "Of course. Let me know if you have other questions.",
-      "Glad that was useful. Feel free to ask anything else.",
-    ],
-  },
-  // ── Goodbye ──
-  {
-    keywords: ["bye", "goodbye", "see you", "take care", "that's all", "thats all", "i'm done", "im done"],
-    responses: [
-      "Thanks for stopping by. If you'd like to explore DATOM further, you can always reach Jordan at jordan@datom.science.",
-      "Goodbye. If DATOM sounds relevant to your work, [datom.science/try](https://datom.science/try) is the best place to start.",
-      "Take care. Feel free to come back anytime.",
-    ],
-  },
-];
-
-function matchResponse(input) {
-  const lower = input.toLowerCase();
-  for (const intent of INTENTS) {
-    if (intent.keywords.some(kw => {
-      const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      return new RegExp(`(^|\\s)${escaped}(\\s|$|[?!.,])`, 'i').test(lower);
-    })) {
-      if (Array.isArray(intent.responses)) {
-        return intent.responses[Math.floor(Math.random() * intent.responses.length)];
-      }
-      return intent.response;
-    }
-  }
-  return null; // null triggers AI fallback
-}
-
 // ── Navigation map: all scrollable sections across the site ──
 const NAV_MAP = {
   // index.html
@@ -322,7 +273,7 @@ function removeTyping() {
   document.getElementById("elmerTyping")?.remove();
 }
 
-// ── Response handler — AI first, pre-scripted safety net ──
+// ── Response handler ──
 async function handleSend(overrideText) {
   const input = document.getElementById("elmerInput");
   const text = overrideText || input?.value?.trim();
@@ -359,18 +310,9 @@ async function handleSend(overrideText) {
 
   } catch (err) {
     removeTyping();
-    console.warn('[Elmer] AI fallback triggered:', err);
-
-    // Pre-scripted tree as safety net only
-    const scripted = matchResponse(text);
-    if (scripted) {
-      addBubble(scripted, "elmer");
-      conversationHistory.push({ role: "assistant", content: scripted });
-    } else {
-      const fallback = "I'm having trouble connecting right now. You can reach Jordan directly at jordan@datom.science or visit [datom.science/try](https://datom.science/try).";
-      addBubble(fallback, "elmer");
-      conversationHistory.push({ role: "assistant", content: fallback });
-    }
+    const fallback = "I'm having trouble connecting right now. You can reach Jordan directly at jordan@datom.science or visit [datom.science/try](https://datom.science/try).";
+    addBubble(fallback, "elmer");
+    conversationHistory.push({ role: "assistant", content: fallback });
   }
 }
 
