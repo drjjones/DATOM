@@ -79,8 +79,21 @@
 
   <!-- Hero -->
   <section class="reveal" style="text-align:center;">
-    <h1>Thank you.</h1>
+    <h1 id="hero-title">Thank you.</h1>
     <p class="lede" id="hero-message" style="margin: 0 auto;">Your engagement with DATOM is confirmed.</p>
+  </section>
+
+  <!-- Refined-flow confirmation card (only shown when flow=refined) -->
+  <section class="reveal" id="refinedSection" style="display:none;">
+    <div style="max-width: 620px; margin: 0 auto; text-align: center; background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 48px 36px;">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="margin:0 auto 18px;display:block;color:var(--accent)" aria-hidden="true">
+        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      <h2 style="margin-bottom: 12px;">Your analysis is running</h2>
+      <p style="color: var(--muted); margin-bottom: 18px;">Your claim is locked in and DATOM is now assembling evidence for your Confidence Report. We&rsquo;ll email you as soon as it&rsquo;s ready.</p>
+      <p style="font-size: 13px; color: var(--muted); margin: 0;">Order ID: <code id="refinedOrderId" style="font-family: var(--mono); background: rgba(6,182,212,0.08); padding: 2px 8px; border-radius: 6px;">&mdash;</code></p>
+    </div>
   </section>
 
   <!-- Document Upload -->
@@ -158,6 +171,24 @@
   var applicationId = params.get('applicationId') || '';
   var flow = params.get('flow') || 'stripe';
   var evidenceType = (params.get('evidenceType') || '').toLowerCase();
+
+  // ── flow=refined ──
+  // Post-refinement landing. The user has already locked their claim and
+  // ingestion is running. Hide the upload + schedule sections and show the
+  // dedicated "analysis is running" card.
+  if (flow === 'refined') {
+    var upload = document.getElementById('uploadSection');
+    if (upload) upload.style.display = 'none';
+    var sched = document.getElementById('scheduleSection');
+    if (sched) sched.style.display = 'none';
+    var refined = document.getElementById('refinedSection');
+    if (refined) refined.style.display = 'block';
+    document.getElementById('hero-title').textContent = 'Thank you.';
+    document.getElementById('hero-message').textContent =
+      'Your claim is locked in. DATOM is now running your Confidence Report.';
+    document.getElementById('refinedOrderId').textContent = applicationId || '—';
+    return;
+  }
 
   // Show schedule section for Stripe customers only
   if (flow !== 'calendly') {

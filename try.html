@@ -429,8 +429,30 @@
         <li>Your Confidence Report is delivered after the intake call</li>
       </ol>
 
+      <!-- Promo code banner — only shown when ?promo=XXX in URL -->
+      <div
+        id="vc-promo-banner"
+        style="display:none;margin-bottom:20px;padding:18px 22px;border-radius:var(--radius);background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.30);"
+      >
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--accent);flex-shrink:0;" aria-hidden="true">
+            <polyline points="20 12 20 22 4 22 4 12"/>
+            <rect x="2" y="7" width="20" height="5"/>
+            <line x1="12" y1="22" x2="12" y2="7"/>
+            <path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/>
+            <path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+          </svg>
+          <strong style="color:var(--text);font-size:15px;">Free Confidence Report</strong>
+        </div>
+        <p style="margin:0;font-size:14px;color:var(--muted);">
+          You have a promotional Confidence Report from DATOM for <strong id="vc-promo-email" style="color:var(--text);">&mdash;</strong>. Submit your claim below and you&rsquo;ll skip payment entirely.
+        </p>
+      </div>
+
       <div class="apply-form">
         <form id="vc-form" novalidate>
+          <!-- Hidden promo code field — set from ?promo=XXX query param -->
+          <input type="hidden" id="vcPromoCode" name="promoCode" value="">
           <div class="form-grid">
             <div class="form-field full">
               <label for="vcEmail">Email <span class="req">*</span></label>
@@ -703,11 +725,14 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting\u2026';
 
+      var promoCode = (document.getElementById('vcPromoCode') || {}).value || '';
+
       var payload = {
         formType: 'vc',
         email: vcForm.email.value.trim(),
         institution: vcForm.institution.value.trim(),
         scientificClaim: vcForm.scientificClaim.value.trim(),
+        primaryClaim: vcForm.scientificClaim.value.trim(), // used by refine flow
         decisionContext: vcForm.decisionContext.value.trim(),
         claimConfidence: vcForm.claimConfidence.value.trim(),
         investmentImplication: vcForm.investmentImplication.value.trim(),
@@ -716,6 +741,7 @@
         referralSource: vcForm.referralSource.value || undefined,
         priorDiligence: vcForm.priorDiligence.value.trim() || undefined
       };
+      if (promoCode) payload.promoCode = promoCode;
 
       fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/confidence-report-request', {
         method: 'POST',
@@ -728,7 +754,10 @@
         })
         .then(function (data) {
           currentApplicationId = data.applicationId || '';
-          if (data.flow === 'stripe') {
+          if (data.flow === 'promo' && data.refineUrl) {
+            // Promo redeemed — send them straight into the refinement chat
+            window.location.href = data.refineUrl;
+          } else if (data.flow === 'stripe') {
             // Returning institution — redirect to Stripe Checkout
             window.location.href = data.checkoutUrl;
           } else {
@@ -738,15 +767,49 @@
             loadCalendlyScript(function () { showCalendly('vc', null); });
           }
         })
-        .catch(function () {
+        .catch(function (err) {
           submitBtn.disabled = false;
           submitBtn.textContent = 'Continue \u2192';
           var errorEl = document.getElementById('vc-form-error');
-          errorEl.style.display = 'block';
-          errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (errorEl) {
+            if (err && err.message) errorEl.textContent = String(err.message);
+            errorEl.style.display = 'block';
+            errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
         });
     });
   }
+
+  // ── Promo code pre-fill (from ?promo=XXX&email=foo@bar.com) ──
+  (function initPromoPrefill() {
+    var params = new URLSearchParams(window.location.search);
+    var promo  = params.get('promo') || '';
+    var email  = params.get('email') || '';
+    if (!promo) return;
+
+    var promoInput = document.getElementById('vcPromoCode');
+    var emailInput = document.getElementById('vcEmail');
+    var banner     = document.getElementById('vc-promo-banner');
+    var bannerEmail = document.getElementById('vc-promo-email');
+    if (!promoInput) return;
+
+    promoInput.value = promo.trim().toUpperCase();
+    if (email && emailInput) {
+      emailInput.value = email.trim();
+      // Strict binding — the code only works for this exact email.
+      emailInput.readOnly = true;
+      emailInput.style.background = 'rgba(6,182,212,0.06)';
+      emailInput.style.cursor = 'not-allowed';
+    }
+    if (banner) banner.style.display = 'block';
+    if (bannerEmail && email) bannerEmail.textContent = email;
+
+    // If the user is on the Lab tab but has a VC promo link, jump to VC tab.
+    var vcTab = document.querySelector('[data-tab="vc"]') || document.getElementById('tab-vc');
+    if (vcTab && typeof vcTab.click === 'function') {
+      try { vcTab.click(); } catch (e) { /* tabs may not be wired, ignore */ }
+    }
+  })();
 })();
 </script>
 </body>

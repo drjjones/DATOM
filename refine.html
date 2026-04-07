@@ -484,19 +484,12 @@
       </div>
     </section>
 
-    <!-- CONFIRM -->
-    <section class="stage-section" id="stage-confirm">
-      <div class="confirm-card">
-        <div class="stage-header" style="margin-bottom: 8px;">
-          <span class="pill"><span class="pill-dot"></span> Lock in your claim</span>
-          <h1>Is this the claim you want analyzed?</h1>
-          <p>This is what DATOM will run the full Confidence Report against. You can still go back and refine further.</p>
-        </div>
-        <div class="confirm-claim-box" id="confirm-claim-box">&mdash;</div>
-        <div class="confirm-actions">
-          <button class="btn-ghost" id="back-to-refine-btn" type="button">&larr; Keep refining</button>
-          <button class="btn-primary" id="confirm-claim-btn" type="button">Confirm claim &rarr;</button>
-        </div>
+    <!-- LOCKING (one-way transition card while lock API runs) -->
+    <section class="stage-section" id="stage-locking">
+      <div class="center-card">
+        <div class="spinner" aria-hidden="true"></div>
+        <h2>Locking in your claim…</h2>
+        <p style="margin-bottom: 0;">One moment while we prepare your analysis.</p>
       </div>
     </section>
 
@@ -523,19 +516,6 @@
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;flex-wrap:wrap;gap:12px;">
         <button class="btn-ghost" id="skip-upload-btn" type="button">Skip &mdash; analyze public sources only</button>
         <button class="btn-primary" id="start-analysis-btn" type="button">Start analysis &rarr;</button>
-      </div>
-    </section>
-
-    <!-- DONE -->
-    <section class="stage-section" id="stage-done">
-      <div class="done-card">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-          <polyline points="22 4 12 14.01 9 11.01"/>
-        </svg>
-        <h1>Your analysis is running</h1>
-        <p style="max-width: 540px; margin: 0 auto 8px;">DATOM is now assembling evidence for your refined claim. We&rsquo;ll email <strong id="done-email">you</strong> as soon as your Confidence Report is ready.</p>
-        <p style="margin-top: 24px;"><a href="index.html" class="btn-primary">Back to datom.science</a></p>
       </div>
     </section>
 
@@ -701,18 +681,15 @@
     setTimeout(function () { $('chat-input').focus(); }, 200);
   }
 
-  function enterConfirm() {
-    $('confirm-claim-box').textContent = state.currentClaim;
-    showStage('confirm');
-  }
-
   function enterUpload() {
     showStage('upload');
   }
 
-  function enterDone() {
-    $('done-email').textContent = state.email || 'you';
-    showStage('done');
+  function redirectToThankYou() {
+    var params = new URLSearchParams();
+    params.set('flow', 'refined');
+    if (state.applicationId) params.set('applicationId', state.applicationId);
+    window.location.replace('thankyou.html?' + params.toString());
   }
 
   // ── Boot ─────────────────────────────────────────────────
@@ -741,12 +718,14 @@
         if (stage === 'REFINING') {
           enterRefining(data);
         } else if (stage === 'CONFIRM_CLAIM') {
-          // Resumed mid-confirm — go straight to confirm card
-          enterConfirm();
+          // Server has this session in a post-lock state — surface the upload
+          // step if needed, otherwise send them on to the thank-you page.
+          if (state.needsUpload) enterUpload();
+          else redirectToThankYou();
         } else if (stage === 'UPLOAD') {
           enterUpload();
         } else if (stage === 'DONE') {
-          enterDone();
+          redirectToThankYou();
         } else {
           enterRefining(data);
         }
@@ -795,32 +774,27 @@
   }
 
   // ── Locking the claim ─────────────────────────────────────
+  // One-way transition: clicking "Lock in" fires the API immediately.
+  // There is no "back to chat" option once this runs. The backend also
+  // refuses any further /api/refine/turn calls once the stage advances.
   function lockClaim() {
-    enterConfirm();
-  }
-
-  function confirmClaim() {
-    $('confirm-claim-btn').disabled = true;
-    $('confirm-claim-btn').textContent = 'Locking…';
+    if (state.precisionScore < 4) return;
+    showStage('locking');
     api('/api/refine/lock', { token: state.token, userConfirmed: true })
       .then(function (data) {
         if (!data.ok) {
-          alert('Could not lock claim: ' + (data.reason || 'unknown'));
-          $('confirm-claim-btn').disabled = false;
-          $('confirm-claim-btn').textContent = 'Confirm claim →';
+          showError('Could not lock claim: ' + (data.reason || 'unknown'));
           return;
         }
         if (data.needsUpload) {
           enterUpload();
         } else {
-          // No upload step — go directly to start
+          // No upload step — go directly to start, then redirect
           startAnalysis();
         }
       })
       .catch(function (err) {
-        alert('Lock failed: ' + (err.message || 'unknown'));
-        $('confirm-claim-btn').disabled = false;
-        $('confirm-claim-btn').textContent = 'Confirm claim →';
+        showError('Lock failed: ' + (err.message || 'unknown'));
       });
   }
 
@@ -877,14 +851,14 @@
   }
 
   function startAnalysis() {
-    $('start-analysis-btn').disabled = true;
-    $('start-analysis-btn').textContent = 'Starting…';
+    // Button may not be visible on the direct-lock path; guard its updates.
+    var btn = $('start-analysis-btn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Starting…'; }
     api('/api/refine/start', { token: state.token })
-      .then(function () { enterDone(); })
+      .then(function () { redirectToThankYou(); })
       .catch(function (err) {
-        alert('Start failed: ' + (err.message || 'unknown'));
-        $('start-analysis-btn').disabled = false;
-        $('start-analysis-btn').textContent = 'Start analysis →';
+        if (btn) { btn.disabled = false; btn.textContent = 'Start analysis →'; }
+        showError('Start failed: ' + (err.message || 'unknown'));
       });
   }
 
@@ -909,8 +883,6 @@
     });
     $('send-btn').addEventListener('click', sendTurn);
     $('lock-btn').addEventListener('click', lockClaim);
-    $('back-to-refine-btn').addEventListener('click', function () { showStage('refining'); });
-    $('confirm-claim-btn').addEventListener('click', confirmClaim);
 
     // Upload zone
     var zone = $('upload-zone');
