@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Refine Your Claim — DATOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Refine your scientific claim with ELMER, DATOM's research assistant, before your Confidence Report begins." />
+<link rel="icon" href="./Assets/favicon.png" />
+<link rel="stylesheet" href="global.css?v=2" />
+<link rel="stylesheet" href="elmer.css" />
+<style>
+  /* ── Layout ───────────────────────────────────────────────── */
+  .refine-shell {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .stage-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .stage-header .pill { margin-bottom: 14px; }
+  .stage-header h1 {
+    font-size: clamp(28px, 4.5vw, 42px);
+    margin-bottom: 12px;
+  }
+  .stage-header p {
+    font-size: 16px;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  /* ── Chat panel (REFINING stage) ──────────────────────────── */
+  .chat-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 880px) {
+    .chat-grid { grid-template-columns: 1fr; }
+    .precision-panel { position: static !important; }
+  }
+
+  .chat-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+  }
+  .chat-history {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 56vh;
+    padding-right: 6px;
+    margin-bottom: 16px;
+    scroll-behavior: smooth;
+  }
+  .chat-history::-webkit-scrollbar { width: 6px; }
+  .chat-history::-webkit-scrollbar-thumb { background: rgba(6,182,212,0.25); border-radius: 3px; }
+
+  .msg {
+    max-width: 92%;
+    padding: 14px 18px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .msg-assistant {
+    background: rgba(6,182,212,0.08);
+    border: 1px solid rgba(6,182,212,0.20);
+    color: var(--text);
+    border-bottom-left-radius: 4px;
+    margin-right: auto;
+  }
+  .msg-user {
+    background: var(--accent);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+    margin-left: auto;
+    box-shadow: 0 2px 8px var(--accent-glow);
+  }
+  .msg-thinking {
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .chat-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+  .chat-input {
+    flex: 1;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-family: var(--sans);
+    color: var(--text);
+    resize: none;
+    min-height: 48px;
+    max-height: 140px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+  }
+  .chat-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(6,182,212,0.15);
+  }
+  .send-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 22px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px var(--accent-glow);
+    flex-shrink: 0;
+    height: 48px;
+  }
+  .send-btn:hover:not(:disabled) {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px var(--accent-glow);
+  }
+  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* ── Precision panel ─────────────────────────────────────── */
+  .precision-panel {
+    position: sticky;
+    top: 110px;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+  }
+  .precision-panel h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .current-claim {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.55;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    margin-bottom: 18px;
+    max-height: 140px;
+    overflow-y: auto;
+    word-break: break-word;
+  }
+
+  .precision-meter {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .precision-bar {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(6,182,212,0.12);
+    transition: background 0.4s;
+  }
+  .precision-bar.filled {
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+  .precision-score {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+  .precision-score .denom { color: var(--muted); font-size: 16px; font-weight: 600; }
+  .precision-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .axis-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+  }
+  .axis-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    color: var(--muted);
+  }
+  .axis-list li.pass { color: var(--text); }
+  .axis-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .axis-list li.pass .axis-icon {
+    background: var(--accent);
+    color: #fff;
+  }
+  .axis-list li.fail .axis-icon {
+    background: rgba(15,23,42,0.10);
+    color: var(--muted);
+  }
+
+  .turn-counter {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .lock-cta {
+    margin-top: 16px;
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px var(--accent-glow);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+  }
+  .lock-cta.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  .lock-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+  /* ── Confirm card ────────────────────────────────────────── */
+  .confirm-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    text-align: center;
+  }
+  .confirm-claim-box {
+    font-family: var(--mono);
+    font-size: 17px;
+    line-height: 1.65;
+    background: rgba(6,182,212,0.06);
+    border: 1px solid rgba(6,182,212,0.20);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin: 24px auto;
+    max-width: 640px;
+    color: var(--text);
+    text-align: left;
+  }
+  .confirm-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--text);
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.6); border-color: var(--accent); }
+
+  /* ── Upload card ─────────────────────────────────────────── */
+  .upload-zone {
+    border: 2px dashed var(--accent);
+    border-radius: var(--radius);
+    padding: 60px 40px;
+    text-align: center;
+    cursor: pointer;
+    background: rgba(6,182,212,0.04);
+    transition: border-color 0.2s, background 0.2s;
+    margin-top: 8px;
+  }
+  .upload-zone:hover { background: rgba(6,182,212,0.08); }
+  .upload-zone.dragover { background: rgba(6,182,212,0.14); }
+  .file-row {
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .file-row .file-status {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ── Done card ───────────────────────────────────────────── */
+  .done-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 60px 40px;
+    text-align: center;
+  }
+  .done-card svg {
+    width: 64px;
+    height: 64px;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+
+  /* ── Error / loading ─────────────────────────────────────── */
+  .center-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 60px 40px;
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(6,182,212,0.18);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    margin: 0 auto 18px;
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .stage-section { display: none; }
+  .stage-section.active { display: block; }
+
+  /* Mobile padding */
+  @media (max-width: 800px) {
+    .chat-card { padding: 16px; min-height: 380px; }
+    .precision-panel { padding: 16px; }
+    .confirm-card, .done-card, .center-card { padding: 32px 20px; }
+    .confirm-claim-box { padding: 18px 20px; font-size: 15px; }
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="product.html">How It Works</a>
+    <a href="example.html">Live Example</a>
+    <a href="research.html">Research</a>
+    <a href="mailto:info@datom.science" class="btn-cta">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <div class="refine-shell">
+
+    <!-- LOADING -->
+    <section class="stage-section active" id="stage-loading">
+      <div class="center-card">
+        <div class="spinner" aria-hidden="true"></div>
+        <h2>Loading your refinement session…</h2>
+        <p style="margin-bottom: 0;">Verifying your payment and preparing ELMER.</p>
+      </div>
+    </section>
+
+    <!-- ERROR -->
+    <section class="stage-section" id="stage-error">
+      <div class="center-card">
+        <h2>We couldn&rsquo;t load your session</h2>
+        <p id="error-message">This refinement link is invalid or has expired.</p>
+        <p style="margin-bottom: 0;">If you have already paid, please contact <a href="mailto:info@datom.science">info@datom.science</a> with your order ID and we&rsquo;ll send you a fresh link.</p>
+      </div>
+    </section>
+
+    <!-- REFINING -->
+    <section class="stage-section" id="stage-refining">
+      <div class="stage-header">
+        <span class="pill"><span class="pill-dot"></span> Step 1 of 3 &mdash; Refine your claim</span>
+        <h1>Let&rsquo;s sharpen your claim with <span class="text-gradient">ELMER</span></h1>
+        <p>A precise claim means a stronger Confidence Report and lower compute cost. ELMER will guide you through a few questions and propose a refined version that meets DATOM&rsquo;s precision standard.</p>
+      </div>
+
+      <div class="chat-grid">
+        <div class="chat-card">
+          <div class="chat-history" id="chat-history" aria-live="polite"></div>
+          <div class="chat-input-row">
+            <textarea
+              id="chat-input"
+              class="chat-input"
+              placeholder="Type your reply…"
+              rows="1"
+              aria-label="Your message"
+            ></textarea>
+            <button id="send-btn" class="send-btn">Send</button>
+          </div>
+        </div>
+
+        <aside class="precision-panel" aria-label="Claim precision">
+          <h3>Current claim</h3>
+          <div class="current-claim" id="current-claim-box">&mdash;</div>
+
+          <h3>DATOM precision</h3>
+          <div class="precision-meter" aria-hidden="true">
+            <div class="precision-bar" id="bar-1"></div>
+            <div class="precision-bar" id="bar-2"></div>
+            <div class="precision-bar" id="bar-3"></div>
+            <div class="precision-bar" id="bar-4"></div>
+          </div>
+          <div class="precision-score"><span id="score-value">0</span><span class="denom">&nbsp;/ 4</span></div>
+          <div class="precision-label" id="precision-label">Sharpen the claim across all four axes.</div>
+
+          <ul class="axis-list" id="axis-list">
+            <li class="fail" data-flag="DIRECTIONALITY"><span class="axis-icon">&#10003;</span>Direction (increases / decreases)</li>
+            <li class="fail" data-flag="COMPUTABILITY"><span class="axis-icon">&#10003;</span>Computable (no vague terms)</li>
+            <li class="fail" data-flag="BOUNDEDNESS"><span class="axis-icon">&#10003;</span>Bounded (population / context)</li>
+            <li class="fail" data-flag="FALSIFIABILITY"><span class="axis-icon">&#10003;</span>Falsifiable</li>
+          </ul>
+
+          <button class="lock-cta" id="lock-btn" type="button">Lock in this claim &rarr;</button>
+
+          <div class="turn-counter" id="turn-counter">Turn 0 of 12</div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CONFIRM -->
+    <section class="stage-section" id="stage-confirm">
+      <div class="confirm-card">
+        <div class="stage-header" style="margin-bottom: 8px;">
+          <span class="pill"><span class="pill-dot"></span> Lock in your claim</span>
+          <h1>Is this the claim you want analyzed?</h1>
+          <p>This is what DATOM will run the full Confidence Report against. You can still go back and refine further.</p>
+        </div>
+        <div class="confirm-claim-box" id="confirm-claim-box">&mdash;</div>
+        <div class="confirm-actions">
+          <button class="btn-ghost" id="back-to-refine-btn" type="button">&larr; Keep refining</button>
+          <button class="btn-primary" id="confirm-claim-btn" type="button">Confirm claim &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- UPLOAD -->
+    <section class="stage-section" id="stage-upload">
+      <div class="stage-header">
+        <span class="pill"><span class="pill-dot"></span> Step 2 of 3 &mdash; Upload your evidence</span>
+        <h1>Submit your supporting documents</h1>
+        <p>Drop in any PDFs that DATOM should incorporate into your Confidence Report &mdash; internal reports, datasets, supporting papers. These stay private to your engagement.</p>
+      </div>
+
+      <div class="upload-zone" id="upload-zone" role="button" tabindex="0" aria-label="Drop PDF files here or click to browse">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 14px;display:block;color:var(--accent)" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+        </svg>
+        <p style="margin:0 0 8px;font-weight:600;color:var(--text);">Drop PDFs here or click to browse</p>
+        <p style="margin:0;font-size:13px;color:var(--muted);">PDF only &mdash; up to 10 files, 50MB each</p>
+        <input type="file" id="file-input" multiple accept=".pdf" style="display:none">
+      </div>
+
+      <div id="file-list" style="margin-top:18px;" aria-live="polite"></div>
+      <div id="upload-error" role="alert" style="display:none;margin-top:12px;color:#e05252;font-size:14px;"></div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;flex-wrap:wrap;gap:12px;">
+        <button class="btn-ghost" id="skip-upload-btn" type="button">Skip &mdash; analyze public sources only</button>
+        <button class="btn-primary" id="start-analysis-btn" type="button">Start analysis &rarr;</button>
+      </div>
+    </section>
+
+    <!-- DONE -->
+    <section class="stage-section" id="stage-done">
+      <div class="done-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <h1>Your analysis is running</h1>
+        <p style="max-width: 540px; margin: 0 auto 8px;">DATOM is now assembling evidence for your refined claim. We&rsquo;ll email <strong id="done-email">you</strong> as soon as your Confidence Report is ready.</p>
+        <p style="margin-top: 24px;"><a href="index.html" class="btn-primary">Back to datom.science</a></p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>&copy; 2026 DATOM &mdash; Scientific Trust Infrastructure.</footer>
+
+<script src="shared.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var API_BASE = 'https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com';
+
+  // ── State ─────────────────────────────────────────────────
+  var state = {
+    token:         '',
+    applicationId: '',
+    institution:   '',
+    email:         '',
+    evidenceType:  '',
+    needsUpload:   false,
+    currentClaim:  '',
+    precisionScore: 0,
+    precisionFlags: [],
+    turnCount:     0,
+    maxTurns:      12,
+    stage:         'loading',
+    sending:       false,
+    selectedFiles: [],
+  };
+
+  // ── Helpers ───────────────────────────────────────────────
+  function $(id) { return document.getElementById(id); }
+
+  function showStage(stageName) {
+    var sections = document.querySelectorAll('.stage-section');
+    for (var i = 0; i < sections.length; i++) sections[i].classList.remove('active');
+    var target = $('stage-' + stageName);
+    if (target) target.classList.add('active');
+    state.stage = stageName;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showError(message) {
+    if (message) $('error-message').textContent = message;
+    showStage('error');
+  }
+
+  function escHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // Minimal markdown for assistant messages: **bold** and \n
+  function renderAssistantText(text) {
+    var safe = escHtml(text);
+    safe = safe.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    return safe;
+  }
+
+  function api(path, body) {
+    return fetch(API_BASE + path, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(body || {}),
+    }).then(function (res) {
+      return res.json().then(function (data) {
+        if (!res.ok) {
+          var err = (data && data.error) || ('HTTP ' + res.status);
+          throw new Error(err);
+        }
+        return data;
+      });
+    });
+  }
+
+  // ── Chat rendering ────────────────────────────────────────
+  function renderTurn(turn) {
+    var div = document.createElement('div');
+    div.className = 'msg msg-' + turn.role;
+    if (turn.role === 'assistant') {
+      div.innerHTML = renderAssistantText(turn.content);
+    } else {
+      div.textContent = turn.content;
+    }
+    $('chat-history').appendChild(div);
+    var hist = $('chat-history');
+    hist.scrollTop = hist.scrollHeight;
+  }
+
+  function renderTurns(turns) {
+    var hist = $('chat-history');
+    hist.innerHTML = '';
+    (turns || []).forEach(renderTurn);
+  }
+
+  function showThinking() {
+    var div = document.createElement('div');
+    div.className = 'msg msg-assistant msg-thinking';
+    div.id = 'thinking-bubble';
+    div.textContent = 'ELMER is thinking…';
+    $('chat-history').appendChild(div);
+    var hist = $('chat-history');
+    hist.scrollTop = hist.scrollHeight;
+  }
+
+  function clearThinking() {
+    var t = $('thinking-bubble');
+    if (t) t.remove();
+  }
+
+  // ── Precision panel ───────────────────────────────────────
+  var ALL_FLAGS = ['DIRECTIONALITY', 'COMPUTABILITY', 'BOUNDEDNESS', 'FALSIFIABILITY'];
+
+  function updatePrecisionPanel() {
+    $('current-claim-box').textContent = state.currentClaim || '—';
+    $('score-value').textContent = String(state.precisionScore || 0);
+    for (var i = 1; i <= 4; i++) {
+      var bar = $('bar-' + i);
+      if (i <= state.precisionScore) bar.classList.add('filled');
+      else bar.classList.remove('filled');
+    }
+    var failed = state.precisionFlags || [];
+    var items = $('axis-list').children;
+    for (var j = 0; j < items.length; j++) {
+      var li = items[j];
+      var flag = li.getAttribute('data-flag');
+      if (failed.indexOf(flag) === -1) {
+        li.classList.add('pass');
+        li.classList.remove('fail');
+      } else {
+        li.classList.add('fail');
+        li.classList.remove('pass');
+      }
+    }
+    var label = state.precisionScore >= 4
+      ? 'Ready to lock in.'
+      : 'Sharpen the claim across all four axes.';
+    $('precision-label').textContent = label;
+    $('turn-counter').textContent = 'Turn ' + state.turnCount + ' of ' + state.maxTurns;
+    if (state.precisionScore >= 4) {
+      $('lock-btn').classList.add('visible');
+    } else {
+      $('lock-btn').classList.remove('visible');
+    }
+  }
+
+  // ── Stage entries ─────────────────────────────────────────
+  function enterRefining(data) {
+    state.currentClaim   = data.currentClaim;
+    state.precisionScore = Number(data.precisionScore || 0);
+    state.precisionFlags = data.precisionFlags || [];
+    state.turnCount      = data.turnCount || 0;
+    state.maxTurns       = data.maxTurns || 12;
+    renderTurns(data.turns || []);
+    updatePrecisionPanel();
+    showStage('refining');
+    setTimeout(function () { $('chat-input').focus(); }, 200);
+  }
+
+  function enterConfirm() {
+    $('confirm-claim-box').textContent = state.currentClaim;
+    showStage('confirm');
+  }
+
+  function enterUpload() {
+    showStage('upload');
+  }
+
+  function enterDone() {
+    $('done-email').textContent = state.email || 'you';
+    showStage('done');
+  }
+
+  // ── Boot ─────────────────────────────────────────────────
+  function boot() {
+    var params = new URLSearchParams(window.location.search);
+    state.token = params.get('token') || '';
+    if (!state.token) {
+      showError('No refinement token in the URL. Please use the link from your payment confirmation email.');
+      return;
+    }
+
+    api('/api/refine/session', { token: state.token })
+      .then(function (data) {
+        state.applicationId = data.applicationId;
+        state.institution   = data.institution || '';
+        state.email         = data.email || '';
+        state.evidenceType  = data.evidenceType || '';
+        state.needsUpload   = !!data.needsUpload;
+        state.currentClaim  = data.currentClaim || '';
+        state.precisionScore = Number(data.precisionScore || 0);
+        state.precisionFlags = data.precisionFlags || [];
+        state.turnCount     = data.turnCount || 0;
+        state.maxTurns      = data.maxTurns || 12;
+
+        var stage = data.stage || 'REFINING';
+        if (stage === 'REFINING') {
+          enterRefining(data);
+        } else if (stage === 'CONFIRM_CLAIM') {
+          // Resumed mid-confirm — go straight to confirm card
+          enterConfirm();
+        } else if (stage === 'UPLOAD') {
+          enterUpload();
+        } else if (stage === 'DONE') {
+          enterDone();
+        } else {
+          enterRefining(data);
+        }
+      })
+      .catch(function (err) {
+        showError(err.message || 'Failed to load session.');
+      });
+  }
+
+  // ── Sending a turn ────────────────────────────────────────
+  function sendTurn() {
+    if (state.sending) return;
+    var text = $('chat-input').value.trim();
+    if (!text) return;
+
+    state.sending = true;
+    $('send-btn').disabled = true;
+    $('chat-input').disabled = true;
+
+    // Optimistically render user turn + thinking bubble
+    renderTurn({ role: 'user', content: text });
+    $('chat-input').value = '';
+    autoSizeInput();
+    showThinking();
+
+    api('/api/refine/turn', { token: state.token, message: text })
+      .then(function (data) {
+        clearThinking();
+        renderTurn(data.assistantTurn);
+        state.currentClaim   = data.currentClaim;
+        state.precisionScore = Number(data.precisionScore || 0);
+        state.precisionFlags = data.precisionFlags || [];
+        state.turnCount      = data.turnCount || (state.turnCount + 2);
+        updatePrecisionPanel();
+      })
+      .catch(function (err) {
+        clearThinking();
+        renderTurn({ role: 'assistant', content: 'Sorry — ' + (err.message || 'something went wrong') + '. Please try again.' });
+      })
+      .then(function () {
+        state.sending = false;
+        $('send-btn').disabled = false;
+        $('chat-input').disabled = false;
+        $('chat-input').focus();
+      });
+  }
+
+  // ── Locking the claim ─────────────────────────────────────
+  function lockClaim() {
+    enterConfirm();
+  }
+
+  function confirmClaim() {
+    $('confirm-claim-btn').disabled = true;
+    $('confirm-claim-btn').textContent = 'Locking…';
+    api('/api/refine/lock', { token: state.token, userConfirmed: true })
+      .then(function (data) {
+        if (!data.ok) {
+          alert('Could not lock claim: ' + (data.reason || 'unknown'));
+          $('confirm-claim-btn').disabled = false;
+          $('confirm-claim-btn').textContent = 'Confirm claim →';
+          return;
+        }
+        if (data.needsUpload) {
+          enterUpload();
+        } else {
+          // No upload step — go directly to start
+          startAnalysis();
+        }
+      })
+      .catch(function (err) {
+        alert('Lock failed: ' + (err.message || 'unknown'));
+        $('confirm-claim-btn').disabled = false;
+        $('confirm-claim-btn').textContent = 'Confirm claim →';
+      });
+  }
+
+  // ── Upload step ───────────────────────────────────────────
+  function isPdf(f) { return f.type === 'application/pdf' || /\.pdf$/i.test(f.name); }
+
+  function handleFiles(files) {
+    var rejected = files.filter(function (f) { return !isPdf(f); });
+    var accepted = files.filter(isPdf).slice(0, 10);
+
+    if (rejected.length > 0) {
+      $('upload-error').textContent = 'Only PDF files are accepted. ' + rejected.length + ' file(s) skipped.';
+      $('upload-error').style.display = 'block';
+    } else {
+      $('upload-error').style.display = 'none';
+    }
+
+    state.selectedFiles = accepted;
+    $('file-list').innerHTML = accepted.map(function (f) {
+      return '<div class="file-row"><span>📄 ' + escHtml(f.name) + ' (' + (f.size / 1024 / 1024).toFixed(1) + ' MB)</span><span class="file-status">queued</span></div>';
+    }).join('');
+  }
+
+  function uploadAndStart() {
+    if (state.selectedFiles.length === 0) {
+      // No files selected → just start
+      startAnalysis();
+      return;
+    }
+    $('start-analysis-btn').disabled = true;
+    $('start-analysis-btn').textContent = 'Uploading…';
+
+    api('/api/refine/upload-urls', {
+      token:     state.token,
+      fileNames: state.selectedFiles.map(function (f) { return f.name; }),
+    })
+      .then(function (data) {
+        return Promise.all(state.selectedFiles.map(function (file, i) {
+          return fetch(data.uploadUrls[i], {
+            method:  'PUT',
+            body:    file,
+            headers: { 'Content-Type': 'application/octet-stream' },
+          }).then(function (res) {
+            if (!res.ok) throw new Error('S3 upload failed for ' + file.name);
+          });
+        }));
+      })
+      .then(function () { startAnalysis(); })
+      .catch(function (err) {
+        alert('Upload failed: ' + (err.message || 'unknown'));
+        $('start-analysis-btn').disabled = false;
+        $('start-analysis-btn').textContent = 'Start analysis →';
+      });
+  }
+
+  function startAnalysis() {
+    $('start-analysis-btn').disabled = true;
+    $('start-analysis-btn').textContent = 'Starting…';
+    api('/api/refine/start', { token: state.token })
+      .then(function () { enterDone(); })
+      .catch(function (err) {
+        alert('Start failed: ' + (err.message || 'unknown'));
+        $('start-analysis-btn').disabled = false;
+        $('start-analysis-btn').textContent = 'Start analysis →';
+      });
+  }
+
+  // ── Auto-resize textarea ──────────────────────────────────
+  function autoSizeInput() {
+    var ta = $('chat-input');
+    ta.style.height = 'auto';
+    ta.style.height = Math.min(ta.scrollHeight, 140) + 'px';
+  }
+
+  // ── Wire up DOM ───────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', function () {
+    boot();
+
+    var input = $('chat-input');
+    input.addEventListener('input', autoSizeInput);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendTurn();
+      }
+    });
+    $('send-btn').addEventListener('click', sendTurn);
+    $('lock-btn').addEventListener('click', lockClaim);
+    $('back-to-refine-btn').addEventListener('click', function () { showStage('refining'); });
+    $('confirm-claim-btn').addEventListener('click', confirmClaim);
+
+    // Upload zone
+    var zone = $('upload-zone');
+    var fileInput = $('file-input');
+    zone.addEventListener('click', function () { fileInput.click(); });
+    zone.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+    });
+    zone.addEventListener('dragover', function (e) { e.preventDefault(); zone.classList.add('dragover'); });
+    zone.addEventListener('dragleave', function () { zone.classList.remove('dragover'); });
+    zone.addEventListener('drop', function (e) {
+      e.preventDefault();
+      zone.classList.remove('dragover');
+      handleFiles(Array.from(e.dataTransfer.files));
+    });
+    fileInput.addEventListener('change', function () { handleFiles(Array.from(fileInput.files)); });
+
+    $('skip-upload-btn').addEventListener('click', function () {
+      state.selectedFiles = [];
+      $('file-list').innerHTML = '';
+      startAnalysis();
+    });
+    $('start-analysis-btn').addEventListener('click', uploadAndStart);
+  });
+})();
+</script>
+</body>
+</html>
