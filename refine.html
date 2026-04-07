@@ -427,9 +427,9 @@
     <!-- ERROR -->
     <section class="stage-section" id="stage-error">
       <div class="center-card">
-        <h2>We couldn&rsquo;t load your session</h2>
+        <h2 id="error-title">We couldn&rsquo;t load your session</h2>
         <p id="error-message">This refinement link is invalid or has expired.</p>
-        <p style="margin-bottom: 0;">If you have already paid, please contact <a href="mailto:info@datom.science">info@datom.science</a> with your order ID and we&rsquo;ll send you a fresh link.</p>
+        <p style="margin-bottom: 0;" id="error-support">If you have already paid, please contact <a href="mailto:info@datom.science">info@datom.science</a> with your order ID and we&rsquo;ll send you a fresh link.</p>
       </div>
     </section>
 
@@ -562,7 +562,20 @@
   }
 
   function showError(message) {
-    if (message) $('error-message').textContent = message;
+    // Distinguish "link already used" from other errors — friendlier copy
+    // because it's usually a re-visit after a successful analysis start, not
+    // an actual error. Backend error string match keeps this frontend-agnostic.
+    var msg = message || '';
+    var isUsed = /already been used/i.test(msg);
+    if (isUsed) {
+      $('error-title').textContent = 'This refinement link has already been used';
+      $('error-message').textContent = 'Your claim is locked in and DATOM is running your Confidence Report. You\u2019ll receive an email when the report is ready.';
+      $('error-support').innerHTML = 'Questions? Reach us at <a href="mailto:info@datom.science">info@datom.science</a>.';
+    } else {
+      $('error-title').textContent = 'We couldn\u2019t load your session';
+      $('error-message').textContent = msg || 'This refinement link is invalid or has expired.';
+      $('error-support').innerHTML = 'If you have already paid, please contact <a href="mailto:info@datom.science">info@datom.science</a> with your order ID and we\u2019ll send you a fresh link.';
+    }
     showStage('error');
   }
 
@@ -777,8 +790,24 @@
   // One-way transition: clicking "Lock in" fires the API immediately.
   // There is no "back to chat" option once this runs. The backend also
   // refuses any further /api/refine/turn calls once the stage advances.
+  // Belt-and-suspenders: explicitly disable the chat input AND send button
+  // so even if the user presses Enter in the hidden textarea during the
+  // ~500ms before the stage transition, nothing happens.
   function lockClaim() {
     if (state.precisionScore < 4) return;
+    if (state.locking) return;
+    state.locking = true;
+
+    // Hard-disable chat input + send button immediately. These are in the
+    // REFINING stage which is about to be hidden, but disabling also blocks
+    // any in-flight keyboard events from submitting a final turn.
+    var ci = $('chat-input');
+    var sb = $('send-btn');
+    var lb = $('lock-btn');
+    if (ci) { ci.disabled = true; ci.blur(); }
+    if (sb) { sb.disabled = true; }
+    if (lb) { lb.disabled = true; }
+
     showStage('locking');
     api('/api/refine/lock', { token: state.token, userConfirmed: true })
       .then(function (data) {

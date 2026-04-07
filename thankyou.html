@@ -96,6 +96,35 @@
     </div>
   </section>
 
+  <!-- Stripe-paid confirmation card (flow=stripe-paid).
+       The user just completed payment on Stripe and has landed back on our
+       site. Next step: click into the refinement chat with ELMER. This card
+       is the primary call to action on this page for paid customers. -->
+  <section class="reveal" id="stripePaidSection" style="display:none;">
+    <div style="max-width: 680px; margin: 0 auto; text-align: center; background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 48px 36px;">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="margin:0 auto 18px;display:block;color:var(--accent)" aria-hidden="true">
+        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      <h2 style="margin-bottom: 14px;">Payment confirmed</h2>
+      <p style="color: var(--muted); margin: 0 auto 8px; max-width: 520px;">
+        Thank you. Your next step is a short claim-refinement session with ELMER, DATOM&rsquo;s research assistant. It takes about 5 minutes and ensures the analysis targets your exact question.
+      </p>
+      <p style="color: var(--muted); margin: 0 auto 28px; max-width: 520px; font-size: 14px;">
+        <strong>Important:</strong> this link is single-use and tied to your order. Once you lock in your refined claim, it will no longer work.
+      </p>
+      <p style="margin: 0 0 20px;">
+        <a id="stripeRefineBtn" href="#" class="btn-primary" style="font-size: 16px; padding: 16px 36px;">Start refinement with ELMER &rarr;</a>
+      </p>
+      <p style="font-size: 13px; color: var(--muted); margin: 20px 0 0;">
+        Order ID: <code id="stripePaidOrderId" style="font-family: var(--mono); background: rgba(6,182,212,0.08); padding: 2px 8px; border-radius: 6px;">&mdash;</code>
+      </p>
+      <p style="font-size: 12px; color: var(--muted); margin: 12px 0 0;">
+        We&rsquo;ve also emailed this link to you as a backup. Check your inbox if you navigate away from this page.
+      </p>
+    </div>
+  </section>
+
   <!-- Document Upload -->
   <section class="reveal" id="uploadSection">
     <h2>Submit Your Evidence Context</h2>
@@ -174,6 +203,7 @@
   var applicationId = params.get('applicationId') || '';
   var flow = params.get('flow') || 'stripe';
   var evidenceType = (params.get('evidenceType') || '').toLowerCase();
+  var refineToken = params.get('refineToken') || '';
 
   // ── flow=refined ──
   // Post-refinement landing. The user has already locked their claim and
@@ -190,6 +220,36 @@
     document.getElementById('hero-message').textContent =
       'Your claim is locked in. DATOM is now running your Confidence Report.';
     document.getElementById('refinedOrderId').textContent = applicationId || '—';
+    return;
+  }
+
+  // ── flow=stripe-paid ──
+  // Post-payment landing (Stripe success_url). Show the prominent "Start
+  // refinement" card with the token-baked refine link. This is the primary
+  // call to action for customers who just paid — the next step is the
+  // 5-minute refinement chat, not the old document-upload flow.
+  if (flow === 'stripe-paid') {
+    var uploadS = document.getElementById('uploadSection');
+    if (uploadS) uploadS.style.display = 'none';
+    var schedS = document.getElementById('scheduleSection');
+    if (schedS) schedS.style.display = 'none';
+    var stripePaid = document.getElementById('stripePaidSection');
+    if (stripePaid) stripePaid.style.display = 'block';
+    document.getElementById('hero-title').textContent = 'Thank you.';
+    document.getElementById('hero-message').textContent =
+      'Your payment is confirmed. One short step left: refine your claim with ELMER.';
+    document.getElementById('stripePaidOrderId').textContent = applicationId || '—';
+    var btn = document.getElementById('stripeRefineBtn');
+    if (btn) {
+      if (refineToken) {
+        btn.href = 'refine.html?token=' + encodeURIComponent(refineToken);
+      } else {
+        // No token in URL (edge case: intake failed to mint one in time).
+        // Fall back to a clear message so the user checks their email.
+        btn.textContent = 'Check your email for the refinement link';
+        btn.href = 'mailto:info@datom.science';
+      }
+    }
     return;
   }
 
