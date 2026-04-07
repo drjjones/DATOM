@@ -164,7 +164,10 @@
 
 <script src="shared.js"></script>
 <script src="particles.js"></script>
-<script src="elmer.js"></script>
+<!-- elmer.js intentionally omitted: this is a terminal confirmation page —
+     once a customer has paid or locked their refined claim, the floating
+     "Ask Elmer" widget shouldn't reappear and let them keep chatting. -->
+
 <script>
 (function () {
   var params = new URLSearchParams(window.location.search);
