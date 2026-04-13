@@ -731,10 +731,14 @@
         if (stage === 'REFINING') {
           enterRefining(data);
         } else if (stage === 'CONFIRM_CLAIM') {
-          // Server has this session in a post-lock state — surface the upload
-          // step if needed, otherwise send them on to the thank-you page.
+          // Session is in a post-lock state (either the normal chat lock or a
+          // server-side lock from the pitch-deck select flow). Surface the upload
+          // step if needed, otherwise fire /api/refine/start and then redirect.
+          // Must call startAnalysis() — NOT redirectToThankYou() directly —
+          // because the start endpoint triggers ingestion; skipping it leaves
+          // the application stuck at AWAITING_INGESTION indefinitely.
           if (state.needsUpload) enterUpload();
-          else redirectToThankYou();
+          else startAnalysis();
         } else if (stage === 'UPLOAD') {
           enterUpload();
         } else if (stage === 'DONE') {
