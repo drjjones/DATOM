@@ -951,6 +951,10 @@
     // Upload zone
     var zone = $('upload-zone');
     var fileInput = $('file-input');
+    // Prevent double-fire: input is inside the zone, so a click on the zone
+    // calls input.click() — but the native click can also reach the input
+    // directly, cancelling the file dialog on some browsers.
+    fileInput.addEventListener('click', function (e) { e.stopPropagation(); });
     zone.addEventListener('click', function () { fileInput.click(); });
     zone.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }

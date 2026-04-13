@@ -755,8 +755,12 @@
   var pitchFname   = document.getElementById('pitch-deck-filename');
   var pitchStatus  = document.getElementById('pitch-deck-status');
 
-  if (pitchZone) {
-    pitchZone.addEventListener('click', function () { pitchInput && pitchInput.click(); });
+  if (pitchZone && pitchInput) {
+    // Prevent double-fire: input is inside the zone, so a click on the zone
+    // calls input.click() — but the native click can also reach the input
+    // directly, cancelling the file dialog on some browsers.
+    pitchInput.addEventListener('click', function (e) { e.stopPropagation(); });
+    pitchZone.addEventListener('click', function () { pitchInput.click(); });
     pitchZone.addEventListener('dragover', function (e) { e.preventDefault(); pitchZone.classList.add('drag-over'); });
     pitchZone.addEventListener('dragleave', function () { pitchZone.classList.remove('drag-over'); });
     pitchZone.addEventListener('drop', function (e) {
@@ -765,8 +769,6 @@
       var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
       if (f) selectPitchFile(f);
     });
-  }
-  if (pitchInput) {
     pitchInput.addEventListener('change', function () {
       if (pitchInput.files && pitchInput.files[0]) selectPitchFile(pitchInput.files[0]);
     });
