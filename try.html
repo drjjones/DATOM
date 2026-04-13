@@ -215,19 +215,19 @@
           <div class="form-grid">
             <div class="form-field">
               <label for="labName">Lab name <span class="req">*</span></label>
-              <input type="text" id="labName" name="labName" required autocomplete="organization">
+              <input type="text" id="labName" name="labName" required minlength="2" maxlength="120" autocomplete="organization">
             </div>
             <div class="form-field">
               <label for="piName">PI name <span class="req">*</span></label>
-              <input type="text" id="piName" name="piName" required autocomplete="name">
+              <input type="text" id="piName" name="piName" required minlength="2" maxlength="120" autocomplete="name">
             </div>
             <div class="form-field">
               <label for="institution">Institution <span class="req">*</span></label>
-              <input type="text" id="institution" name="institution" required>
+              <input type="text" id="institution" name="institution" required minlength="2" maxlength="120">
             </div>
             <div class="form-field">
               <label for="labEmail">Email <span class="req">*</span></label>
-              <input type="email" id="labEmail" name="email" required autocomplete="email">
+              <input type="email" id="labEmail" name="email" required autocomplete="email" maxlength="254">
             </div>
             <div class="form-field">
               <label for="researchDomain">Research domain <span class="req">*</span></label>
@@ -378,7 +378,7 @@
             </div>
             <div class="form-field full">
               <label for="primaryClaim">What is the most critical scientific claim your lab is currently building on? <span class="req">*</span></label>
-              <textarea id="primaryClaim" name="primaryClaim" required maxlength="500" rows="4"></textarea>
+              <textarea id="primaryClaim" name="primaryClaim" required minlength="20" maxlength="500" rows="4"></textarea>
               <div class="char-count"><span id="primaryClaim-count">0</span>/500</div>
             </div>
             <div class="form-field full">
@@ -475,11 +475,11 @@
           <div class="form-grid">
             <div class="form-field full">
               <label for="vcEmail">Email <span class="req">*</span></label>
-              <input type="email" id="vcEmail" name="email" required autocomplete="email">
+              <input type="email" id="vcEmail" name="email" required autocomplete="email" maxlength="254">
             </div>
             <div class="form-field full">
               <label for="vcInstitution">Fund / Firm name <span class="req">*</span></label>
-              <input type="text" id="vcInstitution" name="institution" required autocomplete="organization">
+              <input type="text" id="vcInstitution" name="institution" required minlength="2" maxlength="120" autocomplete="organization">
             </div>
             <div class="form-field full">
               <label for="vcReferralSource">How did you hear about DATOM?</label>
@@ -516,7 +516,7 @@
             <div id="claim-specific-fields">
             <div class="form-field full">
               <label for="scientificClaim">What is the scientific claim you want evaluated? <span class="req">*</span></label>
-              <textarea id="scientificClaim" name="scientificClaim" required maxlength="500" rows="4"></textarea>
+              <textarea id="scientificClaim" name="scientificClaim" required minlength="20" maxlength="500" rows="4"></textarea>
               <div class="char-count"><span id="scientificClaim-count">0</span>/500</div>
             </div>
             <div class="form-field full">
@@ -715,11 +715,45 @@
       });
   });
 
+  // ── Shared form-validation helpers ──────────────────────────────────────
+  function setCustomValidity(el, msg) {
+    if (el) el.setCustomValidity(msg);
+  }
+  function clearCustomValidity(form) {
+    form.querySelectorAll('input,textarea,select').forEach(function (el) {
+      el.setCustomValidity('');
+    });
+  }
+  function validateLabForm() {
+    clearCustomValidity(labForm);
+    var email = labForm.querySelector('#labEmail');
+    if (email && email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+      setCustomValidity(email, 'Please enter a valid email address.');
+    }
+    var claim = labForm.querySelector('#primaryClaim');
+    if (claim && claim.value.trim().length > 0 && claim.value.trim().length < 20) {
+      setCustomValidity(claim, 'Please describe your claim in at least 20 characters.');
+    }
+  }
+  function validateVcForm() {
+    if (!vcForm) return;
+    clearCustomValidity(vcForm);
+    var email = vcForm.querySelector('#vcEmail');
+    if (email && email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+      setCustomValidity(email, 'Please enter a valid email address.');
+    }
+    var claim = vcForm.querySelector('#scientificClaim');
+    if (claim && claim.value.trim().length > 0 && claim.value.trim().length < 20) {
+      setCustomValidity(claim, 'Please describe your claim in at least 20 characters.');
+    }
+  }
+
   // ── Lab form ──
   var labForm = document.getElementById('pilot-form');
   if (labForm) {
     labForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      validateLabForm();
       var hasInternalData = labForm.querySelector('input[name="hasInternalData"]:checked');
       if (!labForm.checkValidity() || !hasInternalData) {
         labForm.reportValidity();
@@ -842,6 +876,7 @@
       var evidenceTypeEl = vcForm.querySelector('input[name="evidenceType"]:checked');
       var isPitchDeck = evidenceTypeEl && evidenceTypeEl.value === 'pitch deck';
 
+      validateVcForm();
       if (!isPitchDeck && !vcForm.checkValidity()) { vcForm.reportValidity(); return; }
       if (!evidenceTypeEl) { vcForm.reportValidity(); return; }
       if (isPitchDeck && !pitchDeckSelectedFile) {
