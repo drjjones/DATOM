@@ -773,12 +773,40 @@
         state.precisionFlags = data.precisionFlags || [];
         state.turnCount      = data.turnCount || (state.turnCount + 2);
         updatePrecisionPanel();
+
+        // Lock-from-chat: when the backend classifies the user's message as
+        // a lock_now intent, it runs the same lock operations the explicit
+        // lock button does and returns locked:true plus the lock fields.
+        // Mirror lockClaim()'s stage transition so the user moves from
+        // REFINING straight to UPLOAD/LOCKING without a second click.
+        if (data.locked === true) {
+          state.locking = true;
+          // Hard-disable chat input + send button + lock button (same as the
+          // explicit lockClaim path) so any in-flight keystrokes can't fire
+          // another /api/refine/turn during the stage transition.
+          var ci2 = $('chat-input');
+          var sb2 = $('send-btn');
+          var lb2 = $('lock-btn');
+          if (ci2) { ci2.disabled = true; ci2.blur(); }
+          if (sb2) { sb2.disabled = true; }
+          if (lb2) { lb2.disabled = true; }
+          showStage('locking');
+          if (data.needsUpload) {
+            enterUpload();
+          } else {
+            startAnalysis();
+          }
+          return; // skip the input re-enable in the .then() below
+        }
       })
       .catch(function (err) {
         clearThinking();
         renderTurn({ role: 'assistant', content: 'Sorry — ' + (err.message || 'something went wrong') + '. Please try again.' });
       })
       .then(function () {
+        // If the chat-lock branch above already ran, state.locking is true and
+        // we leave the inputs disabled — they're hidden by the stage transition.
+        if (state.locking) return;
         state.sending = false;
         $('send-btn').disabled = false;
         $('chat-input').disabled = false;
@@ -856,21 +884,24 @@
     $('start-analysis-btn').disabled = true;
     $('start-analysis-btn').textContent = 'Uploading…';
 
-    api('/api/refine/upload-urls', {
-      token:     state.token,
-      fileNames: state.selectedFiles.map(function (f) { return f.name; }),
-    })
-      .then(function (data) {
-        return Promise.all(state.selectedFiles.map(function (file, i) {
-          return fetch(data.uploadUrls[i], {
-            method:  'PUT',
-            body:    file,
-            headers: { 'Content-Type': 'application/octet-stream' },
-          }).then(function (res) {
-            if (!res.ok) throw new Error('S3 upload failed for ' + file.name);
-          });
-        }));
-      })
+    // Upload each file as binary directly through the API (no S3 presigned URL needed)
+    var oversized = state.selectedFiles.filter(function (f) { return f.size > 5 * 1024 * 1024; });
+    if (oversized.length > 0) {
+      alert('File too large: ' + oversized.map(function (f) { return f.name; }).join(', ') + ' — max 5 MB per file.');
+      $('start-analysis-btn').disabled = false;
+      $('start-analysis-btn').textContent = 'Start analysis →';
+      return;
+    }
+    Promise.all(state.selectedFiles.map(function (file) {
+      var params = new URLSearchParams({ token: state.token, fileName: file.name });
+      return fetch(API_BASE + '/api/refine/upload?' + params.toString(), {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/octet-stream' },
+        body:    file,
+      }).then(function (res) {
+        return res.ok ? res.json() : res.json().then(function (d) { throw new Error(d.error || 'Upload failed for ' + file.name); });
+      });
+    }))
       .then(function () { startAnalysis(); })
       .catch(function (err) {
         alert('Upload failed: ' + (err.message || 'unknown'));

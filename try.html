@@ -811,25 +811,22 @@
   function uploadPitchDeck(callback) {
     if (pitchDeckUploadedKey) { callback(null, pitchDeckUploadedKey); return; }
     if (!pitchDeckSelectedFile) { callback(new Error('No PDF selected.')); return; }
+    if (pitchDeckSelectedFile.size > 5 * 1024 * 1024) {
+      callback(new Error('File too large \u2014 max 5 MB. Tip: export or compress the PDF.')); return;
+    }
     if (pitchStatus) pitchStatus.textContent = 'Uploading\u2026';
     var tempId = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36);
-    fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/pitch-deck/upload-url', {
+    var params = new URLSearchParams({ fileName: pitchDeckSelectedFile.name, tempId: tempId });
+    fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/pitch-deck/upload?' + params.toString(), {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fileName: pitchDeckSelectedFile.name, tempId: tempId })
+      headers: { 'Content-Type': 'application/pdf' },
+      body: pitchDeckSelectedFile
     })
-      .then(function (r) { return r.ok ? r.json() : r.json().then(function (d) { throw new Error(d.error || 'Upload URL failed'); }); })
+      .then(function (r) { return r.ok ? r.json() : r.json().then(function (d) { throw new Error(d.error || 'Upload failed (' + r.status + ')'); }); })
       .then(function (d) {
-        return fetch(d.uploadUrl, { method: 'PUT', headers: { 'Content-Type': 'application/pdf' }, body: pitchDeckSelectedFile })
-          .then(function (r2) {
-            if (!r2.ok) throw new Error('PDF upload failed');
-            return d.s3Key;
-          });
-      })
-      .then(function (key) {
-        pitchDeckUploadedKey = key;
+        pitchDeckUploadedKey = d.s3Key;
         if (pitchStatus) pitchStatus.textContent = 'Uploaded \u2713';
-        callback(null, key);
+        callback(null, d.s3Key);
       })
       .catch(function (err) { callback(err); });
   }
