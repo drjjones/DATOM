@@ -493,6 +493,27 @@
               </select>
             </div>
             <div class="form-field full">
+              <label>What evidence are you working with? <span class="req">*</span></label>
+              <div class="radio-group" role="group" aria-label="Evidence type">
+                <label><input type="radio" name="evidenceType" value="I have proprietary data, reports, or documents I can submit" required> I have proprietary data, reports, or documents I can submit</label>
+                <label><input type="radio" name="evidenceType" value="I want a report generated from publicly available information about this claim"> I want a report generated from publicly available information about this claim</label>
+                <label><input type="radio" name="evidenceType" value="Both — I have some materials and want them supplemented with public sources"> Both &mdash; I have some materials and want them supplemented with public sources</label>
+                <label><input type="radio" name="evidenceType" value="pitch deck"> Upload a pitch deck &mdash; DATOM will identify the central claim</label>
+              </div>
+            </div>
+            <!-- Pitch deck upload zone — shown only when "pitch deck" radio is selected -->
+            <div class="form-field full" id="pitch-deck-section" style="display:none;">
+              <label>Pitch deck (PDF only) <span class="req">*</span></label>
+              <div class="upload-zone" id="pitch-deck-zone">
+                <p id="pitch-deck-zone-label">Drop a PDF here or click to browse</p>
+                <p class="file-chosen" id="pitch-deck-filename" style="display:none;"></p>
+                <p class="upload-status" id="pitch-deck-status" style="display:none;"></p>
+                <input type="file" id="pitch-deck-input" accept=".pdf" style="display:none;">
+              </div>
+            </div>
+            <!-- Claim-specific fields — hidden when pitch deck is selected -->
+            <div id="claim-specific-fields">
+            <div class="form-field full">
               <label for="scientificClaim">What is the scientific claim you want evaluated? <span class="req">*</span></label>
               <textarea id="scientificClaim" name="scientificClaim" required maxlength="500" rows="4"></textarea>
               <div class="char-count"><span id="scientificClaim-count">0</span>/500</div>
@@ -512,24 +533,8 @@
               <textarea id="investmentImplication" name="investmentImplication" required maxlength="300" rows="3"></textarea>
               <div class="char-count"><span id="investmentImplication-count">0</span>/300</div>
             </div>
-            <div class="form-field full">
-              <label>What evidence are you working with? <span class="req">*</span></label>
-              <div class="radio-group" role="group" aria-label="Evidence type">
-                <label><input type="radio" name="evidenceType" value="I have proprietary data, reports, or documents I can submit" required> I have proprietary data, reports, or documents I can submit</label>
-                <label><input type="radio" name="evidenceType" value="I want a report generated from publicly available information about this claim"> I want a report generated from publicly available information about this claim</label>
-                <label><input type="radio" name="evidenceType" value="Both — I have some materials and want them supplemented with public sources"> Both &mdash; I have some materials and want them supplemented with public sources</label>
-                <label><input type="radio" name="evidenceType" value="pitch deck"> Upload a pitch deck &mdash; DATOM will identify the central claim</label>
-              </div>
-            </div>
-            <!-- Pitch deck upload zone — shown only when "pitch deck" radio is selected -->
-            <div class="form-field full" id="pitch-deck-section" style="display:none;">
-              <label>Pitch deck (PDF only) <span class="req">*</span></label>
-              <div class="upload-zone" id="pitch-deck-zone">
-                <p id="pitch-deck-zone-label">Drop a PDF here or click to browse</p>
-                <p class="file-chosen" id="pitch-deck-filename" style="display:none;"></p>
-                <p class="upload-status" id="pitch-deck-status" style="display:none;"></p>
-                <input type="file" id="pitch-deck-input" accept=".pdf" style="display:none;">
-              </div>
+            </div><!-- /claim-specific-fields -->
+            <div class="form-field full" style="display:none;"><!-- placeholder to keep spacing -->
             </div>
             <div class="form-field full">
               <label for="priorDiligence">Have you done any prior technical diligence on this claim? What did that look like?</label>
@@ -779,17 +784,19 @@
     if (pitchStatus) { pitchStatus.textContent = 'Ready — will upload on submit.'; pitchStatus.style.display = ''; }
   }
 
-  // Show/hide pitch deck section and scientificClaim textarea on radio change
+  // Show/hide pitch deck section and claim-specific fields on radio change
   document.querySelectorAll('input[name="evidenceType"]').forEach(function (r) {
     r.addEventListener('change', function () {
       var isPD = r.value === 'pitch deck';
-      var pdSection   = document.getElementById('pitch-deck-section');
-      var claimField  = document.getElementById('scientificClaim');
+      var pdSection    = document.getElementById('pitch-deck-section');
+      var claimBlock   = document.getElementById('claim-specific-fields');
       if (pdSection)  pdSection.style.display  = isPD ? '' : 'none';
-      if (claimField) {
-        var wrapper = claimField.closest('.form-field') || claimField.parentElement;
-        if (wrapper) wrapper.style.display = isPD ? 'none' : '';
-        claimField.required = !isPD;
+      if (claimBlock) claimBlock.style.display  = isPD ? 'none' : '';
+      // Toggle required on all textareas inside the claim block
+      if (claimBlock) {
+        claimBlock.querySelectorAll('textarea[required], textarea').forEach(function (ta) {
+          ta.required = !isPD;
+        });
       }
       if (!isPD) {
         pitchDeckSelectedFile = null;
