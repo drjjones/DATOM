@@ -100,6 +100,24 @@
     font-size: 14px;
     cursor: pointer;
   }
+  /* Pitch deck upload zone */
+  .upload-zone {
+    border: 2px dashed rgba(6,182,212,0.35);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    background: rgba(6,182,212,0.03);
+    transition: border-color .15s, background .15s;
+    margin-top: 6px;
+  }
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--accent);
+    background: rgba(6,182,212,0.07);
+  }
+  .upload-zone p { margin: 0; font-size: 14px; color: var(--muted); }
+  .upload-zone .file-chosen { color: var(--accent-hover); font-weight: 600; margin-top: 4px; }
+  .upload-zone .upload-status { font-size: 13px; color: var(--muted); margin-top: 4px; }
   .form-actions { margin-top: 28px; }
   .form-message {
     display: none;
@@ -500,6 +518,17 @@
                 <label><input type="radio" name="evidenceType" value="I have proprietary data, reports, or documents I can submit" required> I have proprietary data, reports, or documents I can submit</label>
                 <label><input type="radio" name="evidenceType" value="I want a report generated from publicly available information about this claim"> I want a report generated from publicly available information about this claim</label>
                 <label><input type="radio" name="evidenceType" value="Both — I have some materials and want them supplemented with public sources"> Both &mdash; I have some materials and want them supplemented with public sources</label>
+                <label><input type="radio" name="evidenceType" value="pitch deck"> Upload a pitch deck &mdash; DATOM will identify the central claim</label>
+              </div>
+            </div>
+            <!-- Pitch deck upload zone — shown only when "pitch deck" radio is selected -->
+            <div class="form-field full" id="pitch-deck-section" style="display:none;">
+              <label>Pitch deck (PDF only) <span class="req">*</span></label>
+              <div class="upload-zone" id="pitch-deck-zone">
+                <p id="pitch-deck-zone-label">Drop a PDF here or click to browse</p>
+                <p class="file-chosen" id="pitch-deck-filename" style="display:none;"></p>
+                <p class="upload-status" id="pitch-deck-status" style="display:none;"></p>
+                <input type="file" id="pitch-deck-input" accept=".pdf" style="display:none;">
               </div>
             </div>
             <div class="form-field full">
@@ -711,13 +740,105 @@
   }
 
   // ── VC form (Confidence Report — routes to Stripe or Calendly based on institution history) ──
+  // ── Pitch deck upload wiring ──────────────────────────────────────────────
+  var pitchDeckSelectedFile = null;
+  var pitchDeckUploadedKey  = null;
+
+  var pitchZone    = document.getElementById('pitch-deck-zone');
+  var pitchInput   = document.getElementById('pitch-deck-input');
+  var pitchLabel   = document.getElementById('pitch-deck-zone-label');
+  var pitchFname   = document.getElementById('pitch-deck-filename');
+  var pitchStatus  = document.getElementById('pitch-deck-status');
+
+  if (pitchZone) {
+    pitchZone.addEventListener('click', function () { pitchInput && pitchInput.click(); });
+    pitchZone.addEventListener('dragover', function (e) { e.preventDefault(); pitchZone.classList.add('drag-over'); });
+    pitchZone.addEventListener('dragleave', function () { pitchZone.classList.remove('drag-over'); });
+    pitchZone.addEventListener('drop', function (e) {
+      e.preventDefault();
+      pitchZone.classList.remove('drag-over');
+      var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+      if (f) selectPitchFile(f);
+    });
+  }
+  if (pitchInput) {
+    pitchInput.addEventListener('change', function () {
+      if (pitchInput.files && pitchInput.files[0]) selectPitchFile(pitchInput.files[0]);
+    });
+  }
+
+  function selectPitchFile(f) {
+    if (!f.name.toLowerCase().endsWith('.pdf')) {
+      alert('Only PDF files are accepted.');
+      return;
+    }
+    pitchDeckSelectedFile = f;
+    pitchDeckUploadedKey  = null;
+    if (pitchLabel)  pitchLabel.style.display  = 'none';
+    if (pitchFname)  { pitchFname.textContent = f.name; pitchFname.style.display = ''; }
+    if (pitchStatus) { pitchStatus.textContent = 'Ready — will upload on submit.'; pitchStatus.style.display = ''; }
+  }
+
+  // Show/hide pitch deck section and scientificClaim textarea on radio change
+  document.querySelectorAll('input[name="evidenceType"]').forEach(function (r) {
+    r.addEventListener('change', function () {
+      var isPD = r.value === 'pitch deck';
+      var pdSection   = document.getElementById('pitch-deck-section');
+      var claimField  = document.getElementById('scientificClaim');
+      if (pdSection)  pdSection.style.display  = isPD ? '' : 'none';
+      if (claimField) {
+        var wrapper = claimField.closest('.form-field') || claimField.parentElement;
+        if (wrapper) wrapper.style.display = isPD ? 'none' : '';
+        claimField.required = !isPD;
+      }
+      if (!isPD) {
+        pitchDeckSelectedFile = null;
+        pitchDeckUploadedKey  = null;
+        if (pitchLabel)  { pitchLabel.style.display = ''; }
+        if (pitchFname)  pitchFname.style.display  = 'none';
+        if (pitchStatus) pitchStatus.style.display  = 'none';
+      }
+    });
+  });
+
+  function uploadPitchDeck(callback) {
+    if (pitchDeckUploadedKey) { callback(null, pitchDeckUploadedKey); return; }
+    if (!pitchDeckSelectedFile) { callback(new Error('No PDF selected.')); return; }
+    if (pitchStatus) pitchStatus.textContent = 'Uploading\u2026';
+    var tempId = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36);
+    fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/pitch-deck/upload-url', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fileName: pitchDeckSelectedFile.name, tempId: tempId })
+    })
+      .then(function (r) { return r.ok ? r.json() : r.json().then(function (d) { throw new Error(d.error || 'Upload URL failed'); }); })
+      .then(function (d) {
+        return fetch(d.uploadUrl, { method: 'PUT', headers: { 'Content-Type': 'application/pdf' }, body: pitchDeckSelectedFile })
+          .then(function (r2) {
+            if (!r2.ok) throw new Error('PDF upload failed');
+            return d.s3Key;
+          });
+      })
+      .then(function (key) {
+        pitchDeckUploadedKey = key;
+        if (pitchStatus) pitchStatus.textContent = 'Uploaded \u2713';
+        callback(null, key);
+      })
+      .catch(function (err) { callback(err); });
+  }
+
+  // ── VC form submit ────────────────────────────────────────────────────────
   var vcForm = document.getElementById('vc-form');
   if (vcForm) {
     vcForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      var evidenceType = vcForm.querySelector('input[name="evidenceType"]:checked');
-      if (!vcForm.checkValidity() || !evidenceType) {
-        vcForm.reportValidity();
+      var evidenceTypeEl = vcForm.querySelector('input[name="evidenceType"]:checked');
+      var isPitchDeck = evidenceTypeEl && evidenceTypeEl.value === 'pitch deck';
+
+      if (!isPitchDeck && !vcForm.checkValidity()) { vcForm.reportValidity(); return; }
+      if (!evidenceTypeEl) { vcForm.reportValidity(); return; }
+      if (isPitchDeck && !pitchDeckSelectedFile) {
+        alert('Please select a PDF pitch deck to upload.');
         return;
       }
 
@@ -727,56 +848,74 @@
 
       var promoCode = (document.getElementById('vcPromoCode') || {}).value || '';
 
-      var payload = {
-        formType: 'vc',
-        email: vcForm.email.value.trim(),
-        institution: vcForm.institution.value.trim(),
-        scientificClaim: vcForm.scientificClaim.value.trim(),
-        primaryClaim: vcForm.scientificClaim.value.trim(), // used by refine flow
-        decisionContext: vcForm.decisionContext.value.trim(),
-        claimConfidence: vcForm.claimConfidence.value.trim(),
-        investmentImplication: vcForm.investmentImplication.value.trim(),
-        evidenceType: evidenceType.value,
-        decisionAuthority: vcForm.decisionAuthority.value.trim(),
-        referralSource: vcForm.referralSource.value || undefined,
-        priorDiligence: vcForm.priorDiligence.value.trim() || undefined
-      };
-      if (promoCode) payload.promoCode = promoCode;
+      function doSubmit(pitchDeckS3Key) {
+        var payload = {
+          formType: 'vc',
+          email: vcForm.email.value.trim(),
+          institution: vcForm.institution.value.trim(),
+          evidenceType: evidenceTypeEl.value,
+          decisionAuthority: vcForm.decisionAuthority.value.trim(),
+          referralSource: vcForm.referralSource.value || undefined,
+        };
+        if (!isPitchDeck) {
+          payload.scientificClaim      = vcForm.scientificClaim.value.trim();
+          payload.primaryClaim         = vcForm.scientificClaim.value.trim();
+          payload.decisionContext      = vcForm.decisionContext.value.trim();
+          payload.claimConfidence      = vcForm.claimConfidence.value.trim();
+          payload.investmentImplication = vcForm.investmentImplication.value.trim();
+          payload.priorDiligence       = vcForm.priorDiligence.value.trim() || undefined;
+        }
+        if (pitchDeckS3Key) payload.pitchDeckS3Key = pitchDeckS3Key;
+        if (promoCode)      payload.promoCode      = promoCode;
 
-      fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/confidence-report-request', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-        .then(function (res) {
-          if (!res.ok) return res.json().then(function (d) { throw new Error(d.error || res.status); });
-          return res.json();
+        fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/confidence-report-request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
         })
-        .then(function (data) {
-          currentApplicationId = data.applicationId || '';
-          if (data.flow === 'promo' && data.refineUrl) {
-            // Promo redeemed — send them straight into the refinement chat
-            window.location.href = data.refineUrl;
-          } else if (data.flow === 'stripe') {
-            // Returning institution — redirect to Stripe Checkout
-            window.location.href = data.checkoutUrl;
-          } else {
-            // First-time institution — show Calendly embed
-            activeFormType = 'vc';
-            vcForm.style.display = 'none';
-            loadCalendlyScript(function () { showCalendly('vc', null); });
+          .then(function (res) {
+            if (!res.ok) return res.json().then(function (d) { throw new Error(d.error || res.status); });
+            return res.json();
+          })
+          .then(function (data) {
+            currentApplicationId = data.applicationId || '';
+            if (data.flow === 'promo' && data.pitchDeckSelectUrl) {
+              window.location.href = data.pitchDeckSelectUrl;
+            } else if (data.flow === 'promo' && data.refineUrl) {
+              window.location.href = data.refineUrl;
+            } else if (data.flow === 'stripe') {
+              window.location.href = data.checkoutUrl;
+            } else {
+              activeFormType = 'vc';
+              vcForm.style.display = 'none';
+              loadCalendlyScript(function () { showCalendly('vc', null); });
+            }
+          })
+          .catch(function (err) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Continue \u2192';
+            var errorEl = document.getElementById('vc-form-error');
+            if (errorEl) {
+              if (err && err.message) errorEl.textContent = String(err.message);
+              errorEl.style.display = 'block';
+              errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          });
+      }
+
+      if (isPitchDeck) {
+        uploadPitchDeck(function (err, key) {
+          if (err) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Continue \u2192';
+            alert('PDF upload failed: ' + (err.message || 'unknown error'));
+            return;
           }
-        })
-        .catch(function (err) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Continue \u2192';
-          var errorEl = document.getElementById('vc-form-error');
-          if (errorEl) {
-            if (err && err.message) errorEl.textContent = String(err.message);
-            errorEl.style.display = 'block';
-            errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
+          doSubmit(key);
         });
+      } else {
+        doSubmit(null);
+      }
     });
   }
 
