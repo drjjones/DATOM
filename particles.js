@@ -27,53 +27,53 @@
 
   const ctx = canvas.getContext('2d');
 
-  /* ── Color palette — bright cyans, visible on dark background ── */
-  const CYAN     = [110, 220, 255];
-  const TEAL     = [55, 170, 235];
-  const DEEP_CY  = [28, 110, 200];
-  const DIM_TEAL = [14, 65, 145];
-  const FAINT    = [7, 35, 100];
+  /* ── Color palette — dark navy blues, visible on light background ── */
+  const CYAN     = [20, 90, 185];
+  const TEAL     = [14, 65, 148];
+  const DEEP_CY  = [10, 48, 115];
+  const DIM_TEAL = [6, 32, 85];
+  const FAINT    = [3, 18, 58];
 
   /* ── Five depth layers ── */
   const LAYERS = [
     // Abyss: hundreds of specks — the infinite ledger in the deep distance
     {
       count: 200, speed: 0.02, rMin: 0.3, rMax: 0.8,
-      alphaMin: 0.06, alphaMax: 0.18,
-      connDist: 50, connAlpha: 0.03, lineW: 0.2,
+      alphaMin: 0.04, alphaMax: 0.12,
+      connDist: 50, connAlpha: 0.02, lineW: 0.2,
       color: FAINT, mouseAffected: false, atomChance: 0.02,
       twinkle: true
     },
     // Deep: small faint particles
     {
       count: 120, speed: 0.04, rMin: 0.5, rMax: 1.0,
-      alphaMin: 0.10, alphaMax: 0.28,
-      connDist: 65, connAlpha: 0.07, lineW: 0.3,
+      alphaMin: 0.06, alphaMax: 0.18,
+      connDist: 65, connAlpha: 0.04, lineW: 0.3,
       color: DIM_TEAL, mouseAffected: false, atomChance: 0.04,
       twinkle: true
     },
     // Far: subtle presence
     {
       count: 70, speed: 0.08, rMin: 0.8, rMax: 1.5,
-      alphaMin: 0.18, alphaMax: 0.38,
-      connDist: 90, connAlpha: 0.13, lineW: 0.4,
+      alphaMin: 0.10, alphaMax: 0.25,
+      connDist: 90, connAlpha: 0.07, lineW: 0.4,
       color: DEEP_CY, mouseAffected: false, atomChance: 0.06,
       twinkle: false
     },
     // Mid: clear middle ground
     {
       count: 45, speed: 0.16, rMin: 1.3, rMax: 2.6,
-      alphaMin: 0.30, alphaMax: 0.58,
-      connDist: 130, connAlpha: 0.25, lineW: 0.7,
+      alphaMin: 0.20, alphaMax: 0.42,
+      connDist: 130, connAlpha: 0.16, lineW: 0.7,
       color: TEAL, mouseAffected: false, atomChance: 0.08,
       twinkle: false
     },
     // Near: vivid foreground, mouse-responsive
     {
-      count: 32, speed: 0.28, rMin: 2.2, rMax: 4.5,
-      alphaMin: 0.50, alphaMax: 0.85,
-      connDist: 170, connAlpha: 0.45, lineW: 1.2,
-      color: CYAN, mouseAffected: true, atomChance: 0.12,
+      count: 28, speed: 0.28, rMin: 2.0, rMax: 4.0,
+      alphaMin: 0.35, alphaMax: 0.65,
+      connDist: 160, connAlpha: 0.30, lineW: 1.1,
+      color: CYAN, mouseAffected: true, atomChance: 0.10,
       twinkle: false
     },
   ];
