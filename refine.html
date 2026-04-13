@@ -562,15 +562,21 @@
   }
 
   function showError(message) {
-    // Distinguish "link already used" from other errors — friendlier copy
-    // because it's usually a re-visit after a successful analysis start, not
-    // an actual error. Backend error string match keeps this frontend-agnostic.
+    // Three error categories with distinct copy:
+    //  1. "already been used"  — re-visit after successful start, not an actual error
+    //  2. "session has expired" — H2 stuck-session guard (>24 h in UPLOAD/CONFIRM)
+    //  3. Everything else       — generic invalid/expired link
     var msg = message || '';
-    var isUsed = /already been used/i.test(msg);
+    var isUsed    = /already been used/i.test(msg);
+    var isExpired = /session has expired/i.test(msg);
     if (isUsed) {
       $('error-title').textContent = 'This refinement link has already been used';
       $('error-message').textContent = 'Your claim is locked in and DATOM is running your Confidence Report. You\u2019ll receive an email when the report is ready.';
       $('error-support').innerHTML = 'Questions? Reach us at <a href="mailto:info@datom.science">info@datom.science</a>.';
+    } else if (isExpired) {
+      $('error-title').textContent = 'Your refinement session has expired';
+      $('error-message').textContent = 'Your session was open for more than 24 hours without completing the upload step. To protect your analysis slot, sessions expire automatically.';
+      $('error-support').innerHTML = 'Please email <a href="mailto:info@datom.science">info@datom.science</a> with your order confirmation and we\u2019ll issue a fresh refinement link within one business day.';
     } else {
       $('error-title').textContent = 'We couldn\u2019t load your session';
       $('error-message').textContent = msg || 'This refinement link is invalid or has expired.';
