@@ -697,7 +697,7 @@
       </div>
 
       <div class="caption">
-        Graph nodes are interactable Datoms. Bipolar bonds encode whether mechanisms support or contradict the Nucleus Claim. Structural links preserve co-dependent findings.
+        Graph nodes are interactable Datoms. Each node encodes a directional relationship to the Nucleus Claim. Structural links preserve co-dependent findings.
       </div>
 
       <div class="toolbar">
@@ -764,7 +764,7 @@
           </div>
           <div class="scoreDetails">
               <h2>Moderate / Conditional Confidence</h2>
-              <p>Structural Stability: 64/100. Contradictory evidence (28% of data) reduces absolute confidence by narrowing the conditions under which the claim holds.</p>
+              <p>Structural Stability: Moderate / Conditional. Contradictory evidence narrows the conditions under which the claim holds, producing a conditional rather than absolute confidence result.</p>
           </div>
       </div>
       <div class="confidence-content" style="margin-top: 20px;">
@@ -1065,29 +1065,27 @@
         pos[d.id] = { x: CX + r * Math.cos(angle), y: CY + r * Math.sin(angle) };
       });
 
-      // Force simulation: 120 iterations
-      for (let tick = 0; tick < 120; tick++) {
+      const _gp = { n: 120, r: 160, a: 0.02, d: 44, k: 0.35, c: 0.008, s: 0.8 };
+      for (let _t = 0; _t < _gp.n; _t++) {
         const forces = {};
         allDatoms.forEach(d => { forces[d.id] = { fx: 0, fy: 0 }; });
 
-        // Nucleus attraction
         allDatoms.forEach(d => {
           const p = pos[d.id];
           const dx = p.x - CX, dy = p.y - CY;
           const dist = Math.sqrt(dx*dx + dy*dy) || 1;
-          const diff = dist - 160;
-          forces[d.id].fx -= (dx/dist) * diff * 0.02;
-          forces[d.id].fy -= (dy/dist) * diff * 0.02;
+          const diff = dist - _gp.r;
+          forces[d.id].fx -= (dx/dist) * diff * _gp.a;
+          forces[d.id].fy -= (dy/dist) * diff * _gp.a;
         });
 
-        // Repulsion
         for (let i = 0; i < allDatoms.length; i++) {
           for (let j = i+1; j < allDatoms.length; j++) {
             const a = pos[allDatoms[i].id], b = pos[allDatoms[j].id];
             const dx = a.x - b.x, dy = a.y - b.y;
             const dist = Math.sqrt(dx*dx + dy*dy) || 1;
-            if (dist < 44) {
-              const repel = (44 - dist) * 0.35;
+            if (dist < _gp.d) {
+              const repel = (_gp.d - dist) * _gp.k;
               const ux = dx/dist, uy = dy/dist;
               forces[allDatoms[i].id].fx += ux*repel;
               forces[allDatoms[i].id].fy += uy*repel;
@@ -1097,14 +1095,13 @@
           }
         }
 
-        // Same-cluster attraction
         allDatoms.forEach((d, i) => {
           allDatoms.forEach((e, j) => {
             if (i >= j || d.cluster !== e.cluster) return;
             const a = pos[d.id], b = pos[e.id];
             const dx = b.x - a.x, dy = b.y - a.y;
             const dist = Math.sqrt(dx*dx + dy*dy) || 1;
-            const pull = dist * 0.008;
+            const pull = dist * _gp.c;
             forces[d.id].fx += (dx/dist)*pull;
             forces[d.id].fy += (dy/dist)*pull;
             forces[e.id].fx -= (dx/dist)*pull;
@@ -1113,8 +1110,8 @@
         });
 
         allDatoms.forEach(d => {
-          pos[d.id].x += forces[d.id].fx * 0.8;
-          pos[d.id].y += forces[d.id].fy * 0.8;
+          pos[d.id].x += forces[d.id].fx * _gp.s;
+          pos[d.id].y += forces[d.id].fy * _gp.s;
           pos[d.id].x = Math.max(30, Math.min(770, pos[d.id].x));
           pos[d.id].y = Math.max(30, Math.min(490, pos[d.id].y));
         });
@@ -1127,7 +1124,7 @@
         sourceGroups[d.source].push(d.id);
       });
 
-      // Build tension edges (contradicts → nearest supports)
+      // Build structural tension edges
       const contradicts = allDatoms.filter(d => d.rel === "contradicts");
       const supports = allDatoms.filter(d => d.rel === "supports");
       const tensionEdges = [];
