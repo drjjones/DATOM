@@ -318,9 +318,10 @@ function initGraph(containerId) {
   const icoGeoNucleus = new THREE.IcosahedronGeometry(NUCLEUS_R, 3);
   const icoGeoNode    = new THREE.IcosahedronGeometry(NODE_R,    2);
 
-  // Shared canvas label helper — matches dashboard NodeLabel style
+  // Shared canvas label helper — matches dashboard NodeLabel style.
+  // 256×256 canvas keeps text crisp when the sprite is scaled up in world space.
   function makeLabel(text, fontSize, color) {
-    const size   = 128;
+    const size   = 256;
     const cv     = document.createElement('canvas');
     cv.width     = size; cv.height = size;
     const ctx    = cv.getContext('2d');
@@ -328,10 +329,10 @@ function initGraph(containerId) {
     ctx.font     = `bold ${fontSize}px "SF Mono","Fira Code",monospace`;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     // Glow pass
-    ctx.shadowColor = color; ctx.shadowBlur = 14;
+    ctx.shadowColor = color; ctx.shadowBlur = 20;
     ctx.fillStyle   = color;
     ctx.fillText(text, size / 2, size / 2);
-    // Crisp pass
+    // Crisp white pass
     ctx.shadowBlur  = 0;
     ctx.fillStyle   = '#ffffff';
     ctx.fillText(text, size / 2, size / 2);
@@ -364,10 +365,12 @@ function initGraph(containerId) {
     // Text label sprite — short id (e.g. 'A1', 'B3', 'N')
     const shortLabel = node.isNucleus ? 'N' : (node.id ?? '').slice(0, 4);
     const accent     = COLORS[node.rel] ?? COLORS.NEUTRAL;
-    const fontSize   = node.isNucleus ? 42 : 32;
+    // Font size on the 256px canvas — large so pixels are crisp when scaled
+    const fontSize   = node.isNucleus ? 140 : 110;
     const sprMat     = makeLabel(shortLabel, fontSize, accent);
     const sprite     = new THREE.Sprite(sprMat);
-    const sprScale   = node.isNucleus ? NUCLEUS_R * 1.2 : NODE_R * 1.4;
+    // World-unit size: nucleus ~1.0, datoms ~0.55 — readable at camera distance 9
+    const sprScale   = node.isNucleus ? 1.0 : 0.55;
     sprite.scale.set(sprScale, sprScale, 1);
     sprite.position.set(node.x, node.y, node.z);
     sprite.renderOrder = 1;
