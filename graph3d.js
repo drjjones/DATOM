@@ -318,22 +318,61 @@ function initGraph(containerId) {
   const icoGeoNucleus = new THREE.IcosahedronGeometry(NUCLEUS_R, 3);
   const icoGeoNode    = new THREE.IcosahedronGeometry(NODE_R,    2);
 
+  // Shared canvas label helper — matches dashboard NodeLabel style
+  function makeLabel(text, fontSize, color) {
+    const size   = 128;
+    const cv     = document.createElement('canvas');
+    cv.width     = size; cv.height = size;
+    const ctx    = cv.getContext('2d');
+    ctx.clearRect(0, 0, size, size);
+    ctx.font     = `bold ${fontSize}px "SF Mono","Fira Code",monospace`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    // Glow pass
+    ctx.shadowColor = color; ctx.shadowBlur = 14;
+    ctx.fillStyle   = color;
+    ctx.fillText(text, size / 2, size / 2);
+    // Crisp pass
+    ctx.shadowBlur  = 0;
+    ctx.fillStyle   = '#ffffff';
+    ctx.fillText(text, size / 2, size / 2);
+    const tex = new THREE.CanvasTexture(cv);
+    return new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false });
+  }
+
   const nodeMeshes = [];
+  const labelSprites = [];
   nodes.forEach(node => {
-    const color  = new THREE.Color(COLORS[node.rel] ?? COLORS.NEUTRAL);
-    const geo    = node.isNucleus ? icoGeoNucleus : icoGeoNode;
-    const mat    = new THREE.MeshStandardMaterial({
+    const color     = new THREE.Color(COLORS[node.rel] ?? COLORS.NEUTRAL);
+    const geo       = node.isNucleus ? icoGeoNucleus : icoGeoNode;
+    const baseOp    = node.isNucleus ? 0.75 : 0.62;
+    const baseEm    = node.isNucleus ? 0.40 : 0.25;
+    const mat       = new THREE.MeshStandardMaterial({
       color, emissive: color,
-      emissiveIntensity: node.isNucleus ? 0.65 : 0.40,
-      metalness: 0.3, roughness: 0.4,
+      emissiveIntensity: baseEm,
+      metalness: 0.20, roughness: 0.25,
+      transparent: true, opacity: baseOp,
+      depthWrite: false,
     });
-    const mesh = new THREE.Mesh(geo, mat);
+    const mesh      = new THREE.Mesh(geo, mat);
     const baseScale = node.isNucleus ? 1.0 : (node.weight >= 5 ? 1.4 : node.weight >= 3 ? 1.2 : 1.0);
     mesh.position.set(node.x, node.y, node.z);
     mesh.scale.setScalar(baseScale);
-    mesh.userData = { node, baseScale, targetOpacity: 1.0, targetScale: baseScale, targetEm: node.isNucleus ? 0.65 : 0.40 };
+    mesh.userData = { node, baseScale, targetOpacity: baseOp, targetScale: baseScale, targetEm: baseEm, baseOp, baseEm };
     scene.add(mesh);
     nodeMeshes.push(mesh);
+
+    // Text label sprite — short id (e.g. 'A1', 'B3', 'N')
+    const shortLabel = node.isNucleus ? 'N' : (node.id ?? '').slice(0, 4);
+    const accent     = COLORS[node.rel] ?? COLORS.NEUTRAL;
+    const fontSize   = node.isNucleus ? 42 : 32;
+    const sprMat     = makeLabel(shortLabel, fontSize, accent);
+    const sprite     = new THREE.Sprite(sprMat);
+    const sprScale   = node.isNucleus ? NUCLEUS_R * 1.2 : NODE_R * 1.4;
+    sprite.scale.set(sprScale, sprScale, 1);
+    sprite.position.set(node.x, node.y, node.z);
+    sprite.renderOrder = 1;
+    scene.add(sprite);
+    labelSprites.push({ sprite, sprMat, node });
   });
 
   /* -- Info panel (HTML overlay) ----------------------------------------- */
@@ -373,7 +412,7 @@ function initGraph(containerId) {
   function hideInfo() {
     selectedNode = null;
     infoPanel.style.display = 'none';
-    nodeMeshes.forEach(m => { m.userData.targetOpacity = 1.0; m.userData.targetEm = m.userData.node.isNucleus ? 0.65 : 0.40; });
+    nodeMeshes.forEach(m => { m.userData.targetOpacity = m.userData.baseOp; m.userData.targetEm = m.userData.baseEm; });
   }
 
   /* -- Raycasting --------------------------------------------------------- */
@@ -404,8 +443,8 @@ function initGraph(containerId) {
     const connected = focus ? getConnectedIds(focus.id) : null;
     nodeMeshes.forEach(m => {
       const dim = connected && !connected.has(m.userData.node.id);
-      m.userData.targetOpacity = dim ? 0.08 : 1.0;
-      m.userData.targetEm = dim ? 0.02 : (m.userData.node.isNucleus ? 0.65 : 0.40);
+      m.userData.targetOpacity = dim ? 0.08 : m.userData.baseOp;
+      m.userData.targetEm = dim ? 0.02 : m.userData.baseEm;
     });
   });
 
@@ -486,12 +525,21 @@ function initGraph(containerId) {
       const ud  = m.userData;
       const mat = m.material;
       mat.opacity     = mat.opacity + (ud.targetOpacity - mat.opacity) * 0.09;
-      mat.transparent = mat.opacity < 0.99;
+      mat.transparent = true;
       mat.emissiveIntensity += (ud.targetEm - mat.emissiveIntensity) * 0.1;
 
       // Scale pulse for nucleus
       if (ud.node.isNucleus) {
         m.scale.setScalar(ud.baseScale * (1 + Math.sin(t * 1.2) * 0.04));
+      }
+    });
+
+    // Label sprite opacity mirrors node
+    labelSprites.forEach(({ sprite, sprMat, node }) => {
+      const mesh = nodeMeshes.find(m => m.userData.node.id === node.id);
+      if (mesh) {
+        const nodeOp = mesh.material.opacity;
+        sprMat.opacity = nodeOp > 0.15 ? Math.min(1, nodeOp * 1.1) : 0;
       }
     });
 
