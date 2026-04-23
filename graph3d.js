@@ -382,7 +382,7 @@ function initGraph(containerId) {
     div.textContent = shortLabel;
     div.style.cssText = [
       'color:#ffffff',
-      `font-size:${node.isNucleus ? '9px' : '7px'}`,
+      `font-size:${node.isNucleus ? '12px' : '10px'}`,
       'font-family:"Inter","SF Mono",monospace',
       'font-weight:700',
       'text-align:center',
