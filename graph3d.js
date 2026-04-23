@@ -211,6 +211,13 @@ function initGraph(containerId) {
   renderer.domElement.style.display = 'block';
   container.appendChild(renderer.domElement);
 
+  // CSS2DRenderer — same as drei's <Html> component; renders DOM labels in 3D space
+  const labelRenderer = new THREE.CSS2DRenderer();
+  labelRenderer.setSize(W, H);
+  labelRenderer.domElement.style.cssText =
+    'position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:1;';
+  container.appendChild(labelRenderer.domElement);
+
   const scene  = new THREE.Scene();
   scene.background = new THREE.Color(BG_SCENE.black);
 
@@ -238,6 +245,24 @@ function initGraph(containerId) {
   dLight2.position.set(-6, -4, -8); scene.add(dLight2);
   const pLight = new THREE.PointLight(0xffffff, 0.45, 24);
   pLight.position.set(0, 0, 0); scene.add(pLight);
+
+  /* -- Nucleus pulse (outer halo + mid glow + animated point light) --------- */
+  const nucleusColor = new THREE.Color(COLORS.NUCLEUS);
+  const nucleusOuter = new THREE.Mesh(
+    new THREE.SphereGeometry(NUCLEUS_R * 4.5, 20, 20),
+    new THREE.MeshBasicMaterial({ color: nucleusColor, transparent: true, opacity: 0.10,
+      blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.BackSide })
+  );
+  scene.add(nucleusOuter);
+  const nucleusMid = new THREE.Mesh(
+    new THREE.SphereGeometry(NUCLEUS_R * 2.2, 16, 16),
+    new THREE.MeshBasicMaterial({ color: nucleusColor, transparent: true, opacity: 0.15,
+      blending: THREE.AdditiveBlending, depthWrite: false })
+  );
+  scene.add(nucleusMid);
+  const nucleusPulseLight = new THREE.PointLight(nucleusColor, 0.6, 7, 2);
+  nucleusPulseLight.position.set(0, 0, 0);
+  scene.add(nucleusPulseLight);
 
   /* -- Bond lines --------------------------------------------------------- */
   const bondTypes = Object.keys(BOND_COLOR);
@@ -314,34 +339,22 @@ function initGraph(containerId) {
     });
   });
 
-  /* -- Node spheres ------------------------------------------------------- */
+  /* -- Node spheres + CSS2D labels + electron shells ----------------------- */
   const icoGeoNucleus = new THREE.IcosahedronGeometry(NUCLEUS_R, 3);
   const icoGeoNode    = new THREE.IcosahedronGeometry(NODE_R,    2);
+  const electronGeo   = new THREE.SphereGeometry(0.015, 5, 5);
 
-  // Shared canvas label helper — matches dashboard NodeLabel style.
-  // 256×256 canvas keeps text crisp when the sprite is scaled up in world space.
-  function makeLabel(text, fontSize, color) {
-    const size   = 256;
-    const cv     = document.createElement('canvas');
-    cv.width     = size; cv.height = size;
-    const ctx    = cv.getContext('2d');
-    ctx.clearRect(0, 0, size, size);
-    ctx.font     = `bold ${fontSize}px "SF Mono","Fira Code",monospace`;
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    // Glow pass
-    ctx.shadowColor = color; ctx.shadowBlur = 20;
-    ctx.fillStyle   = color;
-    ctx.fillText(text, size / 2, size / 2);
-    // Crisp white pass
-    ctx.shadowBlur  = 0;
-    ctx.fillStyle   = '#ffffff';
-    ctx.fillText(text, size / 2, size / 2);
-    const tex = new THREE.CanvasTexture(cv);
-    return new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false });
-  }
+  const nodeMeshes  = [];
+  const labelDivs   = [];   // { div, node } — CSS2DObject label elements
+  const allElectrons = [];  // { mesh, mat, node, speed, tilt, phase, r }
 
-  const nodeMeshes = [];
-  const labelSprites = [];
+  // Electron orbital configs — exact match to dashboard ElectronShell
+  const ELECTRON_CONFIGS = [
+    { speed: 90,  tilt: 0,              phase: 0 },
+    { speed: 110, tilt: Math.PI / 2.5,  phase: Math.PI * 0.67 },
+    { speed: 130, tilt: -Math.PI / 3.2, phase: Math.PI * 1.35 },
+  ];
+
   nodes.forEach(node => {
     const color     = new THREE.Color(COLORS[node.rel] ?? COLORS.NEUTRAL);
     const geo       = node.isNucleus ? icoGeoNucleus : icoGeoNode;
@@ -362,20 +375,42 @@ function initGraph(containerId) {
     scene.add(mesh);
     nodeMeshes.push(mesh);
 
-    // Text label sprite — short id (e.g. 'A1', 'B3', 'N')
+    // CSS2DObject label — identical style to dashboard NodeLabel Html component
     const shortLabel = node.isNucleus ? 'N' : (node.id ?? '').slice(0, 4);
     const accent     = COLORS[node.rel] ?? COLORS.NEUTRAL;
-    // Font size on the 256px canvas — large so pixels are crisp when scaled
-    const fontSize   = node.isNucleus ? 140 : 110;
-    const sprMat     = makeLabel(shortLabel, fontSize, accent);
-    const sprite     = new THREE.Sprite(sprMat);
-    // World-unit size: nucleus ~1.0, datoms ~0.55 — readable at camera distance 9
-    const sprScale   = node.isNucleus ? 1.0 : 0.55;
-    sprite.scale.set(sprScale, sprScale, 1);
-    sprite.position.set(node.x, node.y, node.z);
-    sprite.renderOrder = 1;
-    scene.add(sprite);
-    labelSprites.push({ sprite, sprMat, node });
+    const div = document.createElement('div');
+    div.textContent = shortLabel;
+    div.style.cssText = [
+      'color:#ffffff',
+      `font-size:${node.isNucleus ? '9px' : '7px'}`,
+      'font-family:"Inter","SF Mono",monospace',
+      'font-weight:700',
+      'text-align:center',
+      'letter-spacing:0.06em',
+      `text-shadow:0 0 8px ${accent},0 0 3px rgba(0,0,0,1)`,
+      'white-space:nowrap',
+      'line-height:1',
+      'opacity:0.95',
+      'pointer-events:none',
+      'user-select:none',
+    ].join(';');
+    const css2dLabel = new THREE.CSS2DObject(div);
+    css2dLabel.position.set(node.x, node.y, node.z);
+    scene.add(css2dLabel);
+    labelDivs.push({ div, node, css2dLabel });
+
+    // Pre-create electron shells (hidden until hover/select)
+    const r = (node.isNucleus ? NUCLEUS_R : NODE_R) * 2.0;
+    ELECTRON_CONFIGS.forEach(cfg => {
+      const eMat = new THREE.MeshStandardMaterial({
+        color, emissive: color, emissiveIntensity: 2.0,
+        metalness: 0.1, roughness: 0.1,
+        transparent: true, opacity: 0,
+      });
+      const eMesh = new THREE.Mesh(electronGeo, eMat);
+      scene.add(eMesh);
+      allElectrons.push({ mesh: eMesh, mat: eMat, node, r, ...cfg, active: false });
+    });
   });
 
   /* -- Info panel (HTML overlay) ----------------------------------------- */
@@ -416,6 +451,7 @@ function initGraph(containerId) {
     selectedNode = null;
     infoPanel.style.display = 'none';
     nodeMeshes.forEach(m => { m.userData.targetOpacity = m.userData.baseOp; m.userData.targetEm = m.userData.baseEm; });
+    allElectrons.forEach(e => { e.active = false; });
   }
 
   /* -- Raycasting --------------------------------------------------------- */
@@ -449,11 +485,19 @@ function initGraph(containerId) {
       m.userData.targetOpacity = dim ? 0.08 : m.userData.baseOp;
       m.userData.targetEm = dim ? 0.02 : m.userData.baseEm;
     });
+    // Activate electrons for hovered node
+    allElectrons.forEach(e => {
+      e.active = hoveredNode ? e.node.id === hoveredNode.id
+               : selectedNode ? e.node.id === selectedNode.id
+               : false;
+    });
   });
 
   renderer.domElement.addEventListener('click', () => {
-    if (hoveredNode) { showInfo(hoveredNode); }
-    else { hideInfo(); }
+    if (hoveredNode) {
+      showInfo(hoveredNode);
+      allElectrons.forEach(e => { e.active = e.node.id === hoveredNode.id; });
+    } else { hideInfo(); }
   });
 
   /* -- Background toggle -------------------------------------------------- */
@@ -502,6 +546,7 @@ function initGraph(containerId) {
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
+    labelRenderer.setSize(w, h);
   });
   ro.observe(container);
 
@@ -515,6 +560,15 @@ function initGraph(containerId) {
     controls.autoRotate = autoRotate;
     controls.update();
 
+    // NucleusPulse — breath (~2.4s) + flicker (fast), matching dashboard
+    const breath  = Math.sin(t * 2.6) * 0.5 + 0.5;
+    const flicker = Math.sin(t * 7.8) * 0.5 + 0.5;
+    nucleusOuter.material.opacity = 0.02 + breath * 0.06;
+    nucleusOuter.scale.setScalar(1.0 + breath * 0.25);
+    nucleusMid.material.opacity   = 0.04 + flicker * 0.08;
+    nucleusMid.scale.setScalar(1.0 + flicker * 0.10);
+    nucleusPulseLight.intensity   = 0.10 + breath * 0.25 + flicker * 0.10;
+
     // Flow particles
     particles.forEach(({ mesh, mat, from, speed, phase }) => {
       const p = ((t * speed + phase) % 1.0);
@@ -527,26 +581,40 @@ function initGraph(containerId) {
     nodeMeshes.forEach(m => {
       const ud  = m.userData;
       const mat = m.material;
-      mat.opacity     = mat.opacity + (ud.targetOpacity - mat.opacity) * 0.09;
-      mat.transparent = true;
+      mat.opacity           += (ud.targetOpacity - mat.opacity) * 0.09;
+      mat.transparent        = true;
       mat.emissiveIntensity += (ud.targetEm - mat.emissiveIntensity) * 0.1;
-
-      // Scale pulse for nucleus
       if (ud.node.isNucleus) {
         m.scale.setScalar(ud.baseScale * (1 + Math.sin(t * 1.2) * 0.04));
       }
     });
 
-    // Label sprite opacity mirrors node
-    labelSprites.forEach(({ sprite, sprMat, node }) => {
-      const mesh = nodeMeshes.find(m => m.userData.node.id === node.id);
-      if (mesh) {
-        const nodeOp = mesh.material.opacity;
-        sprMat.opacity = nodeOp > 0.15 ? Math.min(1, nodeOp * 1.1) : 0;
+    // Electron shells — orbit when active (hovered/selected), fade out otherwise
+    allElectrons.forEach(({ mesh, mat, node, r, speed, tilt, phase, active }) => {
+      const tOp  = active ? 0.72 : 0.0;
+      mat.opacity    += (tOp - mat.opacity) * 0.1;
+      mat.transparent = true;
+      if (active || mat.opacity > 0.01) {
+        const angle = t * speed + phase;
+        const x  = r * Math.cos(angle);
+        const z  = r * Math.sin(angle);
+        const y  = z * Math.sin(tilt);
+        const zp = z * Math.cos(tilt);
+        mesh.position.set(node.x + x, node.y + y, node.z + zp);
+      }
+    });
+
+    // CSS2D label opacity: fade when node is dimmed, hide when very dim
+    labelDivs.forEach(({ div, node }) => {
+      const m = nodeMeshes.find(nm => nm.userData.node.id === node.id);
+      if (m) {
+        const op = m.material.opacity;
+        div.style.opacity = op > 0.15 ? String(Math.min(0.95, op)) : '0';
       }
     });
 
     renderer.render(scene, camera);
+    labelRenderer.render(scene, camera);
   }
 
   animate();
