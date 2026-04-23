@@ -199,19 +199,22 @@ function initGraph(containerId) {
   container.style.height = '480px';
 
   /* -- Renderer ----------------------------------------------------------- */
+  const W = container.offsetWidth  || 800;
+  const H = container.offsetHeight || 480;
+
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  renderer.setSize(W, H);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(container.clientWidth || 800, container.clientHeight || 480);
   renderer.setClearColor(0x07070e, 1);
+  renderer.domElement.style.display = 'block';
   container.appendChild(renderer.domElement);
 
   const scene  = new THREE.Scene();
   scene.background = new THREE.Color(BG_SCENE.black);
 
-  const W = container.clientWidth  || 800;
-  const H = container.clientHeight || 480;
   const camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 100);
   camera.position.set(0, 1.8, 9);
+  camera.lookAt(0, 0, 0);
 
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.autoRotate      = true;
@@ -451,7 +454,7 @@ function initGraph(containerId) {
 
   /* -- Resize handler ------------------------------------------------------ */
   const ro = new ResizeObserver(() => {
-    const w = container.clientWidth, h = container.clientHeight;
+    const w = container.offsetWidth || 800, h = container.offsetHeight || 480;
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
@@ -496,7 +499,13 @@ function initGraph(containerId) {
   animate();
 }
 
-/* ── Boot after DOM ready ─────────────────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
-  initGraph('graph3dContainer');
+/* ── Boot ─────────────────────────────────────────────────────────────────── */
+// Use 'load' (fires after stylesheets + layout) so offsetWidth/offsetHeight
+// are reliable. Wrap in try/catch so errors surface in the console.
+window.addEventListener('load', () => {
+  try {
+    initGraph('graph3dContainer');
+  } catch (err) {
+    console.error('[graph3d] init failed:', err);
+  }
 });
