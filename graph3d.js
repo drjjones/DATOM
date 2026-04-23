@@ -10,8 +10,8 @@
  *   • Click-to-info panel (HTML overlay)
  */
 
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/controls/OrbitControls.js';
+/* THREE and OrbitControls loaded as classic <script> tags before this file.
+   Accessed via window.THREE and THREE.OrbitControls. */
 
 /* ── Palette ──────────────────────────────────────────────────────────────── */
 
@@ -216,7 +216,7 @@ function initGraph(containerId) {
   camera.position.set(0, 1.8, 9);
   camera.lookAt(0, 0, 0);
 
-  const controls = new OrbitControls(camera, renderer.domElement);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.autoRotate      = true;
   controls.autoRotateSpeed = 0.6;
   controls.enableDamping   = true;
@@ -500,9 +500,9 @@ function initGraph(containerId) {
 }
 
 /* ── Boot ─────────────────────────────────────────────────────────────────── */
-// Use 'load' (fires after stylesheets + layout) so offsetWidth/offsetHeight
-// are reliable. Wrap in try/catch so errors surface in the console.
-window.addEventListener('load', () => {
+// This script is loaded with defer — DOM is ready when it runs.
+// Use requestAnimationFrame to let the browser complete layout first.
+requestAnimationFrame(() => {
   try {
     initGraph('graph3dContainer');
   } catch (err) {
