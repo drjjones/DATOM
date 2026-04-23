@@ -199,16 +199,18 @@ function initGraph(containerId) {
   container.style.height = '480px';
 
   /* -- Renderer ----------------------------------------------------------- */
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setSize(container.clientWidth || 800, container.clientHeight || 480);
   renderer.setClearColor(0x07070e, 1);
   container.appendChild(renderer.domElement);
 
   const scene  = new THREE.Scene();
   scene.background = new THREE.Color(BG_SCENE.black);
 
-  const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 100);
+  const W = container.clientWidth  || 800;
+  const H = container.clientHeight || 480;
+  const camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 100);
   camera.position.set(0, 1.8, 9);
 
   const controls = new OrbitControls(camera, renderer.domElement);
