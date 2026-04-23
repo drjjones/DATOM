@@ -85,8 +85,10 @@ function nearest(node, pool, n) {
 
 function classifyRel(direction) {
   const d = (direction || '').toLowerCase();
-  if (d.includes('supports') || d.includes('↑'))                              return 'SUPPORTS';
-  if (d.includes('contrad')  || d.includes('↓'))                              return 'CONTRADICTS';
+  // Match on words only — the ↑/↓ symbols in the data describe the outcome
+  // (e.g. "productivity ↑"), NOT the relationship direction, so ignore them.
+  if (d.includes('supports'))                                                   return 'SUPPORTS';
+  if (d.includes('contrad'))                                                    return 'CONTRADICTS';
   if (d.includes('mixed') || d.includes('conditional') || d.includes('moderate')) return 'CONDITIONAL';
   return 'NEUTRAL';
 }
