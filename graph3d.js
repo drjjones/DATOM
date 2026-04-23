@@ -457,7 +457,7 @@ function initGraph(containerId) {
   let currentBg = 'black';
 
   const bgToggle = document.createElement('div');
-  bgToggle.style.cssText = 'position:absolute;top:10px;right:12px;display:flex;gap:5px;z-index:10;';
+  bgToggle.style.cssText = 'position:absolute;top:10px;right:12px;display:flex;gap:5px;z-index:9000;';
   const swatches = { black: '#07070e', grey: '#718096', white: '#eef2f7' };
   ['black', 'grey', 'white'].forEach(mode => {
     const btn = document.createElement('button');
@@ -480,7 +480,7 @@ function initGraph(containerId) {
 
   /* -- Legend ------------------------------------------------------------- */
   const legend = document.createElement('div');
-  legend.style.cssText = 'position:absolute;bottom:12px;left:14px;display:flex;flex-direction:column;gap:4px;pointer-events:none;z-index:10;';
+  legend.style.cssText = 'position:absolute;bottom:12px;left:14px;display:flex;flex-direction:column;gap:4px;pointer-events:none;z-index:9000;';
   [['NUCLEUS','Nucleus'],['SUPPORTS','Supports'],['CONTRADICTS','Contradicts'],['CONDITIONAL','Conditional'],['NEUTRAL','Neutral']].forEach(([rel, label]) => {
     const row = document.createElement('div');
     row.style.cssText = 'display:flex;align-items:center;gap:6px;';
