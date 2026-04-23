@@ -358,12 +358,16 @@ function initGraph(containerId) {
   nodes.forEach(node => {
     const color     = new THREE.Color(COLORS[node.rel] ?? COLORS.NEUTRAL);
     const geo       = node.isNucleus ? icoGeoNucleus : icoGeoNode;
-    const baseOp    = node.isNucleus ? 0.75 : 0.62;
-    const baseEm    = node.isNucleus ? 0.40 : 0.25;
-    const mat       = new THREE.MeshStandardMaterial({
+    // Glass opacity — translucent to show depth through the sphere
+    const baseOp    = node.isNucleus ? 0.68 : 0.55;
+    const baseEm    = node.isNucleus ? 0.30 : 0.18;
+    const baseGlowOp = 0.28;
+    // MeshPhysicalMaterial — clearcoat gives a specular glass highlight layer
+    const mat       = new THREE.MeshPhysicalMaterial({
       color, emissive: color,
       emissiveIntensity: baseEm,
-      metalness: 0.20, roughness: 0.25,
+      metalness: 0.0, roughness: 0.08,
+      clearcoat: 1.0, clearcoatRoughness: 0.05,
       transparent: true, opacity: baseOp,
       depthWrite: false,
     });
@@ -371,7 +375,20 @@ function initGraph(containerId) {
     const baseScale = node.isNucleus ? 1.0 : (node.weight >= 5 ? 1.4 : node.weight >= 3 ? 1.2 : 1.0);
     mesh.position.set(node.x, node.y, node.z);
     mesh.scale.setScalar(baseScale);
-    mesh.userData = { node, baseScale, targetOpacity: baseOp, targetScale: baseScale, targetEm: baseEm, baseOp, baseEm };
+
+    // Inner glow core — additive blending blooms color from inside the glass
+    const innerGlowGeo = node.isNucleus
+      ? new THREE.IcosahedronGeometry(NUCLEUS_R, 2)
+      : new THREE.IcosahedronGeometry(NODE_R, 1);
+    const innerGlowMat = new THREE.MeshBasicMaterial({
+      color, transparent: true, opacity: baseGlowOp,
+      blending: THREE.AdditiveBlending, depthWrite: false,
+    });
+    const innerGlow = new THREE.Mesh(innerGlowGeo, innerGlowMat);
+    innerGlow.scale.setScalar(0.62); // 62% of parent — sits inside the glass shell
+    mesh.add(innerGlow); // child inherits parent position + scale automatically
+
+    mesh.userData = { node, baseScale, targetOpacity: baseOp, targetScale: baseScale, targetEm: baseEm, baseOp, baseEm, innerGlowMat, baseGlowOp };
     scene.add(mesh);
     nodeMeshes.push(mesh);
 
@@ -527,7 +544,7 @@ function initGraph(containerId) {
 
   /* -- Legend ------------------------------------------------------------- */
   const legend = document.createElement('div');
-  legend.style.cssText = 'position:absolute;bottom:12px;left:14px;display:flex;flex-direction:column;gap:4px;pointer-events:none;z-index:9000;';
+  legend.style.cssText = 'position:absolute;bottom:12px;left:14px;display:flex;flex-direction:column;gap:5px;pointer-events:none;z-index:9000;background:rgba(8,8,20,0.72);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.10);border-radius:8px;padding:7px 10px;';
   [['NUCLEUS','Nucleus'],['SUPPORTS','Supports'],['CONTRADICTS','Contradicts'],['CONDITIONAL','Conditional'],['NEUTRAL','Neutral']].forEach(([rel, label]) => {
     const row = document.createElement('div');
     row.style.cssText = 'display:flex;align-items:center;gap:6px;';
@@ -584,6 +601,11 @@ function initGraph(containerId) {
       mat.opacity           += (ud.targetOpacity - mat.opacity) * 0.09;
       mat.transparent        = true;
       mat.emissiveIntensity += (ud.targetEm - mat.emissiveIntensity) * 0.1;
+      // Inner glow fades proportionally so dimmed nodes don't leave glowing cores
+      if (ud.innerGlowMat) {
+        const ratio = ud.baseOp > 0 ? mat.opacity / ud.baseOp : 0;
+        ud.innerGlowMat.opacity = ud.baseGlowOp * ratio;
+      }
       if (ud.node.isNucleus) {
         m.scale.setScalar(ud.baseScale * (1 + Math.sin(t * 1.2) * 0.04));
       }
