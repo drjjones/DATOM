@@ -47,11 +47,12 @@ const BOND_OPACITY = {
 
 const SHELL = { SUPPORTS: 2.4, CONDITIONAL: 3.4, CONTRADICTS: 3.4, NEUTRAL: 4.4 };
 
-const BG_SCENE  = { black: '#07070e', grey: '#718096', white: '#eef2f7' };
+const BG_SCENE  = { black: '#07070e', grey: '#718096', white: '#eef2f7', blue: '#c0d9f5' };
 const BG_OUTER  = {
   black: 'linear-gradient(160deg,#050509 0%,#0e0e1c 100%)',
   grey:  'linear-gradient(160deg,#718096 0%,#4a5568 100%)',
   white: 'linear-gradient(160deg,#e8eef6 0%,#d6e0ec 100%)',
+  blue:  'linear-gradient(170deg,#eaf3ff 0%,#d0e8ff 25%,#add3fe 55%,#d0e8ff 80%,#eaf3ff 100%)',
 };
 
 const NUCLEUS_R = 0.24;
@@ -265,6 +266,7 @@ function initGraph(containerId) {
   scene.add(nucleusPulseLight);
 
   /* -- Bond lines --------------------------------------------------------- */
+  const tubeMeshes = []; // collected so lightBg toggle can hide/show them
   const bondTypes = Object.keys(BOND_COLOR);
   bondTypes.forEach(bt => {
     const grp = edges.filter(e => e.type === bt);
@@ -310,6 +312,7 @@ function initGraph(containerId) {
       tubeMesh.position.copy(mid);
       tubeMesh.quaternion.copy(quat);
       scene.add(tubeMesh);
+      tubeMeshes.push(tubeMesh);
     });
   });
 
@@ -522,8 +525,30 @@ function initGraph(containerId) {
 
   const bgToggle = document.createElement('div');
   bgToggle.style.cssText = 'position:absolute;top:10px;right:12px;display:flex;gap:5px;z-index:9000;';
-  const swatches = { black: '#07070e', grey: '#718096', white: '#eef2f7' };
-  ['black', 'grey', 'white'].forEach(mode => {
+  const swatches = {
+    black: '#07070e',
+    grey:  '#718096',
+    white: '#eef2f7',
+    blue:  'linear-gradient(135deg,#d0e8ff,#add3fe)',
+  };
+
+  function applyLightBg(isLight) {
+    // Tubes are invisible on light backgrounds (same as dashboard lightBg behavior)
+    tubeMeshes.forEach(tm => { tm.material.opacity = isLight ? 0 : tm.material.opacity; });
+    // Label text: dark on light bg, white on dark bg
+    const textColor    = isLight ? '#1a1a2e' : '#ffffff';
+    const shadowAlpha  = isLight ? '0.55' : '1';
+    labelDivs.forEach(({ div, node }) => {
+      const accent = COLORS[node.rel] ?? COLORS.NEUTRAL;
+      div.style.color = textColor;
+      div.style.textShadow = `0 0 8px ${accent},0 0 3px rgba(0,0,0,${shadowAlpha})`;
+    });
+  }
+
+  // Store tube base opacities before any toggle can mutate them
+  tubeMeshes.forEach(tm => { tm.userData.baseOpacity = tm.material.opacity; });
+
+  ['black', 'grey', 'white', 'blue'].forEach(mode => {
     const btn = document.createElement('button');
     btn.style.cssText = `width:22px;height:22px;border-radius:5px;background:${swatches[mode]};padding:0;cursor:pointer;border:${mode==='black'?'2px solid #06b6d4':'1px solid rgba(148,163,184,0.45)'};box-shadow:${mode==='black'?'0 0 6px #06b6d488':'none'};`;
     btn.title = mode;
@@ -537,6 +562,10 @@ function initGraph(containerId) {
         b.style.border = active ? '2px solid #06b6d4' : '1px solid rgba(148,163,184,0.45)';
         b.style.boxShadow = active ? '0 0 6px #06b6d488' : 'none';
       });
+      const isLight = mode === 'white' || mode === 'blue';
+      // Restore tube opacities first, then hide if light
+      tubeMeshes.forEach(tm => { tm.material.opacity = tm.userData.baseOpacity ?? tm.material.opacity; });
+      applyLightBg(isLight);
     });
     bgToggle.appendChild(btn);
   });
