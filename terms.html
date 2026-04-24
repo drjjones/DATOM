@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Terms and Conditions — DATOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="DATOM Terms and Conditions — the binding agreement between DATOM and users of the Platform, including the VC Confidence Report service and the Research Platform Pilot Program.">
+<link rel="icon" href="./Assets/favicon.png" />
+<link rel="stylesheet" href="global.css?v=2" />
+<style>
+  /* ── Page-specific layout ────────────────────────────────────── */
+  .terms-wrap {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .terms-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+  .terms-meta {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .terms-meta strong { color: var(--text); }
+  .terms-notice {
+    margin: 24px 0;
+    padding: 16px 20px;
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.30);
+    border-radius: var(--radius);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .terms-notice strong { color: #92400e; letter-spacing: 0.04em; }
+
+  .terms-toc {
+    margin: 30px 0;
+    padding: 18px 22px;
+    background: rgba(6,182,212,0.04);
+    border: 1px solid rgba(6,182,212,0.20);
+    border-radius: var(--radius);
+  }
+  .terms-toc h2 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    border: none;
+    padding: 0;
+  }
+  .terms-toc ol { margin: 0; padding-left: 20px; }
+  .terms-toc li { margin-bottom: 4px; }
+  .terms-toc a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .terms-toc a:hover { color: var(--accent); text-decoration: underline; }
+  .terms-toc .sub {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-left: 18px;
+    margin-bottom: 2px;
+  }
+
+  .terms-part {
+    margin-top: 60px;
+    padding-top: 28px;
+    border-top: 2px solid var(--border);
+  }
+  .terms-part-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .terms-part h2 {
+    border: none;
+    padding: 0;
+    margin: 0 0 6px;
+  }
+  .terms-part-scope {
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+
+  .terms-section {
+    margin-top: 36px;
+    scroll-margin-top: 80px;
+  }
+  .terms-section h3 {
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .terms-clause {
+    margin: 16px 0;
+    scroll-margin-top: 80px;
+  }
+  .terms-clause-num {
+    font-weight: 700;
+    color: var(--text);
+    font-size: 14px;
+    margin-right: 4px;
+  }
+  .terms-clause-title {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .terms-clause p {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--text);
+    margin: 6px 0;
+  }
+  .terms-clause ul, .terms-clause ol {
+    margin: 8px 0 8px 18px;
+    padding-left: 18px;
+  }
+  .terms-clause li {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  /* All-caps blocks (legal disclaimers, liability caps) */
+  .terms-allcaps {
+    background: rgba(0,0,0,0.025);
+    border-left: 3px solid var(--border);
+    padding: 12px 16px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    margin: 12px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .terms-cite-block {
+    background: rgba(6,182,212,0.04);
+    border-left: 3px solid var(--accent);
+    padding: 10px 14px;
+    font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 10px 0;
+    border-radius: 0 4px 4px 0;
+    color: var(--text);
+  }
+  .terms-back-to-top {
+    position: fixed;
+    right: 24px; bottom: 24px;
+    background: var(--accent); color: #fff;
+    border: none; padding: 10px 14px;
+    border-radius: var(--radius);
+    font-size: 12px; font-weight: 600;
+    cursor: pointer; opacity: 0;
+    transition: opacity .2s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .terms-back-to-top.visible { opacity: 1; }
+  .terms-back-to-top:hover { background: var(--accent-hover); }
+  .terms-end {
+    margin-top: 60px;
+    padding: 24px;
+    text-align: center;
+    border-top: 2px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="product.html">How It Works</a>
+    <a href="example.html">Live Example</a>
+    <a href="research.html">Research</a>
+    <a href="/app/login" class="btn-login">Log In</a>
+    <a href="try.html" class="btn-cta">Get Started</a>
+  </nav>
+</header>
+
+<main>
+
+<div class="terms-wrap">
+
+  <div class="terms-header">
+    <h1 style="margin-bottom:8px;">Terms and Conditions</h1>
+    <div class="terms-meta">
+      <strong>Last Updated:</strong> April&nbsp;16,&nbsp;2026 &nbsp;·&nbsp; <strong>Effective Date:</strong> April&nbsp;16,&nbsp;2026 &nbsp;·&nbsp; <strong>Version:</strong> 2026-04-16
+    </div>
+  </div>
+
+  <div class="terms-notice">
+    <strong>IMPORTANT NOTICE:</strong> This document contains a binding arbitration clause and class action waiver in <a href="#sec-1-5" style="color:var(--accent);">Section&nbsp;1.5</a>. These provisions affect your legal rights. Please read them carefully.
+  </div>
+
+  <h2 id="preamble" style="border:none;padding:0;margin:32px 0 12px;">Preamble</h2>
+  <p>These Terms and Conditions (&ldquo;Agreement&rdquo;) constitute a legally binding contract between DATOM (&ldquo;Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), a company organized under the laws of the Commonwealth of Massachusetts, and any individual or entity (&ldquo;User,&rdquo; &ldquo;you,&rdquo; or &ldquo;your&rdquo;) that accesses or uses the DATOM scientific knowledge verification platform and its associated services (collectively, the &ldquo;Platform&rdquo;). This Agreement governs all use of the Platform, including but not limited to the VC Confidence Report service and the Research Platform Pilot Program.</p>
+  <p style="font-weight:600; margin-top:14px;">BY COMPLETING THE ACCOUNT REGISTRATION PROCESS AND CLICKING THE &ldquo;I AGREE&rdquo; BUTTON, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREE TO BE LEGALLY BOUND BY THIS AGREEMENT IN ITS ENTIRETY.</p>
+
+  <!-- ── Table of contents ── -->
+  <nav class="terms-toc" aria-label="Table of contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#part-1">Part 1 — General Platform Terms</a>
+        <div class="sub"><a href="#sec-1-1">1.1 Acceptance of Terms</a></div>
+        <div class="sub"><a href="#sec-1-2">1.2 DATOM&rsquo;s Intellectual Property</a></div>
+        <div class="sub"><a href="#sec-1-3">1.3 Limitation of Liability</a></div>
+        <div class="sub"><a href="#sec-1-4">1.4 Termination</a></div>
+        <div class="sub"><a href="#sec-1-5">1.5 Governing Law and Binding Arbitration</a></div>
+        <div class="sub"><a href="#sec-1-6">1.6 Acceptable Use Policy</a></div>
+      </li>
+      <li><a href="#part-2">Part 2 — Venture Capital &amp; Confidence Report Terms</a>
+        <div class="sub"><a href="#sec-2-1">2.1 No Investment Advice</a></div>
+        <div class="sub"><a href="#sec-2-2">2.2 User Representations Regarding Uploaded Private Data</a></div>
+        <div class="sub"><a href="#sec-2-3">2.3 License to Process Uploaded Data and Data Retention</a></div>
+        <div class="sub"><a href="#sec-2-4">2.4 Accuracy of Provided Data; Report Ownership</a></div>
+      </li>
+      <li><a href="#part-3">Part 3 — Research Platform &amp; R&amp;D Sandbox Terms</a>
+        <div class="sub"><a href="#sec-3-1">3.1 R&amp;D Sandbox Status and Disclaimer</a></div>
+        <div class="sub"><a href="#sec-3-2">3.2 Academic vs. Commercial Use</a></div>
+        <div class="sub"><a href="#sec-3-3">3.3 Copyright, Published Literature, and Fair Use</a></div>
+        <div class="sub"><a href="#sec-3-4">3.4 Publication, Citation, and Endorsement</a></div>
+        <div class="sub"><a href="#sec-3-5">3.5 Ownership of Research Outputs</a></div>
+      </li>
+      <li><a href="#part-4">Part 4 — Miscellaneous Provisions</a>
+        <div class="sub"><a href="#sec-4-1">4.1 Privacy and Data Protection</a></div>
+        <div class="sub"><a href="#sec-4-2">4.2 Entire Agreement</a></div>
+        <div class="sub"><a href="#sec-4-3">4.3 Severability</a></div>
+        <div class="sub"><a href="#sec-4-4">4.4 Waiver</a></div>
+        <div class="sub"><a href="#sec-4-5">4.5 Assignment</a></div>
+        <div class="sub"><a href="#sec-4-6">4.6 Force Majeure</a></div>
+        <div class="sub"><a href="#sec-4-7">4.7 Contact</a></div>
+        <div class="sub"><a href="#sec-4-8">4.8 Data Security</a></div>
+      </li>
+    </ol>
+  </nav>
+
+  <!-- ═══════ PART 1 ═══════ -->
+  <section class="terms-part" id="part-1">
+    <div class="terms-part-label">Part 1</div>
+    <h2>General Platform Terms</h2>
+    <p class="terms-part-scope">Applicable to All Users.</p>
+
+    <section class="terms-section" id="sec-1-1">
+      <h3>1.1 Acceptance of Terms</h3>
+      <div class="terms-clause" id="sec-1-1-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.1.1</span> Clickwrap Assent.</div>
+        <p>Access to and use of the Platform is expressly conditioned upon your affirmative acceptance of this Agreement via the clickwrap mechanism presented during the account creation and onboarding process. Prior to creating an account or accessing any feature of the Platform, you will be presented with a clearly labeled checkbox or button reading &ldquo;I have read and agree to DATOM&rsquo;s Terms and Conditions.&rdquo; Your act of clicking, checking, or otherwise affirmatively activating that interface element constitutes your full, knowing, and voluntary acceptance of this Agreement, with the same legal force and effect as a handwritten signature.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-1-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.1.2</span> Capacity to Contract.</div>
+        <p>By accepting this Agreement, you represent and warrant that: (a) you are at least eighteen (18) years of age; (b) you possess the legal capacity to enter into a binding contract; and (c) if you are accepting on behalf of a corporate entity, partnership, academic institution, or other organization, you have the full authority to bind that organization to this Agreement, and references to &ldquo;you&rdquo; and &ldquo;User&rdquo; throughout this Agreement shall refer to that organization.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-1-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.1.3</span> Modifications.</div>
+        <p>DATOM reserves the right to modify this Agreement at any time. Material changes will be communicated to Users via email to the address associated with their account and/or by a prominent notice displayed upon login. Your continued use of the Platform following the effective date of any modification constitutes acceptance of the modified Agreement. If you do not agree to the modified terms, your sole remedy is to cease using the Platform and terminate your account in accordance with Section&nbsp;1.4.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-1-4">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.1.4</span> Minimum Requirements.</div>
+        <p>Access to the Platform requires registration of a valid account. You agree to provide accurate, current, and complete information during registration and to update such information as necessary to maintain its accuracy.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-1-2">
+      <h3>1.2 DATOM&rsquo;s Intellectual Property</h3>
+      <div class="terms-clause" id="sec-1-2-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.2.1</span> Ownership and Reservation of Rights.</div>
+        <p>DATOM is and shall remain the sole and exclusive owner of all right, title, and interest in and to the Platform and all components thereof, including without limitation: (a) the DATOM proprietary verification framework and all methodologies, algorithms, heuristics, scoring systems, and analytical processes incorporated therein; (b) all artificial intelligence and machine learning models, training datasets owned or controlled by DATOM, model weights, inference pipelines, and associated software; (c) all source code, object code, application programming interfaces (APIs), databases, data structures, and software libraries developed or maintained by DATOM; (d) all user interface designs, visual elements, and user experience workflows; (e) all trade secrets, know-how, and confidential technical information; and (f) all intellectual property rights in the foregoing, including patents, copyrights, trademarks, trade dress, and any applications or registrations therefor (collectively, &ldquo;DATOM Intellectual Property&rdquo;). No license to any DATOM Intellectual Property is granted by this Agreement except as expressly and narrowly set forth herein.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-2-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.2.2</span> Prohibition on Reverse Engineering.</div>
+        <p>You expressly agree that you shall not, directly or indirectly, and shall not permit or enable any third party to: (a) reverse engineer, decompile, disassemble, decode, or otherwise attempt to derive or reconstruct the source code, underlying ideas, algorithms, structure, logic, or organization of any portion of the Platform or DATOM Intellectual Property; (b) create derivative works based on the Platform or any DATOM Intellectual Property; (c) copy, reproduce, or replicate any proprietary methodology, scoring system, verification framework, or analytical process of DATOM for any purpose; (d) use the Platform or outputs generated by the Platform to train, develop, benchmark, or improve any competing artificial intelligence model, verification system, or data analysis tool; or (e) use any automated means, including scrapers, crawlers, bots, or data mining tools, to extract data, methodologies, or functional logic from the Platform. Any attempt to do so constitutes a material breach of this Agreement and may give rise to civil liability and criminal prosecution under applicable law, including the Computer Fraud and Abuse Act, 18 U.S.C. §1030, and the Digital Millennium Copyright Act, 17 U.S.C. §1201.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-2-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.2.3</span> Feedback.</div>
+        <p>If you submit suggestions, ideas, recommendations, or other feedback regarding the Platform (&ldquo;Feedback&rdquo;), you hereby assign to DATOM all right, title, and interest in such Feedback, including all intellectual property rights therein. DATOM may use such Feedback for any purpose without restriction or compensation to you.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-2-4">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.2.4</span> Trademarks.</div>
+        <p>&ldquo;DATOM,&rdquo; the DATOM logo, and all associated product names, service marks, and trade dress are trademarks and service marks of DATOM. You may not use any DATOM trademark without DATOM&rsquo;s prior written consent, and nothing in this Agreement grants you any right to use any DATOM trademark.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-1-3">
+      <h3>1.3 Limitation of Liability</h3>
+      <div class="terms-clause" id="sec-1-3-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.3.1</span> AS-IS Disclaimer.</div>
+        <p class="terms-allcaps">THE PLATFORM AND ALL REPORTS, OUTPUTS, ANALYSES, SCORES, AND OTHER MATERIALS GENERATED OR DELIVERED THERETHROUGH (COLLECTIVELY, &ldquo;PLATFORM OUTPUTS&rdquo;) ARE PROVIDED STRICTLY ON AN &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE&rdquo; BASIS, WITHOUT WARRANTY OF ANY KIND. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, DATOM EXPRESSLY DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, ACCURACY, COMPLETENESS, NON-INFRINGEMENT, TITLE, QUIET ENJOYMENT, SYSTEM INTEGRATION, OR THOSE ARISING FROM COURSE OF DEALING, USAGE OF TRADE, OR COURSE OF PERFORMANCE.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-3-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.3.2</span> No Warranty of Accuracy.</div>
+        <p>DATOM does not warrant that the Platform will be uninterrupted, error-free, or free of harmful components, or that any Platform Output will be accurate, reliable, complete, or suitable for any particular purpose. All scientific verification results, confidence scores, integrity flags, and related outputs are probabilistic assessments generated by computational processes and are subject to inherent limitations and error rates.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-3-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.3.3</span> Cap on Financial Liability.</div>
+        <p class="terms-allcaps">TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, DATOM&rsquo;S TOTAL CUMULATIVE LIABILITY TO YOU ARISING OUT OF OR RELATED TO THIS AGREEMENT OR YOUR USE OF THE PLATFORM, REGARDLESS OF THE THEORY OF LIABILITY (WHETHER IN CONTRACT, TORT INCLUDING NEGLIGENCE, STRICT LIABILITY, STATUTE, OR OTHERWISE), SHALL NOT EXCEED THE TOTAL FEES ACTUALLY PAID BY YOU TO DATOM IN THE TWELVE (12) CALENDAR MONTHS IMMEDIATELY PRECEDING THE DATE ON WHICH THE CLAIM FIRST AROSE. IF YOU HAVE NOT PAID ANY FEES TO DATOM DURING THAT PERIOD (INCLUDING USERS ACCESSING THE PLATFORM UNDER A FREE TRIAL, ACADEMIC LICENSE, OR PILOT PROGRAM), DATOM&rsquo;S TOTAL LIABILITY TO YOU SHALL BE LIMITED TO ONE HUNDRED U.S. DOLLARS ($100.00).</p>
+      </div>
+      <div class="terms-clause" id="sec-1-3-4">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.3.4</span> Exclusion of Consequential Damages.</div>
+        <p class="terms-allcaps">TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL DATOM, ITS OFFICERS, DIRECTORS, EMPLOYEES, CONTRACTORS, AGENTS, LICENSORS, OR SUCCESSORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, PUNITIVE, OR ENHANCED DAMAGES, INCLUDING WITHOUT LIMITATION ANY LOSS OF PROFITS, REVENUE, BUSINESS, DATA, GOODWILL, REPUTATION, OR ANTICIPATED SAVINGS, EVEN IF DATOM HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES AND REGARDLESS OF WHETHER SUCH DAMAGES ARE FORESEEABLE.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-3-5">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.3.5</span> Essential Basis.</div>
+        <p>You acknowledge that the limitations of liability set forth in this Section&nbsp;1.3 are a fundamental element of the basis of the bargain between DATOM and you, and that DATOM would not have made the Platform available to you without such limitations.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-1-4">
+      <h3>1.4 Termination</h3>
+      <div class="terms-clause" id="sec-1-4-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.4.1</span> DATOM&rsquo;s Right to Terminate.</div>
+        <p>DATOM reserves the absolute and unconditional right, at its sole discretion, to suspend, restrict, or permanently terminate your access to the Platform, in whole or in part, at any time and for any reason or no reason, including without limitation for any actual or suspected violation of this Agreement, with or without prior notice to you and without liability to you or any third party. Conduct that may give rise to termination includes, but is not limited to: (a) breach of any provision of this Agreement; (b) use of the Platform in a manner that DATOM determines, in its sole discretion, to be harmful, fraudulent, abusive, or unlawful; (c) non-payment of applicable fees; (d) providing false or misleading registration information; or (e) any conduct that exposes DATOM to legal liability or reputational harm.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-4-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.4.2</span> Effect of Termination.</div>
+        <p>Upon termination of your account for any reason: (a) all rights and licenses granted to you under this Agreement shall immediately and automatically terminate; (b) you must immediately cease all use of the Platform; (c) DATOM may, but is not obligated to, delete your account data in accordance with its then-current data retention policy; and (d) all provisions of this Agreement that by their nature should survive termination shall survive, including without limitation Sections&nbsp;1.2, 1.3, 1.5, and all payment obligations accrued prior to termination.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-4-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.4.3</span> User-Initiated Termination.</div>
+        <p>You may terminate your account at any time by providing written notice to DATOM at <a href="mailto:legal@datom.science">legal@datom.science</a>. Termination does not entitle you to any refund of prepaid fees, except as expressly required by applicable law.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-1-5">
+      <h3>1.5 Governing Law and Binding Arbitration</h3>
+      <div class="terms-clause" id="sec-1-5-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.5.1</span> Governing Law.</div>
+        <p>This Agreement and all disputes, claims, or controversies arising out of or relating to this Agreement, the Platform, or your use thereof shall be governed by and construed in accordance with the laws of the Commonwealth of Massachusetts, without regard to its conflict of law principles.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-5-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.5.2</span> Mandatory Binding Arbitration.</div>
+        <p class="terms-allcaps">EXCEPT AS SET FORTH IN SECTION 1.5.4, ALL DISPUTES, CLAIMS, OR CONTROVERSIES ARISING OUT OF OR RELATING TO THIS AGREEMENT, THE PLATFORM, PLATFORM OUTPUTS, OR THE RELATIONSHIP BETWEEN YOU AND DATOM (EACH, A &ldquo;DISPUTE&rdquo;) SHALL BE RESOLVED EXCLUSIVELY THROUGH FINAL, BINDING ARBITRATION, AND NOT IN A COURT OF LAW, EXCEPT AS OTHERWISE PROVIDED HEREIN.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-5-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.5.3</span> Arbitration Procedure.</div>
+        <p>Arbitration shall be administered by the American Arbitration Association (&ldquo;AAA&rdquo;) in accordance with its Commercial Arbitration Rules and, where applicable, its Consumer Arbitration Rules, as then in effect, and which are incorporated herein by reference. The seat and location of arbitration shall be in the Commonwealth of Massachusetts. Specifically, all in-person hearings shall take place in Suffolk County, Massachusetts, unless the parties mutually agree otherwise in writing. The arbitration shall be conducted before a single arbitrator with expertise in technology contracts. The arbitrator&rsquo;s award shall be in writing, shall include findings of fact and conclusions of law, and shall be final and binding. Judgment upon the award may be entered in any court of competent jurisdiction.</p>
+        <p><strong>Arbitration Fees.</strong> The allocation of AAA filing fees, administrative fees, and arbitrator compensation shall be governed by the applicable AAA rules, subject to the following: (a) each party shall bear its own attorneys&rsquo; fees and costs unless the arbitrator determines that a claim or defense was frivolous or brought in bad faith, in which case the arbitrator may award reasonable attorneys&rsquo; fees and costs to the prevailing party; (b) if you are an individual natural person (not a corporate entity) and your claim does not exceed Ten Thousand U.S. Dollars ($10,000.00), DATOM will pay all AAA filing and administrative fees; and (c) notwithstanding the foregoing, if the arbitrator finds that your claims were frivolous or brought for an improper purpose, you shall reimburse DATOM for any fees DATOM paid on your behalf under subsection (b).</p>
+      </div>
+      <div class="terms-clause" id="sec-1-5-4">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.5.4</span> Exceptions.</div>
+        <p>Notwithstanding the foregoing, either party may seek emergency injunctive or other equitable relief from a court of competent jurisdiction in the Commonwealth of Massachusetts to prevent irreparable harm, including to protect DATOM Intellectual Property, pending the outcome of arbitration. Such an application for equitable relief shall not constitute a waiver of the right to arbitration.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-5-5">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.5.5</span> Class Action Waiver.</div>
+        <p class="terms-allcaps">YOU AND DATOM EACH AGREE THAT ANY ARBITRATION OR OTHER PERMITTED LEGAL PROCEEDING SHALL BE CONDUCTED SOLELY ON AN INDIVIDUAL BASIS. YOU HEREBY WAIVE ANY RIGHT TO BRING OR PARTICIPATE IN ANY CLASS ACTION, COLLECTIVE ACTION, CONSOLIDATED ARBITRATION, REPRESENTATIVE ACTION, OR PRIVATE ATTORNEY GENERAL ACTION AGAINST DATOM. YOU MAY NOT CONSOLIDATE YOUR CLAIM WITH THE CLAIMS OF ANY OTHER PERSON OR ENTITY.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-5-6">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.5.6</span> Venue for Non-Arbitrable Claims.</div>
+        <p>For any Dispute that is determined not to be subject to mandatory arbitration, the parties consent to the exclusive personal jurisdiction and venue of the state and federal courts located in Suffolk County, Commonwealth of Massachusetts.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-5-7">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.5.7</span> Severability of Arbitration Clause.</div>
+        <p>If the class action waiver in Section&nbsp;1.5.5 is found to be unenforceable, the entirety of this arbitration provision shall be null and void, and the parties agree that jurisdiction and venue shall lie exclusively in the courts identified in Section&nbsp;1.5.6. If any other provision of this arbitration clause is found unenforceable, the remaining provisions shall remain in full force.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-1-6">
+      <h3>1.6 Acceptable Use Policy</h3>
+      <div class="terms-clause" id="sec-1-6-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.6.1</span> Permitted Use.</div>
+        <p>You may access and use the Platform solely for lawful purposes consistent with your applicable license category and the terms of this Agreement.</p>
+      </div>
+      <div class="terms-clause" id="sec-1-6-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.6.2</span> Prohibited Conduct.</div>
+        <p>You expressly agree that you shall not use the Platform to:</p>
+        <ul>
+          <li><strong>(a) Illegal Activity.</strong> Violate any applicable federal, state, local, or international law or regulation, including without limitation laws governing data privacy, export controls, economic sanctions, anti-money laundering, securities fraud, or intellectual property;</li>
+          <li><strong>(b) Unauthorized Access.</strong> Attempt to gain unauthorized access to the Platform, its underlying infrastructure, other user accounts, or any computer systems or networks connected to the Platform, including through hacking, password mining, credential stuffing, or any other means;</li>
+          <li><strong>(c) System Interference.</strong> Transmit any malware, virus, worm, Trojan horse, ransomware, logic bomb, or other malicious or harmful code; or take any action that imposes an unreasonable or disproportionate load on DATOM&rsquo;s infrastructure, including denial-of-service attacks;</li>
+          <li><strong>(d) Deceptive or Fraudulent Conduct.</strong> Misrepresent your identity, affiliation, or license category; create accounts under false pretenses; or submit falsified data with the intent of manipulating Platform Outputs for fraudulent purposes, including to deceive investors or research partners;</li>
+          <li><strong>(e) Export Control Violations.</strong> Export, re-export, or transfer any Platform Output, technology, or technical data in violation of the U.S. Export Administration Regulations, International Traffic in Arms Regulations, or any applicable sanctions administered by the U.S. Office of Foreign Assets Control;</li>
+          <li><strong>(f) Competitive Exploitation.</strong> Use the Platform to develop, train, benchmark, or improve any competing product or service, as further described in Section&nbsp;1.2.2; or</li>
+          <li><strong>(g) Harassment or Harm.</strong> Use the Platform in any manner that harasses, abuses, or harms any individual, or that facilitates the harassment, abuse, or harm of any individual.</li>
+        </ul>
+      </div>
+      <div class="terms-clause" id="sec-1-6-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">1.6.3</span> Consequences.</div>
+        <p>Any violation of this Section&nbsp;1.6 constitutes a material breach of this Agreement and may result in immediate termination under Section&nbsp;1.4, in addition to any civil or criminal liability under applicable law.</p>
+      </div>
+    </section>
+  </section>
+
+  <!-- ═══════ PART 2 ═══════ -->
+  <section class="terms-part" id="part-2">
+    <div class="terms-part-label">Part 2</div>
+    <h2>Venture Capital &amp; Confidence Report Terms</h2>
+    <p class="terms-part-scope">Applicable to VC Users and Purchasers of DATOM Confidence Report Services.</p>
+
+    <section class="terms-section" id="sec-2-1">
+      <h3>2.1 No Investment Advice</h3>
+      <div class="terms-clause" id="sec-2-1-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">2.1.1</span> Not a Financial Advisor.</div>
+        <p>DATOM is a technical data verification and scientific risk analysis company. DATOM is expressly <strong>not</strong> a financial advisor, investment advisor, broker-dealer, securities analyst, registered investment company, or any similar entity regulated under the Investment Advisers Act of 1940, the Securities Exchange Act of 1934, or any analogous state or foreign law. Nothing in this Agreement, on the Platform, or in any Confidence Report or other Platform Output constitutes, or shall be construed as, financial advice, investment advice, securities analysis, a recommendation to buy, sell, or hold any security or financial instrument, or any other form of financial guidance of any kind.</p>
+      </div>
+      <div class="terms-clause" id="sec-2-1-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">2.1.2</span> Scope of Reports.</div>
+        <p>DATOM Confidence Reports are technical due diligence instruments designed solely to assess the scientific and methodological reliability of underlying research data and literature. Their purpose is limited to informing the scientific and technical risk component of an investment review process. A Confidence Report is one data point among many that a sophisticated investor is expected to independently evaluate alongside financial analysis, legal due diligence, market assessment, and management review, among other factors.</p>
+      </div>
+      <div class="terms-clause" id="sec-2-1-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">2.1.3</span> No Liability for Investment Decisions.</div>
+        <p class="terms-allcaps">DATOM BEARS ABSOLUTELY NO RESPONSIBILITY WHATSOEVER FOR ANY INVESTMENT DECISION YOU MAKE, CHOOSE NOT TO MAKE, OR THAT IS INFLUENCED IN ANY WAY BY A DATOM CONFIDENCE REPORT. DATOM SHALL NOT BE LIABLE FOR ANY FINANCIAL LOSS, LOSS OF PRINCIPAL, LOSS OF EXPECTED RETURNS, OR ANY OTHER ECONOMIC HARM OF ANY NATURE ARISING DIRECTLY OR INDIRECTLY FROM YOUR RELIANCE ON ANY CONFIDENCE REPORT OR OTHER PLATFORM OUTPUT IN CONNECTION WITH ANY INVESTMENT, FUNDING DECISION, TRANSACTION, OR FINANCIAL UNDERTAKING.</p>
+        <p>The entire financial and commercial risk of your investment decisions rests exclusively with you. You acknowledge that you are a sophisticated commercial entity capable of independently evaluating scientific risk data and that your reliance on any DATOM output is at your sole risk and judgment.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-2-2">
+      <h3>2.2 User Representations Regarding Uploaded Private Data</h3>
+      <div class="terms-clause" id="sec-2-2-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">2.2.1</span> Legal Authorization.</div>
+        <p>Where the VC Confidence Report service permits or requires you to upload data, documents, materials, or information relating to a target company or other third party (&ldquo;Uploaded Data&rdquo;), you hereby represent, warrant, and covenant that, at the time of upload and at all times during DATOM&rsquo;s processing thereof: (a) you have full legal right, title, license, and authority to disclose, upload, and authorize DATOM to process the Uploaded Data for the purpose of generating a Confidence Report; (b) your disclosure of the Uploaded Data to DATOM does not violate any non-disclosure agreement, confidentiality agreement, letter of intent, term sheet, data sharing agreement, or other contractual obligation to which you or your firm are a party; (c) your disclosure of the Uploaded Data to DATOM does not violate any applicable law, regulation, or court order, including laws governing trade secret misappropriation, insider trading, or the handling of material non-public information; (d) you have obtained all necessary consents, clearances, and authorizations required from the target company or any other data owner prior to uploading the data; and (e) to the extent the Uploaded Data constitutes confidential information subject to a non-disclosure agreement, you have reviewed the terms of that agreement and determined in good faith that providing the data to DATOM for technical processing purposes is permissible thereunder.</p>
+      </div>
+      <div class="terms-clause" id="sec-2-2-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">2.2.2</span> Indemnification for Unlawful Upload.</div>
+        <p>You shall indemnify, defend, and hold harmless DATOM and its officers, directors, employees, contractors, agents, successors, and assigns (collectively, &ldquo;DATOM Indemnitees&rdquo;) from and against any and all claims, demands, actions, proceedings, losses, damages, liabilities, judgments, fines, penalties, settlements, costs, and expenses (including reasonable attorneys&rsquo; fees and litigation costs) (&ldquo;Losses&rdquo;) arising out of or relating to: (a) your breach of any representation or warranty in Section&nbsp;2.2.1; (b) your unauthorized disclosure of any third party&rsquo;s trade secrets, proprietary information, or confidential data to DATOM; (c) any claim by a target company, portfolio company, co-investor, or any third party arising from your upload of data to which you did not have lawful authorization; or (d) any allegation that your use of the DATOM platform in connection with Uploaded Data constitutes misappropriation of trade secrets under the Defend Trade Secrets Act of 2016, 18 U.S.C. §1836, or any analogous state law. This indemnification obligation shall survive termination of this Agreement.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-2-3">
+      <h3>2.3 License to Process Uploaded Data and Data Retention</h3>
+      <div class="terms-clause" id="sec-2-3-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">2.3.1</span> User Data Ownership.</div>
+        <p>As between you and DATOM, you retain all right, title, and interest in and to the Uploaded Data, including all intellectual property rights therein. Nothing in this Agreement shall be construed as a transfer of ownership of Uploaded Data from you to DATOM.</p>
+      </div>
+      <div class="terms-clause" id="sec-2-3-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">2.3.2</span> Limited Processing License.</div>
+        <p>By uploading data to the Platform, you grant DATOM a limited, non-exclusive, non-transferable, non-sublicensable, revocable license solely to: (a) ingest, process, analyze, and evaluate the Uploaded Data using DATOM&rsquo;s proprietary methodologies; and (b) generate the specific Confidence Report requested by you. This license is strictly limited to the purposes set forth in this Section&nbsp;2.3.2. DATOM shall not use your Uploaded Data to train or improve its AI models, to benchmark its systems against third-party platforms, to generate reports for other users, or for any other purpose not expressly stated herein, without your prior written consent. DATOM may retain de-identified and aggregated statistical metadata derived from processing for internal system performance monitoring, provided such metadata cannot reasonably be used to reconstruct or identify the Uploaded Data or any target company.</p>
+      </div>
+      <div class="terms-clause" id="sec-2-3-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">2.3.3</span> Data Retention and Permanent Purge.</div>
+        <p>DATOM shall permanently and irreversibly delete all private, non-public Uploaded Data from its systems and backup infrastructure within thirty (30) calendar days following delivery of the completed Confidence Report to you (&ldquo;Purge Deadline&rdquo;). Upon your written request, DATOM will provide a written certification confirming that deletion has been completed in accordance with this Section. Notwithstanding the foregoing, DATOM may retain: (a) the generated Confidence Report itself, in accordance with its standard document retention policy; and (b) anonymized aggregate metrics as permitted by Section&nbsp;2.3.2.</p>
+        <p>Notwithstanding the purge obligation set forth above, DATOM may retain Uploaded Data beyond the Purge Deadline solely to the extent and for the duration required by: (a) a litigation hold triggered by a bona fide dispute, claim, or threatened legal proceeding involving the relevant Uploaded Data; (b) a legally binding preservation order, subpoena, or regulatory demand issued by a court or government authority of competent jurisdiction; or (c) any other mandatory legal retention obligation under applicable law. DATOM will notify you promptly if it invokes this exception and will purge the retained data as soon as the applicable legal obligation is satisfied.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-2-4">
+      <h3>2.4 Accuracy of Provided Data; Report Ownership</h3>
+      <div class="terms-clause" id="sec-2-4-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">2.4.1</span> Assumption of Data Integrity.</div>
+        <p>DATOM&rsquo;s verification services are designed to assess the methodological and statistical integrity of scientific research data. DATOM&rsquo;s analysis is entirely dependent on the accuracy, completeness, and authenticity of the data and materials you provide. DATOM&rsquo;s processes do not include forensic authentication of raw data submissions, and DATOM shall have no obligation to independently verify that Uploaded Data accurately reflects the underlying research or has not been altered, fabricated, or selectively presented prior to submission.</p>
+      </div>
+      <div class="terms-clause" id="sec-2-4-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">2.4.2</span> Garbage In, Garbage Out Disclaimer.</div>
+        <p class="terms-allcaps">DATOM EXPRESSLY DISCLAIMS ALL LIABILITY FOR ANY INACCURACY, INCOMPLETENESS, MISLEADING CONCLUSION, OR OTHERWISE DEFICIENT CONFIDENCE REPORT THAT RESULTS, IN WHOLE OR IN PART, FROM UPLOADED DATA THAT HAS BEEN FALSIFIED, FABRICATED, MANIPULATED, SELECTIVELY CURATED, MISREPRESENTED, OR OTHERWISE CORRUPTED PRIOR TO SUBMISSION, WHETHER BY YOU, THE TARGET COMPANY, OR ANY OTHER PARTY.</p>
+        <p>The accuracy and usefulness of any Confidence Report is directly contingent upon the accuracy and integrity of the underlying inputs. You assume the full risk that conclusions drawn from a Confidence Report may be materially incorrect if the data submitted for analysis does not faithfully represent the underlying scientific work.</p>
+      </div>
+      <div class="terms-clause" id="sec-2-4-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">2.4.3</span> Report Ownership.</div>
+        <p>Subject to your compliance with this Agreement and payment of all applicable fees, upon delivery of a completed Confidence Report you shall own the specific report document generated for you. You may use the report for your firm&rsquo;s internal investment analysis and due diligence purposes. DATOM retains all rights in and to the methodologies, algorithms, scoring systems, and proprietary processes used to generate the report, none of which are transferred to you by the delivery of the report. You may not reproduce, distribute, or publicly publish the Confidence Report in whole or in substantial part without DATOM&rsquo;s prior written consent.</p>
+      </div>
+    </section>
+  </section>
+
+  <!-- ═══════ PART 3 ═══════ -->
+  <section class="terms-part" id="part-3">
+    <div class="terms-part-label">Part 3</div>
+    <h2>Research Platform &amp; R&amp;D Sandbox Terms</h2>
+    <p class="terms-part-scope">Applicable to Users of the DATOM Research Platform Pilot Program.</p>
+
+    <section class="terms-section" id="sec-3-1">
+      <h3>3.1 R&amp;D Sandbox Status and Disclaimer</h3>
+      <div class="terms-clause" id="sec-3-1-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.1.1</span> Pilot Program Designation.</div>
+        <p>The DATOM Research Platform is currently operating as a Pilot Program under active development and testing. <strong>THE RESEARCH PLATFORM IS AN EXPERIMENTAL SERVICE AND IS EXPRESSLY DESIGNATED AS AN R&amp;D SANDBOX.</strong> The Pilot Program is currently scheduled to run from April 2026 through June 2026, subject to extension, curtailment, or permanent launch at DATOM&rsquo;s sole discretion.</p>
+      </div>
+      <div class="terms-clause" id="sec-3-1-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.1.2</span> No Warranty of Service Continuity.</div>
+        <p class="terms-allcaps">AS A PILOT PROGRAM UNDER ACTIVE DEVELOPMENT, THE RESEARCH PLATFORM IS PROVIDED WITHOUT ANY WARRANTY OF AVAILABILITY, UPTIME, CONTINUITY, OR STABILITY. DATOM SPECIFICALLY AND EXPRESSLY DISCLAIMS ALL LIABILITY FOR: (a) PLANNED OR UNPLANNED SYSTEM DOWNTIME, MAINTENANCE WINDOWS, OR SERVICE INTERRUPTIONS OF ANY DURATION; (b) FAILED, INCOMPLETE, CORRUPTED, OR ERRONEOUS QUERY PROCESSING OR LITERATURE ANALYSIS; (c) LOSS OF RESEARCH DATA, QUERY HISTORY, ANALYSIS OUTPUTS, OR SAVED RESULTS DUE TO SYSTEM FAILURE, DATABASE CORRUPTION, INFRASTRUCTURE CHANGES, OR ANY OTHER CAUSE; (d) DEGRADED SYSTEM PERFORMANCE AFFECTING THE QUALITY OR SPEED OF ANALYSIS; OR (e) LOSS OF RESEARCH TIME, PRODUCTIVITY, OR ANTICIPATED ACADEMIC OR COMMERCIAL VALUE ARISING FROM ANY OF THE FOREGOING.</p>
+      </div>
+      <div class="terms-clause" id="sec-3-1-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.1.3</span> No SLA.</div>
+        <p>During the Pilot Program period, DATOM does not guarantee any minimum service level, response time, or uptime percentage. Any service level commitments, if any, shall be separately negotiated and set forth in a written Service Level Agreement signed by authorized representatives of both parties.</p>
+      </div>
+      <div class="terms-clause" id="sec-3-1-4">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.1.4</span> Pilot Program Changes.</div>
+        <p>DATOM reserves the right, in its sole discretion, to modify, limit, restrict, expand, or discontinue any feature, function, or data source available through the Research Platform at any time during and after the Pilot Program period, without notice and without liability.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-3-2">
+      <h3>3.2 Academic vs. Commercial Use</h3>
+      <div class="terms-clause" id="sec-3-2-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.2.1</span> License Categories.</div>
+        <p>Access to the Research Platform is granted under one of two mutually exclusive license categories:</p>
+        <ul>
+          <li><strong>(a) Academic Use License:</strong> An Academic Use License permits use of the Research Platform solely for non-commercial scientific research, educational instruction, academic publication, and scholarly analysis conducted under the auspices of an accredited college, university, research institution, or not-for-profit research organization. Academic Use expressly excludes any activity the primary purpose or likely commercial application of which is the generation of revenue, competitive advantage, or commercial exploitation by or for a for-profit entity.</li>
+          <li><strong>(b) Commercial Use License:</strong> A Commercial Use License permits use of the Research Platform for any commercial purpose, including without limitation: internal corporate research and development; development or improvement of commercial products or services; support for patent drafting, prosecution, or licensing activities; contract research organization activities; competitive intelligence gathering; and any other activity where the outputs of the Platform are reasonably expected to contribute to commercial value or revenue generation for a for-profit entity.</li>
+        </ul>
+      </div>
+      <div class="terms-clause" id="sec-3-2-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.2.2</span> Prohibited Misclassification.</div>
+        <p>If you have registered for or are accessing the Research Platform under an Academic Use License, you are strictly prohibited from using the Platform, in whole or in part, for any Commercial Use purpose as defined in Section&nbsp;3.2.1(b). Using an Academic Use License for Commercial Use purposes constitutes a material breach of this Agreement.</p>
+      </div>
+      <div class="terms-clause" id="sec-3-2-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.2.3</span> Consequences of Academic License Misuse.</div>
+        <p>In the event DATOM determines, in its reasonable discretion, that you have used an Academic Use License for Commercial Use purposes: (a) DATOM shall immediately and permanently terminate your access to the Research Platform and all other DATOM services without notice; (b) you shall be liable to DATOM for a financial penalty equal to the difference between the fees you paid under your Academic Use License and the full commercial licensing fees that would have applied to your actual use, plus a punitive surcharge equal to fifty percent (50%) of such difference, plus DATOM&rsquo;s reasonable attorneys&rsquo; fees and costs incurred in detecting and addressing the misuse; and (c) all Platform Outputs generated through your misuse may be deemed void and you shall be required to cease any further use or reliance thereon. This Section shall survive termination of this Agreement.</p>
+      </div>
+      <div class="terms-clause" id="sec-3-2-4">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.2.4</span> Duty to Disclose Change in Status.</div>
+        <p>If your use of the Research Platform transitions from Academic Use to Commercial Use at any time, you must notify DATOM in writing within five (5) business days and enter into a Commercial Use License before continuing to use the Platform.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-3-3">
+      <h3>3.3 Copyright, Published Literature, and Fair Use</h3>
+      <div class="terms-clause" id="sec-3-3-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.3.1</span> User Responsibility for Lawful Access.</div>
+        <p>The Research Platform may permit you to upload, submit, or reference published scientific literature, journal articles, preprints, or other third-party copyrighted works (&ldquo;Third-Party Literature&rdquo;) for processing and analysis. You are solely and exclusively responsible for ensuring that you possess the legal right to submit any Third-Party Literature to the Platform. Such rights may arise from: (a) a valid institutional subscription held by your affiliated university or research institution that covers digital processing or text mining of content; (b) an applicable open-access license, such as a Creative Commons license, that expressly permits the intended use; (c) a separate license or permission obtained directly from the publisher or copyright holder; or (d) a well-founded, good-faith determination that your submission falls within the fair use doctrine codified at 17 U.S.C. §107, based on an informed analysis of all four fair use factors in your specific context.</p>
+      </div>
+      <div class="terms-clause" id="sec-3-3-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.3.2</span> DATOM as Processing Tool Only.</div>
+        <p>DATOM functions as a computational processing and analysis tool. DATOM does not independently verify whether you possess lawful access rights to any Third-Party Literature you submit, and DATOM makes no representation that submitting Third-Party Literature to the Platform for processing constitutes fair use or falls within any other copyright exception. The legal analysis of whether a particular use is permitted is entirely your responsibility.</p>
+      </div>
+      <div class="terms-clause" id="sec-3-3-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.3.3</span> Indemnification Against Copyright Claims.</div>
+        <p>You shall indemnify, defend, and hold harmless the DATOM Indemnitees from and against any and all Losses arising out of or relating to: (a) any claim by a publisher, journal, academic society, copyright holder, or any other party alleging infringement of copyright, database rights, or any other intellectual property right in connection with Third-Party Literature you submit to the Platform; (b) your violation of any publisher&rsquo;s terms of service, subscription agreement, or content licensing terms; or (c) any regulatory investigation, legal proceeding, or enforcement action arising from your submission of Third-Party Literature to the Platform. This indemnification obligation shall survive termination of this Agreement.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-3-4">
+      <h3>3.4 Publication, Citation, and Endorsement</h3>
+      <div class="terms-clause" id="sec-3-4-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.4.1</span> Citation Covenant and Remedy.</div>
+        <p>If you author, co-author, or contribute to any academic paper, journal article, conference proceedings, thesis, technical report, patent application, white paper, grant application, or any other published or publicly disseminated work (&ldquo;Publication&rdquo;) where the findings, conclusions, data analyses, or verification results were materially enabled, supported, or validated by the DATOM Research Platform, you hereby covenant to include an appropriate citation to the DATOM platform in the methods, acknowledgments, or references section of such Publication. The minimum acceptable citation format is:</p>
+        <p class="terms-cite-block">DATOM Scientific Knowledge Verification Platform (Pilot Program), DATOM, Inc. Available at: https://datom.science. [Year accessed].</p>
+        <p>DATOM may update the recommended citation format from time to time by posting revised guidance at its website. You acknowledge that this citation obligation is a material inducement to DATOM&rsquo;s provision of the Research Platform under the terms of this Agreement, and that DATOM&rsquo;s ability to establish academic visibility and track applied usage of the Platform constitutes genuine economic value to DATOM. Accordingly, in the event you knowingly fail to cite the Platform in a qualifying Publication and DATOM provides written notice of such failure, you agree to pay DATOM liquidated damages in the amount of Five Hundred U.S. Dollars ($500.00) per qualifying uncited Publication, which the parties agree represents a reasonable and good-faith estimate of DATOM&rsquo;s actual damages from lost attribution, which would otherwise be difficult to quantify precisely. This liquidated damages provision is not a penalty but a genuine pre-estimate of harm. Your obligation under this Section applies only to Publications made during the term of this Agreement and for two (2) years following its termination.</p>
+      </div>
+      <div class="terms-clause" id="sec-3-4-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.4.2</span> Prohibition on Implied Endorsement.</div>
+        <p>You are expressly prohibited from making any statement, representation, or implication, whether in written, oral, or any other form, in any Publication, marketing material, press release, investor communication, grant application, or public communication, that: (a) DATOM endorses, certifies, guarantees, or validates your specific research conclusions, findings, or hypotheses; (b) DATOM has reviewed and approved the accuracy or validity of your Publication or any portion thereof; (c) DATOM stands behind, vouches for, or has independently confirmed the scientific conclusions you have drawn from data processed by the Platform; or (d) DATOM&rsquo;s verification of technical data integrity constitutes scientific peer review of, or any form of institutional endorsement of, your research. Any such prohibited representation shall constitute a material breach of this Agreement.</p>
+      </div>
+      <div class="terms-clause" id="sec-3-4-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.4.3</span> Permissible Attribution.</div>
+        <p>You may accurately state that you used the DATOM platform as a tool for scientific data integrity analysis or literature verification in the course of your research, provided such statement does not imply any endorsement by DATOM as prohibited by Section&nbsp;3.4.2.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-3-5">
+      <h3>3.5 Ownership of Research Outputs</h3>
+      <div class="terms-clause" id="sec-3-5-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.5.1</span> User Ownership of Custom Outputs.</div>
+        <p>Subject to your compliance with this Agreement, you own the specific, unique analytical queries you design and submit to the Platform and the specific research output reports, summaries, and data analyses generated specifically in response to those queries (&ldquo;User Research Outputs&rdquo;). You may use User Research Outputs for the purposes permitted by your applicable license category (Academic Use or Commercial Use, as described in Section&nbsp;3.2), subject to the citation obligations of Section&nbsp;3.4.</p>
+      </div>
+      <div class="terms-clause" id="sec-3-5-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.5.2</span> DATOM Ownership of Processing Engine.</div>
+        <p>DATOM retains all right, title, and interest in and to the underlying processing engine, including all algorithms, scoring models, verification methodologies, inference pipelines, AI models, data processing workflows, and software that generate User Research Outputs in response to your queries. The delivery of User Research Outputs to you does not transfer any right, license, or interest in any component of the processing engine. You acknowledge that similar queries submitted by different users may produce similar or overlapping outputs due to the nature of the underlying processing methodology, and DATOM&rsquo;s delivery of outputs to you creates no exclusivity in any underlying analytical approach.</p>
+      </div>
+      <div class="terms-clause" id="sec-3-5-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">3.5.3</span> Aggregate and De-Identified Data.</div>
+        <p>DATOM may compile, analyze, and use aggregate, de-identified, and anonymized data about system usage patterns, query types, performance metrics, and output accuracy for the purpose of improving the Platform, developing new features, and conducting internal research, provided such data cannot reasonably be used to identify you individually or reconstruct your specific research queries or outputs.</p>
+      </div>
+    </section>
+  </section>
+
+  <!-- ═══════ PART 4 ═══════ -->
+  <section class="terms-part" id="part-4">
+    <div class="terms-part-label">Part 4</div>
+    <h2>Miscellaneous Provisions</h2>
+
+    <section class="terms-section" id="sec-4-1">
+      <h3>4.1 Privacy and Data Protection</h3>
+      <div class="terms-clause" id="sec-4-1-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">4.1.1</span> Privacy Policy.</div>
+        <p>Your use of the Platform is also governed by DATOM&rsquo;s Privacy Policy, which is incorporated into this Agreement by reference. In the event of a conflict between the Privacy Policy and this Agreement with respect to data processing matters, this Agreement shall control.</p>
+      </div>
+      <div class="terms-clause" id="sec-4-1-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">4.1.2</span> California Residents — CCPA.</div>
+        <p>If you are a resident of the State of California, or if you are a business that is subject to the California Consumer Privacy Act of 2018, as amended by the California Privacy Rights Act of 2020 (collectively, &ldquo;CCPA&rdquo;), the following additional terms apply: (a) DATOM processes personal information as a &ldquo;service provider&rdquo; as defined under the CCPA solely for the purposes set forth in this Agreement and does not &ldquo;sell&rdquo; or &ldquo;share&rdquo; your personal information as those terms are defined under the CCPA; (b) to the extent you submit personal information to the Platform in the course of using the VC Confidence Report service or Research Platform, you represent that you have provided any notices and obtained any consents required under the CCPA prior to such submission; and (c) DATOM will honor verifiable consumer rights requests submitted to <a href="mailto:legal@datom.science">legal@datom.science</a> in accordance with the CCPA&rsquo;s requirements and timelines.</p>
+      </div>
+      <div class="terms-clause" id="sec-4-1-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">4.1.3</span> International Users — Future Compliance.</div>
+        <p>DATOM&rsquo;s Platform is currently operated for users located in the United States. DATOM does not actively market or direct the Platform to users in the European Union, European Economic Area, or United Kingdom at this time. To the extent DATOM expands its services internationally and becomes subject to the EU General Data Protection Regulation (2016/679) (&ldquo;GDPR&rdquo;), the UK GDPR, or any analogous data protection law, DATOM will enter into a Data Processing Addendum with affected Users prior to processing any personal data governed by those regimes. If you believe applicable international data protection law currently applies to your use of the Platform, please contact DATOM at <a href="mailto:legal@datom.science">legal@datom.science</a> before submitting any personal data.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-4-2">
+      <h3>4.2 Entire Agreement</h3>
+      <div class="terms-clause">
+        <p>This Agreement, together with any service-specific order forms, statements of work, or addenda executed by the parties, constitutes the entire agreement between you and DATOM with respect to the subject matter hereof and supersedes all prior and contemporaneous agreements, representations, negotiations, and understandings, whether written or oral.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-4-3">
+      <h3>4.3 Severability</h3>
+      <div class="terms-clause">
+        <p>If any provision of this Agreement is found by a court or arbitrator of competent jurisdiction to be invalid, illegal, or unenforceable, that provision shall be modified to the minimum extent necessary to make it enforceable, or if it cannot be so modified, it shall be severed from this Agreement, and the remaining provisions shall continue in full force and effect.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-4-4">
+      <h3>4.4 Waiver</h3>
+      <div class="terms-clause">
+        <p>No failure or delay by DATOM in exercising any right under this Agreement shall constitute a waiver of that right. No waiver of any provision of this Agreement shall be effective unless in writing and signed by an authorized representative of DATOM.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-4-5">
+      <h3>4.5 Assignment</h3>
+      <div class="terms-clause">
+        <p>You may not assign or transfer this Agreement, or any rights or obligations hereunder, without DATOM&rsquo;s prior written consent. DATOM may freely assign this Agreement in connection with a merger, acquisition, reorganization, or sale of all or substantially all of its assets. Any purported assignment in violation of this Section shall be null and void.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-4-6">
+      <h3>4.6 Force Majeure</h3>
+      <div class="terms-clause">
+        <p>DATOM shall not be liable for any failure or delay in performance resulting from causes beyond its reasonable control, including without limitation acts of God, natural disasters, pandemic, war, terrorism, civil unrest, labor disputes, internet outages, cloud infrastructure failures, or government action.</p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-4-7">
+      <h3>4.7 Contact</h3>
+      <div class="terms-clause">
+        <p>For legal notices under this Agreement, please contact:</p>
+        <p style="font-family:var(--mono, monospace); margin: 8px 0; line-height:1.5;">
+          DATOM, Inc.<br>
+          Legal Department<br>
+          <a href="mailto:legal@datom.science">legal@datom.science</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="terms-section" id="sec-4-8">
+      <h3>4.8 Data Security</h3>
+      <div class="terms-clause" id="sec-4-8-1">
+        <div class="terms-clause-title"><span class="terms-clause-num">4.8.1</span> Security Program.</div>
+        <p>DATOM maintains a written information security program designed to protect the confidentiality, integrity, and availability of User data and Uploaded Data against unauthorized access, disclosure, alteration, and destruction. This program incorporates reasonable and appropriate administrative, technical, and physical safeguards consistent with industry-standard practices for a platform of comparable scope and sensitivity, including without limitation: (a) encryption of data in transit using TLS 1.2 or higher; (b) encryption of data at rest using AES-256 or equivalent; (c) access controls limiting internal access to User data on a need-to-know basis; and (d) periodic internal review of security practices.</p>
+      </div>
+      <div class="terms-clause" id="sec-4-8-2">
+        <div class="terms-clause-title"><span class="terms-clause-num">4.8.2</span> No Guarantee.</div>
+        <p class="terms-allcaps">DATOM DOES NOT WARRANT THAT THE PLATFORM IS IMMUNE FROM SECURITY VULNERABILITIES, UNAUTHORIZED ACCESS, DATA BREACHES, OR CYBERATTACK. NO DATA TRANSMISSION OVER THE INTERNET OR METHOD OF ELECTRONIC STORAGE IS COMPLETELY SECURE, AND DATOM CANNOT GUARANTEE ABSOLUTE SECURITY.</p>
+        <p>DATOM&rsquo;s liability for any security incident shall be subject to the limitations set forth in Section&nbsp;1.3.</p>
+      </div>
+      <div class="terms-clause" id="sec-4-8-3">
+        <div class="terms-clause-title"><span class="terms-clause-num">4.8.3</span> Breach Notification.</div>
+        <p>In the event DATOM discovers a confirmed security breach that results in unauthorized access to or disclosure of your identifiable User data or Uploaded Data, DATOM will notify you without unreasonable delay and in no event later than seventy-two (72) hours after DATOM&rsquo;s internal confirmation of the breach, to the extent permitted by applicable law and any ongoing law enforcement investigation. Notification shall be made to the email address associated with your account.</p>
+      </div>
+      <div class="terms-clause" id="sec-4-8-4">
+        <div class="terms-clause-title"><span class="terms-clause-num">4.8.4</span> Subprocessors.</div>
+        <p>DATOM may engage third-party service providers (&ldquo;Subprocessors&rdquo;) to assist in delivering the Platform, including cloud infrastructure providers. DATOM will ensure that any Subprocessor with access to User data or Uploaded Data is bound by confidentiality and data security obligations at least as protective as those set forth in this Agreement. A current list of material Subprocessors is available upon written request to <a href="mailto:legal@datom.science">legal@datom.science</a>.</p>
+      </div>
+      <div class="terms-clause" id="sec-4-8-5">
+        <div class="terms-clause-title"><span class="terms-clause-num">4.8.5</span> User Responsibilities.</div>
+        <p>You are responsible for maintaining the security of your account credentials. You agree to notify DATOM promptly at <a href="mailto:legal@datom.science">legal@datom.science</a> upon becoming aware of any unauthorized use of your account or any other security incident affecting your access to the Platform.</p>
+      </div>
+    </section>
+  </section>
+
+  <div class="terms-end">— End of Document —</div>
+
+</div>
+
+</main>
+
+<button class="terms-back-to-top" id="back-to-top" aria-label="Back to top">↑ Top</button>
+
+<footer>
+  <p style="margin-bottom:6px;">Responsibility for decisions remains human. We provide the infrastructure to make them defensible.</p>
+  &copy; 2026 DATOM &mdash; Scientific Trust Infrastructure. &nbsp;·&nbsp; <a href="terms.html" style="color:var(--accent);">Terms</a> &nbsp;·&nbsp; <a href="mailto:legal@datom.science" style="color:var(--accent);">Legal Contact</a>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+  // Back-to-top button
+  var btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 400) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  });
+  btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+</script>
+</body>
+</html>
