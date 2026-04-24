@@ -16,17 +16,10 @@
     margin-bottom: 40px;
   }
   .tab-btn {
-    flex: 1;
-    padding: 16px 24px;
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
-    margin-bottom: -2px;
-    font-family: var(--sans);
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--muted);
-    cursor: pointer;
+    flex: 1; padding: 16px 24px; background: none; border: none;
+    border-bottom: 3px solid transparent; margin-bottom: -2px;
+    font-family: var(--sans); font-size: 16px; font-weight: 600;
+    color: var(--muted); cursor: pointer;
     transition: color 0.2s, border-color 0.2s;
   }
   .tab-btn:hover { color: var(--text); }
@@ -41,21 +34,15 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: rgba(255,255,255,0.6);
-    display: flex;
-    flex-direction: column;
-    min-height: 500px;
-    max-height: 720px;
-    overflow: hidden;
+    display: flex; flex-direction: column;
+    min-height: 540px; max-height: 760px; overflow: hidden;
   }
   .chat-header {
     padding: 14px 18px;
     border-bottom: 1px solid var(--border);
     background: rgba(6,182,212,0.04);
-    font-size: 13px;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    font-size: 13px; color: var(--muted);
+    display: flex; align-items: center; gap: 10px;
   }
   .chat-header-dot {
     width: 10px; height: 10px; border-radius: 50%;
@@ -63,120 +50,110 @@
     box-shadow: 0 0 0 3px rgba(6,182,212,0.2);
     animation: chat-pulse 2.4s ease-in-out infinite;
   }
-  @keyframes chat-pulse {
-    0%,100% { opacity: 1; } 50% { opacity: 0.55; }
-  }
+  @keyframes chat-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
   .chat-messages {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex: 1; padding: 20px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 10px;
     scroll-behavior: smooth;
   }
   .chat-msg {
     max-width: 88%;
-    padding: 10px 14px;
-    border-radius: 14px;
-    font-size: 14.5px;
-    line-height: 1.55;
-    word-wrap: break-word;
+    padding: 10px 14px; border-radius: 14px;
+    font-size: 14.5px; line-height: 1.55;
+    word-wrap: break-word; white-space: pre-wrap;
     animation: chat-fade 0.2s ease-out;
   }
-  @keyframes chat-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @keyframes chat-fade {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: none; }
+  }
   .chat-msg.bot {
-    background: #f1f5f9;
-    color: var(--text);
-    border-bottom-left-radius: 4px;
-    align-self: flex-start;
+    background: #f1f5f9; color: var(--text);
+    border-bottom-left-radius: 4px; align-self: flex-start;
   }
   .chat-msg.user {
-    background: var(--accent);
-    color: #fff;
-    border-bottom-right-radius: 4px;
-    align-self: flex-end;
-    white-space: pre-wrap;
+    background: var(--accent); color: #fff;
+    border-bottom-right-radius: 4px; align-self: flex-end;
+  }
+  .chat-msg.thinking {
+    background: #f1f5f9; color: var(--muted);
+    font-style: italic;
+    border-bottom-left-radius: 4px; align-self: flex-start;
+  }
+  .chat-msg.thinking::after {
+    content: '…'; display: inline-block;
+    margin-left: 2px;
+    animation: chat-dots 1.2s steps(4, end) infinite;
+  }
+  @keyframes chat-dots {
+    0%   { content: '.'; }
+    33%  { content: '..'; }
+    66%  { content: '...'; }
+    100% { content: '.'; }
   }
   .chat-input-area {
     border-top: 1px solid var(--border);
     padding: 14px 16px;
     background: rgba(255,255,255,0.85);
   }
-  .chat-input-row { display: flex; gap: 8px; align-items: flex-end; }
+  .chat-input-row {
+    display: flex; gap: 8px; align-items: flex-end;
+  }
   .chat-input-field {
     flex: 1;
-    padding: 10px 14px;
+    padding: 12px 14px;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: #fff;
-    font-family: var(--sans);
-    font-size: 14px;
-    color: var(--text);
-    resize: vertical;
-    min-height: 44px;
+    font-family: var(--sans); font-size: 14px; color: var(--text);
+    line-height: 1.55;
+    resize: none;
+    min-height: 50px; max-height: 260px;
     transition: border-color 0.15s;
   }
   .chat-input-field:focus {
-    outline: none;
-    border-color: var(--accent);
+    outline: none; border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(6,182,212,0.12);
   }
-  textarea.chat-input-field { min-height: 76px; max-height: 200px; }
-  select.chat-input-field { min-height: 44px; }
   .chat-send-btn {
-    padding: 10px 20px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.15s;
-    white-space: nowrap;
+    padding: 12px 22px;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: var(--radius);
+    font-weight: 600; font-size: 14px;
+    cursor: pointer; transition: background 0.15s;
+    white-space: nowrap; align-self: stretch;
   }
   .chat-send-btn:hover:not(:disabled) { background: var(--accent-hover); }
   .chat-send-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-  .chat-send-btn.secondary {
-    background: transparent;
-    color: var(--muted);
+  .chat-attach-btn {
+    width: 44px; height: 44px;
     border: 1px solid var(--border);
+    background: #fff; color: var(--muted);
+    border-radius: var(--radius);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.15s, border-color 0.15s;
+    align-self: flex-end;
   }
-  .chat-choices { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chat-choice-btn {
-    padding: 9px 16px;
+  .chat-attach-btn:hover { color: var(--accent); border-color: var(--accent); }
+  .chat-attach-btn.has-file { color: var(--accent); border-color: var(--accent); background: rgba(6,182,212,0.08); }
+  .chat-attached-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-bottom: 8px;
+    padding: 6px 12px;
     background: rgba(6,182,212,0.08);
     border: 1px solid rgba(6,182,212,0.3);
-    color: var(--accent-hover);
-    border-radius: 22px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    font-family: var(--sans);
-    transition: background 0.15s, border-color 0.15s;
+    border-radius: 14px;
+    font-size: 12px; color: var(--accent-hover);
   }
-  .chat-choice-btn:hover { background: rgba(6,182,212,0.18); border-color: var(--accent); }
-  .chat-char-count { font-size: 11px; color: var(--muted); text-align: right; margin-top: 4px; }
-  .chat-upload-zone {
-    border: 2px dashed rgba(6,182,212,0.35);
-    border-radius: var(--radius);
-    padding: 18px;
-    text-align: center;
-    cursor: pointer;
-    background: rgba(6,182,212,0.03);
-    transition: border-color .15s, background .15s;
+  .chat-attached-chip button {
+    background: none; border: none; color: var(--muted);
+    cursor: pointer; padding: 0; font-size: 14px; line-height: 1;
   }
-  .chat-upload-zone:hover, .chat-upload-zone.drag-over {
-    border-color: var(--accent);
-    background: rgba(6,182,212,0.07);
-  }
-  .chat-upload-zone p { margin: 0; font-size: 13px; color: var(--muted); }
-  .chat-upload-zone .file-chosen { color: var(--accent-hover); font-weight: 600; margin-top: 4px; }
+  .chat-attached-chip button:hover { color: #ef4444; }
+  .chat-hint { font-size: 11px; color: var(--muted); margin-top: 6px; padding: 0 4px; }
   .chat-terms {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    display: flex; align-items: flex-start; gap: 10px;
     padding: 14px 16px;
     background: rgba(6,182,212,0.04);
     border: 1px solid rgba(6,182,212,0.2);
@@ -187,21 +164,16 @@
     margin-top: 2px;
     width: 16px; height: 16px;
     accent-color: var(--accent);
-    cursor: pointer;
-    flex-shrink: 0;
+    cursor: pointer; flex-shrink: 0;
   }
   .chat-terms label { font-size: 13px; line-height: 1.55; cursor: pointer; color: var(--text); }
   .chat-terms a { color: var(--accent); text-decoration: underline; }
   .chat-restart {
     display: inline-block;
-    margin-top: 10px;
-    font-size: 12px;
-    color: var(--muted);
-    text-decoration: underline;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0;
+    margin-left: 12px;
+    font-size: 12px; color: var(--muted);
+    text-decoration: underline; cursor: pointer;
+    background: none; border: none; padding: 0;
     font-family: var(--sans);
   }
   .chat-restart:hover { color: var(--accent); }
@@ -211,8 +183,7 @@
     display: none;
     padding: 16px 20px;
     border-radius: var(--radius);
-    margin-top: 20px;
-    font-size: 14px;
+    margin-top: 20px; font-size: 14px;
   }
   .form-message.success {
     background: rgba(6,182,212,0.08);
@@ -225,13 +196,11 @@
     color: var(--text);
   }
   .calendly-step-msg {
-    font-size: 15px;
-    color: var(--text);
+    font-size: 15px; color: var(--text);
     background: rgba(6,182,212,0.06);
     border: 1px solid rgba(6,182,212,0.2);
     border-radius: var(--radius);
-    padding: 14px 18px;
-    margin-bottom: 20px;
+    padding: 14px 18px; margin-bottom: 20px;
   }
 
   @media (max-width: 800px) {
@@ -322,13 +291,6 @@
         style="display:none;margin-bottom:20px;padding:18px 22px;border-radius:var(--radius);background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.30);"
       >
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--accent);flex-shrink:0;" aria-hidden="true">
-            <polyline points="20 12 20 22 4 22 4 12"/>
-            <rect x="2" y="7" width="20" height="5"/>
-            <line x1="12" y1="22" x2="12" y2="7"/>
-            <path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/>
-            <path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
-          </svg>
           <strong style="color:var(--text);font-size:15px;">Free Confidence Report</strong>
         </div>
         <p style="margin:0;font-size:14px;color:var(--muted);">
@@ -367,6 +329,11 @@
 (function () {
   'use strict';
 
+  var API_BASE = 'https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com';
+  var TERMS_VERSION = '2026-04-16';
+  var EXTRACT_URL = API_BASE + '/api/intake/extract';
+  var PITCHDECK_UPLOAD_URL = API_BASE + '/api/pitch-deck/upload';
+
   // ── Tab switching ─────────────────────────────────────────────────────
   var tabs = document.querySelectorAll('.tab-btn');
   var panels = document.querySelectorAll('.tab-panel');
@@ -395,8 +362,6 @@
     activateTab('vc');
   }
 
-  var TERMS_VERSION = '2026-04-16';
-
   // ── Calendly plumbing (unchanged) ─────────────────────────────────────
   var activePayload = null;
   var activeFormType = null;
@@ -411,7 +376,6 @@
     script.onload = function () { calendlyScriptLoaded = true; callback(); };
     document.head.appendChild(script);
   }
-
   function showCalendly(formType, payload) {
     activePayload = payload;
     activeFormType = formType;
@@ -421,11 +385,10 @@
     container.style.display = 'block';
     container.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-
   function submitApplication(payload) {
     var url = payload.formType === 'vc'
-      ? 'https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/vc-applications'
-      : 'https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/pilot-applications';
+      ? API_BASE + '/api/vc-applications'
+      : API_BASE + '/api/pilot-applications';
     return fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -435,14 +398,12 @@
       return res.json();
     });
   }
-
   window.addEventListener('message', function (e) {
     if (!e.data || !e.data.event || e.data.event !== 'calendly.event_scheduled') return;
     if (!activeFormType) return;
     var formType = activeFormType;
     if (formType === 'vc') {
-      activePayload = null;
-      activeFormType = null;
+      activePayload = null; activeFormType = null;
       window.location.href = 'thankyou.html?applicationId=' + encodeURIComponent(currentApplicationId) + '&flow=calendly';
       return;
     }
@@ -451,8 +412,7 @@
     if (e.data.payload && e.data.payload.event && e.data.payload.event.uri) {
       payload.calendlyEventUri = e.data.payload.event.uri;
     }
-    activePayload = null;
-    activeFormType = null;
+    activePayload = null; activeFormType = null;
     submitApplication(payload)
       .then(function () {
         document.getElementById(formType + '-calendly-container').style.display = 'none';
@@ -468,277 +428,267 @@
       });
   });
 
-  // ── Pitch deck upload (unchanged helper) ──────────────────────────────
-  var pitchDeckSelectedFile = null;
-  var pitchDeckUploadedKey  = null;
-
-  function uploadPitchDeck(callback) {
-    if (pitchDeckUploadedKey) { callback(null, pitchDeckUploadedKey); return; }
-    if (!pitchDeckSelectedFile) { callback(new Error('No PDF selected.')); return; }
-    if (pitchDeckSelectedFile.size > 5 * 1024 * 1024) {
-      callback(new Error('File too large — max 5 MB.')); return;
-    }
+  function uploadPitchDeck(file, callback) {
+    if (file.size > 5 * 1024 * 1024) { callback(new Error('File too large — max 5 MB.')); return; }
     var tempId = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36);
-    var params = new URLSearchParams({ fileName: pitchDeckSelectedFile.name, tempId: tempId });
-    fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/pitch-deck/upload?' + params.toString(), {
+    var params = new URLSearchParams({ fileName: file.name, tempId: tempId });
+    fetch(PITCHDECK_UPLOAD_URL + '?' + params.toString(), {
       method: 'POST',
       headers: { 'Content-Type': 'application/pdf' },
-      body: pitchDeckSelectedFile
+      body: file
     })
       .then(function (r) { return r.ok ? r.json() : r.json().then(function (d) { throw new Error(d.error || 'Upload failed (' + r.status + ')'); }); })
-      .then(function (d) { pitchDeckUploadedKey = d.s3Key; callback(null, d.s3Key); })
+      .then(function (d) { callback(null, d.s3Key); })
       .catch(function (err) { callback(err); });
   }
 
   // ══════════════════════════════════════════════════════════════════════
-  // Chat engine — scripted, deterministic. Collects the same fields the
-  // forms used to; passes the final payload to onComplete(state).
+  // Natural-language chat engine.
+  //   • Renders one bot question at a time.
+  //   • Single textarea input. Enter = send. Shift+Enter = newline.
+  //   • Optional paperclip button (VC only) to attach a PDF.
+  //   • After last scripted question, calls /api/intake/extract.
+  //   • Asks targeted follow-ups for any missing required fields.
+  //   • Then renders T&Cs + Continue, and on click runs onComplete(state).
   // ══════════════════════════════════════════════════════════════════════
+  function runChat(opts) {
+    var ns        = opts.ns;             // 'lab' | 'vc'
+    var script    = opts.script;         // [string question, ...]
+    var allowFile = !!opts.allowFile;    // VC only
+    var followUps = opts.followUpsFor || function () { return null; };
+    var onReady   = opts.onReady;        // (state, transcript, errCb) => void
 
-  /**
-   * runChat(namespace, script, onComplete)
-   *
-   * script: [{ key, prompt, inputType, required?, choices?, minLength?,
-   *            maxLength?, placeholder?, skipIf?, selectHtml? }]
-   *   inputType: 'text' | 'email' | 'textarea' | 'choice' | 'select' | 'pitchdeck' | 'prompt-only'
-   *
-   * On each step we render a bot message, wait for the user's answer
-   * (text/choice/select/upload), echo it as a user bubble, then advance.
-   * After the last step we render the T&C + Continue area and call
-   * onComplete(state) when the user confirms.
-   */
-  function runChat(ns, script, onComplete) {
     var messagesEl = document.getElementById(ns + '-chat-messages');
     var inputEl    = document.getElementById(ns + '-chat-input');
-    if (!messagesEl || !inputEl) return;
-    var state = {};
-    var stepIndex = 0;
+    var transcript = [];
+    var stepIndex  = 0;
+    var attachedFile = null;
+    var attachedKey  = null;
 
     function addMsg(text, sender) {
-      sender = sender || 'bot';
       var div = document.createElement('div');
-      div.className = 'chat-msg ' + sender;
+      div.className = 'chat-msg ' + (sender || 'bot');
       div.textContent = text;
       messagesEl.appendChild(div);
       messagesEl.scrollTop = messagesEl.scrollHeight;
+      return div;
     }
-
     function clearInput() { inputEl.innerHTML = ''; }
 
-    function validateValue(step, val) {
-      if (step.required !== false && (!val || (typeof val === 'string' && !val.trim()))) {
-        return 'Please answer to continue.';
-      }
-      if (typeof val === 'string') {
-        var trimmed = val.trim();
-        if (step.minLength && trimmed.length < step.minLength) {
-          return 'Please provide at least ' + step.minLength + ' characters.';
-        }
-        if (step.inputType === 'email' && trimmed && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-          return 'Please enter a valid email address.';
-        }
-      }
-      return null;
+    function renderPrompt(question) {
+      addMsg(question, 'bot');
+      transcript.push({ role: 'assistant', text: question });
+      renderInput();
     }
 
-    function submit(value, displayText) {
-      var step = script[stepIndex];
-      state[step.key] = value;
-      if (displayText == null) displayText = value;
-      addMsg(String(displayText), 'user');
-      stepIndex++;
-      next();
-    }
-
-    function renderInput(step) {
+    function renderInput() {
       clearInput();
 
-      if (step.inputType === 'choice') {
-        var wrap = document.createElement('div');
-        wrap.className = 'chat-choices';
-        step.choices.forEach(function (c) {
-          var btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'chat-choice-btn';
-          btn.textContent = c.label;
-          btn.onclick = function () { submit(c.value, c.label); };
-          wrap.appendChild(btn);
-        });
-        if (step.required === false) {
-          var skip = document.createElement('button');
-          skip.type = 'button';
-          skip.className = 'chat-choice-btn';
-          skip.style.opacity = '0.7';
-          skip.textContent = 'Skip';
-          skip.onclick = function () { submit('', '(skipped)'); };
-          wrap.appendChild(skip);
-        }
-        inputEl.appendChild(wrap);
-        return;
+      // Attached-file chip (above the row)
+      if (attachedFile) {
+        var chip = document.createElement('div');
+        chip.className = 'chat-attached-chip';
+        chip.innerHTML = '<span>📎 ' + attachedFile.name + '</span>';
+        var rm = document.createElement('button');
+        rm.type = 'button';
+        rm.title = 'Remove';
+        rm.textContent = '×';
+        rm.onclick = function () { attachedFile = null; attachedKey = null; renderInput(); };
+        chip.appendChild(rm);
+        inputEl.appendChild(chip);
       }
 
-      if (step.inputType === 'select') {
-        var row = document.createElement('div');
-        row.className = 'chat-input-row';
-        var sel = document.createElement('select');
-        sel.className = 'chat-input-field';
-        sel.innerHTML = step.selectHtml;
-        var sbtn = document.createElement('button');
-        sbtn.type = 'button';
-        sbtn.className = 'chat-send-btn';
-        sbtn.textContent = 'Send';
-        sbtn.onclick = function () {
-          if (!sel.value && step.required !== false) return;
-          var label = sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : sel.value;
-          submit(sel.value, label);
-        };
-        row.appendChild(sel);
-        row.appendChild(sbtn);
-        inputEl.appendChild(row);
-        return;
-      }
+      var row = document.createElement('div');
+      row.className = 'chat-input-row';
 
-      if (step.inputType === 'pitchdeck') {
-        var zoneWrap = document.createElement('div');
-        var zone = document.createElement('div');
-        zone.className = 'chat-upload-zone';
-        zone.innerHTML = '<p id="' + ns + '-zone-label">Drop a PDF here or click to browse</p>'
-                       + '<p class="file-chosen" id="' + ns + '-zone-fname" style="display:none;"></p>'
-                       + '<p class="file-chosen" id="' + ns + '-zone-status" style="display:none;font-weight:400;color:var(--muted);"></p>';
-        var fi = document.createElement('input');
-        fi.type = 'file'; fi.accept = '.pdf'; fi.style.display = 'none';
-        zone.appendChild(fi);
-        var zoneLbl = zone.querySelector('#' + ns + '-zone-label');
-        var zoneFname = zone.querySelector('#' + ns + '-zone-fname');
-        var zoneStatus = zone.querySelector('#' + ns + '-zone-status');
-
-        fi.addEventListener('click', function (e) { e.stopPropagation(); });
-        zone.addEventListener('click', function () { fi.click(); });
-        zone.addEventListener('dragover', function (e) { e.preventDefault(); zone.classList.add('drag-over'); });
-        zone.addEventListener('dragleave', function () { zone.classList.remove('drag-over'); });
-        zone.addEventListener('drop', function (e) {
-          e.preventDefault(); zone.classList.remove('drag-over');
-          var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-          if (f) chooseFile(f);
-        });
-        fi.addEventListener('change', function () {
-          if (fi.files && fi.files[0]) chooseFile(fi.files[0]);
-        });
-
-        function chooseFile(f) {
-          if (!f.name.toLowerCase().endsWith('.pdf')) { alert('Only PDF files are accepted.'); return; }
-          pitchDeckSelectedFile = f;
-          pitchDeckUploadedKey  = null;
-          if (zoneLbl) zoneLbl.style.display = 'none';
-          if (zoneFname) { zoneFname.textContent = f.name; zoneFname.style.display = ''; }
-          if (zoneStatus) { zoneStatus.textContent = 'Ready — will upload when you continue.'; zoneStatus.style.display = ''; }
-          // Enable send
-          sendBtn.disabled = false;
-        }
-
-        var sendBtn = document.createElement('button');
-        sendBtn.type = 'button';
-        sendBtn.className = 'chat-send-btn';
-        sendBtn.textContent = 'Use this PDF';
-        sendBtn.disabled = true;
-        sendBtn.style.marginTop = '10px';
-        sendBtn.onclick = function () {
-          if (!pitchDeckSelectedFile) return;
-          submit(pitchDeckSelectedFile.name, '📎 ' + pitchDeckSelectedFile.name);
-        };
-
-        zoneWrap.appendChild(zone);
-        zoneWrap.appendChild(sendBtn);
-        inputEl.appendChild(zoneWrap);
-        return;
-      }
-
-      // Default: text / email / textarea
-      var row2 = document.createElement('div');
-      row2.className = 'chat-input-row';
-      var input = step.inputType === 'textarea' ? document.createElement('textarea') : document.createElement('input');
-      input.className = 'chat-input-field';
-      if (step.inputType === 'email') input.type = 'email';
-      else if (input.tagName === 'INPUT') input.type = 'text';
-      if (step.placeholder) input.placeholder = step.placeholder;
-      if (step.maxLength) input.maxLength = step.maxLength;
-      if (step.inputType === 'textarea') input.rows = 3;
-      var tbtn = document.createElement('button');
-      tbtn.type = 'button';
-      tbtn.className = 'chat-send-btn';
-      tbtn.textContent = 'Send';
-      var tryCommit = function () {
-        var val = input.value;
-        var err = validateValue(step, val);
-        if (err) { tbtn.disabled = false; alert(err); input.focus(); return; }
-        submit(val.trim(), val.trim());
-      };
-      tbtn.onclick = tryCommit;
-      input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && !e.shiftKey && step.inputType !== 'textarea') {
-          e.preventDefault(); tryCommit();
+      var ta = document.createElement('textarea');
+      ta.className = 'chat-input-field';
+      ta.rows = 2;
+      ta.placeholder = 'Type your answer… (Enter to send, Shift+Enter for newline)';
+      ta.addEventListener('input', function () {
+        // Auto-grow up to max-height handled by CSS
+        ta.style.height = 'auto';
+        ta.style.height = Math.min(ta.scrollHeight, 260) + 'px';
+      });
+      ta.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          send();
         }
       });
-      row2.appendChild(input);
-      row2.appendChild(tbtn);
-      inputEl.appendChild(row2);
 
-      if (step.maxLength) {
-        var cnt = document.createElement('div');
-        cnt.className = 'chat-char-count';
-        cnt.textContent = '0 / ' + step.maxLength;
-        input.addEventListener('input', function () {
-          cnt.textContent = input.value.length + ' / ' + step.maxLength;
+      var attachBtn = null;
+      if (allowFile) {
+        attachBtn = document.createElement('button');
+        attachBtn.type = 'button';
+        attachBtn.className = 'chat-attach-btn' + (attachedFile ? ' has-file' : '');
+        attachBtn.title = attachedFile ? 'PDF attached' : 'Attach a PDF (e.g. pitch deck)';
+        attachBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>';
+        var fi = document.createElement('input');
+        fi.type = 'file'; fi.accept = '.pdf'; fi.style.display = 'none';
+        fi.addEventListener('change', function () {
+          var f = fi.files && fi.files[0]; if (!f) return;
+          if (!f.name.toLowerCase().endsWith('.pdf')) { alert('Please choose a PDF.'); return; }
+          if (f.size > 5 * 1024 * 1024) { alert('PDF is too large (max 5 MB).'); return; }
+          attachedFile = f;
+          attachedKey  = null;
+          renderInput();
         });
-        inputEl.appendChild(cnt);
+        attachBtn.onclick = function () { fi.click(); };
+        row.appendChild(attachBtn);
+        inputEl.appendChild(fi);
       }
-      setTimeout(function () { input.focus(); }, 50);
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chat-send-btn';
+      btn.textContent = 'Send';
+      btn.onclick = send;
+
+      row.appendChild(ta);
+      row.appendChild(btn);
+      inputEl.appendChild(row);
+
+      var hint = document.createElement('div');
+      hint.className = 'chat-hint';
+      hint.textContent = allowFile
+        ? 'You can also attach a PDF (e.g. pitch deck) if you have one.'
+        : 'Press Enter to send · Shift+Enter for a new line.';
+      inputEl.appendChild(hint);
+
+      setTimeout(function () { ta.focus(); }, 50);
+
+      function send() {
+        var raw = (ta.value || '').trim();
+        if (!raw && !attachedFile) {
+          ta.focus();
+          return;
+        }
+        var displayText = raw;
+        if (attachedFile) displayText = (raw ? raw + '\n\n' : '') + '📎 ' + attachedFile.name;
+
+        addMsg(displayText, 'user');
+
+        var userMsgText = raw;
+        if (attachedFile) userMsgText += (raw ? '\n\n' : '') + '[ATTACHED PDF: ' + attachedFile.name + ' — the user wants to upload a pitch deck]';
+        transcript.push({ role: 'user', text: userMsgText });
+
+        clearInput();
+        advance();
+      }
     }
 
-    function next() {
-      if (stepIndex >= script.length) { renderTerms(); return; }
-      var step = script[stepIndex];
-      if (step.skipIf && step.skipIf(state)) { stepIndex++; next(); return; }
-      var promptText = typeof step.prompt === 'function' ? step.prompt(state) : step.prompt;
-      addMsg(promptText, 'bot');
-      if (step.inputType === 'prompt-only') { stepIndex++; next(); return; }
-      renderInput(step);
+    function showThinking() {
+      var t = document.createElement('div');
+      t.className = 'chat-msg thinking';
+      t.id = ns + '-thinking';
+      t.textContent = 'Thinking';
+      messagesEl.appendChild(t);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+    function hideThinking() {
+      var t = document.getElementById(ns + '-thinking');
+      if (t && t.parentNode) t.parentNode.removeChild(t);
     }
 
-    function renderTerms() {
+    function advance() {
+      stepIndex++;
+      if (stepIndex < script.length) {
+        renderPrompt(script[stepIndex]);
+        return;
+      }
+      // Out of scripted questions → ask the backend to extract
+      runExtraction();
+    }
+
+    var extractionRetries = 0;
+
+    function runExtraction() {
+      showThinking();
+      fetch(EXTRACT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ formType: ns, transcript: transcript })
+      })
+        .then(function (r) {
+          if (!r.ok) return r.json().then(function (d) { throw new Error(d.error || ('HTTP ' + r.status)); });
+          return r.json();
+        })
+        .then(function (data) {
+          hideThinking();
+          var fields = (data && data.fields) || {};
+          var missing = (data && data.missing) || [];
+
+          // If the user attached a PDF, force evidenceType = 'pitch deck'
+          if (allowFile && attachedFile) {
+            fields.evidenceType = 'pitch deck';
+            // Anything that was required only in the text branch can be cleared
+            missing = missing.filter(function (k) {
+              return ['scientificClaim', 'decisionContext', 'claimConfidence', 'investmentImplication'].indexOf(k) < 0;
+            });
+          }
+
+          if (missing.length > 0 && extractionRetries < 2) {
+            extractionRetries++;
+            askFollowUp(missing, fields);
+            return;
+          }
+          renderTerms(fields);
+        })
+        .catch(function (e) {
+          hideThinking();
+          addMsg('Sorry — I had trouble processing that. Could you rephrase or try again?', 'bot');
+          renderInput();
+          console.warn('[chat] extraction failed:', e && e.message);
+        });
+    }
+
+    function askFollowUp(missing, fieldsSoFar) {
+      var question = followUps(missing, fieldsSoFar);
+      if (!question) {
+        // No more follow-ups defined; proceed even if some fields missing —
+        // the backend will return a clean validation error if so.
+        renderTerms(fieldsSoFar);
+        return;
+      }
+      addMsg(question, 'bot');
+      transcript.push({ role: 'assistant', text: question });
+      renderInput();
+      // Reset stepIndex so the next user reply triggers another extraction pass
+      stepIndex = script.length - 1;
+    }
+
+    function renderTerms(fields) {
       clearInput();
       addMsg("Perfect — I have everything I need. Please review the Terms and Conditions below, then click Continue to finalize.", 'bot');
+
       var termsBox = document.createElement('div');
       termsBox.className = 'chat-terms';
       var cb = document.createElement('input');
       cb.type = 'checkbox'; cb.id = ns + '-terms-check';
       var lbl = document.createElement('label');
       lbl.htmlFor = ns + '-terms-check';
-      var termsText = ns === 'lab'
+      lbl.innerHTML = ns === 'lab'
         ? 'I have read and agree to the <a href="https://datom.science/terms.html" target="_blank" rel="noopener noreferrer">DATOM Terms and Conditions</a> (v' + TERMS_VERSION + '), including the Research Platform &amp; R&amp;D Sandbox terms in Part 3. I confirm I have the legal right to share any data I submit.'
         : 'I have read and agree to the <a href="https://datom.science/terms.html" target="_blank" rel="noopener noreferrer">DATOM Terms and Conditions</a> (v' + TERMS_VERSION + '), including the Venture Capital &amp; Confidence Report terms in Part 2. I confirm any data I submit is mine to share.';
-      lbl.innerHTML = termsText;
       termsBox.appendChild(cb);
       termsBox.appendChild(lbl);
       inputEl.appendChild(termsBox);
 
       var actions = document.createElement('div');
       actions.style.display = 'flex';
-      actions.style.gap = '10px';
       actions.style.alignItems = 'center';
       var contBtn = document.createElement('button');
       contBtn.type = 'button';
       contBtn.className = 'chat-send-btn';
-      contBtn.style.flex = '0 0 auto';
       contBtn.textContent = 'Continue →';
       contBtn.onclick = function () {
-        if (!cb.checked) {
-          alert('Please accept the Terms and Conditions to continue.');
-          return;
-        }
+        if (!cb.checked) { alert('Please accept the Terms and Conditions to continue.'); return; }
         contBtn.disabled = true;
         contBtn.textContent = 'Submitting…';
-        onComplete(state, function (errMsg) {
+        var state = Object.assign({}, fields);
+        if (allowFile && attachedFile) state.__attachedFile = attachedFile;
+        onReady(state, transcript, function (errMsg) {
           contBtn.disabled = false;
           contBtn.textContent = 'Continue →';
           if (errMsg) alert('Submission failed: ' + errMsg);
@@ -752,195 +702,83 @@
         if (!confirm('Start the intake over? Your current answers will be cleared.')) return;
         messagesEl.innerHTML = '';
         clearInput();
-        state = {};
+        transcript = [];
         stepIndex = 0;
-        next();
+        attachedFile = null;
+        attachedKey = null;
+        extractionRetries = 0;
+        renderPrompt(script[0]);
       };
       actions.appendChild(contBtn);
       actions.appendChild(restart);
       inputEl.appendChild(actions);
     }
 
-    next();
+    // Kick it off
+    renderPrompt(script[0]);
   }
 
-  // ── Research domain select (preserves the original optgroups) ─────────
-  var RESEARCH_DOMAIN_HTML = [
-    '<option value="">Select…</option>',
-    '<optgroup label="Life Sciences &amp; Biomedical">',
-      '<option value="oncology">Oncology</option>',
-      '<option value="neuroscience">Neuroscience</option>',
-      '<option value="immunology">Immunology &amp; Inflammation</option>',
-      '<option value="genomics">Genomics &amp; Genomic Medicine</option>',
-      '<option value="cell-biology">Cell Biology</option>',
-      '<option value="molecular-biology">Molecular Biology</option>',
-      '<option value="structural-biology">Structural Biology</option>',
-      '<option value="biochemistry">Biochemistry</option>',
-      '<option value="pharmacology">Pharmacology &amp; Toxicology</option>',
-      '<option value="drug-discovery">Drug Discovery &amp; Development</option>',
-      '<option value="infectious-disease">Infectious Disease &amp; Virology</option>',
-      '<option value="cardiology">Cardiology &amp; Cardiovascular</option>',
-      '<option value="metabolic-disease">Metabolic Disease &amp; Endocrinology</option>',
-      '<option value="rare-disease">Rare &amp; Genetic Disease</option>',
-      '<option value="aging">Aging &amp; Longevity</option>',
-      '<option value="microbiome">Microbiome &amp; Gut Health</option>',
-      '<option value="biomarkers">Biomarker Discovery &amp; Development</option>',
-      '<option value="reproductive-biology">Reproductive Biology</option>',
-      '<option value="developmental-biology">Developmental Biology</option>',
-      '<option value="stem-cell">Stem Cell Biology</option>',
-      '<option value="ophthalmology">Ophthalmology</option>',
-      '<option value="dermatology">Dermatology</option>',
-      '<option value="musculoskeletal">Musculoskeletal &amp; Orthopedics</option>',
-      '<option value="pulmonology">Pulmonology &amp; Respiratory</option>',
-      '<option value="nephrology">Nephrology</option>',
-      '<option value="hepatology">Hepatology</option>',
-      '<option value="gastroenterology">Gastroenterology</option>',
-      '<option value="hematology">Hematology</option>',
-      '<option value="psychiatry">Psychiatry &amp; Mental Health</option>',
-      '<option value="pain-research">Pain Research</option>',
-      '<option value="sleep-science">Sleep Science</option>',
-    '</optgroup>',
-    '<optgroup label="Clinical &amp; Translational">',
-      '<option value="clinical-trials">Clinical Trials &amp; Research</option>',
-      '<option value="epidemiology">Epidemiology</option>',
-      '<option value="public-health">Public Health &amp; Preventive Medicine</option>',
-      '<option value="health-outcomes">Health Outcomes &amp; Health Economics</option>',
-      '<option value="precision-medicine">Precision &amp; Personalized Medicine</option>',
-      '<option value="global-health">Global Health</option>',
-      '<option value="nutrition">Nutrition Science</option>',
-      '<option value="occupational-health">Occupational Health</option>',
-    '</optgroup>',
-    '<optgroup label="Bioengineering &amp; Biotechnology">',
-      '<option value="biomedical-engineering">Biomedical Engineering</option>',
-      '<option value="synthetic-biology">Synthetic Biology</option>',
-      '<option value="computational-biology">Computational Biology &amp; Bioinformatics</option>',
-      '<option value="cellular-agriculture">Cellular Agriculture &amp; Alternative Protein</option>',
-      '<option value="biomaterials">Biomaterials &amp; Tissue Engineering</option>',
-      '<option value="medical-devices">Medical Devices &amp; Diagnostics</option>',
-      '<option value="genetic-engineering">Genetic Engineering &amp; CRISPR</option>',
-      '<option value="protein-engineering">Protein Engineering</option>',
-      '<option value="drug-delivery">Drug Delivery Systems</option>',
-      '<option value="regenerative-medicine">Regenerative Medicine</option>',
-      '<option value="biosensors">Biosensors &amp; Wearables</option>',
-    '</optgroup>',
-    '<optgroup label="Physical &amp; Chemical Sciences">',
-      '<option value="chemistry">Chemistry &amp; Chemical Biology</option>',
-      '<option value="organic-chemistry">Organic Chemistry</option>',
-      '<option value="inorganic-chemistry">Inorganic Chemistry</option>',
-      '<option value="analytical-chemistry">Analytical Chemistry</option>',
-      '<option value="materials-science">Materials Science &amp; Engineering</option>',
-      '<option value="nanotechnology">Nanotechnology</option>',
-      '<option value="physics">Physics &amp; Biophysics</option>',
-      '<option value="quantum-science">Quantum Computing &amp; Quantum Science</option>',
-      '<option value="energy-science">Thermodynamics &amp; Energy Science</option>',
-      '<option value="nuclear-science">Nuclear Science</option>',
-      '<option value="photonics">Photonics &amp; Optics</option>',
-      '<option value="acoustics">Acoustics</option>',
-    '</optgroup>',
-    '<optgroup label="Environmental &amp; Earth Sciences">',
-      '<option value="environmental-science">Environmental Science</option>',
-      '<option value="climate-science">Climate Science &amp; Climatology</option>',
-      '<option value="ecology">Ecology &amp; Evolutionary Biology</option>',
-      '<option value="marine-biology">Marine Biology &amp; Oceanography</option>',
-      '<option value="atmospheric-science">Atmospheric Science</option>',
-      '<option value="geoscience">Geoscience &amp; Geology</option>',
-      '<option value="conservation-biology">Conservation Biology</option>',
-      '<option value="agricultural-science">Agricultural Science &amp; Agronomy</option>',
-      '<option value="soil-science">Soil Science</option>',
-      '<option value="water-science">Water Science &amp; Hydrology</option>',
-      '<option value="forestry">Forestry &amp; Plant Science</option>',
-      '<option value="environmental-toxicology">Toxicology &amp; Environmental Health</option>',
-    '</optgroup>',
-    '<optgroup label="Computer Science &amp; Engineering">',
-      '<option value="ai-ml">Artificial Intelligence &amp; Machine Learning</option>',
-      '<option value="data-science">Data Science &amp; Statistics</option>',
-      '<option value="computer-vision">Computer Vision</option>',
-      '<option value="nlp">Natural Language Processing</option>',
-      '<option value="robotics">Robotics &amp; Automation</option>',
-      '<option value="hci">Human-Computer Interaction</option>',
-      '<option value="cybersecurity">Cybersecurity</option>',
-      '<option value="software-engineering">Software Engineering</option>',
-      '<option value="electrical-engineering">Electrical Engineering</option>',
-      '<option value="mechanical-engineering">Mechanical Engineering</option>',
-      '<option value="civil-engineering">Civil &amp; Structural Engineering</option>',
-      '<option value="aerospace-engineering">Aerospace Engineering</option>',
-      '<option value="chemical-engineering">Chemical Engineering</option>',
-    '</optgroup>',
-    '<optgroup label="Social &amp; Behavioral Sciences">',
-      '<option value="psychology">Psychology &amp; Behavioral Science</option>',
-      '<option value="cognitive-science">Cognitive Science</option>',
-      '<option value="neuropsychology">Neurology &amp; Neuropsychology</option>',
-      '<option value="economics">Economics &amp; Behavioral Economics</option>',
-      '<option value="sociology">Sociology</option>',
-      '<option value="anthropology">Anthropology</option>',
-      '<option value="political-science">Political Science</option>',
-      '<option value="education-research">Education Research</option>',
-      '<option value="communication-science">Communication Science</option>',
-      '<option value="criminology">Criminology</option>',
-    '</optgroup>',
-    '<optgroup label="Humanities &amp; Interdisciplinary">',
-      '<option value="philosophy-of-science">Philosophy of Science</option>',
-      '<option value="history-of-science">History &amp; Sociology of Science</option>',
-      '<option value="science-policy">Science Policy &amp; Ethics</option>',
-      '<option value="bioethics">Bioethics</option>',
-      '<option value="science-communication">Science Communication</option>',
-      '<option value="library-science">Library &amp; Information Science</option>',
-    '</optgroup>',
-    '<option value="other">Other</option>'
-  ].join('');
+  // ── Targeted follow-up generator ──────────────────────────────────────
+  function fmt(field) {
+    var labels = {
+      labName: "your lab's name",
+      piName: "the PI's name",
+      institution: "your institution",
+      email: "your contact email",
+      researchDomain: "your research domain or field",
+      primaryClaim: "the specific scientific claim you're building on",
+      claimUncertainty: "how confident you are and what's driving the uncertainty",
+      decisionStakes: "the decision or milestone that depends on this claim",
+      priorAttempts: "what you've tried to verify or stress-test the claim",
+      impliedValue: "what full confidence in the evidence would mean for your lab",
+      decisionAuthority: "who else evaluates tools at your institution",
+      hasInternalData: "whether you have internal experimental data, only published literature, or both",
+      evidenceType: "what kind of evidence you're working with (proprietary data, public information, both, or a pitch deck)",
+      scientificClaim: "the scientific claim you want evaluated",
+      decisionContext: "the decision this analysis needs to support",
+      claimConfidence: "your current confidence in the science behind it",
+      investmentImplication: "what happens to the decision if the science is weaker than expected"
+    };
+    return labels[field] || field;
+  }
+  function buildFollowUp(missing) {
+    if (missing.length === 0) return null;
+    if (missing.length === 1) {
+      return "I caught most of that — could you tell me " + fmt(missing[0]) + "?";
+    }
+    var list = missing.slice(0, 3).map(fmt);
+    var joined = list.length === 2
+      ? list.join(' and ')
+      : list.slice(0, -1).join(', ') + ', and ' + list[list.length - 1];
+    return "Just a couple of things to round out — could you share " + joined + "?";
+  }
 
-  var REFERRAL_CHOICES = [
-    { label: 'Colleague or referral', value: 'colleague' },
-    { label: 'LinkedIn', value: 'linkedin' },
-    { label: 'Research paper', value: 'paper' },
-    { label: 'Conference', value: 'conference' },
-    { label: 'Search engine', value: 'search' },
-    { label: 'Other', value: 'other' }
-  ];
-
-  // ── Lab intake script ─────────────────────────────────────────────────
+  // ── Lab script: 4 broad turns ─────────────────────────────────────────
   var labScript = [
-    { key: '__intro', prompt: "Hi — I'll help you request Charter Partner access to the DATOM R&D Sandbox. It'll take about 2 minutes. Let's start with the basics.", inputType: 'prompt-only' },
-    { key: 'labName', prompt: "What's your lab's name?", inputType: 'text', maxLength: 120, required: true },
-    { key: 'piName', prompt: "Who's the PI?", inputType: 'text', maxLength: 120, required: true },
-    { key: 'institution', prompt: "What institution are you at?", inputType: 'text', maxLength: 120, required: true },
-    { key: 'email', prompt: "What's the best email for us to reach you?", inputType: 'email', required: true },
-    { key: 'researchDomain', prompt: "What's your primary research domain?", inputType: 'select', selectHtml: RESEARCH_DOMAIN_HTML, required: true },
-    { key: 'referralSource', prompt: "How did you hear about DATOM? (optional)", inputType: 'choice', choices: REFERRAL_CHOICES, required: false },
-    { key: '__pivot', prompt: "Great. Now let's talk about the science.", inputType: 'prompt-only' },
-    { key: 'primaryClaim', prompt: "What is the most critical scientific claim your lab is currently building on?", inputType: 'textarea', minLength: 20, maxLength: 500, required: true },
-    { key: 'claimUncertainty', prompt: "How confident are you in the evidence behind it, and what's driving that uncertainty?", inputType: 'textarea', maxLength: 300, required: true },
-    { key: 'decisionStakes', prompt: "What decision, publication, or funding milestone depends on getting that claim right?", inputType: 'textarea', maxLength: 300, required: true },
-    { key: 'priorAttempts', prompt: "What have you already tried to verify or stress-test this claim?", inputType: 'textarea', maxLength: 300, required: true },
-    { key: 'impliedValue', prompt: "What would it mean for your lab if you could make that decision with full confidence in the evidence?", inputType: 'textarea', maxLength: 300, required: true },
-    { key: 'decisionAuthority', prompt: "Who else on your team or institution would be involved in evaluating a tool like this?", inputType: 'textarea', maxLength: 200, required: true },
-    { key: 'hasInternalData', prompt: "Last question — do you have internal experimental data relevant to this claim, or are you working primarily from published literature?", inputType: 'choice', required: true, choices: [
-      { label: 'Internal experimental data', value: 'Internal experimental data' },
-      { label: 'Published literature only', value: 'Published literature only' },
-      { label: 'Both', value: 'Both' },
-      { label: 'Unsure', value: 'Unsure' }
-    ] }
+    "Hi — I'll help you request Charter Partner access to the DATOM R&D Sandbox. To start: tell me about your lab — its name, the PI, your institution, the best email for us to reach you, and what field you work in.",
+    "Now the science — what's the most critical claim your lab is currently building on, how confident are you in it right now, and what's driving any uncertainty?",
+    "What decision, publication, or funding milestone hinges on getting this claim right — and what would it mean for your lab to make that call with full confidence in the evidence?",
+    "Last set: what have you already tried to stress-test this claim, who else at your institution would weigh in on adopting a tool like DATOM, and is your evidence base mostly internal experimental data, published literature, or both? (And if you remember, how did you hear about us?)"
   ];
 
-  function onLabComplete(state, errCb) {
+  function onLabReady(state, transcript, errCb) {
     var payload = {
-      labName: state.labName,
-      piName: state.piName,
-      institution: state.institution,
-      email: state.email,
-      researchDomain: state.researchDomain,
-      primaryClaim: state.primaryClaim,
-      claimUncertainty: state.claimUncertainty,
-      decisionStakes: state.decisionStakes,
-      priorAttempts: state.priorAttempts,
-      impliedValue: state.impliedValue,
-      decisionAuthority: state.decisionAuthority,
-      hasInternalData: state.hasInternalData,
+      labName: state.labName || '',
+      piName: state.piName || '',
+      institution: state.institution || '',
+      email: state.email || '',
+      researchDomain: state.researchDomain || 'other',
+      primaryClaim: state.primaryClaim || '',
+      claimUncertainty: state.claimUncertainty || '',
+      decisionStakes: state.decisionStakes || '',
+      priorAttempts: state.priorAttempts || '',
+      impliedValue: state.impliedValue || '',
+      decisionAuthority: state.decisionAuthority || '',
+      hasInternalData: state.hasInternalData || 'Unsure',
       referralSource: state.referralSource || undefined,
       termsAccepted: true,
       termsVersion: TERMS_VERSION
     };
-    // Move to Calendly; actual submission fires on Calendly confirmation (same as old form flow).
     try {
       loadCalendlyScript(function () { showCalendly('lab', payload); });
     } catch (e) {
@@ -948,67 +786,41 @@
     }
   }
 
-  // ── VC intake script ──────────────────────────────────────────────────
-  // Branches on evidenceType. If 'pitch deck', we ask for the PDF and skip
-  // the claim-specific questions. Otherwise we ask the claim questions.
-  var EVIDENCE_TYPE_CHOICES = [
-    { label: 'Proprietary data I can submit',              value: 'I have proprietary data, reports, or documents I can submit' },
-    { label: 'Report from public information only',        value: 'I want a report generated from publicly available information about this claim' },
-    { label: 'Both — proprietary + public sources',        value: 'Both — I have some materials and want them supplemented with public sources' },
-    { label: 'Upload a pitch deck (DATOM finds the claim)', value: 'pitch deck' }
-  ];
-
+  // ── VC script: 3 broad turns + optional attach ────────────────────────
   var vcScript = [
-    { key: '__intro',       prompt: "Hi — I'll help you request a Confidence Report. It should take about 2 minutes.", inputType: 'prompt-only' },
-    { key: 'email',         prompt: "What's your email?", inputType: 'email', required: true },
-    { key: 'institution',   prompt: "What's your fund or firm name?", inputType: 'text', maxLength: 120, required: true },
-    { key: 'referralSource', prompt: "How did you hear about DATOM? (optional)", inputType: 'choice', choices: REFERRAL_CHOICES, required: false },
-    { key: 'evidenceType',  prompt: "What evidence are you working with?", inputType: 'choice', choices: EVIDENCE_TYPE_CHOICES, required: true },
-    // Pitch deck branch
-    { key: '__pdUpload',    prompt: "Got it. Upload the pitch deck as a PDF (max 5 MB). DATOM will extract the central claim for you.",
-      inputType: 'pitchdeck',
-      skipIf: function (s) { return s.evidenceType !== 'pitch deck'; } },
-    // Claim-specific branch (skipped when pitch deck selected)
-    { key: 'scientificClaim',      prompt: "What is the scientific claim you want evaluated?", inputType: 'textarea', minLength: 20, maxLength: 500, required: true,
-      skipIf: function (s) { return s.evidenceType === 'pitch deck'; } },
-    { key: 'decisionContext',      prompt: "What decision does this analysis need to support?", inputType: 'textarea', maxLength: 300, required: true,
-      skipIf: function (s) { return s.evidenceType === 'pitch deck'; } },
-    { key: 'claimConfidence',      prompt: "How confident are you in the science behind this claim right now, and what's creating that uncertainty?", inputType: 'textarea', maxLength: 300, required: true,
-      skipIf: function (s) { return s.evidenceType === 'pitch deck'; } },
-    { key: 'investmentImplication', prompt: "What happens to this investment decision if the science turns out to be weaker than expected?", inputType: 'textarea', maxLength: 300, required: true,
-      skipIf: function (s) { return s.evidenceType === 'pitch deck'; } },
-    // Shared tail
-    { key: 'priorDiligence',       prompt: "Have you done any prior technical diligence on this claim? What did that look like? (optional)", inputType: 'textarea', maxLength: 300, required: false },
-    { key: 'decisionAuthority',    prompt: "Who else at your fund is involved in this decision?", inputType: 'textarea', maxLength: 200, required: true }
+    "Hi — I'll help you request a Confidence Report. To start: what's your name, your fund or firm, the best email for us to reach you, and how did you hear about DATOM?",
+    "What's the scientific claim you want evaluated and what decision does this analysis need to support? If you have a pitch deck and would rather just upload it, you can attach a PDF using the paperclip — DATOM will identify the central claim from the deck.",
+    "Almost done — how confident are you in the science behind this claim today, what happens to the decision if it turns out weaker than expected, have you done any prior diligence, and who else at your fund is involved in this decision?"
   ];
 
-  function onVcComplete(state, errCb) {
+  function onVcReady(state, transcript, errCb) {
     var promoCode = (document.getElementById('vcPromoCode-hidden') || {}).value || '';
-    var isPitchDeck = state.evidenceType === 'pitch deck';
+    var attachedFile = state.__attachedFile;
+    var isPitchDeck = state.evidenceType === 'pitch deck' || !!attachedFile;
 
     function doSubmit(pitchDeckS3Key) {
       var payload = {
         formType: 'vc',
-        email: state.email,
-        institution: state.institution,
-        evidenceType: state.evidenceType,
-        decisionAuthority: state.decisionAuthority,
+        email: state.email || '',
+        institution: state.institution || '',
+        evidenceType: state.evidenceType || (isPitchDeck ? 'pitch deck' : 'I want a report generated from publicly available information about this claim'),
+        decisionAuthority: state.decisionAuthority || '',
         referralSource: state.referralSource || undefined,
         termsAccepted: true,
         termsVersion: TERMS_VERSION
       };
       if (!isPitchDeck) {
-        payload.scientificClaim       = state.scientificClaim;
-        payload.primaryClaim          = state.scientificClaim;
-        payload.decisionContext       = state.decisionContext;
-        payload.claimConfidence       = state.claimConfidence;
-        payload.investmentImplication = state.investmentImplication;
+        payload.scientificClaim       = state.scientificClaim || '';
+        payload.primaryClaim          = state.scientificClaim || '';
+        payload.decisionContext       = state.decisionContext || '';
+        payload.claimConfidence       = state.claimConfidence || '';
+        payload.investmentImplication = state.investmentImplication || '';
         if (state.priorDiligence) payload.priorDiligence = state.priorDiligence;
       }
       if (pitchDeckS3Key) payload.pitchDeckS3Key = pitchDeckS3Key;
       if (promoCode)      payload.promoCode      = promoCode;
 
-      fetch('https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/confidence-report-request', {
+      fetch(API_BASE + '/api/confidence-report-request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -1041,8 +853,8 @@
         });
     }
 
-    if (isPitchDeck) {
-      uploadPitchDeck(function (err, key) {
+    if (isPitchDeck && attachedFile) {
+      uploadPitchDeck(attachedFile, function (err, key) {
         if (err) { errCb && errCb('PDF upload failed: ' + (err.message || 'unknown error')); return; }
         doSubmit(key);
       });
@@ -1057,15 +869,12 @@
   promoHidden.id = 'vcPromoCode-hidden';
   document.body.appendChild(promoHidden);
 
-  // ── Promo code pre-fill (?promo=XXX&email=foo@bar.com) ────────────────
-  var prefilledEmail = '';
   (function initPromoPrefill() {
     var params = new URLSearchParams(window.location.search);
     var promo  = params.get('promo') || '';
     var email  = params.get('email') || '';
     if (!promo) return;
     promoHidden.value = promo.trim().toUpperCase();
-    if (email) prefilledEmail = email.trim();
     var banner = document.getElementById('vc-promo-banner');
     var bannerEmail = document.getElementById('vc-promo-email');
     if (banner) banner.style.display = 'block';
@@ -1074,25 +883,29 @@
     if (vcTab) try { vcTab.click(); } catch (e) {}
   })();
 
-  // If an email was prefilled via promo, skip the email question in the VC chat.
-  if (prefilledEmail) {
-    vcScript = vcScript.map(function (step) {
-      if (step.key === 'email') {
-        return { key: 'email', prompt: "Using email: " + prefilledEmail, inputType: 'prompt-only', __autofill: true };
-      }
-      return step;
-    });
-    // Inject autofill by inserting a pseudo-step that sets state.email
-    var origOnComplete = onVcComplete;
-    onVcComplete = function (state, errCb) {
-      if (!state.email) state.email = prefilledEmail;
-      origOnComplete(state, errCb);
-    };
-  }
-
   // ── Start the chats ───────────────────────────────────────────────────
-  runChat('lab', labScript, onLabComplete);
-  runChat('vc',  vcScript,  onVcComplete);
+  runChat({
+    ns: 'lab',
+    script: labScript,
+    allowFile: false,
+    followUpsFor: function (missing) { return buildFollowUp(missing); },
+    onReady: onLabReady
+  });
+  runChat({
+    ns: 'vc',
+    script: vcScript,
+    allowFile: true,
+    followUpsFor: function (missing, fields) {
+      // If a pitch deck was provided, suppress text-only follow-ups
+      if (fields && fields.evidenceType === 'pitch deck') {
+        missing = missing.filter(function (k) {
+          return ['scientificClaim', 'decisionContext', 'claimConfidence', 'investmentImplication'].indexOf(k) < 0;
+        });
+      }
+      return buildFollowUp(missing);
+    },
+    onReady: onVcReady
+  });
 })();
 </script>
 </body>
