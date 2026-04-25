@@ -27,21 +27,41 @@
 
   const ctx = canvas.getContext('2d');
 
-  /* ── Color palette — dark navy blues, visible on light background ── */
-  const CYAN     = [20, 90, 185];
-  const TEAL     = [14, 65, 148];
-  const DEEP_CY  = [10, 48, 115];
-  const DIM_TEAL = [6, 32, 85];
-  const FAINT    = [3, 18, 58];
+  /* ── Theme-aware color palette ──────────────────────────────────────
+     Light mode: dark navy particles read against the pale-blue gradient.
+     Dark mode:  bright cyan/teal particles read against the deep-navy
+                 gradient. Re-applied whenever data-theme on <html> flips. */
+  const PALETTES = {
+    light: {
+      CYAN:     [20, 90, 185],
+      TEAL:     [14, 65, 148],
+      DEEP_CY:  [10, 48, 115],
+      DIM_TEAL: [6, 32, 85],
+      FAINT:    [3, 18, 58],
+    },
+    dark: {
+      CYAN:     [0, 212, 255],
+      TEAL:     [6, 182, 212],
+      DEEP_CY:  [56, 189, 248],
+      DIM_TEAL: [71, 135, 185],
+      FAINT:    [60, 95, 145],
+    },
+  };
 
-  /* ── Five depth layers ── */
+  function currentTheme() {
+    return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+  }
+
+  let palette = PALETTES[currentTheme()];
+
+  /* ── Five depth layers (color refs are mutated when theme changes) ── */
   const LAYERS = [
     // Abyss: hundreds of specks — the infinite ledger in the deep distance
     {
       count: 200, speed: 0.02, rMin: 0.3, rMax: 0.8,
       alphaMin: 0.04, alphaMax: 0.12,
       connDist: 50, connAlpha: 0.02, lineW: 0.2,
-      color: FAINT, mouseAffected: false, atomChance: 0.02,
+      colorKey: 'FAINT', mouseAffected: false, atomChance: 0.02,
       twinkle: true
     },
     // Deep: small faint particles
@@ -49,7 +69,7 @@
       count: 120, speed: 0.04, rMin: 0.5, rMax: 1.0,
       alphaMin: 0.06, alphaMax: 0.18,
       connDist: 65, connAlpha: 0.04, lineW: 0.3,
-      color: DIM_TEAL, mouseAffected: false, atomChance: 0.04,
+      colorKey: 'DIM_TEAL', mouseAffected: false, atomChance: 0.04,
       twinkle: true
     },
     // Far: subtle presence
@@ -57,7 +77,7 @@
       count: 70, speed: 0.08, rMin: 0.8, rMax: 1.5,
       alphaMin: 0.10, alphaMax: 0.25,
       connDist: 90, connAlpha: 0.07, lineW: 0.4,
-      color: DEEP_CY, mouseAffected: false, atomChance: 0.06,
+      colorKey: 'DEEP_CY', mouseAffected: false, atomChance: 0.06,
       twinkle: false
     },
     // Mid: clear middle ground
@@ -65,7 +85,7 @@
       count: 45, speed: 0.16, rMin: 1.3, rMax: 2.6,
       alphaMin: 0.20, alphaMax: 0.42,
       connDist: 130, connAlpha: 0.16, lineW: 0.7,
-      color: TEAL, mouseAffected: false, atomChance: 0.08,
+      colorKey: 'TEAL', mouseAffected: false, atomChance: 0.08,
       twinkle: false
     },
     // Near: vivid foreground, mouse-responsive
@@ -73,10 +93,18 @@
       count: 28, speed: 0.28, rMin: 2.0, rMax: 4.0,
       alphaMin: 0.35, alphaMax: 0.65,
       connDist: 160, connAlpha: 0.30, lineW: 1.1,
-      color: CYAN, mouseAffected: true, atomChance: 0.10,
+      colorKey: 'CYAN', mouseAffected: true, atomChance: 0.10,
       twinkle: false
     },
   ];
+
+  function colorFor(cfg) { return palette[cfg.colorKey]; }
+
+  // Re-pick palette whenever data-theme flips on <html>.
+  const themeObserver = new MutationObserver(() => {
+    palette = PALETTES[currentTheme()];
+  });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   const MOUSE_RADIUS = 220;
   const MOUSE_FORCE  = 0.018;
@@ -228,7 +256,7 @@
     // Draw each layer back-to-front
     LAYERS.forEach((cfg, li) => {
       const pts = layers[li];
-      const [cr, cg, cb] = cfg.color;
+      const [cr, cg, cb] = colorFor(cfg);
 
       // Connections — skip for abyss layer (too many, too faint)
       if (li > 0) {
@@ -255,11 +283,11 @@
       // Dots, atoms, and glows
       for (const p of pts) {
         if (p.isAtom) {
-          drawAtom(p.x, p.y, p.r, p.alpha, cfg.color);
+          drawAtom(p.x, p.y, p.r, p.alpha, colorFor(cfg));
         } else {
           // Glow for mid and near layers
           if (li >= 3) {
-            drawGlow(p.x, p.y, p.r, p.alpha, cfg.color);
+            drawGlow(p.x, p.y, p.r, p.alpha, colorFor(cfg));
           }
 
           ctx.beginPath();
