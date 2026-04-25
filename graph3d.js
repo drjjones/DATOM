@@ -45,6 +45,30 @@ const BOND_OPACITY = {
   cosource:          0.55,
 };
 
+// Light-background variants. Additive blending washes out on light bg, so
+// for light modes we switch to normal blending with darker, more saturated
+// versions of each bond color and a higher base opacity.
+const BOND_COLOR_LIGHT = {
+  spoke_supports:    '#0e7490',  // teal-700
+  spoke_contradicts: '#b91c1c',  // red-700
+  spoke_conditional: '#1d4ed8',  // blue-700
+  spoke_neutral:     '#475569',  // slate-600
+  corroborate:       '#0e7490',
+  tension:           '#b91c1c',
+  qualify:           '#1d4ed8',
+  cosource:          '#475569',
+};
+const BOND_OPACITY_LIGHT = {
+  spoke_supports:    0.85,
+  spoke_contradicts: 0.90,
+  spoke_conditional: 0.85,
+  spoke_neutral:     0.55,
+  corroborate:       0.95,
+  tension:           0.95,
+  qualify:           0.90,
+  cosource:          0.70,
+};
+
 const SHELL = { SUPPORTS: 2.4, CONDITIONAL: 3.4, CONTRADICTS: 3.4, NEUTRAL: 4.4 };
 
 const BG_SCENE  = { black: '#07070e', grey: '#718096', white: '#eef2f7', blue: '#c0d9f5' };
@@ -267,6 +291,7 @@ function initGraph(containerId) {
 
   /* -- Bond lines --------------------------------------------------------- */
   const tubeMeshes = []; // collected so lightBg toggle can hide/show them
+  const bondLineMats = []; // [{ mat, type }] — mutated by applyLightBg
   const bondTypes = Object.keys(BOND_COLOR);
   bondTypes.forEach(bt => {
     const grp = edges.filter(e => e.type === bt);
@@ -287,7 +312,9 @@ function initGraph(containerId) {
       opacity: Math.min(1, BOND_OPACITY[bt] * 1.4),
       blending: THREE.AdditiveBlending,
       depthWrite: false,
+      linewidth: 1,
     });
+    bondLineMats.push({ mat, type: bt });
     scene.add(new THREE.LineSegments(geo, mat));
 
     // Glowing tube layer
@@ -533,8 +560,26 @@ function initGraph(containerId) {
   };
 
   function applyLightBg(isLight) {
-    // Tubes are invisible on light backgrounds (same as dashboard lightBg behavior)
+    // Tubes are invisible on light backgrounds (the additive glow effect
+    // doesn't read against light pixels).
     tubeMeshes.forEach(tm => { tm.material.opacity = isLight ? 0 : tm.material.opacity; });
+
+    // Bond lines: switch blending + color so they remain readable on white
+    // and blue. Additive blending blows out against light pixels; normal
+    // blending with darker variants keeps the cable colors crisp.
+    bondLineMats.forEach(({ mat, type }) => {
+      if (isLight) {
+        mat.color.set(BOND_COLOR_LIGHT[type] ?? BOND_COLOR[type]);
+        mat.opacity  = BOND_OPACITY_LIGHT[type] ?? Math.min(1, (BOND_OPACITY[type] ?? 0.5) * 1.6);
+        mat.blending = THREE.NormalBlending;
+      } else {
+        mat.color.set(BOND_COLOR[type]);
+        mat.opacity  = Math.min(1, (BOND_OPACITY[type] ?? 0.5) * 1.4);
+        mat.blending = THREE.AdditiveBlending;
+      }
+      mat.needsUpdate = true;
+    });
+
     // Label text: dark on light bg, white on dark bg
     const textColor    = isLight ? '#1a1a2e' : '#ffffff';
     const shadowAlpha  = isLight ? '0.55' : '1';
