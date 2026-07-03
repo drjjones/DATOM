@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Solutions | DATOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How institutions use DATOM: Confidence Reports and Charter Partner access for research labs, decision makers, and investors.">
+<link rel="icon" type="image/png" href="./Assets/favicon.png">
+<link rel="stylesheet" href="global.css?v=3">
+<link rel="stylesheet" href="elmer.css">
+
+<style>
+  /* Audience segment cards (moved from index.html) */
+  .audience-card h3 { margin-bottom: 10px; }
+  .audience-card p { margin-bottom: 18px; }
+  .card-link {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: gap 0.2s;
+  }
+  .card-link:hover { gap: 8px; }
+
+  /* Audience accordion (moved from product.html) */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+  details.audience-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+  details.audience-card[open] {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-hover);
+  }
+  summary.audience-header {
+    padding: 32px 40px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  summary.audience-header::-webkit-details-marker { display: none; }
+  summary.audience-header::marker { display: none; content: ''; }
+  .audience-info h2 {
+    margin: 0;
+    line-height: 1.2;
+  }
+  .audience-chevron {
+    font-size: 24px;
+    color: var(--accent);
+    transition: transform 0.3s;
+  }
+  details.audience-card[open] .audience-chevron {
+    transform: rotate(180deg);
+  }
+  .audience-content {
+    padding: 0 40px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    animation: slideDown 0.4s ease-out;
+  }
+
+  /* Power box (moved from product.html) */
+  .power-box {
+    margin-top: 20px;
+    padding: 24px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.6);
+    border-top: 4px solid var(--accent);
+  }
+  .power-box.dark-top {
+    border-top-color: var(--text);
+  }
+  .power-label {
+    font-weight: 800;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  /* Workflow list (moved from product.html) */
+  .workflow-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  .workflow-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .workflow-list li::before {
+    content: "\2192";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 900;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 800px) {
+    .audience-content { grid-template-columns: 1fr; }
+    summary.audience-header { padding: 24px; }
+    .audience-content { padding: 0 24px 24px; }
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="product.html">How It Works</a>
+    <a href="solutions.html">Solutions</a>
+    <a href="example.html">Live Example</a>
+    <a href="research.html">Research</a>
+    <a href="/app/login" class="btn-login">Log In</a>
+    <a href="try.html" class="btn-cta">Get Started</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="reveal">
+    <p class="section-label">Solutions</p>
+    <h1>DATOM for <span class="text-gradient">institutions.</span></h1>
+    <p class="lede">Independent verification, delivered as Confidence Reports and platform access, for organizations that act on scientific claims. The mission lives on the ledger. This page is how you engage.</p>
+  </section>
+
+  <!-- AUDIENCE (moved from index.html) -->
+  <section class="reveal" id="audience">
+    <p class="section-label">Who it's for</p>
+    <h2>Built for those who manage high-stakes evidence</h2>
+    <div class="grid-2" style="margin-top:28px;">
+      <div class="card audience-card reveal reveal-d1">
+        <h3>Research Labs</h3>
+        <p>Unify published literature with your own experimental data. Manage claim provenance, eliminate circular research, and turn evidence into a compounding institutional asset.</p>
+        <a href="product.html" class="card-link">See how it works &rarr;</a>
+      </div>
+      <div class="card audience-card reveal reveal-d2">
+        <h3>Investors &amp; Decision Makers</h3>
+        <p>Audit the structural integrity of technical claims during diligence. Know what the evidence actually supports.</p>
+        <a href="#see-yourself" class="card-link">See the use cases &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEE YOURSELF IN DATOM (moved from product.html) -->
+  <section id="see-yourself" class="reveal">
+    <p class="section-label">Deployment &amp; Impact</p>
+    <h1>See Yourself in DATOM</h1>
+    <p class="lede">Whether managing a lab, a startup, or a portfolio, DATOM provides the infrastructure to make expertise auditable and strategy defensible.</p>
+
+    <div class="audience-grid">
+
+      <details class="audience-card" open>
+        <summary class="audience-header">
+          <div class="audience-info">
+            <p class="pill"><span class="pill-dot"></span>For Researchers</p>
+            <h2>The Research Ledger</h2>
+          </div>
+          <span class="audience-chevron">&#8964;</span>
+        </summary>
+        <div class="audience-content">
+          <div>
+            <p>DATOM integrates into every phase of the discovery cycle — combining published literature with your own experimental results to build a structured institutional asset.</p>
+            <ul class="workflow-list">
+              <li><strong>Deployment:</strong> Acts as the primary evidence repository for both literature claims and in-house experimental data during experiment design and claim extraction.</li>
+              <li><strong>Value:</strong> Eliminates circular research by surfacing existing contradictions.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="power-box">
+              <div class="power-label">Past Facing: Institutional Memory</div>
+              <p>Audit the reasoning trajectory from the initial inquiry to ensures memory compounds.</p>
+            </div>
+            <div class="power-box dark-top">
+              <div class="power-label">Future Facing: Strategic Optimization</div>
+              <p>Identify the <strong>Next-Best Evidence</strong> to resolve uncertainty with the highest ROI.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="audience-card">
+        <summary class="audience-header">
+          <div class="audience-info">
+            <p class="pill"><span class="pill-dot"></span>For Decision Makers</p>
+            <h2>The Maturity Framework</h2>
+          </div>
+          <span class="audience-chevron">&#8964;</span>
+        </summary>
+        <div class="audience-content">
+          <div>
+            <p>Founders use DATOM to navigate technical maturity and existential risk with high-resolution clarity.</p>
+            <ul class="workflow-list">
+              <li><strong>Deployment:</strong> Integrate into board updates and milestones to show objective progress.</li>
+              <li><strong>Value:</strong> Prevents premature scaling by identifying pivots before capital is exhausted.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="power-box">
+              <div class="power-label">Past Facing: Accountability</div>
+              <p>Defend <em>why</em> a path was taken under uncertainty to protect against hindsight bias.</p>
+            </div>
+            <div class="power-box dark-top">
+              <div class="power-label">Future Facing: Readiness</div>
+              <p>Map work to readiness bands to know exactly when to move to full deployment.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="audience-card">
+        <summary class="audience-header">
+          <div class="audience-info">
+            <p class="pill"><span class="pill-dot"></span>For Investors</p>
+            <h2>The Diligence Primitive</h2>
+          </div>
+          <span class="audience-chevron">&#8964;</span>
+        </summary>
+        <div class="audience-content">
+          <div>
+            <p>VCs deploy DATOM to validate the structural integrity of technical claims across a portfolio.</p>
+            <ul class="workflow-list">
+              <li><strong>Deployment:</strong> Technical due diligence phase to assess "claim weight."</li>
+              <li><strong>Value:</strong> Improves timing for capital injection by reducing asymmetry.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="power-box">
+              <div class="power-label">Past Facing: Auditability</div>
+              <p>Instantly audit the density and replication history of core technical claims instantly.</p>
+            </div>
+            <div class="power-box dark-top">
+              <div class="power-label">Future Facing: Risk Posture</div>
+              <p>Quantify the remaining distance to technical de-risking and next valuation tiers.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- TWO WAYS TO START (moved from index.html) -->
+  <section class="reveal" id="get-started">
+    <p class="section-label">Get Started</p>
+    <h2>Two ways to start</h2>
+    <div class="grid-2" style="margin-top:28px;">
+      <div class="card card-accent reveal reveal-d1" style="display:flex;flex-direction:column;">
+        <h3>For Research Labs</h3>
+        <p style="flex:1;">Evaluate your lab's claims with structured evidence before committing resources. Turn your experimental data into a compounding institutional asset.</p>
+        <a href="try.html#lab" class="btn-primary" style="align-self:flex-start;">Request Charter Partner Access &rarr;</a>
+      </div>
+      <div class="card card-accent reveal reveal-d2" style="display:flex;flex-direction:column;">
+        <h3>For Investors</h3>
+        <p style="flex:1;">Assess a portfolio company's scientific claims before your next check. Know what the evidence actually supports.</p>
+        <a href="try.html#vc" class="btn-primary" style="align-self:flex-start;">Request a Confidence Report &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--accent);">Terms</a></footer>
+
+<script src="shared.js"></script>
+<script src="particles.js"></script>
+<script src="elmer.js?v=20260401"></script>
+</body>
+</html>

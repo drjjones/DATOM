@@ -8,14 +8,17 @@ const NAV_MAP = {
   // index.html
   "home:hero":      { page: "index.html",    selector: ".hero" },
   "home:problem":   { page: "index.html",    selector: "#problem" },
-  "home:audience":  { page: "index.html",    selector: "#audience" },
+  "home:ledger":    { page: "index.html",    selector: "#ledger" },
   // product.html
   "product:hero":          { page: "product.html",  selector: "#hero" },
   "product:proof":         { page: "product.html",  selector: "#proof-preview" },
   "product:comparison":    { page: "product.html",  selector: "#comparison" },
   "product:pillars":       { page: "product.html",  selector: "#pillars" },
-  "product:use-cases":     { page: "product.html",  selector: "#see-yourself" },
   "product:responsibility":{ page: "product.html",  selector: "#responsibility" },
+  // solutions.html
+  "solutions:audience":    { page: "solutions.html", selector: "#audience" },
+  "solutions:use-cases":   { page: "solutions.html", selector: "#see-yourself" },
+  "solutions:get-started": { page: "solutions.html", selector: "#get-started" },
   // example.html
   "example:top":           { page: "example.html",  selector: "#top" },
   "example:guide":         { page: "example.html",  selector: "#guide" },
@@ -34,16 +37,17 @@ const NAV_MAP = {
 // ── Detect current page ──
 function detectPage() {
   const path = window.location.pathname;
-  if (path.includes("example"))  return "example";
-  if (path.includes("product"))  return "product";
-  if (path.includes("research")) return "research";
-  if (path.includes("try"))      return "try";
+  if (path.includes("example"))   return "example";
+  if (path.includes("product"))   return "product";
+  if (path.includes("solutions")) return "solutions";
+  if (path.includes("research"))  return "research";
+  if (path.includes("try"))       return "try";
   return "home";
 }
 
 function getCurrentPageFile() {
   const page = detectPage();
-  const map = { home: "index.html", example: "example.html", product: "product.html", research: "research.html", try: "try.html" };
+  const map = { home: "index.html", example: "example.html", product: "product.html", solutions: "solutions.html", research: "research.html", try: "try.html" };
   return map[page] || "index.html";
 }
 
@@ -120,9 +124,11 @@ function getPageContext() {
     context += `\nFULL DATOMER DATA:\n` + JSON.stringify(DATOMERS) + `\n`;
     context += `\nWhen discussing a specific datom or cluster, use [[NAV:example:evidence]] to scroll to it.\n`;
   } else if (page === "product") {
-    context += `Navigable sections: product:hero (intro), product:proof (real-time inspectability demo), product:comparison (DATOM vs LLMs table), product:pillars (3 pillars of legibility), product:use-cases (Research Ledger / Maturity Framework / Diligence Primitive), product:responsibility (human judgment statement).\n`;
+    context += `Navigable sections: product:hero (intro), product:proof (real-time inspectability demo), product:comparison (DATOM vs LLMs table), product:pillars (3 pillars of legibility), product:responsibility (human judgment statement). Audience use cases live on the Solutions page: solutions:use-cases.\n`;
   } else if (page === "home") {
-    context += `Navigable sections: home:hero (main headline), home:problem (reproducibility crisis stats), home:audience (who it's for — labs & investors).\n`;
+    context += `Navigable sections: home:hero (main headline), home:problem (reproducibility crisis stats), home:ledger (the public ledger: independent, recorded, public). Institutional/B2B content lives on the Solutions page: solutions:audience, solutions:use-cases, solutions:get-started.\n`;
+  } else if (page === "solutions") {
+    context += `Navigable sections: solutions:audience (who it's for: labs & investors), solutions:use-cases (Research Ledger / Maturity Framework / Diligence Primitive), solutions:get-started (Charter Partner Access / Confidence Report CTAs).\n`;
   } else if (page === "try") {
     context += `This page has: Schedule a Technical Briefing (Calendly) and Join the Early Access Waitlist (Google Form).\n`;
   }
