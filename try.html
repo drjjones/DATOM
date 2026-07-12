@@ -60,10 +60,6 @@
     display: flex; flex-direction: column; align-items: center;
     padding: 16vh 24px 32px;
   }
-  .gs-landing-logo {
-    height: 64px; width: auto; margin: 0 auto 32px; display: block;
-    opacity: 0; animation: gs-materialize 0.5s var(--gs-ease) both;
-  }
   .gs-landing-search {
     display: flex; align-items: center; gap: 10px;
     width: 100%; max-width: 560px;
@@ -335,7 +331,6 @@
 
       <!-- Google-style landing, shown until the user acts (mirrors ChatHome.tsx) -->
       <div class="gs-landing" id="gs-landing">
-        <img src="./Assets/logo.png" class="gs-landing-logo" alt="DATOM">
         <div class="gs-landing-search" id="gs-landing-search">
           <span class="gs-landing-search-icon" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>

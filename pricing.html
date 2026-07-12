@@ -32,11 +32,11 @@
   .pricing-tagline { font-size: 14px; color: var(--muted); margin: 0 0 10px; line-height: 1.5; }
   .pricing-disambig { font-size: 12px; color: var(--faint); margin: 0; line-height: 1.5; }
 
-  /* ── billing-period toggle (Investigator price only) ── */
+  /* ── billing-period toggle (sits under the Investigator column title) ── */
   .price-toggle {
     display: inline-flex;
     border: 1px solid var(--line-2);
-    margin-bottom: 8px;
+    margin-top: 6px;
   }
   .price-toggle-btn {
     font-family: var(--font-data);
@@ -90,7 +90,12 @@
         <tr>
           <th>&nbsp;</th>
           <th>Observer</th>
-          <th>Investigator</th>
+          <th>Investigator<br>
+            <div class="price-toggle" role="group" aria-label="Investigator billing period">
+              <button type="button" class="price-toggle-btn active" data-period="monthly" aria-pressed="true">Monthly</button>
+              <button type="button" class="price-toggle-btn" data-period="annual" aria-pressed="false">Annual</button>
+            </div>
+          </th>
           <th>DATOM Pro</th>
         </tr>
       </thead>
@@ -98,13 +103,7 @@
         <tr>
           <td><strong>Price</strong></td>
           <td><span class="pricing-price">$0</span></td>
-          <td>
-            <div class="price-toggle" role="group" aria-label="Investigator billing period">
-              <button type="button" class="price-toggle-btn active" data-period="monthly" aria-pressed="true">Monthly</button>
-              <button type="button" class="price-toggle-btn" data-period="annual" aria-pressed="false">Annual</button>
-            </div>
-            <br><span class="pricing-price" id="reader-price">$12/mo</span>
-          </td>
+          <td><span class="pricing-price" id="reader-price">$12/mo</span></td>
           <td><span class="pricing-price">Call for pricing</span></td>
         </tr>
         <tr>
