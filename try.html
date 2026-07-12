@@ -10,55 +10,135 @@
 <link rel="stylesheet" href="tokens.css?v=1">
 <link rel="stylesheet" href="design-v1.1.css?v=9">
 <style>
-  /* ── One unified chat, styled after the real dashboard chat home
-     (ElmerChatPanel/ChatHome), not the flat card-and-tabs pattern this
-     page used before. Chat bubbles, the avatar badge, and the composer
-     pill are a deliberate, scoped exception to the sitewide zero-radius
-     rule, same category of exception as the header's frosted glass:
-     documented, bounded to this one interface family, not a general
-     license to round corners elsewhere. Everything still uses this
-     site's real paper/ink tokens, not the dashboard's dark palette,
-     tokens.css reserves dark for the internal dashboard only; this is a
-     public page. ─────────────────────────────────────────────────── */
-  .gs-intro { text-align: center; max-width: 640px; margin: 0 auto 32px; }
-  .gs-intro-logo { width: 56px; height: auto; margin: 0 auto 18px; display: block; }
+  /* ── One unified chat, structurally matching the real dashboard chat-first
+     experience (ChatFirstLayout/ChatHome/ElmerChatPanel, verified by direct
+     read, not memory): a particle canvas behind everything, a Google-style
+     landing (logo, one glass-pill input, suggestion chips, no bordered card)
+     that dissolves into a borderless floating conversation once the user
+     acts, where only the input row keeps glass chrome and bot replies float
+     as plain text. Necessary adaptation: this page keeps the site's shared
+     header/nav/footer (check-shared-chrome.mjs enforces that sitewide), so
+     the canvas + landing/conversation transition are scoped to this section's
+     own box, not a full-viewport app takeover. Rounded bubbles, the avatar
+     badge, and glass pills remain the same documented, bounded exception to
+     the sitewide zero-radius rule as the header's frosted glass. Colors stay
+     this site's real paper/ink tokens (never the dashboard's dark palette);
+     the glass/hairline/glow values below are ported verbatim from the
+     dashboard's own LIGHT-theme tokens, since that's the palette this page
+     already uses. ────────────────────────────────────────────────────── */
+  :root {
+    --gs-glass:        rgba(255, 255, 255, 0.72);
+    --gs-glass-strong: rgba(255, 255, 255, 0.86);
+    --gs-hairline:     rgba(15, 23, 42, 0.10);
+    --gs-glow:         rgba(8, 145, 178, 0.10);
+    --gs-ease:         cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-  .chat-window {
+  /* Page framing above the interactive stage. No logo here, the landing
+     below carries its own, this is just orientation copy the dashboard's
+     already-logged-in /dashboard route doesn't need. */
+  .gs-intro { text-align: center; max-width: 640px; margin: 0 auto 12px; }
+
+  .gs-chat-stage {
+    position: relative;
     margin: 0 auto;
-    max-width: 720px;
-    border: 1px solid var(--line);
+    max-width: 900px;
+    min-height: 620px;
     border-radius: 0;
-    background: rgba(255, 255, 255, 0.78);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
+  }
+  .gs-particle-canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── Landing, Google-style, shown until the user acts ───────────────── */
+  .gs-landing {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 16vh 24px 32px;
+  }
+  .gs-landing-logo {
+    height: 64px; width: auto; margin: 0 auto 32px; display: block;
+    opacity: 0; animation: gs-materialize 0.5s var(--gs-ease) both;
+  }
+  .gs-landing-search {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; max-width: 560px;
+    padding: 8px 8px 8px 20px;
+    border-radius: 32px;
+    background: var(--gs-glass);
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    border: 1px solid var(--gs-hairline);
+    box-shadow: 0 16px 50px rgba(15, 23, 42, 0.10), 0 0 0 1px var(--gs-glow);
+    transition: border-color 0.18s, box-shadow 0.18s;
+    opacity: 0; animation: gs-materialize 0.5s var(--gs-ease) 0.08s both;
+  }
+  .gs-landing-search:focus-within { border-color: var(--signal); }
+  .gs-landing-search-icon { color: var(--muted); display: flex; flex-shrink: 0; }
+  .gs-landing-input {
+    flex: 1; min-width: 0; border: none; background: transparent; outline: none;
+    font-family: var(--sans); font-size: 16px; color: var(--ink); padding: 12px 0;
+  }
+  .gs-landing-input::placeholder { color: var(--muted); }
+  .gs-landing-send {
+    flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%; border: none;
+    background: var(--ink); color: var(--paper); font-size: 18px; line-height: 1;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: filter 0.15s, transform 0.15s;
+  }
+  .gs-landing-send:hover { filter: brightness(1.2); transform: scale(1.06); }
+  .gs-landing-chips {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    margin-top: 26px; max-width: 560px;
+    opacity: 0; animation: gs-materialize 0.5s var(--gs-ease) 0.16s both;
+  }
+  .gs-landing-chip {
+    padding: 9px 18px; border-radius: 22px;
+    background: var(--gs-glass);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--gs-hairline);
+    color: var(--ink); font-size: 13px; font-weight: 500; cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, transform 0.15s;
+  }
+  .gs-landing-chip:hover { color: var(--signal); border-color: var(--signal); transform: translateY(-1px); }
+  @keyframes gs-materialize {
+    from { opacity: 0; transform: translateY(10px) scale(0.97); filter: blur(6px); }
+    to   { opacity: 1; transform: none; filter: blur(0); }
+  }
+
+  /* ── Conversation, borderless, floating; only the input row is glass ── */
+  .gs-chat {
+    position: relative; z-index: 1;
     display: flex; flex-direction: column;
-    min-height: 560px; max-height: 780px; overflow: hidden;
+    min-height: 620px; max-height: 82vh;
   }
-  .chat-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--line);
-    display: flex; align-items: center; gap: 12px;
+  .gs-chat-header {
+    display: flex; align-items: center; gap: 11px;
+    padding: 10px 8px 4px; flex-shrink: 0;
   }
-  .chat-avatar {
+  .gs-chat-e {
     width: 34px; height: 34px; border-radius: 50%;
     background: rgba(11, 110, 132, 0.12);
-    border: 1px solid var(--signal);
-    color: var(--signal);
-    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--signal); color: var(--signal);
     font-family: var(--font-data); font-weight: 600; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .chat-header-title { font-weight: 600; color: var(--ink); font-size: 14px; }
-  .chat-header-sub { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; margin-top: 1px; }
-  .chat-header-dot {
+  .gs-chat-title { font-weight: 600; color: var(--ink); font-size: 14px; }
+  .gs-chat-sub { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; margin-top: 1px; }
+  .gs-chat-dot {
     width: 7px; height: 7px; border-radius: 50%;
     background: var(--signal);
     animation: chat-pulse 2.4s ease-in-out infinite;
   }
   @keyframes chat-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-  .chat-messages {
-    flex: 1; padding: 20px; overflow-y: auto;
+  .gs-chat-messages {
+    flex: 1; padding: 8px 6px 4px; overflow-y: auto;
     display: flex; flex-direction: column; gap: 12px;
     scroll-behavior: smooth;
   }
@@ -73,11 +153,13 @@
     from { opacity: 0; transform: translateY(4px); }
     to   { opacity: 1; transform: none; }
   }
+  /* Bot replies float as plain text, no card, matching
+     .cf-chat--centered .elmer-bubble-bot on the real dashboard. */
   .chat-msg.bot {
-    background: var(--paper-2); color: var(--ink);
-    border: 1px solid var(--line);
+    background: transparent; color: var(--ink);
+    border: none; padding: 8px 2px;
     align-self: flex-start;
-    border-radius: 3px 14px 14px 14px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
   }
   .chat-msg.user {
     background: var(--ink); color: var(--paper);
@@ -87,9 +169,8 @@
   .chat-typing {
     display: flex; gap: 4px; align-items: center;
     align-self: flex-start;
-    background: var(--paper-2); border: 1px solid var(--line);
-    border-radius: 3px 14px 14px 14px;
-    padding: 13px 16px;
+    background: transparent; border: none;
+    padding: 13px 2px;
   }
   .chat-typing span {
     width: 6px; height: 6px; border-radius: 50%;
@@ -107,7 +188,7 @@
   .chat-chip {
     padding: 8px 16px; border-radius: 20px;
     border: 1px solid var(--line-2);
-    background: rgba(255, 255, 255, 0.7);
+    background: var(--gs-glass);
     color: var(--ink); font-size: 13px; cursor: pointer;
     transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
   }
@@ -115,16 +196,19 @@
   .chat-chip.chosen { background: var(--ink); color: var(--paper); border-color: var(--ink); cursor: default; }
   .chat-chip.chosen:hover { color: var(--paper); }
 
-  .chat-input-area { border-top: 1px solid var(--line); padding: 14px 16px; }
+  /* The input row IS the one glass surface, anchored at the bottom of the
+     conversation, matching .cf-chat--centered .elmer-input-row. */
+  #main-chat-input { margin: 8px 6px 10px; flex-shrink: 0; }
   .chat-input-row {
     display: flex; gap: 6px; align-items: center;
-    border: 1px solid var(--line-2);
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--gs-hairline);
+    border-radius: 18px;
+    background: var(--gs-glass);
+    backdrop-filter: blur(20px) saturate(150%); -webkit-backdrop-filter: blur(20px) saturate(150%);
+    box-shadow: 0 14px 46px rgba(15, 23, 42, 0.08), 0 0 0 1px var(--gs-glow);
     padding: 6px 6px 6px 18px;
   }
-  .chat-input-row:focus-within { border-color: var(--ink); }
+  .chat-input-row:focus-within { border-color: var(--signal); }
   .chat-input-field {
     flex: 1; border: none; outline: none; background: transparent;
     font-family: var(--sans); font-size: 14px; color: var(--ink);
@@ -151,8 +235,8 @@
   .chat-attach-btn.has-file { color: var(--signal); }
   .chat-attached-chip {
     display: inline-flex; align-items: center; gap: 8px;
-    margin-bottom: 8px; padding: 6px 12px;
-    background: transparent; border: 1px solid var(--line-2);
+    margin: 0 6px 8px; padding: 6px 12px;
+    background: var(--gs-glass); border: 1px solid var(--line-2);
     border-radius: 16px; font-size: 12px; color: var(--muted);
   }
   .chat-attached-chip button {
@@ -160,12 +244,11 @@
     cursor: pointer; padding: 0; font-size: 14px; line-height: 1;
   }
   .chat-attached-chip button:hover { color: var(--verdict-contra); }
-  .chat-hint { font-size: 11px; color: var(--muted); margin-top: 8px; padding: 0 6px; }
+  .chat-hint { font-size: 11px; color: var(--muted); margin: 8px 6px 0; padding: 0 6px; }
   .chat-terms {
     display: flex; align-items: flex-start; gap: 10px;
-    padding: 14px 16px;
-    background: transparent; border: 1px solid var(--line); border-radius: 0;
-    margin-bottom: 12px;
+    padding: 14px 16px; margin: 0 6px 12px;
+    background: var(--gs-glass); border: 1px solid var(--gs-hairline); border-radius: 0;
   }
   .chat-terms input[type="checkbox"] {
     margin-top: 2px; width: 16px; height: 16px;
@@ -187,8 +270,14 @@
     border: 1px solid var(--ink); border-radius: 24px;
     font-weight: 600; font-size: 14px;
     cursor: pointer; transition: filter 0.15s;
+    margin: 0 6px;
   }
   .chat-cta-btn:hover { filter: brightness(1.2); }
+
+  @media (max-width: 800px) {
+    .gs-landing { padding: 10vh 16px 24px; }
+    .gs-chat-stage { min-height: 560px; }
+  }
 
   /* Calendly + message banners */
   .form-message {
@@ -205,6 +294,8 @@
   #lab-calendly-container, #vc-calendly-container { max-width: 720px; margin: 0 auto; }
 
   @media (max-width: 800px) {
+    .gs-landing { padding: 10vh 16px 24px; }
+    .gs-chat-stage { min-height: 560px; }
     .chat-msg { max-width: 92%; font-size: 14px; }
     .chat-chip-row { max-width: 92%; }
   }
@@ -230,7 +321,6 @@
 <main>
 
   <section class="reveal gs-intro">
-    <img src="./Assets/logo.png" class="gs-intro-logo" alt="DATOM">
     <h1>Let's get you started.</h1>
     <p class="lede" style="margin:0 auto;">Elmer will help you find the right way in, whether that's a free account, a subscription, or setting up your lab or firm.</p>
   </section>
@@ -240,16 +330,36 @@
   </div>
 
   <section class="reveal">
-    <div class="chat-window" id="main-chat">
-      <div class="chat-header">
-        <span class="chat-avatar">E</span>
-        <div>
-          <div class="chat-header-title">Elmer</div>
-          <div class="chat-header-sub"><span class="chat-header-dot"></span>Evidence Steward</div>
+    <div class="gs-chat-stage" id="gs-chat-stage">
+      <canvas class="gs-particle-canvas" id="gs-particle-canvas" aria-hidden="true"></canvas>
+
+      <!-- Google-style landing, shown until the user acts (mirrors ChatHome.tsx) -->
+      <div class="gs-landing" id="gs-landing">
+        <img src="./Assets/logo.png" class="gs-landing-logo" alt="DATOM">
+        <div class="gs-landing-search" id="gs-landing-search">
+          <span class="gs-landing-search-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input class="gs-landing-input" id="gs-landing-input" type="text" autocomplete="off" placeholder="Tell Elmer what brings you here…" aria-label="Tell Elmer what brings you here">
+          <button class="gs-landing-send" id="gs-landing-send" type="button" aria-label="Start">
+            <span aria-hidden="true">↑</span>
+          </button>
         </div>
+        <div class="gs-landing-chips" id="gs-landing-chips"></div>
       </div>
-      <div class="chat-messages" id="main-chat-messages"></div>
-      <div class="chat-input-area" id="main-chat-input"></div>
+
+      <!-- Floating conversation, mounted once the user acts (mirrors ElmerChatPanel centered mode) -->
+      <div class="gs-chat" id="main-chat" style="display:none;">
+        <div class="gs-chat-header">
+          <span class="gs-chat-e">E</span>
+          <div>
+            <div class="gs-chat-title">Elmer</div>
+            <div class="gs-chat-sub"><span class="gs-chat-dot"></span>Evidence Steward</div>
+          </div>
+        </div>
+        <div class="gs-chat-messages" id="main-chat-messages"></div>
+        <div id="main-chat-input"></div>
+      </div>
     </div>
   </section>
 
@@ -323,6 +433,261 @@
     return row;
   }
   function clearInput() { inputEl.innerHTML = ''; }
+
+  // ══════════════════════════════════════════════════════════════════════
+  // Particle field, a faithful port of the dashboard's
+  // ParticleBackground.tsx (480 grains, sine-wave wind field, molecular
+  // bonds between nearby "fine" grains, cursor magnetism on the ~18%
+  // "large" grains, default light-tuned navy palette). Scoped to this
+  // section's own box instead of the full viewport, since this page keeps
+  // the site's shared header/nav/footer. Grain count scales with the
+  // stage's area so a smaller confined box doesn't read denser than the
+  // dashboard's full-viewport version. ─────────────────────────────────
+  (function initParticleField() {
+    var stage  = document.getElementById('gs-chat-stage');
+    var canvas = document.getElementById('gs-particle-canvas');
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    var NAVY_DEEP = [22, 48, 105];
+    var NAVY_BRIGHT = [90, 150, 230];
+    function baseAlphaFn(z) { return 0.06 + z * 0.30; }
+
+    var REFERENCE_AREA = 1280 * 800;
+    var REFERENCE_TOTAL = 480;
+    var WIND = 0.006;
+    var FINE_TURBULENCE = 0.018;
+    var FRICTION = 0.90;
+    var MAX_SPEED = 3.0;
+    var MIN_DRIFT_SPEED = 0.035;
+    var LARGE_Z_MIN = 0.82;
+    var MOUSE_RADIUS = 160;
+    var ATTRACT = 0.55;
+    var ATTRACT_DEAD = 12;
+    var BOND_DIST = 85;
+    var BOND_MAX_ALPHA = 0.22;
+    var BOND_OFFSETS = [[0, 0], [1, 0], [0, 1], [1, 1], [1, -1]];
+
+    var w = 0, h = 0, total = 0;
+    var mouse = { x: -9999, y: -9999, active: false };
+    var particles = [];
+    var startTs = 0;
+    var rafId = 0;
+
+    function mix(a, b, t) {
+      return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+    }
+    function flowAngle(x, y, t) {
+      var s = 0.0016;
+      return (
+        Math.sin(x * s + t * 0.35) +
+        Math.cos(y * s * 1.2 - t * 0.27) +
+        Math.sin((x + y) * s * 0.5 + t * 0.19)
+      ) * 1.15;
+    }
+    function resize() {
+      var rect = stage.getBoundingClientRect();
+      w = canvas.width  = Math.max(1, Math.round(rect.width));
+      h = canvas.height = Math.max(1, Math.round(rect.height));
+      total = Math.max(80, Math.min(480, Math.round(REFERENCE_TOTAL * (w * h) / REFERENCE_AREA)));
+    }
+    function createParticles() {
+      var arr = [];
+      for (var i = 0; i < total; i++) {
+        var z = Math.random();
+        arr.push({
+          x: Math.random() * w, y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+          r: 1 + z * 3 + Math.random() * 0.6,
+          baseAlpha: baseAlphaFn(z), alpha: 0, z: z,
+          resp: 0.55 + z * 0.9, wind: 0.5 + z * 0.8,
+          tw: 0.4 + Math.random() * 1.4, twOff: Math.random() * Math.PI * 2,
+          color: mix(NAVY_DEEP, NAVY_BRIGHT, z),
+          large: z > LARGE_Z_MIN
+        });
+      }
+      return arr;
+    }
+    function update(tSec) {
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        var a = flowAngle(p.x, p.y, tSec);
+        var windScale = p.large ? p.wind : p.wind * 1.2;
+        p.vx += Math.cos(a) * WIND * windScale;
+        p.vy += Math.sin(a) * WIND * windScale;
+
+        if (p.large && mouse.active) {
+          var mdx = mouse.x - p.x, mdy = mouse.y - p.y;
+          var md = Math.sqrt(mdx * mdx + mdy * mdy);
+          if (md < MOUSE_RADIUS && md > ATTRACT_DEAD) {
+            var f = (1 - md / MOUSE_RADIUS) * ATTRACT * p.resp;
+            p.vx += (mdx / md) * f;
+            p.vy += (mdy / md) * f;
+          }
+        }
+
+        var jitter = p.large ? 0.01 : FINE_TURBULENCE;
+        p.vx += (Math.random() - 0.5) * jitter;
+        p.vy += (Math.random() - 0.5) * jitter;
+
+        p.vx *= FRICTION; p.vy *= FRICTION;
+        var sp = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (sp > MAX_SPEED) {
+          p.vx = p.vx / sp * MAX_SPEED; p.vy = p.vy / sp * MAX_SPEED;
+        } else if (!p.large && sp < MIN_DRIFT_SPEED) {
+          var heading = p.twOff + tSec * 0.12;
+          p.vx = Math.cos(heading) * MIN_DRIFT_SPEED;
+          p.vy = Math.sin(heading) * MIN_DRIFT_SPEED;
+        }
+        p.x += p.vx; p.y += p.vy;
+
+        var buf = 30;
+        if (p.x < -buf) p.x = w + buf;
+        if (p.x > w + buf) p.x = -buf;
+        if (p.y < -buf) p.y = h + buf;
+        if (p.y > h + buf) p.y = -buf;
+
+        p.alpha = p.baseAlpha * (0.7 + 0.3 * Math.sin(tSec * p.tw + p.twOff));
+      }
+    }
+    function drawOrb(p) {
+      var cr = p.color[0], cg = p.color[1], cb = p.color[2];
+      var haloR = p.r * (1.5 + p.z * 0.9);
+      var coreA = Math.min(1, p.alpha * (0.8 + p.z * 0.6));
+      var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, haloR);
+      grad.addColorStop(0.0, 'rgba(' + cr + ',' + cg + ',' + cb + ',' + coreA + ')');
+      grad.addColorStop(0.45, 'rgba(' + cr + ',' + cg + ',' + cb + ',' + (p.alpha * 0.28) + ')');
+      grad.addColorStop(1.0, 'rgba(' + cr + ',' + cg + ',' + cb + ',0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, haloR, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    function drawBonds() {
+      var grid = {};
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        if (p.large) continue;
+        var key = Math.floor(p.x / BOND_DIST) + ',' + Math.floor(p.y / BOND_DIST);
+        if (!grid[key]) grid[key] = [];
+        grid[key].push(i);
+      }
+      ctx.lineWidth = 0.6;
+      for (var key in grid) {
+        var bucket = grid[key];
+        var parts = key.split(',');
+        var cx = Number(parts[0]), cy = Number(parts[1]);
+        for (var o = 0; o < BOND_OFFSETS.length; o++) {
+          var ox = BOND_OFFSETS[o][0], oy = BOND_OFFSETS[o][1];
+          var neighbor = grid[(cx + ox) + ',' + (cy + oy)];
+          if (!neighbor) continue;
+          var sameCell = ox === 0 && oy === 0;
+          for (var ai = 0; ai < bucket.length; ai++) {
+            var pa = particles[bucket[ai]];
+            var startB = sameCell ? ai + 1 : 0;
+            for (var bi = startB; bi < neighbor.length; bi++) {
+              var pb = particles[neighbor[bi]];
+              var dx = pa.x - pb.x, dy = pa.y - pb.y;
+              var d2 = dx * dx + dy * dy;
+              if (d2 >= BOND_DIST * BOND_DIST) continue;
+              var d = Math.sqrt(d2);
+              var alpha = (1 - d / BOND_DIST) * BOND_MAX_ALPHA;
+              if (alpha <= 0.01) continue;
+              ctx.strokeStyle = 'rgba(60,110,190,' + alpha + ')';
+              ctx.beginPath();
+              ctx.moveTo(pa.x, pa.y);
+              ctx.lineTo(pb.x, pb.y);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+    }
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      drawBonds();
+      for (var i = 0; i < particles.length; i++) drawOrb(particles[i]);
+    }
+    function loop(ts) {
+      if (!startTs) startTs = ts;
+      update((ts - startTs) / 1000);
+      draw();
+      rafId = requestAnimationFrame(loop);
+    }
+    function onMouseMove(e) {
+      var rect = stage.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    }
+    function onMouseLeave() {
+      mouse.active = false;
+      mouse.x = -9999; mouse.y = -9999;
+    }
+    function onResize() {
+      var prevW = w, prevH = h;
+      resize();
+      if (particles.length !== total) { particles = createParticles(); return; }
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        if (p.x > w + 30 || p.y > h + 30) { p.x = Math.random() * w; p.y = Math.random() * h; }
+      }
+    }
+
+    resize();
+    particles = createParticles();
+    rafId = requestAnimationFrame(loop);
+    stage.addEventListener('mousemove', onMouseMove);
+    stage.addEventListener('mouseleave', onMouseLeave);
+    window.addEventListener('resize', onResize);
+  })();
+
+  // ══════════════════════════════════════════════════════════════════════
+  // Landing → conversation hand-off (mirrors ChatFirstLayout's
+  // showLanding/homeQuery state: the landing is shown until the user acts,
+  // then the conversation mounts and takes over). ───────────────────────
+  var landingEl       = document.getElementById('gs-landing');
+  var mainChatEl       = document.getElementById('main-chat');
+  var landingInputEl  = document.getElementById('gs-landing-input');
+  var landingSendEl   = document.getElementById('gs-landing-send');
+  var landingChipsEl  = document.getElementById('gs-landing-chips');
+
+  function revealConversation() {
+    landingEl.style.display = 'none';
+    mainChatEl.style.display = 'flex';
+  }
+  function landingChip(label, onClick) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'gs-landing-chip';
+    btn.textContent = label;
+    btn.addEventListener('click', function () {
+      revealConversation();
+      addMsg(label, 'user');
+      onClick();
+    });
+    return btn;
+  }
+  function landingSubmit() {
+    var text = (landingInputEl.value || '').trim();
+    if (!text) { landingInputEl.focus(); return; }
+    revealConversation();
+    addMsg(text, 'user');
+    startBranchSelector();
+  }
+  landingSendEl.addEventListener('click', landingSubmit);
+  landingInputEl.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); landingSubmit(); }
+  });
+  landingChipsEl.appendChild(landingChip('Read for free', function () { startObserverFlow(); }));
+  landingChipsEl.appendChild(landingChip('Subscribe', function () { startInvestigatorFlow(); }));
+  landingChipsEl.appendChild(landingChip("I'm a lab, company, or institution", function () {
+    addMsg("Are you a research lab looking for pilot access, or an investor or decision-maker looking for a Confidence Report?", 'bot');
+    addChipRow([
+      { label: 'Research lab', onClick: function () { addMsg('Research lab', 'user'); startLabFlow(); } },
+      { label: 'Investor / decision-maker', onClick: function () { addMsg('Investor / decision-maker', 'user'); startVcFlow(); } }
+    ]);
+  }));
 
   // ── Calendly plumbing ───────────────────────────────────────────────────
   var activePayload = null;
@@ -834,7 +1199,7 @@
     btn.type = 'button';
     btn.className = 'chat-cta-btn';
     btn.textContent = 'Continue to sign up →';
-    btn.onclick = function () { window.location.href = 'signup.html?plan=observer'; };
+    btn.onclick = function () { window.location.href = '/app/signup?plan=observer'; };
     inputEl.appendChild(btn);
   }
   function startInvestigatorFlow() {
@@ -879,19 +1244,23 @@
   var hash = window.location.hash.replace('#', '');
 
   if (pageParams.get('cancelled') === 'true') {
+    revealConversation();
     document.getElementById('cancelled-message').style.display = 'block';
     startVcFlow();
   } else if (promo) {
+    revealConversation();
     promoHidden.value = promo.trim().toUpperCase();
     addMsg('You have a promotional Confidence Report from DATOM' + (promoEmail ? ' for ' + promoEmail : '') + '. Share your claim below and you’ll skip payment entirely.', 'bot');
     startVcFlow();
   } else if (hash === 'lab') {
+    revealConversation();
     startLabFlow();
   } else if (hash === 'vc') {
+    revealConversation();
     startVcFlow();
-  } else {
-    startBranchSelector();
   }
+  // Otherwise stay on the landing, its pill and chips are the new
+  // branch-selector surface (see landingChip/landingSubmit above).
 })();
 </script>
 </body>
