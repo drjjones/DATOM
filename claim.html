@@ -216,13 +216,17 @@
       </div>
     </section>
 
+    <p class="medical-note" id="claim-medical-note" style="display:none;">
+      <strong>Is this medical advice?</strong> No. This assesses whether current evidence supports a specific claim as scoped. It is not medical advice, does not address safety, dosing, or side effects, and is not a recommendation to use or avoid any medication. Talk to a qualified clinician before making any health decision.
+    </p>
+
     <section class="section guideCard reveal" id="guide">
       <div class="sectionTitle">Guided Walkthrough</div>
 
       <div class="twoCol">
         <div class="callout">
           <h3>The DATOM Standard</h3>
-          <p>DATOM does not summarize truth. It structures empirical claims into atomic units so that technically literate skeptics can inspect the bounds of any finding. Disagreement is treated as data, not noise.</p>
+          <p>DATOM doesn't just tell you a claim is "true" or "false." It breaks the claim down into every individual real source behind it, so you can see exactly what the evidence says and how strong it really is. Disagreement between sources isn't hidden, it's shown as part of the picture.</p>
         </div>
         <div class="callout">
           <h3>About This Claim</h3>
@@ -255,7 +259,7 @@
       <details class="domer" id="nucleusCard" open>
         <summary>
           <div>
-            <div class="domerTitleRow"><div class="domerTitle">Anchor Claim</div></div>
+            <div class="domerTitleRow"><div class="domerTitle">The Claim</div></div>
             <div class="domerMeta">The exact claim this entry evaluates.</div>
             <div class="chips" id="claim-nucleus-chips"></div>
           </div>
@@ -265,14 +269,14 @@
           <div class="datomsGrid">
             <div class="datomCard support" style="grid-column: 1 / -1;">
               <div class="datomHead">
-                <div class="datomId">NUCLEUS</div>
-                <span class="badge support">Claim Baseline</span>
+                <div class="datomId">THE CLAIM</div>
+                <span class="badge support">What's Being Tested</span>
               </div>
               <div class="datomClaim" id="claim-anchor-text"></div>
               <div class="kv">
                 <div class="k">Scope</div><div class="v" id="claim-scope"></div>
                 <div class="k">Metric</div><div class="v" id="claim-metric"></div>
-                <div class="k">Unit</div><div class="v">Decomposed by relationship to the claim (Supports / Contradicts / Conditional)</div>
+                <div class="k">Grouped by</div><div class="v">Whether each source supports, contradicts, or only partly agrees with the claim</div>
               </div>
             </div>
           </div>
@@ -334,10 +338,6 @@
         <ul class="bullets" id="claim-decision-support"></ul>
       </div>
     </section>
-
-    <p class="medical-note" id="claim-medical-note" style="display:none;">
-      <strong>Is this medical advice?</strong> No. This assesses whether current evidence supports a specific claim as scoped. It is not medical advice, does not address safety, dosing, or side effects, and is not a recommendation to use or avoid any medication. Talk to a qualified clinician before making any health decision.
-    </p>
 
     <section class="reveal" style="text-align:center; margin-top:56px;">
       <h2>See how a determination is built.</h2>
@@ -579,7 +579,7 @@
     document.getElementById('claim-loading').style.display = 'none';
     document.getElementById('claim-error').style.display = 'block';
   } else {
-    fetch('claims/' + encodeURIComponent(id) + '.json?v=20260712d')
+    fetch('claims/' + encodeURIComponent(id) + '.json?v=20260712e')
       .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
       .then(render)
       .catch(function () {

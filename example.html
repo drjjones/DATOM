@@ -643,6 +643,8 @@
         <span class="pill"><span class="dot"></span>44% Confidence</span>
         <span class="pill"><span class="dot"></span>59% of direct evidence supports the claim</span>
       </div>
+
+      <p class="medical-note"><strong>Is this medical advice?</strong> No. This assesses whether current evidence supports a specific claim as scoped. It is not medical advice, does not address safety, dosing, or side effects, and is not a recommendation to use or avoid any medication. Talk to a qualified clinician before making any health decision.</p>
     </section>
 
     <section class="section guideCard reveal" id="guide">
@@ -652,13 +654,13 @@
         <div class="callout">
           <h3>The DATOM Standard</h3>
           <p>
-            DATOM does not summarize truth. It structures empirical claims into atomic units so that technically literate skeptics can inspect the bounds of any finding. Disagreement is treated as data, not noise.
+            DATOM doesn't just tell you a claim is "true" or "false." It breaks the claim down into every individual real source behind it, so you can see exactly what the evidence says and how strong it really is. Disagreement between sources isn't hidden, it's shown as part of the picture.
           </p>
         </div>
         <div class="callout">
           <h3>Why This Example</h3>
           <p>
-            GLP-1 drugs and muscle loss are one of the most widely discussed health topics right now. This claim is a useful showcase because a real directional majority (59% of direct evidence) still only produces a 44% confidence score. That gap is the point: agreement isn't the same as reliable evidence.
+            GLP-1 drugs and muscle loss are one of the most widely discussed health topics right now. This claim is a useful showcase because most of the direct evidence (59%) leans one way, yet DATOM's confidence score still only lands at 44%. That gap is the whole point: more studies agreeing with each other isn't the same as evidence you can actually rely on.
           </p>
         </div>
       </div>
@@ -702,8 +704,8 @@
       <details class="domer" id="nucleusCard" open>
         <summary>
           <div>
-            <div class="domerTitleRow"><div class="domerTitle">Nucleus Claim</div></div>
-            <div class="domerMeta">The exact claim this Datomer evaluates &mdash; establishes the ground truth for directional labeling (Supports vs. Contradicts).</div>
+            <div class="domerTitleRow"><div class="domerTitle">The Claim</div></div>
+            <div class="domerMeta">The exact claim every source below is measured against: whether it supports it or contradicts it.</div>
             <div class="chips">
               <span class="chip">Confidence: 44%</span>
               <span class="chip">130 direct studies</span>
@@ -716,14 +718,14 @@
           <div class="datomsGrid">
             <div class="datomCard support" style="grid-column: 1 / -1;">
               <div class="datomHead">
-                <div class="datomId">NUCLEUS</div>
-                <span class="badge support">Claim Baseline</span>
+                <div class="datomId">THE CLAIM</div>
+                <span class="badge support">What's Being Tested</span>
               </div>
               <div class="datomClaim">Claim: GLP-1 receptor agonist therapy (e.g. semaglutide, tirzepatide) reduces skeletal muscle mass during weight loss in overweight and obese adults.</div>
               <div class="kv">
                 <div class="k">Scope</div><div class="v">Overweight and obese adults, GLP-1 therapy over 12&ndash;68 weeks</div>
                 <div class="k">Metric</div><div class="v">Lean body mass / appendicular skeletal muscle mass (DXA or bioimpedance)</div>
-                <div class="k">Unit</div><div class="v">Decomposed by evidentiary distance from the claim (Direct / Background)</div>
+                <div class="k">Grouped by</div><div class="v">Whether a source directly measures the claim, or is background context that isn't counted for or against it</div>
               </div>
             </div>
           </div>
@@ -745,7 +747,7 @@
           </div>
           <div class="scoreDetails">
               <h2>Preliminary Confidence</h2>
-              <p>Of the 130 datoms in the Direct Evidence cluster (studies whose logicalAlignment field is DIRECT, meaning they measure the nucleus claim itself rather than an adjacent or background question), 77 (59%) support the claim that GLP-1 receptor agonist therapy reduces skeletal muscle mass during weight loss, 25 (19%) contradict it, and 28 (22%) report conditional or mixed findings. These figures come directly from each datom's own relationship field in the production database (interpreted relative to this page's claim framing, not the raw field label alone, since the underlying system's own canonical claim is phrased in the opposite direction, muscle mass preservation), not from notes text or inference. That directional majority is real, but DATOM's confidence score of only 44% reflects a separate question: evidence quality, not direction.</p>
+              <p>Of the 130 studies that directly measure this claim (muscle mass or lean body mass during GLP-1 therapy in overweight or obese adults), 77 (59%) support it, 25 (19%) contradict it, and 28 report conditional findings tied to a specific dose, group of people, or length of treatment. That's a real, clear lean in the evidence. But DATOM's confidence score of only 44% answers a different question: not "which way does the evidence point," but "how much can we actually trust it."</p>
           </div>
       </div>
 
@@ -769,8 +771,8 @@
       </div>
 
       <div class="confidence-content" style="margin-top: 20px;">
-          <p><b>Why 59% agreement isn't 59% confidence:</b> The direct evidence leans toward this claim: 59% of the 130 directly-relevant studies support it, versus 19% that contradict it. But DATOM's confidence score (44%, "Preliminary") measures evidence quality and internal coherence, not the direction of the finding, a majority pointing the same way does not by itself mean the evidence is strong enough to act on. The gap traces to two structural issues: 68 of the 130 direct datoms (52%) report no sample size at all, and no single methodology dominates the direct cluster, randomized controlled trials account for only 8 of 130 direct datoms, with the remainder split across retrospective cohorts, systematic reviews and meta-analyses, case reports, and narrative literature reviews. Genuine uncertainty remains: cross-species findings cannot be directly transferred to the target population without independent validation, and a substantial number of directly-contradicting findings remain unresolved and warrant individual review before high-stakes citation.</p>
-          <p><b>Fault lines DATOM flagged in this evidence base:</b> Sample-Size Opacity: 68 of the 130 direct datoms (52%) do not report a sample size, which limits how much weight any single finding, support or contradict, can carry in the aggregate picture. Methodological Fragmentation: no single study design dominates the direct cluster, randomized controlled trials account for only 8 of 130 direct datoms, and the remainder is split across retrospective cohort studies, systematic reviews and meta-analyses, case reports and case series, and narrative literature reviews, each with different susceptibility to bias and different evidentiary weight; a supporting majority (77 of 130, 59%) drawn from this heterogeneous and often underpowered set should not be treated as a settled, high-confidence answer. Unresolved Contradictions: the 25 contradicting datoms (19%) are a real minority that hasn't been reconciled, several are randomized trials or DXA-based cohort studies reporting genuine muscle preservation, particularly when resistance training or high protein intake accompanies therapy, and treating the majority direction as settled would understate that disagreement.</p>
+          <p><b>Why "59% agree" isn't the same as "59% confident":</b> Most of the direct evidence leans toward this claim: 59% of the 130 directly-relevant studies support it, versus 19% that contradict it. But DATOM's confidence score (44%, "Preliminary") is asking a different question: not which way the evidence points, but how much you should actually trust it. Two things pull that trust down. First, more than half the direct studies, 68 of 130, never say how many people or samples they actually looked at, and a finding from 5 people isn't nearly as trustworthy as the same finding from 500. Second, these 130 studies used many different research methods rather than a small number of well-repeated ones: only 8 were the strongest kind of study (a randomized controlled trial), and the rest were a mix of weaker designs like retrospective reviews of past patients, summaries of other papers, and single case reports. Real uncertainty remains too: several findings come from animal studies that don't automatically apply to people, and a meaningful chunk of studies that contradict the claim haven't been carefully double-checked yet.</p>
+          <p><b>Where this evidence base is weakest:</b> Studies Don't Say How Many People Were Involved: 68 of the 130 direct studies (52%) don't report how many people or samples they studied, which makes it hard to know how much weight to put on any single result, whether it supports or contradicts the claim. Too Many Different Methods, Not Enough Repeats: no single type of study dominates here, only 8 of 130 are randomized controlled trials (the gold standard), and the rest are split across weaker designs like retrospective reviews, literature summaries, and individual case reports, each with its own risk of bias; a 59% supporting lean built on this mixed and often small evidence shouldn't be treated as a settled answer. Real Disagreement Hasn't Been Resolved: the 25 studies that contradict the claim (19%) are a real, meaningful minority, not noise, several are solid randomized trials or scan-based studies showing genuine muscle preservation, especially when people did resistance training or ate more protein, and treating the majority direction as "settled" would understate how much disagreement is still out there.</p>
           <p>This is real output computed from the 224 sources above. As new evidence is ingested, this confidence score updates. The two percentages you'll see most on this page, 44% confidence and 59% of direct evidence supporting, are independently computed and measure different things: one is evidence quality, the other is simple direction of the 130 direct findings.</p>
       </div>
     </section>
@@ -780,14 +782,10 @@
       <div class="callout" style="border-color: var(--signal);">
         <h3>Decision Support (real output, not editorial commentary)</h3>
         <ul class="bullets">
-          <li>No operational action threshold is met. With 44% confidence, this sits in the preliminary tier despite the directional majority, further high-rigor replication is needed before treating it as established.</li><li>Confidence is 44% (Preliminary band). That score reflects per-study evidence quality, not directional agreement; 68 of 130 direct datoms (52%) report no sample size, and no single methodology exceeds 8 of 130 direct datoms.</li><li>The evidence base is internally inconsistent on this specific outcome: direct studies split across supports, contradicts, and conditional findings without a dominant methodology or population, meaning no single study design currently settles the magnitude of the effect.</li><li>The critical gap is a pre-registered, head-to-head study reconciling the contradicting and conditional findings against the supporting majority under identical protocols with disclosed sample sizes and power calculations, that is the study that would most change this confidence score.</li>
+          <li>This claim isn't settled enough to act on. At 44% confidence, it's still in DATOM's "Preliminary" tier, even though more studies lean toward it than against it, stronger, better-repeated research is needed before treating this as established fact.</li><li>The 44% score is about evidence quality, not which way the studies lean; 68 of 130 direct studies (52%) never say how many people they studied, and no single research method was used more than 8 times out of 130.</li><li>The evidence doesn't line up into one clear story: direct studies split across supporting, contradicting, and mixed results, using different methods and different groups of people, so no single study currently settles how big the real effect actually is.</li><li>What would change this the most: one well-designed study that directly compares the conflicting results head to head, using the same method, on the same population, and reports exactly how many people were studied.</li>
         </ul>
       </div>
     </section>
-
-  <!-- General FAQ moved to index.html#faq. This one entry stays here: it's
-       compliance-relevant to the specific medical claim on this page. -->
-  <p class="medical-note"><strong>Is this medical advice?</strong> No. This assesses whether current evidence supports a specific claim as scoped. It is not medical advice, does not address safety, dosing, or side effects, and is not a recommendation to use or avoid any medication. Talk to a qualified clinician before making any health decision.</p>
 
 <section class="section cta-conversion reveal">
   <div class="cta-grid">
