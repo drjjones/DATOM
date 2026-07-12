@@ -87,6 +87,7 @@
   .det-verdict.supported { color: var(--signal); }
   .det-verdict.mixed { color: var(--verdict-mixed); }
   .det-verdict.contradicted { color: var(--verdict-contra); }
+  .det-verdict.unrated { color: var(--verdict-unrated); }
   .det-strength { font-family: var(--font-data); font-size: 12px; color: var(--muted); margin: 0 0 var(--s4); }
   .det-fields {
     display: grid; grid-template-columns: max-content 1fr; gap: 5px var(--s5);
@@ -472,19 +473,23 @@
 <script src="elmer.js?v=20260711a"></script>
 <script>
   // Determination carousel: real public-ledger entries (account_id
-  // "public-ledger", confidence_band "Established"), queried directly
-  // from the Datomers table. Auto-advances on a timer; each change is a
-  // cross-fade (opacity only), not a slide. Manual prev/next/dot
-  // interaction jumps immediately and resets the timer.
+  // "public-ledger"), queried directly from the Datomers table. Auto-advances
+  // on a timer; each change is a cross-fade (opacity only), not a slide.
+  // Manual prev/next/dot interaction jumps immediately and resets the timer.
+  // Verdict/strength/confidence/asOf here must be kept in sync with each
+  // claims/<entry>.json file — they are a separate hand-authored snapshot,
+  // not fetched live, so a stale mismatch here reads as the site
+  // contradicting its own claim page.
   (function () {
     var ENTRIES = [
-      { claim: "Can CRISPR reliably edit genes across different organisms?", strength: "Established evidence", confidence: "82%", entry: "D-E5E9B06E", asOf: "15 May 2026" },
-      { claim: "Does higher crop productivity on smallholder farms improve food security?", strength: "Established evidence", confidence: "81%", entry: "D-3F426285", asOf: "15 May 2026" },
-      { claim: "Does prior COVID infection plus vaccination protect better than vaccination alone?", strength: "Established evidence", confidence: "81%", entry: "D-EE363BAC", asOf: "15 May 2026" },
-      { claim: "Do eating disorders show distinct patterns of altered brain structure?", strength: "Established evidence", confidence: "76%", entry: "D-EC72DA5D", asOf: "9 May 2026" },
-      { claim: "Is HPV vaccination coverage falling short for young adults who missed the standard age window?", strength: "Established evidence", confidence: "77%", entry: "D-ECB9E015", asOf: "15 May 2026" },
-      { claim: "Does losing international vaccine funding lower immunization coverage in low-income countries?", strength: "Established evidence", confidence: "77%", entry: "D-540A117F", asOf: "15 May 2026" }
+      { claim: "Can CRISPR reliably edit genes across different organisms?", verdict: "Emerging", strength: "Preliminary evidence", confidence: "35%", entry: "D-E5E9B06E", asOf: "12 Jul 2026" },
+      { claim: "Does higher crop productivity on smallholder farms improve food security?", verdict: "Mixed", strength: "Preliminary evidence", confidence: "29%", entry: "D-3F426285", asOf: "12 Jul 2026" },
+      { claim: "Does prior COVID infection plus vaccination protect better than vaccination alone?", verdict: "Mixed", strength: "Preliminary evidence", confidence: "31%", entry: "D-EE363BAC", asOf: "12 Jul 2026" },
+      { claim: "Do eating disorders show distinct patterns of altered brain structure?", verdict: "Emerging", strength: "Preliminary evidence", confidence: "35%", entry: "D-EC72DA5D", asOf: "12 Jul 2026" },
+      { claim: "Is HPV vaccination coverage falling short for young adults who missed the standard age window?", verdict: "Emerging", strength: "Speculative evidence", confidence: "20%", entry: "D-ECB9E015", asOf: "12 Jul 2026" },
+      { claim: "Does losing international vaccine funding lower immunization coverage in low-income countries?", verdict: "Insufficient Evidence", strength: "Speculative evidence", confidence: "11%", entry: "D-540A117F", asOf: "12 Jul 2026" }
     ];
+    var VERDICT_CLASS = { "Supported": "supported", "Contradicted": "contradicted", "Mixed": "mixed", "Emerging": "mixed", "Insufficient Evidence": "unrated" };
     var AUTO_ADVANCE_MS = 8000;
     var FADE_MS = 1200;
 
@@ -512,7 +517,8 @@
     function paint() {
       var e = ENTRIES[idx];
       claimEl.textContent = e.claim;
-      verdictEl.textContent = 'Supported';
+      verdictEl.textContent = e.verdict;
+      verdictEl.className = 'det-verdict ' + (VERDICT_CLASS[e.verdict] || 'unrated');
       strengthEl.textContent = e.strength;
       confEl.textContent = e.confidence;
       entryEl.textContent = e.entry;

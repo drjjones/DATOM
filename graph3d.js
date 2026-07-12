@@ -260,8 +260,12 @@ function initGraph(containerId) {
   // Frame the camera to the actual node spread instead of a fixed distance —
   // shell radius now scales with evidence count (see scaledShellRadius), so a
   // Datomer with 200+ items needs the camera much further back than one with 20.
+  // The floor here must stay low: real Datomers with a lopsided relationship
+  // split (e.g. 3-4 nodes total) have a small maxNodeDist, and a floor tuned
+  // for the ~130-node example demo left those views looking like an empty
+  // black box with a few distant dots.
   const maxNodeDist = nodes.reduce((max, n) => n.isNucleus ? max : Math.max(max, Math.sqrt(n.x*n.x + n.y*n.y + n.z*n.z)), 3);
-  const camDist = Math.max(9, maxNodeDist * 1.35);
+  const camDist = Math.max(4.5, maxNodeDist * 1.5);
 
   const camera = new THREE.PerspectiveCamera(50, W / H, 0.1, Math.max(100, camDist * 4));
   camera.position.set(0, camDist * 0.2, camDist);

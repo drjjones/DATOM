@@ -132,6 +132,33 @@
     .bullets{ margin:0; padding-left: 18px; color: var(--muted); line-height: 1.55; font-size: 13px; }
     .bullets li{ margin: 6px 0; }
 
+    /* Guided walkthrough (same vocabulary as example.html): intro callouts,
+       4-step process, and jump links to the sections below. */
+    .twoCol{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 860px) { .twoCol{ grid-template-columns: 1fr; } }
+    .steps{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-top: 14px; }
+    @media (max-width: 860px) { .steps{ grid-template-columns: 1fr 1fr; gap: 10px; } }
+    @media (max-width: 520px) { .steps{ grid-template-columns: 1fr; } }
+    .step{ border-radius: 0; border: 1px solid var(--line); background: transparent; padding: 14px; }
+    .stepNum{ font-family: var(--font-data); font-weight: 500; font-size: 10px; color: var(--signal); margin-bottom: 6px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .stepTitle{ font-weight: 500; font-size: 13px; margin-bottom: 4px; color: var(--ink); }
+    .stepBody{ margin:0; font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .linkRow{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 14px; }
+    .anchorLink{
+      display:inline-flex; align-items:center; gap:6px; text-decoration:none;
+      color: var(--paper); background: var(--ink); padding: 8px 14px; border-radius: 0;
+      font-weight: 500; font-size: 13px; border: 1px solid var(--ink); transition: filter 0.15s ease;
+    }
+    .anchorLink:hover{ filter: brightness(1.2); }
+
+    /* Evidence registry toolbar: search + expand/collapse, same as example.html */
+    .toolbar{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom: 14px; }
+    .search{ flex: 1 1 340px; display:flex; align-items:center; gap:8px; padding: 9px 12px; border-radius: 0; border: 1px solid var(--line-2); background: var(--paper); }
+    .search input{ border:0; outline:0; width:100%; font-size: 13px; background: transparent; color: var(--ink); font-family: inherit; }
+    .search input::placeholder{ color: var(--muted); }
+    .btnPrimary{ padding: 8px 14px; border-radius: 0; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font-weight: 500; font-size: 13px; cursor:pointer; transition: filter 0.15s ease; box-shadow: none; }
+    .btnPrimary:hover{ filter: brightness(1.2); }
+
     .medical-note {
       border: 1px solid var(--line);
       border-left: 4px solid var(--verdict-mixed);
@@ -189,6 +216,35 @@
       </div>
     </section>
 
+    <section class="section guideCard reveal" id="guide">
+      <div class="sectionTitle">Guided Walkthrough</div>
+
+      <div class="twoCol">
+        <div class="callout">
+          <h3>The DATOM Standard</h3>
+          <p>DATOM does not summarize truth. It structures empirical claims into atomic units so that technically literate skeptics can inspect the bounds of any finding. Disagreement is treated as data, not noise.</p>
+        </div>
+        <div class="callout">
+          <h3>About This Claim</h3>
+          <p id="claim-about"></p>
+        </div>
+      </div>
+
+      <div class="steps" aria-label="Step-by-step walkthrough">
+        <div class="step"><div class="stepNum">Step 1</div><div class="stepTitle">Inspect Graph</div><p class="stepBody" id="claim-step1-body"></p></div>
+        <div class="step"><div class="stepNum">Step 2</div><div class="stepTitle">Audit Evidence</div><p class="stepBody">Read each source like an audit card: population, method, and real citation are explicit.</p></div>
+        <div class="step"><div class="stepNum">Step 3</div><div class="stepTitle">Check Confidence</div><p class="stepBody" id="claim-step3-body"></p></div>
+        <div class="step"><div class="stepNum">Step 4</div><div class="stepTitle">Decision Support</div><p class="stepBody">Read what DATOM's evidence base actually supports doing with this claim.</p></div>
+      </div>
+
+      <div class="linkRow">
+        <a class="anchorLink" href="#figure">Knowledge graph</a>
+        <a class="anchorLink" href="#nucleus">The Claim</a>
+        <a class="anchorLink" href="#evidence">Evidence Registry</a>
+        <a class="anchorLink" href="#confidence-scoring">Confidence &amp; Scoring</a>
+      </div>
+    </section>
+
     <section class="section figureCard reveal" id="figure">
       <div class="sectionTitle">Knowledge Graph Structure</div>
       <div id="graph3dContainer" role="img" aria-label="Datomer Knowledge Graph 3D" style="height:420px;border-radius:0;overflow:hidden;background:#07070e;"></div>
@@ -213,6 +269,11 @@
                 <span class="badge support">Claim Baseline</span>
               </div>
               <div class="datomClaim" id="claim-anchor-text"></div>
+              <div class="kv">
+                <div class="k">Scope</div><div class="v" id="claim-scope"></div>
+                <div class="k">Metric</div><div class="v" id="claim-metric"></div>
+                <div class="k">Unit</div><div class="v">Decomposed by relationship to the claim (Supports / Contradicts / Conditional)</div>
+              </div>
             </div>
           </div>
         </div>
@@ -221,7 +282,15 @@
 
     <section class="section reveal" id="evidence">
       <div class="sectionTitle" id="claim-evidence-title">Evidence Registry</div>
-      <div class="datomsGrid" id="claim-evidence-grid"></div>
+      <div class="toolbar">
+        <div class="search">
+          <span style="font-family:var(--font-data);font-weight:500;color:var(--muted);font-size:14px;">&#x2315;</span>
+          <input id="claim-evidence-search" type="text" placeholder="Audit specific evidence (e.g. a population, method, or source)..."/>
+        </div>
+        <button class="btnPrimary" id="claim-expand-all" type="button">Expand All</button>
+        <button class="btnPrimary" id="claim-collapse-all" type="button">Collapse All</button>
+      </div>
+      <div class="grid" id="claim-evidence-grid"></div>
     </section>
 
     <section class="section guideCard reveal" id="confidence-scoring">
@@ -253,7 +322,8 @@
       </div>
 
       <div class="confidence-content" style="margin-top: 20px;">
-        <p id="claim-how-confident"></p>
+        <p><b id="claim-confidence-headline"></b> <span id="claim-how-confident"></span></p>
+        <p><b>Fault lines DATOM flagged in this evidence base:</b> <span id="claim-fault-lines-text"></span></p>
       </div>
     </section>
 
@@ -263,7 +333,6 @@
         <h3>Decision Support (real output, not editorial commentary)</h3>
         <ul class="bullets" id="claim-decision-support"></ul>
       </div>
-      <p class="thin-note" id="claim-fault-lines"></p>
     </section>
 
     <p class="medical-note" id="claim-medical-note" style="display:none;">
@@ -288,7 +357,7 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
-<script src="graph3d.js?v=20260711a" defer></script>
+<script src="graph3d.js?v=20260712c" defer></script>
 <script>
 (function () {
   'use strict';
@@ -325,6 +394,58 @@
     }).join('');
   }
 
+  function datomCardHTML(d, c) {
+    return '<div class="datomCard ' + c.kind + '" data-search="' + esc(JSON.stringify(d).toLowerCase()) + '">' +
+      '<div class="datomHead"><div class="datomId">' + esc(d.id.slice(0, 8)) + '</div><span class="badge ' + c.kind + '">' + esc(c.label) + '</span></div>' +
+      '<div class="datomClaim">' + esc(d.claim) + '</div>' +
+      '<div class="kv">' +
+      '<div class="k">Source</div><div class="v">' + esc(d.source) + '</div>' +
+      '<div class="k">Year</div><div class="v">' + esc(d.year || 'Not reported') + '</div>' +
+      (d.population ? '<div class="k">Population</div><div class="v">' + esc(d.population) + '</div>' : '') +
+      (d.domain ? '<div class="k">Domain</div><div class="v">' + esc(d.domain) + '</div>' : '') +
+      (d.measure ? '<div class="k">Measure</div><div class="v">' + esc(d.measure) + '</div>' : '') +
+      (d.methodology ? '<div class="k">Method</div><div class="v">' + esc(d.methodology) + '</div>' : '') +
+      (d.notes ? '<div class="k">Note</div><div class="v">' + esc(d.notes) + '</div>' : '') +
+      '</div></div>';
+  }
+
+  // Evidence registry as an accordion grouped by real relationship to the
+  // claim (Supports / Contradicts / Conditional). example.html groups by
+  // evidentiary distance (Direct / Background), a distinction that doesn't
+  // exist in this data: every datom here was fetched specifically for this
+  // claim, so there is no honest "background context" bucket to split out.
+  // Grouping by the real relationship label instead gives the same
+  // structural pattern (named, collapsible, searchable groups) without
+  // inventing a category the data doesn't support.
+  function buildEvidenceRegistry(data) {
+    var groups = [
+      { kind: 'support', label: 'Supports', id: 'support' },
+      { kind: 'moderate', label: 'Conditional', id: 'conditional' },
+      { kind: 'contradict', label: 'Contradicts', id: 'contradict' }
+    ];
+    var byKind = { support: [], moderate: [], contradict: [] };
+    data.datoms.forEach(function (d) {
+      var c = classify(d.relationship);
+      var bucket = c.kind === 'mixed' ? 'moderate' : c.kind;
+      byKind[bucket].push(d);
+    });
+
+    var grid = document.getElementById('claim-evidence-grid');
+    grid.innerHTML = groups.filter(function (g) { return byKind[g.kind].length; }).map(function (g) {
+      var members = byKind[g.kind];
+      var plural = members.length !== 1;
+      var tagline = members.length + ' source' + (plural ? 's' : '') + ' that ' +
+        (g.id === 'support' ? (plural ? 'support' : 'supports') + ' this claim.' :
+         g.id === 'contradict' ? (plural ? 'contradict' : 'contradicts') + ' this claim.' :
+         (plural ? 'find' : 'finds') + ' this claim conditional on specific dose, population, or setting.');
+      var cardsHTML = members.map(function (d) { return datomCardHTML(d, classify(d.relationship)); }).join('');
+      return '<details class="domer" data-domer="' + g.id + '">' +
+        '<summary><div><div class="domerTitleRow"><div class="domerTitle">' + esc(g.label) + ' (' + members.length + ')</div></div>' +
+        '<div class="domerMeta">' + esc(tagline) + '</div></div><div class="chev" aria-hidden="true">&#x2304;</div></summary>' +
+        '<div class="domerBody"><div class="datomsGrid">' + cardsHTML + '</div></div></details>';
+    }).join('');
+  }
+
   function render(data) {
     document.title = data.name + ', DATOM';
     document.getElementById('claim-question').textContent = data.plainQuestion;
@@ -341,26 +462,18 @@
       '<span class="chip">' + data.replication_count + ' independent replication' + (data.replication_count === 1 ? '' : 's') + '</span>' +
       '<span class="chip">As of ' + esc(data.as_of) + '</span>';
     document.getElementById('claim-anchor-text').textContent = 'Claim: ' + data.anchorClaim;
+    document.getElementById('claim-scope').textContent = data.scope || 'Not reported';
+    document.getElementById('claim-metric').textContent = data.metric || 'Not reported';
+    document.getElementById('claim-about').textContent = data.aboutClaim || data.guide.whatScienceSays;
+    document.getElementById('claim-step1-body').textContent =
+      'See how ' + shownDatoms + ' real source' + (shownDatoms === 1 ? '' : 's') + ' cluster by relationship to the claim.';
+    document.getElementById('claim-step3-body').textContent =
+      'See why ' + data.confidence_score_pct + '% confidence does not simply match the raw supports percentage.';
 
     document.getElementById('claim-evidence-title').textContent = shownDatoms < totalDatoms ?
       'Evidence Registry (' + totalDatoms + ' Real Sources, ' + shownDatoms + ' Shown)' :
       'Evidence Registry (' + totalDatoms + ' Real Source' + (totalDatoms === 1 ? '' : 's') + ')';
-    var grid = document.getElementById('claim-evidence-grid');
-    grid.innerHTML = data.datoms.map(function (d) {
-      var c = classify(d.relationship);
-      return '<div class="datomCard ' + c.kind + '">' +
-        '<div class="datomHead"><div class="datomId">' + esc(d.id.slice(0, 8)) + '</div><span class="badge ' + c.kind + '">' + esc(c.label) + '</span></div>' +
-        '<div class="datomClaim">' + esc(d.claim) + '</div>' +
-        '<div class="kv">' +
-        '<div class="k">Source</div><div class="v">' + esc(d.source) + '</div>' +
-        '<div class="k">Year</div><div class="v">' + esc(d.year || 'Not reported') + '</div>' +
-        (d.population ? '<div class="k">Population</div><div class="v">' + esc(d.population) + '</div>' : '') +
-        (d.domain ? '<div class="k">Domain</div><div class="v">' + esc(d.domain) + '</div>' : '') +
-        (d.measure ? '<div class="k">Measure</div><div class="v">' + esc(d.measure) + '</div>' : '') +
-        (d.methodology ? '<div class="k">Method</div><div class="v">' + esc(d.methodology) + '</div>' : '') +
-        (d.notes ? '<div class="k">Note</div><div class="v">' + esc(d.notes) + '</div>' : '') +
-        '</div></div>';
-    }).join('');
+    buildEvidenceRegistry(data);
 
     var band = scoreBand(data.confidence_score_pct);
     var scoreNum = document.getElementById('claim-score-number');
@@ -375,6 +488,11 @@
 
     var s = data.evidenceSplit;
     var splitTotal = s.supports + s.contradicts + s.conditional;
+    var supportsPct = splitTotal ? Math.round(100 * s.supports / splitTotal) : 0;
+    document.getElementById('claim-confidence-headline').textContent =
+      supportsPct === data.confidence_score_pct ?
+        'Reading the confidence score:' :
+        'Why ' + supportsPct + '% agreement isn\'t ' + data.confidence_score_pct + '% confidence:';
     document.getElementById('claim-evidence-split').innerHTML =
       '<div class="split-bar">' +
       (s.supports ? '<div class="split-seg support" style="flex-grow:' + s.supports + '"></div>' : '') +
@@ -392,7 +510,7 @@
 
     document.getElementById('claim-decision-support').innerHTML =
       data.guide.decisionSupport.map(function (b) { return '<li>' + esc(b) + '</li>'; }).join('');
-    document.getElementById('claim-fault-lines').textContent = 'Fault lines: ' + data.guide.faultLines;
+    document.getElementById('claim-fault-lines-text').textContent = data.guide.faultLines;
 
     if (data.isHealthDomain) {
       document.getElementById('claim-medical-note').style.display = 'block';
@@ -434,12 +552,34 @@
     }
   }
 
+  var searchInput = document.getElementById('claim-evidence-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', function (e) {
+      var term = e.target.value.trim().toLowerCase();
+      document.querySelectorAll('#claim-evidence-grid .datomCard').forEach(function (card) {
+        card.style.display = (!term || (card.getAttribute('data-search') || '').indexOf(term) !== -1) ? '' : 'none';
+      });
+    });
+  }
+  var expandBtn = document.getElementById('claim-expand-all');
+  if (expandBtn) {
+    expandBtn.addEventListener('click', function () {
+      document.querySelectorAll('#claim-evidence-grid details.domer').forEach(function (d) { d.open = true; });
+    });
+  }
+  var collapseBtn = document.getElementById('claim-collapse-all');
+  if (collapseBtn) {
+    collapseBtn.addEventListener('click', function () {
+      document.querySelectorAll('#claim-evidence-grid details.domer').forEach(function (d) { d.open = false; });
+    });
+  }
+
   var id = new URLSearchParams(window.location.search).get('id');
   if (!id) {
     document.getElementById('claim-loading').style.display = 'none';
     document.getElementById('claim-error').style.display = 'block';
   } else {
-    fetch('claims/' + encodeURIComponent(id) + '.json?v=20260712b')
+    fetch('claims/' + encodeURIComponent(id) + '.json?v=20260712d')
       .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
       .then(render)
       .catch(function () {

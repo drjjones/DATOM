@@ -14,15 +14,16 @@
   "isHealthDomain": false,
   "dataQualityNote": "This claim's commissioning job (LiteratureReviewJobs) recorded status TIMED_OUT, but the Datomer record and its full list of 175 datom_ids were still written successfully. All 175 datom records were retrieved directly via BatchGetItem on their primary keys (datom_id) using the Datomer's authoritative datom_ids list, and all 175 have complete required fields (claim, source_title, relationship) with no malformed or partial records skipped. One real data-quality artifact of the TIMED_OUT job: the datomerId-createdAt-index GSI query for this datomerId returns zero results, because each individual datom record's own denormalized datomerId attribute still points to whatever earlier Datomer/job first extracted it (a side effect of this system's theme-matched reuse of existing datoms into new claims), rather than to fbd5f1b0-fb71-4278-ba10-84927256e377; the datom_ids list on the Datomer record is the authoritative and correctly-scoped source used here. Minor completeness gaps: 1 of 175 datoms is missing a resolvable publication year (source_year null, fallback year field held junk value \"0\") and 1 is missing an evidence_type tag; both were left honestly blank rather than inferred. The relationship counts (99 supports, 72 conditional, 4 contradicts) exactly match the Datomer record's own confidence_breakdown component counts (supportsCount 99, conditionalCount 72, contradictsCount 4), corroborating the fetch.",
   "guide": {
-    "whatScienceSays": "Across 175 real datoms drawn from agricultural economics studies mostly set in sub-Saharan Africa and South Asia (with additional evidence from Central America, Central Asia and Turkiye), 99 (57%) support a positive link between farm production diversity or productivity and household dietary diversity or food security, 72 (41%) find the relationship conditional on factors like market access, agroecological zone, or gender empowerment, and 4 (2%) report no significant or contradictory association. Outcome measures cluster around standard dietary diversity scores (HDDS, WDDS, food consumption scores) and food insecurity access scales, so the underlying construct being measured is fairly consistent even though contexts vary widely.",
-    "howConfident": "The confidence band is Preliminary (score 0.29) despite the large replication count of 175 datoms across roughly 93 distinct sources, because most of the underlying studies are cross-sectional or observational rather than panel, quasi-experimental, or randomized designs, which limits causal inference. The Datomer's own confidence breakdown flags 25 of the underlying findings as individually underpowered and a high inconsistency component, consistent with the 41% conditional share seen in the evidence split: the productivity-to-food-security link shows up reliably in aggregate but its strength and mechanism vary a lot by setting.",
+    "whatScienceSays": "Across 175 real datoms drawn from agricultural economics literature centered on sub-Saharan Africa and South Asia, 99 (57%) support a positive link between smallholder farm productivity or production diversity and household food security or dietary diversity, 72 (41%) find the relationship conditional on moderating factors, and only 4 (2%) contradict it outright. The supporting evidence spans a wide range of national contexts and populations: a panel of 3,436 farm households with child members in rural Bangladesh tracked via fixed-effects Poisson regression on Children's Dietary Diversity Scores, 1,910 women of reproductive age surveyed across five regions of Ethiopia, and a propensity-score-matched evaluation of Zambia's smallholder productivity promotion program. The conditional findings are not vague hedges. One study of 768 households in southern Bangladesh shows the productivity-to-diet link weakening as salinity zone rises from low to high, and several datoms identify market access and women's decision-making power as the specific levers that determine whether a productivity gain converts into a dietary gain. Outcome measurement is relatively consistent across this heterogeneous evidence base, clustering around standard instruments like the Household Dietary Diversity Score, Food Consumption Score, and food insecurity access scales, so despite very different settings the underlying construct being measured is comparable.",
+    "howConfident": "Why 57% support does not mean 29% confidence: DATOM's confidence score for this claim is 29% (\"Preliminary\"), far below the 57% of datoms that directly support it, because the score measures the structural quality and coherence of the evidence base rather than which direction the studies point. First, the 175 datoms trace back to roughly 93 distinct underlying sources, but their methodology mix is extremely fragmented: no single design accounts for more than 6 of the 175 datoms, and 78 of the 175 use methodologies that appear only once each, so the corpus cannot be pooled the way a set of replicated studies could. Second, 83 of the 175 datoms (47%) are sourced as TEXT_NO_METADATA rather than full PDF text, meaning nearly half the underlying claims were extracted without the fuller provenance and reporting detail full-text sources provide; the sample record from Zambia's productivity promotion program evaluation even lists sample size as \"Not reported\" as a direct consequence. Third, the conditional share (41%) is itself informative: it is not that a large share of studies actively disagree with the claim (only 4 of 175, 2%, do), but that a plurality find the effect real yet moderated by market access, agroecological zone, or gender empowerment, which weakens confidence that a bare productivity intervention alone would replicate the pooled result. The Datomer's own confidence breakdown also flags 25 of the underlying findings as individually underpowered, reinforcing the fragmented, largely cross-sectional picture described above. The claim's commissioning job additionally recorded a TIMED_OUT status; while the full 175-datom set was independently verified via direct key retrieval and its relationship counts exactly corroborated against the platform's own confidence breakdown, that operational hiccup is a further reason to treat this score as preliminary rather than settled.",
     "decisionSupport": [
-      "Farm productivity and crop-diversification programs are associated with better household dietary diversity across many single-country studies (Bangladesh, Ethiopia, Ghana, Uganda, Kenya, Nigeria, Nepal, Pakistan, Zimbabwe, Vietnam, Tanzania, and others), but the size and even direction of the effect is frequently moderated by market access, agroecological zone (e.g. salinity), and women's decision-making input.",
-      "Programs aiming to convert farm productivity gains into food-security gains should pair production interventions with market-access or women's-empowerment components, since several datoms directly test and find these as moderating conditions rather than the productivity effect being unconditional.",
-      "Treat any single study's effect size as context-specific rather than universally generalizable: the methodology mix is dominated by cross-sectional surveys (over 100 of 175 datoms use some cross-sectional or observational design) rather than panel or experimental designs that could isolate causality.",
-      "Only a small share of the evidence (4 of 175 datoms) reports a null or contradictory finding, so an intervention that increases smallholder farm productivity is unlikely to actively harm dietary diversity or food security, but should not be assumed to guarantee it either."
+      "Because 41% of the 175 datoms (72) find the food-security benefit of farm productivity conditional on market access, agroecological zone, or gender empowerment, for example the southern Bangladesh study of 768 households showing the effect weaken as salinity zone rises from low to high, interventions should pair productivity gains with these complementary conditions rather than assume productivity alone converts to better diets.",
+      "Only 4 of 175 datoms (2%) contradict the claim outright, so a program that raises smallholder farm productivity is very unlikely to actively harm household dietary diversity, even though it is not guaranteed to help in every context.",
+      "Treat any single study's effect size as context-bound: the methodology mix behind these 175 datoms is split across 78 distinct single-occurrence designs with no dominant method exceeding 6 datoms, so no individual finding should be generalized as the field's consensus estimate.",
+      "47% of the underlying datoms (83 of 175) come from TEXT_NO_METADATA sources rather than full PDF text, and at least one sample record (Zambia's productivity promotion program evaluation) lists sample size as 'Not reported' as a result, so verify specific effect sizes or sample sizes against the original source before citing them.",
+      "56% of the evidence (98 of 175 datoms) was published in just 2025 and 2026, versus a single datom from 2011, meaning most of this literature has not yet had time to be independently replicated or contested; weight very recent single-country findings accordingly for high-stakes decisions."
     ],
-    "faultLines": "The evidence base leans heavily on cross-sectional, single-country observational surveys rather than longitudinal panels or randomized designs, which caps causal confidence even with 175 datoms in hand. Sample sizes range enormously, from qualitative sub-studies of around 56 participants up to panel datasets covering more than 11,000 household-wave observations, and about a quarter of the underlying findings are flagged as individually underpowered by the platform's own scoring. One record was missing a resolvable publication year and one was missing an evidence_type tag; both were included with those fields left honestly blank rather than inferred."
+    "faultLines": "Methodological Fragmentation: the 175 datoms map to 78 distinct methodologies that each appear only once, with the most common named designs, panel data Poisson regression with fixed effects and secondary analysis of cross-sectional data from cluster-randomised controlled trials, accounting for just 6 datoms apiece, so this is less a replicated evidence base than a patchwork of one-off designs that resist formal pooling. Documentation Gap: 83 of the 175 datoms (47%) are sourced as TEXT_NO_METADATA rather than full PDF text, which shows up concretely in the sample record from Zambia's smallholder productivity promotion program evaluation, where sample size is recorded as \"Not reported\", a reporting gap that limits independent verification of effect sizes across roughly half the corpus. Recency Concentration: 98 of the 175 datoms (56%) were published in just 2025 and 2026, against a single datom from 2011 and only single-digit counts in most years before 2020, meaning the majority of this evidence has not had meaningful time to be replicated, cited, or contested by the broader field, a real limitation on how settled the 57% support figure should be read as being."
   },
   "evidenceSplit": {
     "supports": 99,
@@ -48,11 +49,7 @@
         "count": 4
       },
       {
-        "label": "Cross-sectional regression analysis",
-        "count": 3
-      },
-      {
-        "label": "Structural Equation Modeling with bivariate ordinal logistic regression",
+        "label": "Cross-sectional household survey with dietary recall",
         "count": 3
       },
       {
@@ -60,27 +57,7 @@
         "count": 3
       },
       {
-        "label": "Cross-sectional household survey with dietary recall",
-        "count": 3
-      },
-      {
-        "label": "Propensity score matching with observational survey data",
-        "count": 3
-      },
-      {
-        "label": "Quasi-experimental comparison with Endogenous Treatment Effect Model",
-        "count": 3
-      },
-      {
-        "label": "Systematic review with meta-analysis",
-        "count": 3
-      },
-      {
-        "label": "Panel logistic regression and fixed/random effects panel data analysis",
-        "count": 3
-      },
-      {
-        "label": "Narrative review with case studies",
+        "label": "Cross-sectional regression analysis",
         "count": 3
       },
       {
@@ -88,7 +65,11 @@
         "count": 3
       },
       {
-        "label": "Systematic review and meta-analysis",
+        "label": "Narrative review with case studies",
+        "count": 3
+      },
+      {
+        "label": "Panel logistic regression and fixed/random effects panel data analysis",
         "count": 3
       },
       {
@@ -96,27 +77,39 @@
         "count": 3
       },
       {
+        "label": "Propensity score matching with observational survey data",
+        "count": 3
+      },
+      {
         "label": "Qualitative interview study",
         "count": 3
       },
       {
-        "label": "Quasi-experimental impact evaluation with propensity score matching",
+        "label": "Quasi-experimental comparison with Endogenous Treatment Effect Model",
+        "count": 3
+      },
+      {
+        "label": "Structural Equation Modeling with bivariate ordinal logistic regression",
+        "count": 3
+      },
+      {
+        "label": "Systematic review and meta-analysis",
+        "count": 3
+      },
+      {
+        "label": "Systematic review with meta-analysis",
+        "count": 3
+      },
+      {
+        "label": "Cross-national observational study",
         "count": 2
       },
       {
-        "label": "Panel data fixed effects modeling",
+        "label": "Cross-sectional household survey with cluster analysis",
         "count": 2
       },
       {
-        "label": "Panel data analysis with Simpson diversification index and food consumption scores",
-        "count": 2
-      },
-      {
-        "label": "Cross-sectional survey with regression analysis",
-        "count": 2
-      },
-      {
-        "label": "Endogenous Switching Regression model",
+        "label": "Cross-sectional household survey with descriptive and inferential statistical analysis",
         "count": 2
       },
       {
@@ -124,11 +117,7 @@
         "count": 2
       },
       {
-        "label": "Household survey with multivariate analysis",
-        "count": 2
-      },
-      {
-        "label": "Endogenous switching regression with marginal treatment effects",
+        "label": "Cross-sectional questionnaire survey with observational data collection",
         "count": 2
       },
       {
@@ -140,11 +129,19 @@
         "count": 2
       },
       {
-        "label": "Cross-national observational study",
+        "label": "Cross-sectional survey with regression analysis",
         "count": 2
       },
       {
-        "label": "Cross-sectional questionnaire survey with observational data collection",
+        "label": "Endogenous Switching Regression model",
+        "count": 2
+      },
+      {
+        "label": "Endogenous switching regression model",
+        "count": 2
+      },
+      {
+        "label": "Endogenous switching regression with marginal treatment effects",
         "count": 2
       },
       {
@@ -152,27 +149,7 @@
         "count": 2
       },
       {
-        "label": "Instrumental variable technique, extended regression model, endogenous switching regression model",
-        "count": 2
-      },
-      {
-        "label": "Randomized Complete Block Design field experiment",
-        "count": 2
-      },
-      {
-        "label": "Cross-sectional household survey with descriptive and inferential statistical analysis",
-        "count": 2
-      },
-      {
-        "label": "Systematic review of peer-reviewed studies",
-        "count": 2
-      },
-      {
-        "label": "Meta-analysis",
-        "count": 2
-      },
-      {
-        "label": "Cross-sectional household survey with cluster analysis",
+        "label": "Household survey with multivariate analysis",
         "count": 2
       },
       {
@@ -180,7 +157,11 @@
         "count": 2
       },
       {
-        "label": "Randomized complete block design field trial with mineral analysis by ICP-MS",
+        "label": "Instrumental variable technique, extended regression model, endogenous switching regression model",
+        "count": 2
+      },
+      {
+        "label": "Meta-analysis",
         "count": 2
       },
       {
@@ -188,8 +169,32 @@
         "count": 2
       },
       {
-        "label": "Other single-occurrence methodologies (78 distinct designs)",
-        "count": 78
+        "label": "Panel data analysis with Simpson diversification index and food consumption scores",
+        "count": 2
+      },
+      {
+        "label": "Panel data fixed effects modeling",
+        "count": 2
+      },
+      {
+        "label": "Quasi-experimental impact evaluation with propensity score matching",
+        "count": 2
+      },
+      {
+        "label": "Randomized Complete Block Design field experiment",
+        "count": 2
+      },
+      {
+        "label": "Randomized complete block design field trial with mineral analysis by ICP-MS",
+        "count": 2
+      },
+      {
+        "label": "Systematic review of peer-reviewed studies",
+        "count": 2
+      },
+      {
+        "label": "Other single-occurrence methodologies (70 distinct designs)",
+        "count": 70
       }
     ],
     "sourceTypeMix": [
@@ -957,5 +962,8 @@
       "evidence_type": "TEXT_NO_METADATA",
       "notes": "Study limited to central Uganda; cross-sectional design prevents causal inference; specific sample size and effect magnitudes not provided in available text."
     }
-  ]
+  ],
+  "scope": "Smallholder farm households in sub-Saharan Africa, South Asia, and Central America (e.g. Bangladesh, Ethiopia, Zambia, Uganda, Ghana, Nicaragua)",
+  "metric": "Household/individual dietary diversity scores (HDDS, CDDS, WDDS, HFVS) and food security/insecurity access scales",
+  "aboutClaim": "This claim draws on 175 real datoms from roughly 93 distinct agricultural economics sources, with 99 (57%) supporting a positive link between farm productivity or diversity and household food security, 72 (41%) finding it conditional on factors like market access or salinity zone, and only 4 (2%) contradicting it. Despite that large and mostly consistent body of evidence, the confidence score sits at just 29% (Preliminary band) because most studies are cross-sectional or observational rather than panel or experimental designs that can isolate causality, and about one in seven of the underlying findings (25 of 175) are flagged as individually underpowered. In short, the relationship shows up reliably across many single-country studies, but the underlying methods cannot yet prove it causes better food security rather than merely correlating with it."
 }
