@@ -3,7 +3,7 @@
   "datomerId": "5ce0bcd1-40a6-41a2-97a4-88de63a414f3",
   "name": "Thermal Processing vs. Washing for Cyclospora Produce Safety",
   "anchorClaim": "Thermal processing of fresh agricultural produce (encompassing all varieties of fruits and vegetables), specifically achieving a sustained internal temperature of at least 158°F (70°C) for a minimum of 2 minutes, achieves a >99.9% (3-log) inactivation of Cyclospora cayetanensis oocysts, whereas applying the maximum standard commercial and consumer washing protocols fails to achieve even a 99% (2-log) reduction on those same items.",
-  "plainQuestion": "If produce might be contaminated with a parasite that causes serious diarrheal illness, does heating it to a safe cooking temperature actually kill the parasite better than just washing it does?",
+  "plainQuestion": "Does heating produce to a safe cooking temperature kill Cyclospora, a parasite that causes serious diarrheal illness, better than washing it does?",
   "confidence_score_pct": 23,
   "confidence_band": "Speculative",
   "replication_count": 54,

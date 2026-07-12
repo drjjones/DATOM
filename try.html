@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Get Started — DATOM</title>
+<title>Get Started, DATOM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" href="./Assets/favicon.png" />
 <link rel="stylesheet" href="global.css?v=5" />
@@ -10,59 +10,61 @@
 <link rel="stylesheet" href="tokens.css?v=1">
 <link rel="stylesheet" href="design-v1.1.css?v=9">
 <style>
-  /* ── Tab navigation ── */
-  .tab-nav {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--line-2);
-    margin-bottom: 40px;
-  }
-  .tab-btn {
-    flex: 1; padding: 16px 24px; background: none; border: none;
-    border-bottom: 3px solid transparent; margin-bottom: -1px;
-    font-family: var(--sans); font-size: 16px; font-weight: 600;
-    color: var(--muted); cursor: pointer;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .tab-btn:hover { color: var(--ink); }
-  .tab-btn.active { color: var(--signal); border-bottom-color: var(--signal); }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-  .tab-subheading { font-size: 18px; font-weight: 600; color: var(--muted); margin: 8px 0 28px; }
+  /* ── One unified chat, styled after the real dashboard chat home
+     (ElmerChatPanel/ChatHome), not the flat card-and-tabs pattern this
+     page used before. Chat bubbles, the avatar badge, and the composer
+     pill are a deliberate, scoped exception to the sitewide zero-radius
+     rule, same category of exception as the header's frosted glass:
+     documented, bounded to this one interface family, not a general
+     license to round corners elsewhere. Everything still uses this
+     site's real paper/ink tokens, not the dashboard's dark palette,
+     tokens.css reserves dark for the internal dashboard only; this is a
+     public page. ─────────────────────────────────────────────────── */
+  .gs-intro { text-align: center; max-width: 640px; margin: 0 auto 32px; }
+  .gs-intro-logo { width: 56px; height: auto; margin: 0 auto 18px; display: block; }
 
-  /* ── Chat UI (floating in fog: frameless region, but the textarea,
-     send + attach controls keep clearly visible outlines) ───────── */
   .chat-window {
-    margin-top: 32px;
-    border: 1px solid var(--ink);
+    margin: 0 auto;
+    max-width: 720px;
+    border: 1px solid var(--line);
     border-radius: 0;
     background: rgba(255, 255, 255, 0.78);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     display: flex; flex-direction: column;
-    min-height: 540px; max-height: 760px; overflow: hidden;
+    min-height: 560px; max-height: 780px; overflow: hidden;
   }
   .chat-header {
-    padding: 14px 18px;
+    padding: 16px 20px;
     border-bottom: 1px solid var(--line);
-    background: transparent;
-    font-size: 13px; color: var(--muted);
-    display: flex; align-items: center; gap: 10px;
+    display: flex; align-items: center; gap: 12px;
   }
+  .chat-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(11, 110, 132, 0.12);
+    border: 1px solid var(--signal);
+    color: var(--signal);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-data); font-weight: 600; font-size: 14px;
+    flex-shrink: 0;
+  }
+  .chat-header-title { font-weight: 600; color: var(--ink); font-size: 14px; }
+  .chat-header-sub { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; margin-top: 1px; }
   .chat-header-dot {
-    width: 10px; height: 10px; border-radius: 0;
+    width: 7px; height: 7px; border-radius: 50%;
     background: var(--signal);
     animation: chat-pulse 2.4s ease-in-out infinite;
   }
-  @keyframes chat-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+  @keyframes chat-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
   .chat-messages {
     flex: 1; padding: 20px; overflow-y: auto;
-    display: flex; flex-direction: column; gap: 10px;
+    display: flex; flex-direction: column; gap: 12px;
     scroll-behavior: smooth;
   }
   .chat-msg {
-    max-width: 88%;
-    padding: 10px 14px; border-radius: 0;
+    max-width: 82%;
+    padding: 11px 15px;
     font-size: 14.5px; line-height: 1.55;
     word-wrap: break-word; white-space: pre-wrap;
     animation: chat-fade 0.2s ease-out;
@@ -73,186 +75,139 @@
   }
   .chat-msg.bot {
     background: var(--paper-2); color: var(--ink);
+    border: 1px solid var(--line);
     align-self: flex-start;
+    border-radius: 3px 14px 14px 14px;
   }
   .chat-msg.user {
     background: var(--ink); color: var(--paper);
     align-self: flex-end;
+    border-radius: 14px 3px 14px 14px;
   }
-  .chat-msg.thinking {
-    background: var(--paper-2); color: var(--muted);
-    font-style: italic;
+  .chat-typing {
+    display: flex; gap: 4px; align-items: center;
     align-self: flex-start;
+    background: var(--paper-2); border: 1px solid var(--line);
+    border-radius: 3px 14px 14px 14px;
+    padding: 13px 16px;
   }
-  .chat-msg.thinking::after {
-    content: '…'; display: inline-block;
-    margin-left: 2px;
-    animation: chat-dots 1.2s steps(4, end) infinite;
+  .chat-typing span {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--muted);
+    animation: chat-typing-bounce 1.2s ease-in-out infinite;
   }
-  @keyframes chat-dots {
-    0%   { content: '.'; }
-    33%  { content: '..'; }
-    66%  { content: '...'; }
-    100% { content: '.'; }
+  .chat-typing span:nth-child(2) { animation-delay: 0.15s; }
+  .chat-typing span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes chat-typing-bounce {
+    0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }
+    30% { opacity: 1; transform: translateY(-3px); }
   }
-  .chat-input-area {
-    border-top: 1px solid var(--line);
-    padding: 14px 16px;
-    background: transparent;
-  }
-  .chat-input-row {
-    display: flex; gap: 8px; align-items: flex-end;
-  }
-  .chat-input-field {
-    flex: 1;
-    padding: 12px 14px;
+
+  .chat-chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; align-self: flex-start; max-width: 82%; }
+  .chat-chip {
+    padding: 8px 16px; border-radius: 20px;
     border: 1px solid var(--line-2);
-    border-radius: 0;
-    background: var(--paper);
-    font-family: var(--sans); font-size: 14px; color: var(--ink);
-    line-height: 1.55;
-    resize: none;
-    min-height: 50px; max-height: 260px;
-    transition: border-color 0.15s;
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--ink); font-size: 13px; cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
   }
-  .chat-input-field:focus {
-    outline: none; border-color: var(--ink);
-    box-shadow: none;
+  .chat-chip:hover { border-color: var(--signal); color: var(--signal); }
+  .chat-chip.chosen { background: var(--ink); color: var(--paper); border-color: var(--ink); cursor: default; }
+  .chat-chip.chosen:hover { color: var(--paper); }
+
+  .chat-input-area { border-top: 1px solid var(--line); padding: 14px 16px; }
+  .chat-input-row {
+    display: flex; gap: 6px; align-items: center;
+    border: 1px solid var(--line-2);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    padding: 6px 6px 6px 18px;
+  }
+  .chat-input-row:focus-within { border-color: var(--ink); }
+  .chat-input-field {
+    flex: 1; border: none; outline: none; background: transparent;
+    font-family: var(--sans); font-size: 14px; color: var(--ink);
+    line-height: 1.5; resize: none;
+    min-height: 22px; max-height: 160px;
+    padding: 8px 0;
   }
   .chat-send-btn {
-    padding: 12px 22px;
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
     background: var(--ink); color: var(--paper);
-    border: 1px solid var(--ink); border-radius: 0;
-    font-weight: 600; font-size: 14px;
-    cursor: pointer; transition: filter 0.15s;
-    white-space: nowrap; align-self: stretch;
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: filter 0.15s ease;
   }
   .chat-send-btn:hover:not(:disabled) { filter: brightness(1.2); }
-  .chat-send-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .chat-send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .chat-attach-btn {
-    width: 44px; height: 44px;
-    border: 1px solid var(--line-2);
-    background: var(--paper); color: var(--muted);
-    border-radius: 0;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: color 0.15s, border-color 0.15s;
-    align-self: flex-end;
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    border: none; background: transparent; color: var(--muted);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: color 0.15s ease;
   }
-  .chat-attach-btn:hover { color: var(--ink); border-color: var(--ink); }
-  .chat-attach-btn.has-file { color: var(--signal); border-color: var(--signal); background: var(--paper); }
+  .chat-attach-btn:hover { color: var(--ink); }
+  .chat-attach-btn.has-file { color: var(--signal); }
   .chat-attached-chip {
     display: inline-flex; align-items: center; gap: 8px;
-    margin-bottom: 8px;
-    padding: 6px 12px;
-    background: transparent;
-    border: 1px solid var(--line-2);
-    border-radius: 0;
-    font-size: 12px; color: var(--muted);
+    margin-bottom: 8px; padding: 6px 12px;
+    background: transparent; border: 1px solid var(--line-2);
+    border-radius: 16px; font-size: 12px; color: var(--muted);
   }
   .chat-attached-chip button {
     background: none; border: none; color: var(--muted);
     cursor: pointer; padding: 0; font-size: 14px; line-height: 1;
   }
   .chat-attached-chip button:hover { color: var(--verdict-contra); }
-  .chat-hint { font-size: 11px; color: var(--muted); margin-top: 6px; padding: 0 4px; }
+  .chat-hint { font-size: 11px; color: var(--muted); margin-top: 8px; padding: 0 6px; }
   .chat-terms {
     display: flex; align-items: flex-start; gap: 10px;
     padding: 14px 16px;
-    background: transparent;
-    border: 1px solid var(--line);
-    border-radius: 0;
+    background: transparent; border: 1px solid var(--line); border-radius: 0;
     margin-bottom: 12px;
   }
   .chat-terms input[type="checkbox"] {
-    margin-top: 2px;
-    width: 16px; height: 16px;
-    accent-color: var(--signal);
-    cursor: pointer; flex-shrink: 0;
+    margin-top: 2px; width: 16px; height: 16px;
+    accent-color: var(--signal); cursor: pointer; flex-shrink: 0;
   }
   .chat-terms label { font-size: 13px; line-height: 1.55; cursor: pointer; color: var(--ink); }
   .chat-terms a { color: var(--signal); text-decoration: underline; }
   .chat-restart {
-    display: inline-block;
-    margin-left: 12px;
+    display: inline-block; margin-left: 12px;
     font-size: 12px; color: var(--muted);
     text-decoration: underline; cursor: pointer;
     background: none; border: none; padding: 0;
     font-family: var(--sans);
   }
   .chat-restart:hover { color: var(--signal); }
+  .chat-cta-btn {
+    padding: 12px 22px;
+    background: var(--ink); color: var(--paper);
+    border: 1px solid var(--ink); border-radius: 24px;
+    font-weight: 600; font-size: 14px;
+    cursor: pointer; transition: filter 0.15s;
+  }
+  .chat-cta-btn:hover { filter: brightness(1.2); }
 
-  /* Calendly + message banners (preserved) */
+  /* Calendly + message banners */
   .form-message {
-    display: none;
-    padding: 16px 20px;
-    border-radius: 0;
-    margin-top: 20px; font-size: 14px;
+    display: none; padding: 16px 20px; border-radius: 0;
+    margin: 16px auto 0; max-width: 720px; font-size: 14px;
   }
-  .form-message.success {
-    background: transparent;
-    border: 1px solid var(--signal);
-    color: var(--ink);
-  }
-  .form-message.error {
-    background: transparent;
-    border: 1px solid var(--verdict-contra);
-    color: var(--ink);
-  }
+  .form-message.success { background: transparent; border: 1px solid var(--signal); color: var(--ink); }
+  .form-message.error { background: transparent; border: 1px solid var(--verdict-contra); color: var(--ink); }
   .calendly-step-msg {
     font-size: 15px; color: var(--ink);
-    background: transparent;
-    border: 1px solid var(--line);
-    border-radius: 0;
+    background: transparent; border: 1px solid var(--line); border-radius: 0;
     padding: 14px 18px; margin-bottom: 20px;
   }
+  #lab-calendly-container, #vc-calendly-container { max-width: 720px; margin: 0 auto; }
 
   @media (max-width: 800px) {
-    .tab-btn { font-size: 14px; padding: 14px 12px; }
     .chat-msg { max-width: 92%; font-size: 14px; }
+    .chat-chip-row { max-width: 92%; }
   }
-
-  /* ── Front-door: dashboard-style chat-first entry, scoped to this page.
-     Glass treatment matches the header/carousel/Elmer recipe exactly
-     (rgba(255,255,255,0.78) + blur(12px)), kept zero-radius rather than
-     the dashboard's pill shape, to stay inside this site's flat-corner
-     language. No live NLU behind the search bar: simple keyword routing
-     client-side, same honesty rule as everywhere else scripted on this
-     site (see elmer.js) -- it routes, it doesn't pretend to converse. ── */
-  .gs-intro { text-align: center; max-width: 640px; margin: 0 auto 64px; }
-  .gs-intro-logo { width: 64px; height: auto; margin: 0 auto 20px; display: block; }
-  .gs-search {
-    display: flex; align-items: center; gap: 10px;
-    margin-top: 28px; padding: 8px 8px 8px 20px;
-    border: 1px solid var(--ink);
-    background: rgba(255, 255, 255, 0.78);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-  .gs-search input {
-    flex: 1; border: none; outline: none; background: transparent;
-    font-family: var(--sans); font-size: 15px; color: var(--ink);
-    padding: 10px 0;
-  }
-  .gs-search input::placeholder { color: var(--muted); }
-  .gs-search button {
-    width: 38px; height: 38px; flex-shrink: 0;
-    border: 1px solid var(--ink); background: var(--ink); color: var(--paper);
-    cursor: pointer; display: grid; place-items: center;
-    transition: filter 0.15s ease;
-  }
-  .gs-search button:hover { filter: brightness(1.2); }
-  .gs-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
-  .gs-chip {
-    padding: 8px 16px; border: 1px solid var(--line-2);
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    color: var(--muted); font-size: 13px; cursor: pointer;
-    transition: border-color 0.15s ease, color 0.15s ease;
-  }
-  .gs-chip:hover { border-color: var(--signal); color: var(--signal); }
-  .gs-divider { display: flex; align-items: center; gap: 16px; max-width: 640px; margin: 56px auto; color: var(--faint); font-family: var(--font-data); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
-  .gs-divider::before, .gs-divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 </style>
 </head>
 
@@ -274,116 +229,51 @@
 
 <main>
 
-  <!-- FRONT DOOR: dashboard-style chat-first entry. Free/paid routes go
-       straight to the real destinations (signup.html, investigator-
-       coming-soon.html); the institutional route scrolls to the existing
-       Lab/VC intake below, which is untouched. -->
   <section class="reveal gs-intro">
     <img src="./Assets/logo.png" class="gs-intro-logo" alt="DATOM">
-    <h1>What are you here to do?</h1>
-    <p class="lede" style="margin:0 auto;">Tell Elmer, or pick one below.</p>
-    <div class="gs-search">
-      <input type="text" id="gs-search-input" placeholder="e.g. &quot;I want to read for free&quot; or &quot;I run a research lab&quot;" autocomplete="off">
-      <button type="button" id="gs-search-go" aria-label="Go">&rarr;</button>
-    </div>
-    <div class="gs-chips">
-      <button type="button" class="gs-chip" data-route="observer">Read for free</button>
-      <button type="button" class="gs-chip" data-route="investigator">Subscribe</button>
-      <button type="button" class="gs-chip" data-route="institution">I'm a lab, company, or institution</button>
-    </div>
+    <h1>Let's get you started.</h1>
+    <p class="lede" style="margin:0 auto;">Elmer will help you find the right way in, whether that's a free account, a subscription, or setting up your lab or firm.</p>
   </section>
 
-  <div class="gs-divider">For labs, companies, and institutions</div>
-
-  <section class="reveal" id="institution-intake" style="text-align:center;">
-    <h1>Partner with <span class="text-gradient">DATOM</span></h1>
-    <p class="lede" style="margin:0 auto;">Science advances on trust. We build the infrastructure to verify it.</p>
-  </section>
-
-  <div id="cancelled-message" style="display:none;max-width:680px;margin:0 auto 32px;padding:16px 20px;background:transparent;border:1px solid var(--verdict-contra);border-radius:0;font-size:14px;color:var(--ink);">
-    Your checkout session was cancelled. Your application has been saved &mdash; you can complete payment at any time. Questions? Email <a href="mailto:info@datom.science" style="color:var(--signal);">info@datom.science</a>.
+  <div id="cancelled-message" style="display:none;max-width:720px;margin:0 auto 20px;padding:16px 20px;background:transparent;border:1px solid var(--verdict-contra);border-radius:0;font-size:14px;color:var(--ink);">
+    Your checkout session was cancelled. Your application has been saved, you can complete payment at any time. Questions? Email <a href="mailto:info@datom.science" style="color:var(--signal);">info@datom.science</a>.
   </div>
 
   <section class="reveal">
-    <div class="tab-nav" role="tablist">
-      <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-lab" id="tab-lab" data-tab="lab">For Research Labs</button>
-      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-vc" id="tab-vc" data-tab="vc">Investors &amp; Decision Makers</button>
-    </div>
-
-    <!-- ─── LAB tab ─── -->
-    <div class="tab-panel active" id="panel-lab" role="tabpanel" aria-labelledby="tab-lab">
-      <h2>For Research Labs</h2>
-      <h3 class="tab-subheading">Request Pilot Access to the DATOM R&amp;D Sandbox</h3>
-      <p style="margin-bottom:20px;">Access the DATOM R&amp;D Sandbox to validate internal IP and bulletproof pre-prints against the global scientific record.</p>
-      <ol>
-        <li>Tell us about your research and the claim you want to evaluate</li>
-        <li>Schedule a 30-minute scoping call directly from this page</li>
-        <li>We confirm fit and discuss your data environment on the call</li>
-        <li>If there's a match, we scope the engagement together and get you started</li>
-      </ol>
-
-      <div class="chat-window" id="lab-chat">
-        <div class="chat-header"><span class="chat-header-dot"></span>DATOM Intake</div>
-        <div class="chat-messages" id="lab-chat-messages"></div>
-        <div class="chat-input-area" id="lab-chat-input"></div>
-      </div>
-
-      <div id="lab-calendly-container" style="display:none;">
-        <p class="calendly-step-msg">One last step &mdash; pick a time that works for you. Your application will be submitted automatically once your meeting is confirmed.</p>
-        <div class="calendly-inline-widget" data-url="https://calendly.com/datom/30min" style="min-width:320px;height:700px;"></div>
-      </div>
-
-      <div class="form-message success" id="lab-form-success" role="alert">
-        Your application has been received and your meeting is confirmed. The DATOM team will be in touch shortly.
-      </div>
-      <div class="form-message error" id="lab-form-error" role="alert">
-        <strong>Submission failed.</strong> Please try again or email us directly at <a href="mailto:info@datom.science">info@datom.science</a>.
-      </div>
-    </div>
-
-    <!-- ─── VC tab ─── -->
-    <div class="tab-panel" id="panel-vc" role="tabpanel" aria-labelledby="tab-vc">
-      <h2>Request a Confidence Report</h2>
-      <h3 class="tab-subheading">The first Confidence Report is complimentary.</h3>
-      <p>Every engagement begins with a short intake call. Tell us about the claim below and pick a time that works for you &mdash; we'll confirm scope and framing together before any analysis begins.</p>
-      <ol>
-        <li>Tell us about the claim you want evaluated and your evidence context</li>
-        <li>Schedule a 20-minute intake call directly from this page</li>
-        <li>We confirm the scope and framing on the call</li>
-        <li>Your Confidence Report is delivered after the intake call</li>
-      </ol>
-
-      <div
-        id="vc-promo-banner"
-        style="display:none;margin-bottom:20px;padding:18px 22px;border-radius:0;background:transparent;border:1px solid var(--signal);"
-      >
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <strong style="color:var(--ink);font-size:15px;">Free Confidence Report</strong>
+    <div class="chat-window" id="main-chat">
+      <div class="chat-header">
+        <span class="chat-avatar">E</span>
+        <div>
+          <div class="chat-header-title">Elmer</div>
+          <div class="chat-header-sub"><span class="chat-header-dot"></span>Evidence Steward</div>
         </div>
-        <p style="margin:0;font-size:14px;color:var(--muted);">
-          You have a promotional Confidence Report from DATOM for <strong id="vc-promo-email" style="color:var(--ink);">&mdash;</strong>. Share your claim in the chat below and you&rsquo;ll skip payment entirely.
-        </p>
       </div>
-
-      <div class="chat-window" id="vc-chat">
-        <div class="chat-header"><span class="chat-header-dot"></span>DATOM Intake</div>
-        <div class="chat-messages" id="vc-chat-messages"></div>
-        <div class="chat-input-area" id="vc-chat-input"></div>
-      </div>
-
-      <div id="vc-calendly-container" style="display:none;">
-        <p class="calendly-step-msg">One last step &mdash; pick a time that works for you. Your application will be submitted automatically once your meeting is confirmed.</p>
-        <div class="calendly-inline-widget" data-url="https://calendly.com/datom/30min" style="min-width:320px;height:700px;"></div>
-      </div>
-
-      <div class="form-message success" id="vc-form-success" role="alert">
-        Your application has been received and your meeting is confirmed. The DATOM team will be in touch shortly.
-      </div>
-      <div class="form-message error" id="vc-form-error" role="alert">
-        <strong>Submission failed.</strong> Please try again or email us directly at <a href="mailto:info@datom.science">info@datom.science</a>.
-      </div>
+      <div class="chat-messages" id="main-chat-messages"></div>
+      <div class="chat-input-area" id="main-chat-input"></div>
     </div>
   </section>
+
+  <div id="lab-calendly-container" style="display:none;">
+    <p class="calendly-step-msg">One last step: pick a time that works for you. Your application will be submitted automatically once your meeting is confirmed.</p>
+    <div class="calendly-inline-widget" data-url="https://calendly.com/datom/30min" style="min-width:320px;height:700px;"></div>
+  </div>
+  <div class="form-message success" id="lab-form-success" role="alert">
+    Your application has been received and your meeting is confirmed. The DATOM team will be in touch shortly.
+  </div>
+  <div class="form-message error" id="lab-form-error" role="alert">
+    <strong>Submission failed.</strong> Please try again or email us directly at <a href="mailto:info@datom.science">info@datom.science</a>.
+  </div>
+
+  <div id="vc-calendly-container" style="display:none;">
+    <p class="calendly-step-msg">One last step: pick a time that works for you. Your application will be submitted automatically once your meeting is confirmed.</p>
+    <div class="calendly-inline-widget" data-url="https://calendly.com/datom/30min" style="min-width:320px;height:700px;"></div>
+  </div>
+  <div class="form-message success" id="vc-form-success" role="alert">
+    Your application has been received and your meeting is confirmed. The DATOM team will be in touch shortly.
+  </div>
+  <div class="form-message error" id="vc-form-error" role="alert">
+    <strong>Submission failed.</strong> Please try again or email us directly at <a href="mailto:info@datom.science">info@datom.science</a>.
+  </div>
 
 </main>
 
@@ -401,35 +291,40 @@
   var EXTRACT_URL = API_BASE + '/api/intake/extract';
   var PITCHDECK_UPLOAD_URL = API_BASE + '/api/pitch-deck/upload';
 
-  // ── Tab switching ─────────────────────────────────────────────────────
-  var tabs = document.querySelectorAll('.tab-btn');
-  var panels = document.querySelectorAll('.tab-panel');
-  function activateTab(tabId) {
-    tabs.forEach(function (btn) {
-      var active = btn.dataset.tab === tabId;
-      btn.classList.toggle('active', active);
-      btn.setAttribute('aria-selected', active ? 'true' : 'false');
-    });
-    panels.forEach(function (panel) {
-      panel.classList.toggle('active', panel.id === 'panel-' + tabId);
-    });
-  }
-  tabs.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      activateTab(btn.dataset.tab);
-      history.replaceState(null, '', '#' + btn.dataset.tab);
-    });
-  });
-  var hash = window.location.hash.replace('#', '');
-  if (hash === 'lab' || hash === 'vc') activateTab(hash);
+  var messagesEl = document.getElementById('main-chat-messages');
+  var inputEl    = document.getElementById('main-chat-input');
 
-  var pageParams = new URLSearchParams(window.location.search);
-  if (pageParams.get('cancelled') === 'true') {
-    document.getElementById('cancelled-message').style.display = 'block';
-    activateTab('vc');
+  function addMsg(text, sender) {
+    var div = document.createElement('div');
+    div.className = 'chat-msg ' + (sender || 'bot');
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return div;
   }
+  function addChipRow(chips) {
+    // chips: [{ label, onClick }]
+    var row = document.createElement('div');
+    row.className = 'chat-chip-row';
+    chips.forEach(function (c) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chat-chip';
+      btn.textContent = c.label;
+      btn.addEventListener('click', function () {
+        Array.prototype.forEach.call(row.children, function (el) { el.disabled = true; });
+        btn.classList.add('chosen');
+        c.onClick();
+      });
+      row.appendChild(btn);
+    });
+    messagesEl.appendChild(row);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return row;
+  }
+  function clearInput() { inputEl.innerHTML = ''; }
 
-  // ── Calendly plumbing (unchanged) ─────────────────────────────────────
+  // ── Calendly plumbing ───────────────────────────────────────────────────
   var activePayload = null;
   var activeFormType = null;
   var calendlyScriptLoaded = false;
@@ -446,8 +341,7 @@
   function showCalendly(formType, payload) {
     activePayload = payload;
     activeFormType = formType;
-    var chat = document.getElementById(formType + '-chat');
-    if (chat) chat.style.display = 'none';
+    document.getElementById('main-chat').style.display = 'none';
     var container = document.getElementById(formType + '-calendly-container');
     container.style.display = 'block';
     container.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -496,7 +390,7 @@
   });
 
   function uploadPitchDeck(file, callback) {
-    if (file.size > 5 * 1024 * 1024) { callback(new Error('File too large — max 5 MB.')); return; }
+    if (file.size > 5 * 1024 * 1024) { callback(new Error('File too large, max 5 MB.')); return; }
     var tempId = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36);
     var params = new URLSearchParams({ fileName: file.name, tempId: tempId });
     fetch(PITCHDECK_UPLOAD_URL + '?' + params.toString(), {
@@ -510,7 +404,9 @@
   }
 
   // ══════════════════════════════════════════════════════════════════════
-  // Natural-language chat engine.
+  // Natural-language chat engine, shared by every branch (lab / vc). All
+  // branches render into the SAME messagesEl/inputEl: one continuous
+  // conversation, not separate widgets.
   //   • Renders one bot question at a time.
   //   • Single textarea input. Enter = send. Shift+Enter = newline.
   //   • Optional paperclip button (VC only) to attach a PDF.
@@ -519,28 +415,16 @@
   //   • Then renders T&Cs + Continue, and on click runs onComplete(state).
   // ══════════════════════════════════════════════════════════════════════
   function runChat(opts) {
-    var ns        = opts.ns;             // 'lab' | 'vc'
+    var ns        = opts.ns;             // 'lab' | 'vc', used only for internal element IDs
     var script    = opts.script;         // [string question, ...]
     var allowFile = !!opts.allowFile;    // VC only
     var followUps = opts.followUpsFor || function () { return null; };
     var onReady   = opts.onReady;        // (state, transcript, errCb) => void
 
-    var messagesEl = document.getElementById(ns + '-chat-messages');
-    var inputEl    = document.getElementById(ns + '-chat-input');
     var transcript = [];
     var stepIndex  = 0;
     var attachedFile = null;
     var attachedKey  = null;
-
-    function addMsg(text, sender) {
-      var div = document.createElement('div');
-      div.className = 'chat-msg ' + (sender || 'bot');
-      div.textContent = text;
-      messagesEl.appendChild(div);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-      return div;
-    }
-    function clearInput() { inputEl.innerHTML = ''; }
 
     function renderPrompt(question) {
       addMsg(question, 'bot');
@@ -551,7 +435,6 @@
     function renderInput() {
       clearInput();
 
-      // Attached-file chip (above the row)
       if (attachedFile) {
         var chip = document.createElement('div');
         chip.className = 'chat-attached-chip';
@@ -568,29 +451,13 @@
       var row = document.createElement('div');
       row.className = 'chat-input-row';
 
-      var ta = document.createElement('textarea');
-      ta.className = 'chat-input-field';
-      ta.rows = 2;
-      ta.placeholder = 'Type your answer… (Enter to send, Shift+Enter for newline)';
-      ta.addEventListener('input', function () {
-        // Auto-grow up to max-height handled by CSS
-        ta.style.height = 'auto';
-        ta.style.height = Math.min(ta.scrollHeight, 260) + 'px';
-      });
-      ta.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          send();
-        }
-      });
-
       var attachBtn = null;
       if (allowFile) {
         attachBtn = document.createElement('button');
         attachBtn.type = 'button';
         attachBtn.className = 'chat-attach-btn' + (attachedFile ? ' has-file' : '');
         attachBtn.title = attachedFile ? 'PDF attached' : 'Attach a PDF (e.g. pitch deck)';
-        attachBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>';
+        attachBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>';
         var fi = document.createElement('input');
         fi.type = 'file'; fi.accept = '.pdf'; fi.style.display = 'none';
         fi.addEventListener('change', function () {
@@ -606,10 +473,26 @@
         inputEl.appendChild(fi);
       }
 
+      var ta = document.createElement('textarea');
+      ta.className = 'chat-input-field';
+      ta.rows = 1;
+      ta.placeholder = 'Type your answer…';
+      ta.addEventListener('input', function () {
+        ta.style.height = 'auto';
+        ta.style.height = Math.min(ta.scrollHeight, 160) + 'px';
+      });
+      ta.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          send();
+        }
+      });
+
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'chat-send-btn';
-      btn.textContent = 'Send';
+      btn.setAttribute('aria-label', 'Send');
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>';
       btn.onclick = send;
 
       row.appendChild(ta);
@@ -619,7 +502,7 @@
       var hint = document.createElement('div');
       hint.className = 'chat-hint';
       hint.textContent = allowFile
-        ? 'You can also attach a PDF (e.g. pitch deck) if you have one.'
+        ? 'You can also attach a PDF (e.g. pitch deck) if you have one. Enter to send, Shift+Enter for a new line.'
         : 'Press Enter to send · Shift+Enter for a new line.';
       inputEl.appendChild(hint);
 
@@ -637,7 +520,7 @@
         addMsg(displayText, 'user');
 
         var userMsgText = raw;
-        if (attachedFile) userMsgText += (raw ? '\n\n' : '') + '[ATTACHED PDF: ' + attachedFile.name + ' — the user wants to upload a pitch deck]';
+        if (attachedFile) userMsgText += (raw ? '\n\n' : '') + '[ATTACHED PDF: ' + attachedFile.name + ', the user wants to upload a pitch deck]';
         transcript.push({ role: 'user', text: userMsgText });
 
         clearInput();
@@ -647,9 +530,9 @@
 
     function showThinking() {
       var t = document.createElement('div');
-      t.className = 'chat-msg thinking';
+      t.className = 'chat-typing';
       t.id = ns + '-thinking';
-      t.textContent = 'Thinking';
+      t.innerHTML = '<span></span><span></span><span></span>';
       messagesEl.appendChild(t);
       messagesEl.scrollTop = messagesEl.scrollHeight;
     }
@@ -664,7 +547,6 @@
         renderPrompt(script[stepIndex]);
         return;
       }
-      // Out of scripted questions → ask the backend to extract
       runExtraction();
     }
 
@@ -686,10 +568,8 @@
           var fields = (data && data.fields) || {};
           var missing = (data && data.missing) || [];
 
-          // If the user attached a PDF, force evidenceType = 'pitch deck'
           if (allowFile && attachedFile) {
             fields.evidenceType = 'pitch deck';
-            // Anything that was required only in the text branch can be cleared
             missing = missing.filter(function (k) {
               return ['scientificClaim', 'decisionContext', 'claimConfidence', 'investmentImplication'].indexOf(k) < 0;
             });
@@ -704,7 +584,7 @@
         })
         .catch(function (e) {
           hideThinking();
-          addMsg('Sorry — I had trouble processing that. Could you rephrase or try again?', 'bot');
+          addMsg('Sorry, I had trouble processing that. Could you rephrase or try again?', 'bot');
           renderInput();
           console.warn('[chat] extraction failed:', e && e.message);
         });
@@ -713,21 +593,18 @@
     function askFollowUp(missing, fieldsSoFar) {
       var question = followUps(missing, fieldsSoFar);
       if (!question) {
-        // No more follow-ups defined; proceed even if some fields missing —
-        // the backend will return a clean validation error if so.
         renderTerms(fieldsSoFar);
         return;
       }
       addMsg(question, 'bot');
       transcript.push({ role: 'assistant', text: question });
       renderInput();
-      // Reset stepIndex so the next user reply triggers another extraction pass
       stepIndex = script.length - 1;
     }
 
     function renderTerms(fields) {
       clearInput();
-      addMsg("Perfect — I have everything I need. Please review the Terms and Conditions below, then click Continue to finalize.", 'bot');
+      addMsg("Perfect, I have everything I need. Please review the Terms and Conditions below, then click Continue to finalize.", 'bot');
 
       var termsBox = document.createElement('div');
       termsBox.className = 'chat-terms';
@@ -747,7 +624,7 @@
       actions.style.alignItems = 'center';
       var contBtn = document.createElement('button');
       contBtn.type = 'button';
-      contBtn.className = 'chat-send-btn';
+      contBtn.className = 'chat-cta-btn';
       contBtn.textContent = 'Continue →';
       contBtn.onclick = function () {
         if (!cb.checked) { alert('Please accept the Terms and Conditions to continue.'); return; }
@@ -767,8 +644,6 @@
       restart.textContent = 'Start over';
       restart.onclick = function () {
         if (!confirm('Start the intake over? Your current answers will be cleared.')) return;
-        messagesEl.innerHTML = '';
-        clearInput();
         transcript = [];
         stepIndex = 0;
         attachedFile = null;
@@ -781,7 +656,6 @@
       inputEl.appendChild(actions);
     }
 
-    // Kick it off
     renderPrompt(script[0]);
   }
 
@@ -811,20 +685,20 @@
   function buildFollowUp(missing) {
     if (missing.length === 0) return null;
     if (missing.length === 1) {
-      return "I caught most of that — could you tell me " + fmt(missing[0]) + "?";
+      return "I caught most of that, could you tell me " + fmt(missing[0]) + "?";
     }
     var list = missing.slice(0, 3).map(fmt);
     var joined = list.length === 2
       ? list.join(' and ')
       : list.slice(0, -1).join(', ') + ', and ' + list[list.length - 1];
-    return "Just a couple of things to round out — could you share " + joined + "?";
+    return "Just a couple of things to round out, could you share " + joined + "?";
   }
 
   // ── Lab script: 4 broad turns ─────────────────────────────────────────
   var labScript = [
-    "Hi, I'll help you request Pilot access to the DATOM R&D Sandbox. To start: tell me about your lab, its name, the PI, your institution, the best email for us to reach you, and what field you work in.",
-    "Now the science — what's the most critical claim your lab is currently building on, how confident are you in it right now, and what's driving any uncertainty?",
-    "What decision, publication, or funding milestone hinges on getting this claim right — and what would it mean for your lab to make that call with full confidence in the evidence?",
+    "Great, I'll help you request Pilot access to the DATOM R&D Sandbox. To start: tell me about your lab, its name, the PI, your institution, the best email for us to reach you, and what field you work in.",
+    "Now the science: what's the most critical claim your lab is currently building on, how confident are you in it right now, and what's driving any uncertainty?",
+    "What decision, publication, or funding milestone hinges on getting this claim right, and what would it mean for your lab to make that call with full confidence in the evidence?",
     "Last set: what have you already tried to stress-test this claim, who else at your institution would weigh in on adopting a tool like DATOM, and is your evidence base mostly internal experimental data, published literature, or both? (And if you remember, how did you hear about us?)"
   ];
 
@@ -855,9 +729,9 @@
 
   // ── VC script: 3 broad turns + optional attach ────────────────────────
   var vcScript = [
-    "Hi — I'll help you request a Confidence Report. To start: what's your name, your fund or firm, the best email for us to reach you, and how did you hear about DATOM?",
-    "What's the scientific claim you want evaluated and what decision does this analysis need to support? If you have a pitch deck and would rather just upload it, you can attach a PDF using the paperclip — DATOM will identify the central claim from the deck.",
-    "Almost done — how confident are you in the science behind this claim today, what happens to the decision if it turns out weaker than expected, have you done any prior diligence, and who else at your fund is involved in this decision?"
+    "I'll help you request a Confidence Report. To start: what's your name, your fund or firm, the best email for us to reach you, and how did you hear about DATOM?",
+    "What's the scientific claim you want evaluated and what decision does this analysis need to support? If you have a pitch deck and would rather just upload it, attach a PDF using the paperclip, DATOM will identify the central claim from the deck.",
+    "Almost done: how confident are you in the science behind this claim today, what happens to the decision if it turns out weaker than expected, have you done any prior diligence, and who else at your fund is involved in this decision?"
   ];
 
   function onVcReady(state, transcript, errCb) {
@@ -930,80 +804,95 @@
     }
   }
 
+  function startLabFlow() {
+    runChat({ ns: 'lab', script: labScript, allowFile: false,
+      followUpsFor: function (missing) { return buildFollowUp(missing); },
+      onReady: onLabReady });
+  }
+  function startVcFlow() {
+    runChat({ ns: 'vc', script: vcScript, allowFile: true,
+      followUpsFor: function (missing, fields) {
+        if (fields && fields.evidenceType === 'pitch deck') {
+          missing = missing.filter(function (k) {
+            return ['scientificClaim', 'decisionContext', 'claimConfidence', 'investmentImplication'].indexOf(k) < 0;
+          });
+        }
+        return buildFollowUp(missing);
+      },
+      onReady: onVcReady });
+  }
+
+  // ── Observer / Investigator: short conversational hand-off into the
+  //    real signup flow (signup.html actually creates the account and its
+  //    Commons/social access; this chat explains what happens and routes
+  //    there, it doesn't fake a multi-turn intake for something that's
+  //    really just a one-page form). ─────────────────────────────────────
+  function startObserverFlow() {
+    addMsg("Great choice. A free Observer account gets you the public ledger, the social feed, and following claims you care about. I'll take you to account setup, it takes about a minute.", 'bot');
+    clearInput();
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chat-cta-btn';
+    btn.textContent = 'Continue to sign up →';
+    btn.onclick = function () { window.location.href = 'signup.html?plan=observer'; };
+    inputEl.appendChild(btn);
+  }
+  function startInvestigatorFlow() {
+    addMsg("Investigator gets you full confidence reports, deeper evidence access, and the same social feed. Subscriptions are opening shortly, I'll take you to the waitlist so you're first in line.", 'bot');
+    clearInput();
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chat-cta-btn';
+    btn.textContent = 'Join the waitlist →';
+    btn.onclick = function () { window.location.href = 'investigator-coming-soon.html'; };
+    inputEl.appendChild(btn);
+  }
+
+  // ── The branch: one bot turn, chips, no separate section ───────────────
+  function startBranchSelector() {
+    addMsg("What are you here to do?", 'bot');
+    addChipRow([
+      { label: 'Read for free', onClick: function () { addMsg('Read for free', 'user'); startObserverFlow(); } },
+      { label: 'Subscribe', onClick: function () { addMsg('Subscribe', 'user'); startInvestigatorFlow(); } },
+      { label: "I'm a lab, company, or institution", onClick: function () {
+          addMsg("I'm a lab, company, or institution", 'user');
+          addMsg("Are you a research lab looking for pilot access, or an investor or decision-maker looking for a Confidence Report?", 'bot');
+          addChipRow([
+            { label: 'Research lab', onClick: function () { addMsg('Research lab', 'user'); startLabFlow(); } },
+            { label: 'Investor / decision-maker', onClick: function () { addMsg('Investor / decision-maker', 'user'); startVcFlow(); } }
+          ]);
+        } }
+    ]);
+  }
+
   // ── Hidden promo code input (populated by URL params) ─────────────────
   var promoHidden = document.createElement('input');
   promoHidden.type = 'hidden';
   promoHidden.id = 'vcPromoCode-hidden';
   document.body.appendChild(promoHidden);
 
-  (function initPromoPrefill() {
-    var params = new URLSearchParams(window.location.search);
-    var promo  = params.get('promo') || '';
-    var email  = params.get('email') || '';
-    if (!promo) return;
-    promoHidden.value = promo.trim().toUpperCase();
-    var banner = document.getElementById('vc-promo-banner');
-    var bannerEmail = document.getElementById('vc-promo-email');
-    if (banner) banner.style.display = 'block';
-    if (bannerEmail && email) bannerEmail.textContent = email;
-    var vcTab = document.getElementById('tab-vc');
-    if (vcTab) try { vcTab.click(); } catch (e) {}
-  })();
+  // ── Entry point: deep-link straight into a branch if the URL says so,
+  //    otherwise start with the branch-selector turn. ────────────────────
+  var pageParams = new URLSearchParams(window.location.search);
+  var promo = pageParams.get('promo') || '';
+  var promoEmail = pageParams.get('email') || '';
+  var hash = window.location.hash.replace('#', '');
 
-  // ── Start the chats ───────────────────────────────────────────────────
-  runChat({
-    ns: 'lab',
-    script: labScript,
-    allowFile: false,
-    followUpsFor: function (missing) { return buildFollowUp(missing); },
-    onReady: onLabReady
-  });
-  runChat({
-    ns: 'vc',
-    script: vcScript,
-    allowFile: true,
-    followUpsFor: function (missing, fields) {
-      // If a pitch deck was provided, suppress text-only follow-ups
-      if (fields && fields.evidenceType === 'pitch deck') {
-        missing = missing.filter(function (k) {
-          return ['scientificClaim', 'decisionContext', 'claimConfidence', 'investmentImplication'].indexOf(k) < 0;
-        });
-      }
-      return buildFollowUp(missing);
-    },
-    onReady: onVcReady
-  });
+  if (pageParams.get('cancelled') === 'true') {
+    document.getElementById('cancelled-message').style.display = 'block';
+    startVcFlow();
+  } else if (promo) {
+    promoHidden.value = promo.trim().toUpperCase();
+    addMsg('You have a promotional Confidence Report from DATOM' + (promoEmail ? ' for ' + promoEmail : '') + '. Share your claim below and you’ll skip payment entirely.', 'bot');
+    startVcFlow();
+  } else if (hash === 'lab') {
+    startLabFlow();
+  } else if (hash === 'vc') {
+    startVcFlow();
+  } else {
+    startBranchSelector();
+  }
 })();
-</script>
-<script>
-  // Front-door routing: simple keyword matching, no live NLU. Same
-  // honesty rule as elmer.js elsewhere on this site -- routes visitors,
-  // doesn't pretend to converse. The Lab/VC intake below is untouched.
-  (function () {
-    'use strict';
-    function route(kind) {
-      if (kind === 'observer') { window.location.href = 'signup.html?plan=observer'; return; }
-      if (kind === 'investigator') { window.location.href = 'investigator-coming-soon.html'; return; }
-      document.getElementById('institution-intake').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    document.querySelectorAll('.gs-chip').forEach(function (chip) {
-      chip.addEventListener('click', function () { route(chip.dataset.route); });
-    });
-    function routeFromText(text) {
-      var t = text.toLowerCase();
-      if (/\bfree\b|\bobserver\b|\bread\b/.test(t)) { route('observer'); return; }
-      if (/subscri|investigator|\bpay\b|paid/.test(t)) { route('investigator'); return; }
-      route('institution');
-    }
-    var input = document.getElementById('gs-search-input');
-    var go = document.getElementById('gs-search-go');
-    go.addEventListener('click', function () {
-      if (input.value.trim()) routeFromText(input.value);
-    });
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' && input.value.trim()) routeFromText(input.value);
-    });
-  })();
 </script>
 </body>
 </html>
