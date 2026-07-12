@@ -6,15 +6,21 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Scroll Reveal (IntersectionObserver) ── */
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          revealObserver.unobserve(entry.target); // reveal once, then stop tracking
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => revealObserver.observe(el));
+  } else {
+    // No IntersectionObserver support — never leave content hidden; show it all.
+    reveals.forEach(el => el.classList.add('active'));
+  }
 
   /* ── Card Mouse Glow Tracking ── */
   document.querySelectorAll('.card').forEach(card => {

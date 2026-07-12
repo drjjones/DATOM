@@ -1,0 +1,99 @@
+/* ============================================================
+   DATOM DESIGN TOKENS · v1.1 · DL-0101
+   Source of truth. Surfaces import this file; the DL sheet
+   demonstrates it. Do not fork values into component CSS.
+   ============================================================ */
+
+:root{
+  /* ---- environment: PAPER (primary, all public surfaces) ---- */
+  --paper:#F7F9FA;
+  --paper-2:#EDF1F5;
+  --nest:#E7ECF1;
+  --ink:#13253A;          /* text, rules, structure */
+  --muted:#3E5670;        /* secondary text            7.2:1 */
+  --faint:#526880;        /* labels, captions          5.4:1 */
+  --line:#CAD5E1;
+  --line-2:#9FB0C4;
+
+  /* ---- color roles (semantic; names encode permission) ---- */
+  --signal:#0B6E84;            /* interactive + supported + live, paper   5.6:1 */
+  --verdict-mixed:#8A5200;     /* mixed + insufficient                    6.1:1 */
+  --verdict-contra:#AD2B45;    /* contradicted                            6.2:1 */
+  --verdict-unrated:#566578;   /* unrated                                 5.6:1 */
+  --brand-mark-only:#00D2FF;   /* the atom mark. NEVER for text or UI.    */
+
+  /* ---- focus (environment-scoped; see [data-env] remap) ---- */
+  --focus:var(--signal);
+
+  /* ---- type ---- */
+  --font-brand:"Montserrat","Inter",sans-serif;   /* wordmark only */
+  --font-display:"Spectral",Georgia,serif;         /* letterhead, titles */
+  --font-body:"Inter","Helvetica Neue",Arial,sans-serif;
+  --font-data:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  /* ---- spacing, 4px base ---- */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px;
+  --label-col:150px;
+
+  /* ---- shape ---- */
+  --radius:0;             /* structural containers: always 0 */
+  --rule:1px;
+  --rule-double:2px;      /* reserved: letterhead, determination stamp, mark */
+
+  /* ---- touch ---- */
+  --touch-min:44px;
+}
+
+/* ---- environment: DARK INSTRUMENT (internal dashboard + video ONLY).
+   Components are environment-agnostic: wrap the surface in
+   [data-env="dark"] and the same component CSS renders correctly. ---- */
+[data-env="dark"]{
+  --paper:#101823;
+  --paper-2:#0B1119;
+  --nest:#0B1119;
+  --ink:#E8EEF6;
+  --muted:#97A8BF;
+  --faint:#7C8FA6;
+  --line:#243347;
+  --line-2:#33475F;
+  --signal:#2FC8DF;            /* instrument cyan             8.9:1 */
+  --verdict-mixed:#F5A524;     /*                             8.7:1 */
+  --verdict-contra:#F0506E;    /*                             5.2:1 */
+  --verdict-unrated:#647691;
+  --focus:#2FC8DF;             /* focus must be visible on dark */
+}
+
+/* ---- focus policy: one outline everywhere ---- */
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{
+  outline:2px solid var(--focus);
+  outline-offset:2px;
+}
+
+/* ---- touch targets ---- */
+@media (pointer:coarse){
+  :where(button,a.btn,.btn,input,select){min-height:var(--touch-min)}
+}
+
+/* ---- breakpoints (documented; use these three only) ----
+   compact  : max-width 480px   (single column, spine collapses)
+   standard : max-width 720px   (label column stacks above values)
+   wide     : max-width 1080px  (content max)                     */
+
+/* ---- print (the paper flagship) ---- */
+@media print{
+  @page{size:letter;margin:0.75in}
+  :root{--paper:#fff}
+  [data-env="dark"]{display:none}
+  .doc,.det,table{break-inside:avoid}
+  a{color:var(--ink);text-decoration:none}
+  /* the mark prints in brand cyan on color devices; acceptable
+     monochrome fallback is 100% ink. Never grayscale-tint it. */
+}
+
+/* ---- deprecated v1.0 aliases. Do not use in new code. ----
+   --cyan   -> --brand-mark-only
+   --teal   -> --signal
+   --amber  -> --verdict-mixed
+   --red    -> --verdict-contra
+   --gray   -> --verdict-unrated
+   --d-cyan -> (use --signal under [data-env="dark"])            */

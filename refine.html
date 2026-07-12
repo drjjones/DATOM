@@ -6,8 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="Refine your scientific claim with ELMER, DATOM's research assistant, before your Confidence Report begins." />
 <link rel="icon" href="./Assets/favicon.png" />
-<link rel="stylesheet" href="global.css?v=3" />
-<link rel="stylesheet" href="elmer.css" />
+<link rel="stylesheet" href="global.css?v=5" />
+<link rel="stylesheet" href="elmer.css?v=20260712a" />
+<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="design-v1.1.css?v=9">
 <style>
   /* ── Layout ───────────────────────────────────────────────── */
   .refine-shell {
@@ -43,11 +45,10 @@
   }
 
   .chat-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
     padding: 24px;
     min-height: 480px;
     display: flex;
@@ -62,12 +63,12 @@
     scroll-behavior: smooth;
   }
   .chat-history::-webkit-scrollbar { width: 6px; }
-  .chat-history::-webkit-scrollbar-thumb { background: rgba(6,182,212,0.25); border-radius: 3px; }
+  .chat-history::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 0; }
 
   .msg {
     max-width: 92%;
     padding: 14px 18px;
-    border-radius: 16px;
+    border-radius: 0;
     margin-bottom: 12px;
     font-size: 15px;
     line-height: 1.55;
@@ -75,18 +76,16 @@
     word-wrap: break-word;
   }
   .msg-assistant {
-    background: rgba(6,182,212,0.08);
-    border: 1px solid rgba(6,182,212,0.20);
-    color: var(--text);
-    border-bottom-left-radius: 4px;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink);
     margin-right: auto;
   }
   .msg-user {
-    background: var(--accent);
-    color: #fff;
-    border-bottom-right-radius: 4px;
+    background: transparent;
+    border: 1px solid var(--line-2);
+    color: var(--ink);
     margin-left: auto;
-    box-shadow: 0 2px 8px var(--accent-glow);
   }
   .msg-thinking {
     color: var(--muted);
@@ -97,77 +96,72 @@
     display: flex;
     gap: 10px;
     align-items: flex-end;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--line);
     padding-top: 14px;
   }
   .chat-input {
     flex: 1;
-    background: rgba(255,255,255,0.6);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    background: var(--paper);
+    border: 1px solid var(--line-2);
+    border-radius: 0;
     padding: 12px 16px;
     font-size: 15px;
-    font-family: var(--sans);
-    color: var(--text);
+    font-family: var(--font-body);
+    color: var(--ink);
     resize: none;
     min-height: 48px;
     max-height: 140px;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    outline: none;
+    transition: border-color 0.15s;
   }
   .chat-input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(6,182,212,0.15);
+    border-color: var(--signal);
   }
   .send-btn {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
     padding: 12px 22px;
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 2px 8px var(--accent-glow);
+    box-shadow: none;
     flex-shrink: 0;
     height: 48px;
   }
   .send-btn:hover:not(:disabled) {
-    background: var(--accent-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 14px var(--accent-glow);
+    filter: brightness(1.2);
   }
-  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
   /* ── Precision panel ─────────────────────────────────────── */
   .precision-panel {
     position: sticky;
     top: 110px;
-    background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
     padding: 22px;
   }
   .precision-panel h3 {
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--muted);
+    color: var(--faint);
     font-weight: 700;
     margin-bottom: 12px;
   }
   .current-claim {
-    font-family: var(--mono);
+    font-family: var(--font-data);
     font-size: 13px;
     line-height: 1.55;
-    background: rgba(255,255,255,0.5);
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 0;
     padding: 12px 14px;
-    color: var(--text);
+    color: var(--ink);
     margin-bottom: 18px;
     max-height: 140px;
     overflow-y: auto;
@@ -182,18 +176,18 @@
   .precision-bar {
     flex: 1;
     height: 8px;
-    border-radius: 4px;
-    background: rgba(6,182,212,0.12);
+    border-radius: 0;
+    background: var(--line);
     transition: background 0.4s;
   }
   .precision-bar.filled {
-    background: var(--accent);
-    box-shadow: 0 0 8px var(--accent-glow);
+    background: var(--signal);
+    box-shadow: none;
   }
   .precision-score {
     font-size: 24px;
     font-weight: 800;
-    color: var(--text);
+    color: var(--ink);
     margin-bottom: 4px;
     letter-spacing: -0.02em;
   }
@@ -217,11 +211,11 @@
     padding: 6px 0;
     color: var(--muted);
   }
-  .axis-list li.pass { color: var(--text); }
+  .axis-list li.pass { color: var(--ink); }
   .axis-icon {
     width: 18px;
     height: 18px;
-    border-radius: 50%;
+    border-radius: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -230,18 +224,19 @@
     flex-shrink: 0;
   }
   .axis-list li.pass .axis-icon {
-    background: var(--accent);
-    color: #fff;
+    background: var(--signal);
+    color: var(--paper);
   }
   .axis-list li.fail .axis-icon {
-    background: rgba(15,23,42,0.10);
-    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--line-2);
+    color: var(--faint);
   }
 
   .turn-counter {
     margin-top: 16px;
     padding-top: 16px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--line);
     font-size: 12px;
     color: var(--muted);
     text-align: center;
@@ -250,44 +245,43 @@
   .lock-cta {
     margin-top: 16px;
     width: 100%;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
     padding: 12px;
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 2px 8px var(--accent-glow);
+    box-shadow: none;
     opacity: 0;
     pointer-events: none;
     transform: translateY(4px);
   }
   .lock-cta.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-  .lock-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .lock-cta:hover { filter: brightness(1.2); }
 
   /* ── Confirm card ────────────────────────────────────────── */
   .confirm-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
     padding: 40px;
     text-align: center;
   }
   .confirm-claim-box {
-    font-family: var(--mono);
+    font-family: var(--font-data);
     font-size: 17px;
     line-height: 1.65;
-    background: rgba(6,182,212,0.06);
-    border: 1px solid rgba(6,182,212,0.20);
-    border-radius: 14px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 0;
     padding: 28px 32px;
     margin: 24px auto;
     max-width: 640px;
-    color: var(--text);
+    color: var(--ink);
     text-align: left;
   }
   .confirm-actions {
@@ -302,38 +296,38 @@
     align-items: center;
     justify-content: center;
     background: transparent;
-    color: var(--text);
+    color: var(--ink);
     padding: 14px 28px;
-    border-radius: 10px;
+    border-radius: 0;
     font-weight: 600;
     font-size: 15px;
     text-decoration: none;
-    border: 1px solid var(--border);
+    border: 1px solid var(--line-2);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background 0.2s, border-color 0.2s;
   }
-  .btn-ghost:hover { background: rgba(255,255,255,0.6); border-color: var(--accent); }
+  .btn-ghost:hover { background: var(--nest); border-color: var(--ink); }
 
   /* ── Upload card ─────────────────────────────────────────── */
   .upload-zone {
-    border: 2px dashed var(--accent);
-    border-radius: var(--radius);
+    border: 1px dashed var(--line-2);
+    border-radius: 0;
     padding: 60px 40px;
     text-align: center;
     cursor: pointer;
-    background: rgba(6,182,212,0.04);
+    background: transparent;
     transition: border-color 0.2s, background 0.2s;
     margin-top: 8px;
   }
-  .upload-zone:hover { background: rgba(6,182,212,0.08); }
-  .upload-zone.dragover { background: rgba(6,182,212,0.14); }
+  .upload-zone:hover { background: var(--nest); border-color: var(--ink); }
+  .upload-zone.dragover { background: var(--paper-2); border-color: var(--ink); }
   .file-row {
     padding: 10px 14px;
-    background: rgba(255,255,255,0.5);
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 0;
     font-size: 14px;
-    color: var(--text);
+    color: var(--ink);
     margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
@@ -341,33 +335,32 @@
   }
   .file-row .file-status {
     font-size: 12px;
-    color: var(--accent);
+    color: var(--signal);
     font-weight: 600;
   }
 
   /* ── Done card ───────────────────────────────────────────── */
   .done-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
     padding: 60px 40px;
     text-align: center;
   }
   .done-card svg {
     width: 64px;
     height: 64px;
-    color: var(--accent);
+    color: var(--signal);
     margin-bottom: 18px;
   }
 
   /* ── Error / loading ─────────────────────────────────────── */
   .center-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
     padding: 60px 40px;
     text-align: center;
     max-width: 560px;
@@ -376,13 +369,32 @@
   .spinner {
     width: 36px;
     height: 36px;
-    border: 3px solid rgba(6,182,212,0.18);
-    border-top-color: var(--accent);
+    border: 3px solid var(--line);
+    border-top-color: var(--signal);
     border-radius: 50%;
     margin: 0 auto 18px;
     animation: spin 0.9s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Primary action button ───────────────────────────────────
+     global.css .btn-primary is cyan / rounded / glow; flatten it to
+     the document vocabulary (ink fill, no radius, no glow). Kept as
+     an override so the existing #start-analysis-btn markup is unchanged. */
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .btn-primary:hover {
+    background: var(--ink);
+    filter: brightness(1.2);
+    transform: none;
+    box-shadow: none;
+  }
+  .btn-primary:active { transform: none; }
 
   .stage-section { display: none; }
   .stage-section.active { display: block; }
@@ -405,11 +417,11 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
   </button>
   <nav>
-    <a href="product.html">How It Works</a>
-    <a href="solutions.html">Solutions</a>
     <a href="example.html">Live Example</a>
-    <a href="research.html">Research</a>
-    <a href="mailto:info@datom.science" class="btn-cta">Contact</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="organizations.html">For Organizations</a>
+    <a href="/app/login" class="btn-login">Log In</a>
+    <a href="try.html" class="btn-cta">Get Started</a>
   </nav>
 </header>
 
@@ -503,7 +515,7 @@
       </div>
 
       <div class="upload-zone" id="upload-zone" role="button" tabindex="0" aria-label="Drop PDF files here or click to browse">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 14px;display:block;color:var(--accent)" aria-hidden="true">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 14px;display:block;color:var(--signal)" aria-hidden="true">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
         </svg>
         <p style="margin:0 0 8px;font-weight:600;color:var(--text);">Drop PDFs here or click to browse</p>
@@ -512,7 +524,7 @@
       </div>
 
       <div id="file-list" style="margin-top:18px;" aria-live="polite"></div>
-      <div id="upload-error" role="alert" style="display:none;margin-top:12px;color:#e05252;font-size:14px;"></div>
+      <div id="upload-error" role="alert" style="display:none;margin-top:12px;color:var(--verdict-contra);font-size:14px;"></div>
 
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;flex-wrap:wrap;gap:12px;">
         <button class="btn-ghost" id="skip-upload-btn" type="button">Skip &mdash; analyze public sources only</button>
@@ -523,9 +535,10 @@
   </div>
 </main>
 
-<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--accent);">Terms</a></footer>
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--signal);">Terms</a></footer>
 
-<script src="shared.js"></script>
+<script src="fog-bg.js?v=2"></script>
+<script src="shared.js?v=20260710"></script>
 <script>
 (function () {
   'use strict';

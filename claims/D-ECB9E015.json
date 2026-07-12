@@ -1,0 +1,1306 @@
+{
+  "entryId": "D-ECB9E015",
+  "datomerId": "ce304af2-9cf5-47bd-bde9-c31e51a69eae",
+  "name": "HPV Vaccination Coverage and Policy Implementation",
+  "anchorClaim": "HPV vaccination coverage among university-age and catch-up-eligible populations remains below public-health targets and varies by at least [X] percentage points between the highest and lowest coverage regions, as documented in epidemiological surveillance and policy-implementation studies.",
+  "plainQuestion": "Does HPV vaccination coverage among university-age and catch-up-eligible populations fall short of public-health targets, and how much does it vary from one region to another?",
+  "confidence_score_pct": 20,
+  "confidence_band": "Speculative",
+  "replication_count": 196,
+  "as_of": "12 Jul 2026",
+  "projectId": "18558841-4a2d-4ceb-8f67-1c1ab6c4d1de",
+  "verdict": "Emerging",
+  "totalDatomCount": 196,
+  "isHealthDomain": true,
+  "dataQualityNote": "All 196 records were pulled from the anchor's real datom_ids list. A GSI query on this anchor's own datomerId (ce304af2...) returned zero rows because the underlying extracted-datom records instead carry a different, job-level datomerId (27763aa0-7e51-4648-b500-95d95bcd73bd, and that value only groups 58 of the 196 datoms); get-item/batch-get-item on the 196 listed datom_ids was used instead and returned all 196 with no gaps or missing records. The system's own pre-generated narrative (cached_narrative) failed with status ERROR (\"Too many requests, please wait before trying again.\"), so the guide text above was authored fresh from the raw fetched data rather than reused. 133 of 196 records (68%) are abstract-only TEXT_NO_METADATA extractions rather than full-text PDFs, methodology is described using 123 distinct free-text labels (79 of them singletons), 15 records lack a DOI, 3 lack listed authors, and all 196 records carry review status PENDING (not yet reviewer-verified). The anchor claim itself contains an unfilled \"[X] percentage points\" placeholder, so no single validated magnitude for the coverage gap exists in the underlying data.",
+  "guide": {
+    "whatScienceSays": "Across 196 real extracted findings, 145 (74%) support the claim that HPV vaccination coverage among university-age and catch-up-eligible populations lags public-health targets and varies by region, 51 (26%) are conditional on specific subgroups or contexts, and none directly contradict it. The evidence spans claims-database analyses, national immunization surveys, and epidemiological surveillance studies drawn from 93 distinct sources and 94 distinct authors, and it repeatedly documents large regional coverage gaps, for example 54 to 61 percentage points between Flanders and Wallonia-Brussels in Belgium, and over 40 percentage points across U.S. states in several MMWR surveillance reports. Coverage among catch-up-eligible adults (16 to 26 years) is consistently reported as lower than coverage among the routine adolescent cohort.",
+    "howConfident": "DATOM scores this claim Speculative at 20 out of 100, despite the large evidence base of 196 findings and zero direct contradictions. The low score is driven by evidentiary consistency and quality components rather than conflicting evidence: methodology is described using 123 distinct free-text labels (79 of them singletons), source diversity is high but comparability across studies is limited, and 6 findings are flagged as underpowered against the domain's sample-size threshold of 63. The anchor claim itself uses an unfilled \"[X] percentage points\" placeholder, meaning no single validated magnitude for the coverage gap has been agreed across studies, which further depresses the consistency scoring even though the direction of the finding (coverage below target, with regional variation) is echoed across nearly every source.",
+    "decisionSupport": [
+      "Expect real coverage gaps of tens of percentage points between the best- and worst-performing regions rather than a single national rate; documented examples include a 54 to 61 point gap in Belgium and gaps above 40 points across U.S. states.",
+      "School-based vaccination delivery is repeatedly identified in the evidence as narrowing access-driven disparities, particularly in areas with lower primary-care or provider access.",
+      "Catch-up-eligible populations (roughly ages 16 to 26) show consistently lower coverage than routine adolescent cohorts, so outreach aimed only at the routine age band will miss a documented gap.",
+      "Treat any single percentage-point figure with caution: the evidence base spans 123 different methodological descriptions and is 68% abstract-only text extraction rather than full-text PDF, so exact numbers are not always directly comparable across studies."
+    ],
+    "faultLines": "The anchor claim itself contains an unfilled \"[X] percentage points\" placeholder, so no single validated magnitude for the coverage gap exists across the underlying studies. Most records (133 of 196) are abstract-only text extractions rather than full-text PDFs, and all 196 records carry a review status of PENDING rather than completed reviewer verification. Methodology is highly fragmented (123 distinct descriptions across 196 datoms), which limits direct comparability between findings, and 6 findings are flagged as underpowered relative to the domain's sample-size threshold."
+  },
+  "evidenceSplit": {
+    "supports": 145,
+    "contradicts": 0,
+    "conditional": 51
+  },
+  "figures": {
+    "methodologyMix": [
+      {
+        "label": "Epidemiological surveillance study",
+        "count": 7
+      },
+      {
+        "label": "Systematic review and meta-analysis",
+        "count": 5
+      },
+      {
+        "label": "Repeated cross-sectional survey analysis with provider-verified vaccination records",
+        "count": 4
+      },
+      {
+        "label": "Cross-sectional survey analysis with logistic regression",
+        "count": 4
+      },
+      {
+        "label": "National cross-sectional survey",
+        "count": 4
+      },
+      {
+        "label": "Cross-sectional survey with complex clustered sampling",
+        "count": 4
+      },
+      {
+        "label": "Cross-sectional epidemiological surveillance study",
+        "count": 4
+      },
+      {
+        "label": "Mathematical transmission dynamic model with epidemiological surveillance data",
+        "count": 3
+      },
+      {
+        "label": "Retrospective claims database analysis",
+        "count": 3
+      },
+      {
+        "label": "Birth cohort analysis using National Immunization Survey-Teen",
+        "count": 3
+      },
+      {
+        "label": "WHO/UNICEF epidemiological surveillance and coverage estimation",
+        "count": 3
+      },
+      {
+        "label": "Cross-sectional retrospective study with Poisson regression",
+        "count": 3
+      },
+      {
+        "label": "Claims database analysis",
+        "count": 3
+      },
+      {
+        "label": "Cross-sectional registry data analysis",
+        "count": 3
+      },
+      {
+        "label": "Geostatistical analysis with principal component analysis",
+        "count": 3
+      },
+      {
+        "label": "Cross-sectional survey",
+        "count": 3
+      },
+      {
+        "label": "Cross-sectional survey with self-reported vaccination history",
+        "count": 3
+      },
+      {
+        "label": "Cross-sectional survey analysis",
+        "count": 3
+      },
+      {
+        "label": "Cross-sectional analysis of vaccination register notifications",
+        "count": 2
+      },
+      {
+        "label": "Temporal trend analysis of surveillance data",
+        "count": 2
+      },
+      {
+        "label": "National survey with state-level stratification",
+        "count": 2
+      },
+      {
+        "label": "Systematic review and synthesis",
+        "count": 2
+      },
+      {
+        "label": "Cross-sectional epidemiological survey",
+        "count": 2
+      },
+      {
+        "label": "Ecological analysis with Spearman rank correlation",
+        "count": 2
+      },
+      {
+        "label": "Literature review and comparative analysis",
+        "count": 2
+      },
+      {
+        "label": "Systematic review with meta-analysis",
+        "count": 2
+      },
+      {
+        "label": "Claims database analysis with age-specific initiation rates",
+        "count": 2
+      },
+      {
+        "label": "Claims data analysis, retrospective cohort study",
+        "count": 2
+      },
+      {
+        "label": "Epidemiological surveillance using national vaccination register data",
+        "count": 2
+      },
+      {
+        "label": "Immunization registry data analysis",
+        "count": 2
+      },
+      {
+        "label": "Claims data analysis",
+        "count": 2
+      },
+      {
+        "label": "Descriptive study using national health insurance database",
+        "count": 2
+      },
+      {
+        "label": "National survey analysis",
+        "count": 2
+      },
+      {
+        "label": "National cross-sectional survey with provider-reported vaccination records",
+        "count": 2
+      },
+      {
+        "label": "Cross-sectional survey analysis with multivariable logistic regression",
+        "count": 2
+      },
+      {
+        "label": "National cross-sectional immunization survey",
+        "count": 2
+      },
+      {
+        "label": "Birth cohort analysis using national survey data",
+        "count": 2
+      },
+      {
+        "label": "Cross-sectional surveillance study",
+        "count": 2
+      },
+      {
+        "label": "Epidemiological surveillance study using immunization registry data",
+        "count": 2
+      },
+      {
+        "label": "National survey analysis (NIS-Teen)",
+        "count": 2
+      },
+      {
+        "label": "Repeated cross-sectional survey with HPV genotyping",
+        "count": 2
+      },
+      {
+        "label": "Serial cross-sectional study",
+        "count": 2
+      },
+      {
+        "label": "Retrospective immunization registry analysis",
+        "count": 2
+      },
+      {
+        "label": "National survey with provider verification",
+        "count": 2
+      },
+      {
+        "label": "Epidemiological surveillance and policy review",
+        "count": 1
+      },
+      {
+        "label": "Claims database analysis with cumulative coverage rate estimation",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional study with temporal trend analysis",
+        "count": 1
+      },
+      {
+        "label": "Epidemiological surveillance study with stratified analysis",
+        "count": 1
+      },
+      {
+        "label": "Multilevel logistic regression analysis of national survey data",
+        "count": 1
+      },
+      {
+        "label": "Descriptive epidemiological surveillance analysis stratified by geographic area",
+        "count": 1
+      },
+      {
+        "label": "Two-stage cluster sample survey",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional descriptive survey with chi-square analysis",
+        "count": 1
+      },
+      {
+        "label": "Population-based two-stage cluster survey",
+        "count": 1
+      },
+      {
+        "label": "Epidemiological surveillance and regional coverage assessment",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional online survey with chi-squared analysis",
+        "count": 1
+      },
+      {
+        "label": "National immunisation programme surveillance",
+        "count": 1
+      },
+      {
+        "label": "National cross-sectional survey stratified by metropolitan statistical area",
+        "count": 1
+      },
+      {
+        "label": "Epidemiological surveillance analysis",
+        "count": 1
+      },
+      {
+        "label": "National cross-sectional survey with provider-reported vaccination histories",
+        "count": 1
+      },
+      {
+        "label": "National survey with provider verification and state-level stratification",
+        "count": 1
+      },
+      {
+        "label": "National cross-sectional survey with state and local area stratification",
+        "count": 1
+      },
+      {
+        "label": "National cross-sectional survey with stratified geographic analysis",
+        "count": 1
+      },
+      {
+        "label": "National survey with state-level stratification of provider recommendation prevalence",
+        "count": 1
+      },
+      {
+        "label": "Cluster randomized trial with post-hoc subgroup analysis",
+        "count": 1
+      },
+      {
+        "label": "Interrupted time series analysis with segmented Poisson regression",
+        "count": 1
+      },
+      {
+        "label": "National cross-sectional survey with jurisdiction-level stratification",
+        "count": 1
+      },
+      {
+        "label": "Epidemiological surveillance and policy documentation review",
+        "count": 1
+      },
+      {
+        "label": "Epidemiological surveillance data comparison across European regions",
+        "count": 1
+      },
+      {
+        "label": "National cross-sectional survey analysis",
+        "count": 1
+      },
+      {
+        "label": "Cross-national surveillance analysis",
+        "count": 1
+      },
+      {
+        "label": "Deterministic population-based transmission model",
+        "count": 1
+      },
+      {
+        "label": "Epidemiological surveillance and coverage analysis",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional telephone survey",
+        "count": 1
+      },
+      {
+        "label": "Systematic review and pooled analysis",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional telephone survey with parental self-report and administrative NIP data review",
+        "count": 1
+      },
+      {
+        "label": "Qualitative interview and focus group study",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional telephone survey with parental self-report",
+        "count": 1
+      },
+      {
+        "label": "National survey with stratified analysis by geographic area",
+        "count": 1
+      },
+      {
+        "label": "Multilevel regression analysis of state-level policy and access data",
+        "count": 1
+      },
+      {
+        "label": "Epidemiological surveillance and national vaccination coverage survey",
+        "count": 1
+      },
+      {
+        "label": "National cross-sectional survey with provider-reported vaccination records stratified by jurisdiction",
+        "count": 1
+      },
+      {
+        "label": "National survey with provider-reported vaccination records",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional online survey",
+        "count": 1
+      },
+      {
+        "label": "Systematic review with subgroup analysis by income level",
+        "count": 1
+      },
+      {
+        "label": "National survey analysis with temporal comparison",
+        "count": 1
+      },
+      {
+        "label": "Literature review and epidemiological data analysis",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional observational study using electronic health records stratified by geographic location",
+        "count": 1
+      },
+      {
+        "label": "Cluster randomized trial with national health reimbursement database",
+        "count": 1
+      },
+      {
+        "label": "Retrospective electronic medical record review",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional survey with stratification by poverty level",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional observational study using electronic health records stratified by race and ethnicity",
+        "count": 1
+      },
+      {
+        "label": "National cross-sectional survey with geographic stratification",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional retrospective study",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional descriptive survey",
+        "count": 1
+      },
+      {
+        "label": "Longitudinal registry analysis",
+        "count": 1
+      },
+      {
+        "label": "Cross-national surveillance analysis with global aggregation",
+        "count": 1
+      },
+      {
+        "label": "Cross-national surveillance analysis stratified by income group",
+        "count": 1
+      },
+      {
+        "label": "Mixed-methods national study",
+        "count": 1
+      },
+      {
+        "label": "National cross-sectional survey with provider record verification",
+        "count": 1
+      },
+      {
+        "label": "Electronic survey of colleges and universities",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional survey with stratification by health insurance status",
+        "count": 1
+      },
+      {
+        "label": "Descriptive epidemiological surveillance analysis",
+        "count": 1
+      },
+      {
+        "label": "Policy implementation surveillance and campaign documentation",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional study",
+        "count": 1
+      },
+      {
+        "label": "Nationwide epidemiological surveillance study",
+        "count": 1
+      },
+      {
+        "label": "Retrospective electronic medical record review with logistic regression",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional survey with stratification by metropolitan statistical area status",
+        "count": 1
+      },
+      {
+        "label": "Multilevel regression analysis of publicly available data",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional telephone survey with open-ended and closed-ended questions about reasons for non-vaccination",
+        "count": 1
+      },
+      {
+        "label": "Interrupted time series analysis with segmented regression model",
+        "count": 1
+      },
+      {
+        "label": "Population-level census analysis by birth cohort",
+        "count": 1
+      },
+      {
+        "label": "National cross-sectional survey stratified by health insurance status",
+        "count": 1
+      },
+      {
+        "label": "Generalized Estimating Equations regression model",
+        "count": 1
+      },
+      {
+        "label": "Comparative epidemiological survey",
+        "count": 1
+      },
+      {
+        "label": "National cross-sectional survey with HPV DNA testing",
+        "count": 1
+      },
+      {
+        "label": "Birth cohort analysis comparing vaccination coverage by age 14 years between 2008 and 2007 birth cohorts",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional observational study using electronic health records",
+        "count": 1
+      },
+      {
+        "label": "Cluster randomized clinical trial with stepped-wedge factorial design",
+        "count": 1
+      },
+      {
+        "label": "Modeling study with policy review",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional survey and acceptability assessment",
+        "count": 1
+      },
+      {
+        "label": "National immunization programme surveillance and coverage assessment",
+        "count": 1
+      },
+      {
+        "label": "National cross-sectional survey comparing HPV vaccination coverage by insurance status between 2021 and 2022",
+        "count": 1
+      },
+      {
+        "label": "Longitudinal registry analysis with census linkage",
+        "count": 1
+      }
+    ],
+    "sourceTypeMix": [
+      {
+        "label": "TEXT_NO_METADATA",
+        "count": 133
+      },
+      {
+        "label": "PDF_FULL_TEXT",
+        "count": 63
+      }
+    ],
+    "publicationYears": [
+      {
+        "year": 2011,
+        "count": 3
+      },
+      {
+        "year": 2012,
+        "count": 2
+      },
+      {
+        "year": 2013,
+        "count": 7
+      },
+      {
+        "year": 2014,
+        "count": 10
+      },
+      {
+        "year": 2015,
+        "count": 5
+      },
+      {
+        "year": 2016,
+        "count": 7
+      },
+      {
+        "year": 2017,
+        "count": 12
+      },
+      {
+        "year": 2018,
+        "count": 9
+      },
+      {
+        "year": 2019,
+        "count": 10
+      },
+      {
+        "year": 2020,
+        "count": 21
+      },
+      {
+        "year": 2021,
+        "count": 18
+      },
+      {
+        "year": 2022,
+        "count": 8
+      },
+      {
+        "year": 2023,
+        "count": 15
+      },
+      {
+        "year": 2024,
+        "count": 10
+      },
+      {
+        "year": 2025,
+        "count": 35
+      },
+      {
+        "year": 2026,
+        "count": 24
+      }
+    ]
+  },
+  "datoms": [
+    {
+      "id": "40d989f2-afea-49dd-89c5-c44f59eedd89",
+      "claim": "Regional HPV vaccination coverage in Belgium varies by at least 54-61 percentage points between the highest coverage region (Flanders at 90%) and the lowest coverage region (Wallonia-Brussels at 29-36%).",
+      "source": "S. Simoens, A. Bento-Abreu, B. Merckx, S. Joubert, Steve Vermeersch \"Health Impact and Cost-Effectiveness of Implementing Gender-Neutral Vaccination With the 9-Valent Human Papillomavirus Vaccine in Belgium\" (2021). doi:10.3389/fphar.2021.628434",
+      "year": 2021,
+      "population": "School-aged children in Flanders (11-12 years) and Wallonia-Brussels (12-13 years) regions, Belgium",
+      "domain": "Epidemiology; Public health vaccination programs",
+      "measure": "Regional variation in HPV vaccine coverage rate (percentage points)",
+      "methodology": "Mathematical transmission dynamic model with epidemiological surveillance data",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "The substantial regional variation in coverage reflects differences in program implementation, regional governance structures, and vaccine types used. The paper uses these documented regional differences as key parameters in modeling cost-effectiveness of gender-neutral vaccination strategies. Limitations: The study reports coverage at specific time points rather than continuous data. The analysis does not fully explore the reasons for regional variation. Catch-up program coverage was projected (50%) rather than observed."
+    },
+    {
+      "id": "6faea420-c9a4-435b-bfc2-e96ec8de209b",
+      "claim": "HPV vaccination coverage varies substantially across European regions, with differences of at least several percentage points between highest and lowest coverage areas.",
+      "source": "Ngoc-Ha Nguyen-Huu, Nathalie Thilly, Tarik Derrough, Emmanouela Sdona, Frédérique Claudot \"Human papillomavirus vaccination coverage, policies, and practical implementation across Europe\" (2019). doi:10.1016/j.vaccine.2019.11.081",
+      "year": 2019,
+      "population": "University-age and catch-up-eligible populations across European countries",
+      "domain": "Public health epidemiology and vaccination policy",
+      "measure": "HPV vaccination coverage by region",
+      "methodology": "Epidemiological surveillance and policy review",
+      "relationship": "SUPPORTS",
+      "sample_size": "Multiple European countries and regions",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Regional variation in HPV vaccination coverage reflects differences in national policies, healthcare infrastructure, and implementation strategies across Europe. Limitations: Data availability and comparability across countries may vary; some regions may have incomplete surveillance data."
+    },
+    {
+      "id": "7a87b14d-eac6-4497-933d-608319bdebf9",
+      "claim": "HPV vaccination coverage varies substantially by age group, with adolescents aged 15–17 years demonstrating higher series completion rates than adolescents aged 13–14 years across all survey years.",
+      "source": "Taylor Mullin, Jesse Plascak, Alai Tan, Jodi Ford, Henry Duah \"Trends in HPV vaccination initiation and completion among U.S. adolescents aged 13-17 years, 2021-2023: Findings from the National Immunization Survey-Teen.\" (2026). doi:10.1371/journal.pone.0349299",
+      "year": 2026,
+      "population": "U.S. adolescents aged 13–17 years stratified by age group (13–14 and 15–17 years)",
+      "domain": "Epidemiological surveillance and immunization coverage",
+      "measure": "HPV vaccination series completion rate by age group (%)",
+      "methodology": "Repeated cross-sectional survey analysis with provider-verified vaccination records",
+      "relationship": "SUPPORTS",
+      "sample_size": "126,226 adolescents (49,596 aged 13–14; 76,630 aged 15–17)",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "Age-related trends provide insight into opportunities for improvement. Older adolescents (15–17 years) exhibited higher completion rates, likely reflecting increased time since vaccine eligibility and additional opportunities for healthcare encounters. However, delaying initiation until mid-adolescence leaves less time to complete the series before the onset of sexual activity. Limitations: Only three years of data analyzed. Study was descriptive and did not examine sociodemographic or contextual predictors beyond age and sex. Immunocompromised status could not be identified in public-use files."
+    },
+    {
+      "id": "ed673449-4594-41e4-9dc3-bf7ba3b8ca2c",
+      "claim": "HPV vaccination coverage in France remains substantially below the 60% public-health target set by the French Cancer Plan 2014-2019, with full-scheme coverage at 18.6% among 11-14 year-old girls by 2018.",
+      "source": "F. Dalon, L. Majed, M. Belhassen, F. Jacoud, M. Berard \"PIN103 Trends in Human Papillomavirus (HPV) Vaccine Coverage Rates (VCR) in France: A French Claims DATA Study\" (2020). doi:10.1016/j.jval.2020.08.944",
+      "year": 2020,
+      "population": "Girls aged 11-16 years in France who initiated HPV vaccination 2016-2018",
+      "domain": "Epidemiological surveillance and vaccination coverage",
+      "measure": "HPV vaccine full-scheme cumulative coverage rate (percentage)",
+      "methodology": "Claims database analysis with cumulative coverage rate estimation",
+      "relationship": "SUPPORTS",
+      "sample_size": "611,606 women",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "HPV vaccine coverage rates significantly increased between 2016 and 2018, providing positive signs regarding resumption of vaccination. However, the absolute coverage levels remain far below the 60% target. Limitations: The study covers only 2016-2018 data; longitudinal follow-up until 2022 was planned. A potential impact of COVID-19 lockdown on VCR could be expected but was not assessed."
+    },
+    {
+      "id": "95e6130d-0dec-49fe-b39f-9c1e862b308c",
+      "claim": "HPV vaccination uptake among catch-up-eligible populations (ages 16–26) declined substantially over the study period, from peak uptake in 2007 (when vaccine became available) to ≤1% by 2016 among those aged 22 and older.",
+      "source": "V. Prabhu, N. Bansal, Zhiwen Liu, Rodney Finalle, M. Sénécal \"HPV vaccination uptake and administration from 2006 to 2016 in a commercially insured population of the United States\" (2020). doi:10.1186/s12889-021-11664-1",
+      "year": 2020,
+      "population": "Commercially insured 9- to 26-year-olds in the United States, 2006–2016",
+      "domain": "Epidemiological surveillance and vaccination coverage",
+      "measure": "Annual HPV vaccination uptake in catch-up-eligible age groups (16–26 years)",
+      "methodology": "Retrospective claims database analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "118 million unique enrollees",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "Authors note that 'over time, more and more teenagers were vaccinated at younger ages which means less were available for vaccination as older adolescents and young adults,' explaining the decline in catch-up uptake. This reflects a cohort effect rather than increased uptake in older age groups. Limitations: Limited to commercially insured population. Only birth year available, not exact age. Vaccines not submitted for reimbursement not captured."
+    },
+    {
+      "id": "773bdbb0-bb12-4181-ab00-e6f013732aba",
+      "claim": "HPV vaccination coverage among adolescents in Switzerland varies between regions, with documented differences in coverage rates across the study period 2008–2022.",
+      "source": "Vasiliki Baroutsou, Monica Wymann, Anne Spaar Zographos, Kyra Zens, Jan Fehr \"Human papillomavirus vaccine uptake and the impact of school-based health services in Switzerland: a cross-sectional study.\" (2026). doi:10.1136/bmjph-2025-004208",
+      "year": 2026,
+      "population": "Adolescents in Switzerland",
+      "domain": "Epidemiology and public health vaccination surveillance",
+      "measure": "HPV vaccination coverage and schedule completion rates by region and delivery method",
+      "methodology": "Cross-sectional study with temporal trend analysis",
+      "relationship": "CONDITIONAL",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The study assessed differences in vaccination outcomes by delivery through school health services, suggesting that delivery method may influence coverage rates. Limitations: The abstract does not report specific limitations; full-text limitations are not provided."
+    },
+    {
+      "id": "1ec26865-10d5-4b75-a706-42acbf8a42f1",
+      "claim": "HPV vaccination coverage among Australian women aged 18-26 years remains below public-health targets, with only 55.2% receiving dose 1 and 31.7% completing the full three-dose series.",
+      "source": "J. Brotherton, D. Gertig, Genevieve Chappell, L. Rowlands, M. Saville \"Catching up with the catch-up: HPV vaccination coverage data for Australian women aged 18-26 years from the National HPV Vaccination Program Register.\" (2011). doi:10.33321/cdi.2011.35.18",
+      "year": 2011,
+      "population": "Australian women aged 18-26 years participating in the National HPV Vaccination Program catch-up campaign",
+      "domain": "Epidemiological surveillance and public health policy implementation",
+      "measure": "HPV vaccination coverage (dose 1, 2, and 3 completion rates)",
+      "methodology": "Cross-sectional analysis of vaccination register notifications",
+      "relationship": "SUPPORTS",
+      "sample_size": "1.7 million vaccine doses for women aged 18-26 years",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The authors conclude that over half of Australian women aged 18-26 years commenced HPV vaccine courses and about one-third are fully vaccinated, indicating substantial gaps in coverage. Limitations: Some of the differences in coverage observed between states and territories likely reflect differing notification mechanisms rather than true differences in vaccination uptake."
+    },
+    {
+      "id": "f0bb27da-fd00-49a5-afb4-a91187a8e280",
+      "claim": "HPV vaccination coverage varies by geographic region or demographic subgroup within Rhode Island, indicating unequal distribution of vaccination uptake.",
+      "source": "Hyun Hanna Kim, Tricia Washburn, Kathy Marceau, Patricia Raymond \"Human Papillomavirus (HPV) Vaccination Coverage among Rhode Island Adolescents, 2008-2014.\" (2016)",
+      "year": 2016,
+      "population": "Rhode Island adolescents aged 11-18 years, stratified by region or demographic characteristics",
+      "domain": "Public health epidemiology",
+      "measure": "HPV vaccination coverage by region or demographic subgroup",
+      "methodology": "Epidemiological surveillance study with stratified analysis",
+      "relationship": "CONDITIONAL",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Regional and demographic disparities in HPV vaccination coverage suggest the need for targeted public health efforts to improve coverage in underserved areas. Limitations: Study limited to Rhode Island; specific magnitude of regional variation not detailed in available abstract."
+    },
+    {
+      "id": "835004af-f959-44ef-ad36-d497cb00d1a0",
+      "claim": "HPV vaccination coverage varies between Australian regions, with regional differences in uptake among female adolescents in the school-based program.",
+      "source": "J. Brotherton, S. L. Murray, Madeline Hall, L. Andrewartha, Carolyn Banks \"Human papillomavirus vaccine coverage among female Australian adolescents: success of the school‐based approach\" (2013). doi:10.5694/mja13.10272",
+      "year": 2013,
+      "population": "Female Australian adolescents in school-based HPV vaccination program",
+      "domain": "Public health / Immunization epidemiology",
+      "measure": "Regional variation in HPV vaccination coverage",
+      "methodology": "Epidemiological surveillance study",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The identification of regional variation suggests that while the school-based approach was generally successful, coverage was not uniform across all regions, indicating potential for targeted interventions in lower-coverage areas. Limitations: Specific limitations regarding regional data collection not detailed in provided excerpt."
+    },
+    {
+      "id": "55c9d2e2-a3ed-42e7-966c-714f2b84bef4",
+      "claim": "HPV vaccination coverage varies across U.S. states and jurisdictions, with states having school-entry or education mandates not achieving higher coverage than states without such mandates during 2009–2013.",
+      "source": "Rebecca B. Perkins, Meng‐Yun Lin, Sherrie Flynt Wallington, Amresh Hanchate \"Impact of school-entry and education mandates by states on HPV vaccination coverage: Analysis of the 2009–2013 National Immunization Survey-Teen\" (2016). doi:10.1080/21645515.2016.1150394",
+      "year": 2016,
+      "population": "Girls ages 13–17 residing in U.S. states and jurisdictions",
+      "domain": "Epidemiology and public health policy",
+      "measure": "HPV vaccine series initiation and completion coverage by state mandate status",
+      "methodology": "Multilevel logistic regression analysis of national survey data",
+      "relationship": "CONDITIONAL",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The authors conclude that existing school-entry and education mandates have not increased HPV vaccination coverage, likely because liberal opt-out provisions in school-entry mandates weaken their impact. Policy-makers should be aware of these limitations when considering vaccination legislation. Limitations: The study does not report specific percentage-point differences between highest and lowest coverage regions, limiting quantification of the variation magnitude. Cross-sectional design prevents causal inference about mandate effectiveness over time."
+    },
+    {
+      "id": "0594d93b-e21a-45dd-a6fd-f9ed86c0d607",
+      "claim": "HPV vaccination coverage varies significantly by urban/rural residence, with urban residents having substantially higher initiation rates than rural residents.",
+      "source": "C. Macander, Hui Wang, M. Galafassi, Graham M Jones, Antara Das \"Role of Race, Rurality, and Age in Human Papillomavirus Vaccine Initiation among US Women\" (2025). doi:10.14423/SMJ.0000000000001813",
+      "year": 2025,
+      "population": "Adult females aged 18 to 43 years in the United States, stratified by urban/rural residence",
+      "domain": "Epidemiology; Vaccine coverage surveillance; Health disparities",
+      "measure": "HPV vaccine initiation by urban/rural classification",
+      "methodology": "Cross-sectional survey analysis with logistic regression",
+      "relationship": "SUPPORTS",
+      "sample_size": "4,666 participants",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The authors recommend that efforts to increase HPV vaccine uptake should focus on rural communities, acknowledging rural residence as a barrier to vaccination. Limitations: Not explicitly stated in the provided text."
+    },
+    {
+      "id": "e431f9b3-771e-4913-b3d1-25904be696ba",
+      "claim": "HPV vaccination coverage varies by geographic area within Chengdu, with stratified analysis showing differences across regions.",
+      "source": "Jing Li, Dandan Zhao, Tongtong Zi, Rongna Huang, Fan Zhao \"Evolving trends in HPV vaccination coverage among women aged 9–45 in Chengdu, China: insights from 2017 to 2023\" (2025). doi:10.1016/j.vaccine.2025.127579",
+      "year": 2025,
+      "population": "Females aged 9-45 years in Chengdu, China",
+      "domain": "Epidemiology and public health vaccination surveillance",
+      "measure": "HPV vaccination coverage stratified by geographic area",
+      "methodology": "Descriptive epidemiological surveillance analysis stratified by geographic area",
+      "relationship": "CONDITIONAL",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The paper acknowledges that vaccination rates vary by geographic area but does not provide specific quantitative comparisons between the highest and lowest coverage regions. Limitations: The paper stratifies by geographic area but does not report the specific percentage-point range of variation between highest and lowest coverage regions, limiting direct quantification of regional disparities."
+    },
+    {
+      "id": "c154ff83-538b-42a1-906d-d71dfd08e36c",
+      "claim": "HPV vaccination coverage in the Wallonia-Brussels region of Belgium is substantially lower than in Flanders, at approximately 29-36% depending on time since program initiation.",
+      "source": "S. Simoens, A. Bento-Abreu, B. Merckx, S. Joubert, Steve Vermeersch \"Health Impact and Cost-Effectiveness of Implementing Gender-Neutral Vaccination With the 9-Valent Human Papillomavirus Vaccine in Belgium\" (2021). doi:10.3389/fphar.2021.628434",
+      "year": 2021,
+      "population": "School-aged children (12-13 years) in Wallonia-Brussels region, Belgium",
+      "domain": "Epidemiology; Public health vaccination programs",
+      "measure": "HPV vaccine coverage rate (%)",
+      "methodology": "Mathematical transmission dynamic model with epidemiological surveillance data",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "The lower uptake in Wallonia-Brussels compared to Flanders reflects differences in program implementation and regional factors. The paper notes this regional variation as a key parameter in modeling the cost-effectiveness of gender-neutral vaccination strategies. Limitations: The study reports uptake rates at specific time points (1-2 years and 5-6 years) rather than continuous coverage data. The reasons for lower uptake in Wallonia-Brussels are not detailed in the paper."
+    },
+    {
+      "id": "6ffff831-cb0f-486a-b65d-6a85ee94d0ba",
+      "claim": "Male HPV vaccination coverage in Australia's school-based program in 2013 shows variation across regions or demographic groups.",
+      "source": "Julia Brotherton, Michael Batchelor, Michelle O Bradley, Scott A. Brown, Simone M Duncombe \"Interim estimates of male human papillomavirus vaccination coverage in the school-based program in Australia\" (2015). doi:10.33321/cdi.2015.39.17",
+      "year": 2015,
+      "population": "School-age males in Australia eligible for HPV vaccination in 2013",
+      "domain": "Public health / Immunization epidemiology",
+      "measure": "Male HPV vaccination coverage by region or demographic group",
+      "methodology": "Epidemiological surveillance study",
+      "relationship": "CONDITIONAL",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The authors present interim coverage data from the newly extended male HPV vaccination program in Australia's school-based setting. Limitations: The paper provides interim estimates only, suggesting data collection was ongoing and final coverage figures were not yet available."
+    },
+    {
+      "id": "31949a44-f362-4ae6-b196-4552f58aca26",
+      "claim": "HPV vaccination coverage among adolescents aged 13–17 years remains below public-health targets, with overall coverage reaching 74.9% before age 18 years.",
+      "source": "S. Meyer, David Nmn Yankey, Laurie D. Elam-Evans, S. Pingali, Shannon Stokley \"P-5. Human Papillomavirus Vaccination Coverage Among Girls and Boys in the United States: A Birth Year Cohort Analysis of the National Immunization Survey-Teen, 2016–2022\" (2025). doi:10.1093/ofid/ofae631.216",
+      "year": 2025,
+      "population": "Adolescents born 1999–2009 in the United States",
+      "domain": "Epidemiological surveillance and immunization policy",
+      "measure": "HPV vaccination coverage (cumulative coverage from age 13 to 17 years)",
+      "methodology": "Birth cohort analysis using National Immunization Survey-Teen",
+      "relationship": "SUPPORTS",
+      "sample_size": "131,553 records",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "Coverage with on-time HPV vaccination and HPV up to date increased by birth cohort among adolescents born 1999–2009 but remains suboptimal. Low uptake increases risk for HPV cancers. Limitations: The study analyzed data from 2016 to 2022 and focused on birth cohorts 1999–2009, which may not reflect current vaccination patterns. NIS-Teen is a telephone survey which may have response bias."
+    },
+    {
+      "id": "a9fa5356-07e6-4ed0-b229-f472c6b44747",
+      "claim": "HPV vaccination coverage in the Flanders region of Belgium reaches approximately 90% for both two- and three-dose schedules.",
+      "source": "S. Simoens, A. Bento-Abreu, B. Merckx, S. Joubert, Steve Vermeersch \"Health Impact and Cost-Effectiveness of Implementing Gender-Neutral Vaccination With the 9-Valent Human Papillomavirus Vaccine in Belgium\" (2021). doi:10.3389/fphar.2021.628434",
+      "year": 2021,
+      "population": "School-aged children (11-12 years) in Flanders region, Belgium",
+      "domain": "Epidemiology; Public health vaccination programs",
+      "measure": "HPV vaccine coverage rate (%)",
+      "methodology": "Mathematical transmission dynamic model with epidemiological surveillance data",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "The substantial difference in coverage between regions (90% in Flanders vs. 29-36% in Wallonia-Brussels) reflects regional program implementation differences and demonstrates the geographic variation in vaccination coverage documented in the nucleus claim. Limitations: The study used projected coverage rates for catch-up programs (50% for males and females) based on 10-15 year projections rather than observed data. Regional differences in vaccine types (9vHPV in Flanders vs. 2vHPV in Wallonia-Brussels initially) complicate direct comparison."
+    },
+    {
+      "id": "763a3926-01d4-43f6-9a4f-d139d55420ac",
+      "claim": "HPV vaccination coverage varies substantially between regions, with school-based programmes achieving 77.2% to 96.1% coverage across different countries (Peru, Uganda, Viet Nam, India).",
+      "source": "D. Scott LaMontagne, Sandhya Barge, Nga Thi Le, Emmanuel Mugisha, Mary E. Penny \"Human papillomavirus vaccine delivery strategies that achieved high coverage in low- and middle-income countries\" (2011). doi:10.2471/blt.11.089862",
+      "year": 2011,
+      "population": "Adolescent girls in demonstration project areas in India, Peru, Uganda, and Viet Nam; parents or guardians interviewed (n>7000)",
+      "domain": "Epidemiology, vaccine delivery, public health",
+      "measure": "HPV vaccination coverage (full vaccination defined as receipt of all three vaccine doses)",
+      "methodology": "Two-stage cluster sample survey",
+      "relationship": "CONDITIONAL",
+      "sample_size": "Over 7,000 parents or guardians of adolescent girls",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "High coverage with HPV vaccine among young adolescent girls was achieved through various delivery strategies in the developing countries studied. Reinforcing positive motivators for vaccine acceptance is likely to facilitate uptake. Limitations: Not reported"
+    },
+    {
+      "id": "def17778-8b4b-43d9-bdf6-695ccafe4950",
+      "claim": "HPV vaccination coverage varies significantly by demographic characteristics (age, race/ethnicity, marital status, employment, residency status) among university-age populations.",
+      "source": "M. Ward, Terri L. Shill, Yeil Kwon, Mai Dao, Tabitha S. Gillis \"HPV vaccination rates and knowledge among students at a University in Kansas\" (2026). doi:10.1186/s12982-026-02074-y",
+      "year": 2026,
+      "population": "Undergraduate and graduate students at a large Midwestern university in Kansas",
+      "domain": "Public health epidemiology; HPV vaccination surveillance",
+      "measure": "HPV vaccination coverage by demographic subgroups",
+      "methodology": "Cross-sectional descriptive survey with chi-square analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "1,795 respondents",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Disparities persist across demographic groups, particularly by age and race. These findings underscore the need for campus-based, equitable educational interventions that address structural barriers and promote informed decision-making. Limitations: Study limited to a single university; cross-sectional design; self-reported vaccination status not verified."
+    },
+    {
+      "id": "459fcb5b-c4d9-4007-b2df-a0d73d3e5b82",
+      "claim": "HPV vaccination coverage among 10-14 year old girls varies by at least 11 percentage points between the highest and lowest coverage regions in Zimbabwe.",
+      "source": "D. Scott LaMontagne, Portia Manangazira, Joan Marembo, Colline Chigodo, Coscar Zvamashakwe \"HPV vaccination coverage in three districts in Zimbabwe following national introduction of 0,12 month schedule among 10 to 14 year old girls\" (2021). doi:10.1016/j.vaccine.2021.07.012",
+      "year": 2021,
+      "population": "Girls aged 11-15 years eligible for national HPV vaccination program in three districts of Zimbabwe",
+      "domain": "Epidemiological surveillance and vaccination coverage",
+      "methodology": "Population-based two-stage cluster survey",
+      "measure": "Two-dose HPV vaccination coverage by district",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Zimbabwe demonstrated that high uptake and successful completion of 2-dose HPV vaccination can be achieved with an annual dosing schedule. Future efforts will focus on minimizing dropout between doses and routinizing annual vaccinations in schools for every subsequent new cohort of eligible girls. Limitations: Challenges assessing ages of girls at schools prior to vaccination; 9% of girls vaccinated were less than 10 years old at time of dose 1."
+    },
+    {
+      "id": "f0acd419-c0e7-4fae-a09d-24b1c705fc0a",
+      "claim": "HPV vaccination coverage in women aged 15–55 years not included in systematic vaccination programmes in Spain remains very low, with cumulative coverage of approximately 4.03% in 2020.",
+      "source": "Mar Ramírez, Jesús de la Fuente, Daniel Andı́a, Juan José Guardia Hernández, Gabriel Fiol \"HPV vaccination coverage in women between 15 and 55 years old in Spain: Temporal trend during the period 2007–2020\" (2021). doi:10.1002/ijgo.14067",
+      "year": 2021,
+      "population": "Women aged 15–55 years in Spain not included in systematic vaccination programmes",
+      "domain": "Epidemiological surveillance and public health policy",
+      "measure": "Cumulative HPV vaccination coverage (aVCR) expressed as percentage",
+      "methodology": "Temporal trend analysis of surveillance data",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The authors conclude that cumulative HPV vaccination coverage in this catch-up-eligible population remains very low despite a slight upward trend in recent years. COVID-19 did not significantly worsen coverage in 2020. Limitations: The study does not report regional variation in coverage, which is a component of the nucleus claim regarding variation between highest and lowest coverage regions."
+    },
+    {
+      "id": "71f9030b-580e-4abe-8b92-5afcbfb7badf",
+      "claim": "HPV vaccination coverage varies by at least 55 percentage points between the highest and lowest coverage regions in Belgium, with Flanders at 91% and Walloon Region at 36%.",
+      "source": "Waa Tjalma, C Brasseur, Tuyet Nha n CHU N G, Nathalie Ribesse, I. Morales \"HPV vaccination coverage in the federal state of Belgium according to regions and their impact.\" (2018)",
+      "year": 2018,
+      "population": "HPV-vaccinated cohorts in Belgium by region",
+      "domain": "Public health, immunization policy",
+      "measure": "HPV vaccination coverage percentage by region",
+      "methodology": "Epidemiological surveillance and regional coverage assessment",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The regional difference in coverage represents a real-life case study of disparate vaccination outcomes. Authors note the worst-case scenario could result in one half of the country experiencing proportionally more HPV-related cancers than the other half. Limitations: Study does not provide detailed breakdown by age cohorts within university-age or catch-up-eligible populations specifically; regional-level aggregation masks potential within-region variation."
+    },
+    {
+      "id": "fa47d23b-8fda-4d04-b197-a312234eb47e",
+      "claim": "HPV vaccination coverage varies by region, with higher hesitancy documented in the Southeast/Mid-Atlantic compared to the Northeast United States.",
+      "source": "Andrew Porter, S. Cooper, Aisha King, Carmen Presti, Ingrid V. Williams \"Regional voices, different choices: Parents' and caregivers' HPV vaccine attitudes in the northeast and Southeast United States.\" (2025). doi:10.1016/j.vaccine.2025.127864",
+      "year": 2025,
+      "population": "Caregivers of children aged 9-17 in the Northeast and Southeast/Mid-Atlantic U.S.",
+      "domain": "Vaccine epidemiology and public health",
+      "measure": "HPV vaccine hesitancy by region (Southeast/Mid-Atlantic vs. Northeast)",
+      "methodology": "Cross-sectional online survey with chi-squared analysis",
+      "relationship": "CONDITIONAL",
+      "sample_size": "2,088 caregivers",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "HPV vaccine hesitancy is shaped by intersecting identities and regional contexts. Future interventions must address mistrust and misinformation, especially in the Southeast/Mid-Atlantic region. Limitations: The study measured hesitancy attitudes rather than actual vaccination coverage rates; the paper does not report the specific percentage-point difference between regions or coverage among university-age populations."
+    },
+    {
+      "id": "4ef796b7-323d-4e55-80e3-1471ea98ed60",
+      "claim": "HPV vaccination coverage in the catch-up cohort (those under age 18) is 66%, which is below the routine cohort coverage of over 90% annually.",
+      "source": "K. Kavanagh, K. Pollock, A. Potts, J. Love, K. Cuschieri \"Introduction and sustained high coverage of the HPV bivalent vaccine leads to a reduction in prevalence of HPV 16/18 and closely related HPV types\" (2014). doi:10.1038/bjc.2014.198",
+      "year": 2014,
+      "population": "Scottish females aged 12–13 (routine cohort) and under 18 (catch-up cohort)",
+      "domain": "Public health, HPV vaccination epidemiology",
+      "measure": "Three-dose HPV bivalent vaccine uptake coverage by cohort",
+      "methodology": "National immunisation programme surveillance",
+      "relationship": "CONDITIONAL",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The authors note that high vaccine uptake in the routine cohort (>90%) has been achieved and sustained, but the catch-up cohort shows lower overall uptake at 66%, indicating differential coverage between populations. Limitations: The paper does not report regional variation in coverage or provide data on whether coverage meets specific public-health targets. The catch-up cohort figure represents overall uptake without regional breakdown."
+    },
+    {
+      "id": "1f0e9c50-0324-4c80-998c-10effa6ac376",
+      "claim": "HPV vaccination coverage varies by state, with ≥1-dose coverage among females ranging from 47.8% in Mississippi to 90.1% in Rhode Island, a difference of 42.3 percentage points.",
+      "source": "Tanja Y. Walker, Laurie D. Elam-Evans, J. Singleton, D. Yankey, L. Markowitz \"National, Regional, State, and Selected Local Area Vaccination Coverage Among Adolescents Aged 13–17 Years — United States, 2016\" (2017). doi:10.15585/mmwr.mm6633a2",
+      "year": 2017,
+      "population": "Female adolescents aged 13-17 years across U.S. states",
+      "domain": "Epidemiological surveillance and state-level vaccination coverage variation",
+      "measure": "HPV vaccination coverage (≥1 dose) by state",
+      "methodology": "National survey with state-level stratification",
+      "relationship": "SUPPORTS",
+      "sample_size": "9,661 female adolescents across 50 states and selected local areas",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "The authors note that vaccination coverage varied substantially by state and that during 2013-2016, the greatest statistically significant average annual increases in ≥1-dose HPV vaccination coverage were in New York City (7.7 percentage points), Nevada (7.6), Maryland (7.4), Guam (7.3), New York (7.2), and Alaska (7.1). Limitations: State-level estimates may have wider confidence intervals for smaller populations. The paper does not provide detailed analysis of state-level policy or programmatic factors driving these differences."
+    },
+    {
+      "id": "8329dc0d-47b5-4444-8012-6d4c9ded3ca5",
+      "claim": "HPV vaccination coverage varies substantially by geographic region, with a 15.4 percentage point difference between non-MSA and MSA principal city areas for up-to-date status.",
+      "source": "Tanja Y. Walker, Laurie D. Elam–Evans, David Yankey, Lauri E. Markowitz, Charnetta Williams \"National, Regional, State, and Selected Local Area Vaccination Coverage Among Adolescents Aged 13–17 Years — United States, 2018\" (2019). doi:10.15585/mmwr.mm6833a2",
+      "year": 2019,
+      "population": "Adolescents aged 13–17 years stratified by MSA status (non-MSA n=3,593; MSA nonprincipal city n=7,543; MSA principal city n=7,564)",
+      "domain": "Epidemiological surveillance and geographic disparities in immunization",
+      "measure": "HPV vaccination coverage by geographic region (metropolitan statistical area status)",
+      "methodology": "National cross-sectional survey stratified by metropolitan statistical area",
+      "relationship": "SUPPORTS",
+      "sample_size": "18,700 adolescents",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "The disparity in HPV vaccination coverage by MSA status is not well understood; however, lower prevalence of provider recommendations in non-MSA areas might be a factor. Efforts to ensure rural health care providers have resources and training to educate parents about HPV vaccination benefits may increase coverage. Limitations: Estimates stratified by jurisdiction might be unreliable because of small sample sizes. The disparity mechanism is not fully understood."
+    },
+    {
+      "id": "6197f35c-b811-412f-99f1-d716f4347db1",
+      "claim": "HPV vaccination coverage among teens aged 13-17 varies by rural-urban residence, with girls from isolated small rural towns showing lower initiation (51.0%) and completion (30.0%) rates compared to urban girls (56.0% and 35.9% respectively).",
+      "source": "Allison L. Swiecki‐Sikora, Kevin Henry, Deanna Kepka \"HPV Vaccination Coverage Among US Teens Across the Rural‐Urban Continuum\" (2019). doi:10.1111/jrh.12353",
+      "year": 2019,
+      "population": "US teens aged 13-17 years stratified by rural-urban residence",
+      "domain": "Epidemiological surveillance and immunization coverage",
+      "measure": "HPV vaccination initiation (≥1 dose) and completion (≥3 doses) rates by geographic region",
+      "methodology": "Cross-sectional survey analysis with logistic regression",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Rural residence is associated with lower HPV vaccination coverage among both girls and boys. Geographic disparities in vaccination uptake may reflect differences in healthcare access, provider recommendations, or community attitudes toward vaccination. Limitations: Cross-sectional design limits causal inference. Data from 2012-2013 may not reflect current coverage. ZIP code-based classification may not perfectly capture individual rural-urban status."
+    },
+    {
+      "id": "d1c7e1c6-7d97-41f4-8694-a49767083256",
+      "claim": "HPV vaccination coverage varies substantially across US states, with measurable differences between highest and lowest coverage regions among young women.",
+      "source": "Chenxi Jiang, Philip S Rosenberg, Jessica Star, Priti Bandi, Robert A Bednarczyk \"State-level progress in reducing cervical cancer incidence among US young women between the pre- and post-human papillomavirus vaccination eras.\" (2026). doi:10.1093/jnci/djag051",
+      "year": 2026,
+      "population": "US young women in the pre- and post-HPV vaccination eras",
+      "domain": "Public health epidemiology",
+      "measure": "State-level cervical cancer incidence and HPV vaccination coverage variation",
+      "methodology": "Epidemiological surveillance analysis",
+      "relationship": "CONDITIONAL",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The authors note that while HPV vaccination has produced measurable national benefits, understanding state-level variation is important for public health policy and implementation assessment. Limitations: State-level data characterization remains incomplete; the abstract does not provide specific quantitative variation metrics between highest and lowest coverage regions."
+    },
+    {
+      "id": "9ed2407b-a1a1-48c3-8e3a-e81c9aa7352e",
+      "claim": "HPV vaccination coverage among adolescents aged 13-17 years in 2017 was 65.5% for ≥1 dose initiation, remaining below the public-health target of higher coverage.",
+      "source": "Tanja Y. Walker, Laurie D. Elam-Evans, D. Yankey, Lauri E. Markowitz, Charnetta Williams \"National, Regional, State, and Selected Local Area Vaccination Coverage Among Adolescents Aged 13–17 Years — United States, 2017\" (2018). doi:10.15585/mmwr.mm6733a1",
+      "year": 2018,
+      "population": "Adolescents aged 13-17 years in the United States (N=20,949; 47% female, 53% male)",
+      "domain": "Epidemiological surveillance and immunization coverage",
+      "measure": "HPV vaccination coverage (≥1 dose and up-to-date status)",
+      "methodology": "National cross-sectional survey with provider-reported vaccination histories",
+      "relationship": "CONDITIONAL",
+      "sample_size": "20,949 adolescents",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "HPV vaccination initiation remains lower than coverage with MenACWY and Tdap, suggesting ongoing challenges to providing all three vaccines during the same visit. The 5.1 percentage point annual increase in series initiation since 2013 is encouraging, but efforts are needed to target unvaccinated teens and eliminate missed vaccination opportunities. Limitations: Overall household response rate was 25.7%; only 53.6% of landline and 47.1% of cell phone interviews included adequate provider data. Estimates stratified by state/local area might be unreliable due to small sample sizes. NIS-Teen includes only adolescents aged 13-17 years, potentially underestimating coverage for vaccines received at age ≥18 years."
+    },
+    {
+      "id": "5835f7e4-40d7-46ce-9803-b24f8430da40",
+      "claim": "HPV vaccination initiation coverage varies substantially by state, with 18 states achieving ≥80% initiation by 2023 while Southern states lagged behind.",
+      "source": "Victor I. Agboli, Idowu A. Usman, Abdulazeez Alabi, Tope Amusa \"Trends and disparities in HPV vaccination among U.S. adolescents, 2018–2023\" (2025). doi:10.1515/ohe-2025-0073",
+      "year": 2025,
+      "population": "U.S. adolescents aged 13–17 across states",
+      "domain": "Epidemiological surveillance and immunization",
+      "measure": "HPV vaccine initiation coverage by state",
+      "methodology": "National survey with provider verification and state-level stratification",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Best practices for improving HPV vaccination include strengthening vaccination infrastructure in low-performing Southern states and replicating high-performing regional models. Limitations: Not explicitly stated in abstract or results section provided."
+    },
+    {
+      "id": "75a92322-77a5-4b5f-8bf1-4165388a0669",
+      "claim": "HPV vaccination coverage varies substantially by geographic region, with ≥1-dose coverage ranging from 46.9% in Wyoming to 91.9% in District of Columbia, a difference of 45.0 percentage points.",
+      "source": "Tanja Y. Walker, Laurie D. Elam-Evans, D. Yankey, Lauri E. Markowitz, Charnetta Williams \"National, Regional, State, and Selected Local Area Vaccination Coverage Among Adolescents Aged 13–17 Years — United States, 2017\" (2018). doi:10.15585/mmwr.mm6733a1",
+      "year": 2018,
+      "population": "Adolescents aged 13-17 years across 50 U.S. states, District of Columbia, selected local areas, and territories (N=20,949)",
+      "domain": "Epidemiological surveillance and immunization coverage",
+      "measure": "HPV vaccination coverage (≥1 dose) by state and local jurisdiction",
+      "methodology": "National cross-sectional survey with state and local area stratification",
+      "relationship": "SUPPORTS",
+      "sample_size": "20,949 adolescents across jurisdictions",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "The paper notes that HPV vaccination coverage varies by jurisdiction and identifies disparities by metropolitan statistical area status, with rural (non-MSA) areas showing lower coverage than urban areas. Rural residents are less likely to have knowledge of HPV vaccine and its importance in cancer prevention. Limitations: Estimates stratified by state/local area might be unreliable because of small sample sizes. Multiple statistical tests were conducted, and a small number might be significant by chance alone."
+    },
+    {
+      "id": "16c2b9d9-8476-403d-a98f-13c6a53459c5",
+      "claim": "HPV vaccination coverage varies by geographic region, with a difference of 9.6 percentage points for ≥1 dose and 9.8 percentage points for up-to-date status between non-MSA and MSA principal city areas among adolescents at or above the poverty level.",
+      "source": "Laurie D. Elam–Evans, David Yankey, James A. Singleton, Natalie Sterrett, Lauri E. Markowitz \"National, Regional, State, and Selected Local Area Vaccination Coverage Among Adolescents Aged 13–17 Years — United States, 2019\" (2020). doi:10.15585/mmwr.mm6933a1",
+      "year": 2020,
+      "population": "Adolescents aged 13–17 years at or above the poverty level in non-MSA and MSA principal city areas (N = 8,649)",
+      "domain": "Epidemiological surveillance and geographic health disparities",
+      "measure": "HPV vaccination coverage by metropolitan statistical area status",
+      "methodology": "National cross-sectional survey with stratified geographic analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "8,649 adolescents at or above poverty level",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "The authors note that geographic disparities among higher socioeconomic status adolescents may indicate lower vaccine confidence in non-MSA areas. The lack of disparity among lower-income adolescents may reflect access to the Vaccines for Children program. Limitations: Response rate was 19.7% overall, with only 44.0% of households having adequate provider data. Bias may remain despite adjustments for nonresponse and noncoverage."
+    },
+    {
+      "id": "5401d9ba-32cb-458a-92ea-fba7a88617bc",
+      "claim": "HPV vaccination coverage among university students varies across geographic regions, with disparities documented between different areas.",
+      "source": "Yunjun Yan, Shuang Guan, Wei Chen, Junli Shi, Ruoyu Chao \"Trends, disparities, and multilevel interventions: A global review of HPV vaccination among university students.\" (2026). doi:10.1080/21645515.2026.2667395",
+      "year": 2026,
+      "population": "University students worldwide",
+      "domain": "Epidemiology and public health",
+      "measure": "Geographic variation in HPV vaccination coverage",
+      "methodology": "Systematic review and synthesis",
+      "relationship": "CONDITIONAL",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The review identifies geographic disparities as a key finding but does not provide specific quantitative thresholds for the percentage-point variation between regions. Limitations: The review acknowledges disparities exist but does not specify the magnitude of regional variation in percentage points, which is a specific constraint of the nucleus claim."
+    },
+    {
+      "id": "15fa11d2-f123-4190-bc6d-fdf4181e7eb3",
+      "claim": "HPV vaccination coverage varies by state, with provider recommendation prevalence ranging from 59.5% to 90.7% across states, representing a 31.2 percentage point variation.",
+      "source": "Tanja Y. Walker, Laurie D. Elam–Evans, David Yankey, Lauri E. Markowitz, Charnetta Williams \"National, Regional, State, and Selected Local Area Vaccination Coverage Among Adolescents Aged 13–17 Years — United States, 2018\" (2019). doi:10.15585/mmwr.mm6833a2",
+      "year": 2019,
+      "population": "Parents/guardians of adolescents aged 13–17 years across all U.S. states",
+      "domain": "Epidemiological surveillance and provider communication patterns",
+      "measure": "Prevalence of parental report of provider recommendation for HPV vaccination by state",
+      "methodology": "National survey with state-level stratification of provider recommendation prevalence",
+      "relationship": "SUPPORTS",
+      "sample_size": "18,700 adolescents across states",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "Provider recommendation continues to be a strong predictor of HPV vaccination. However, even when a provider recommendation was given, only 75% accepted the vaccine, suggesting other barriers exist. Equipping providers with tools to give strong recommendations is a priority, especially in states where recommendations were less commonly reported. Limitations: Provider recommendation variable is based on parental recall and thus subject to recall bias."
+    },
+    {
+      "id": "55f117be-5439-462f-93b8-6fa8b485cd56",
+      "claim": "HPV vaccination coverage varies substantially between different populations in high-income countries, with adolescent girls at 67.75%, adolescent boys at 58.32%, MSM at 27.94%, and transgender women at 32.59%, representing variation of at least 40 percentage points between highest and lowest coverage groups.",
+      "source": "N. Ravishankar, Dr Sasidharanpillai Sabeena \"Gender inequities regarding the HPV vaccination coverage in high-income countries: a systematic review and meta-analysis\" (2025). doi:10.1101/2025.03.03.25323234",
+      "year": 2025,
+      "population": "Adolescent girls, adolescent boys, men having sex with men (MSM), and transgender women aged up to 26 years in high-income countries",
+      "domain": "Epidemiology and public health vaccination surveillance",
+      "measure": "HPV vaccination coverage variation between population groups (percentage point difference)",
+      "methodology": "Systematic review and meta-analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "2,998,403 total participants across 23 studies (1,975,415 girls, 804,882 boys, 11,909 MSM, 207 transgender women)",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "Significant gender inequities exist in HPV vaccination coverage in high-income countries. Persistently high coverage was observed among adolescent girls, while HPV vaccination coverage was suboptimal among adolescent boys, MSM, and transgender women. The major barriers were low awareness among healthcare providers, lack of recommendations from clinicians, and public mistrust towards vaccines. Limitations: Most studies were cross-sectional, preventing adjustment for confounding factors. Studies on transgender women and MSM were all from the USA, limiting generalizability. Small sample sizes for transgender women resulted in wider confidence intervals. Self-reporting of vaccination status generated recall and social desirability bias."
+    },
+    {
+      "id": "333a565b-f313-4899-b5be-97a61cbdbc88",
+      "claim": "HPV vaccination coverage varies between different regions or administrative areas within a defined geographic jurisdiction during the early years of program implementation.",
+      "source": "Émilien Jeannot, Philippe Sudre, Philippe Chastonay \"HPV vaccination coverage within 3 years of program launching (2008–2011) at Geneva State, Switzerland\" (2012). doi:10.1007/s00038-012-0352-2",
+      "year": 2012,
+      "population": "University-age and catch-up-eligible populations in Geneva State, Switzerland",
+      "domain": "Public health / Immunization epidemiology",
+      "measure": "HPV vaccination coverage by region",
+      "methodology": "Epidemiological surveillance study",
+      "relationship": "CONDITIONAL",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Regional variation in HPV vaccination coverage reflects differences in program implementation, healthcare access, and population acceptance across administrative areas within Geneva State. Limitations: Study limited to Geneva State; findings may not generalize to other Swiss cantons or countries with different healthcare systems or vaccination policies."
+    },
+    {
+      "id": "281c5a76-7afb-4c32-a8b5-9d00617979d3",
+      "claim": "HPV vaccination final-dose coverage varies substantially by country income level, with low- and middle-income countries showing worse final-dose coverage than high-income countries due to higher dropout rates between first and final doses.",
+      "source": "Laia Bruni, Anna Saura‐Lázaro, Alexandra Montoliu, María Brotons, Laia Alemany \"HPV vaccination introduction worldwide and WHO and UNICEF estimates of national HPV immunization coverage 2010–2019\" (2020). doi:10.1016/j.ypmed.2020.106399",
+      "year": 2020,
+      "population": "Low- and middle-income countries (LMICs) and high-income countries with HPV vaccination programs",
+      "domain": "Public health epidemiology and immunization policy",
+      "methodology": "WHO/UNICEF epidemiological surveillance and coverage estimation",
+      "measure": "HPV vaccination coverage (first dose and final dose) stratified by country income level",
+      "relationship": "SUPPORTS",
+      "sample_size": "107 countries with HPV programs",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The authors attribute the higher dropout in LMICs to implementation challenges and note that improving program performance in these settings is critical for meeting global elimination targets. Limitations: The paper does not provide specific quantitative comparisons of final-dose coverage between LMICs and high-income countries, limiting precision of the income-level variation estimate."
+    },
+    {
+      "id": "83671db9-8fd6-4c71-a998-30b838f61ea3",
+      "claim": "HPV vaccination coverage varies substantially by WHO region, with the Americas and Europe showing the highest program introduction rates (85% and 77% of countries respectively) compared to other regions.",
+      "source": "Laia Bruni, Anna Saura‐Lázaro, Alexandra Montoliu, María Brotons, Laia Alemany \"HPV vaccination introduction worldwide and WHO and UNICEF estimates of national HPV immunization coverage 2010–2019\" (2020). doi:10.1016/j.ypmed.2020.106399",
+      "year": 2020,
+      "population": "WHO Member States stratified by WHO region (Americas, Europe, Africa, Eastern Mediterranean, Southeast Asia, Western Pacific)",
+      "domain": "Public health epidemiology and immunization policy",
+      "measure": "HPV vaccination program introduction rate by WHO region",
+      "methodology": "WHO/UNICEF epidemiological surveillance and coverage estimation",
+      "relationship": "SUPPORTS",
+      "sample_size": "194 WHO Member States",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The authors highlight that while introduction rates are highest in the Americas and Europe, further expansion is needed in other regions, particularly among populous countries in low- and middle-income settings. Limitations: The paper does not provide detailed breakdown of introduction rates for all WHO regions, limiting assessment of variation across all regions."
+    },
+    {
+      "id": "928d9a45-07e6-45b7-8d3b-558f3167b019",
+      "claim": "HPV vaccination coverage varies geographically, with school-based vaccination reducing healthcare access-driven territorial disparities between regions with high and low general practitioner access.",
+      "source": "Aurélie Bocquier, Morgane Michel, Judith E Mueller, Maïa Simon, Amandine Gagneux-Brunon \"One-year impact on HPV vaccination coverage of a school- and primary care-based intervention: the PrevHPV cluster randomised trial.\" (2026). doi:10.1038/s41598-026-48222-x",
+      "year": 2026,
+      "population": "11-14-year-olds in French municipalities stratified by general practitioner access",
+      "domain": "Public health, vaccination policy, health equity",
+      "measure": "HPV vaccination coverage variation by healthcare access and geographic region",
+      "methodology": "Cluster randomized trial with post-hoc subgroup analysis",
+      "relationship": "CONDITIONAL",
+      "sample_size": "91 municipalities (clusters)",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "School-based vaccination may reduce healthcare access-driven territorial disparities in HPV coverage by providing vaccination in settings accessible to all adolescents regardless of GP availability. Limitations: Post-hoc analysis; specific percentage-point variation between highest and lowest coverage regions not quantified in the paper."
+    },
+    {
+      "id": "cbb082fb-d103-4908-81de-7c3eb5c96c08",
+      "claim": "HPV vaccination coverage varies significantly between rural and urban regions in central Illinois, with a measurable percentage-point difference in coverage rates.",
+      "source": "Eric Adjei Boakye, Yuri Fedorovich, Megan White, Sameer Vohra, Meredith Volle \"Rural-Urban Disparities in HPV Vaccination Coverage Among Adolescents in the Central Part of the State of Illinois, USA\" (2022). doi:10.1007/s10900-022-01136-x",
+      "year": 2022,
+      "population": "Adolescents in central Illinois, USA",
+      "domain": "Public health epidemiology; vaccine coverage surveillance",
+      "measure": "HPV vaccination coverage rates by rural vs. urban region",
+      "methodology": "Cross-sectional epidemiological survey",
+      "relationship": "CONDITIONAL",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The authors interpret rural-urban disparities as reflecting differences in healthcare access, provider availability, or vaccination promotion efforts between geographic areas. Limitations: The specific magnitude of disparities, absolute coverage percentages, and comparison to national public-health targets are not provided in the available text excerpt."
+    },
+    {
+      "id": "76b76ce7-e6a2-4cb6-83bd-9fd4902bc9d5",
+      "claim": "HPV vaccination coverage among girls aged 16–17 years in catch-up cohorts varies significantly by area-level deprivation, with coverage in the least deprived quintile (42%) exceeding that in the most deprived quintile (27%), a difference of 15 percentage points.",
+      "source": "A. Hughes, D. Mesher, Joanne White, K. Soldan \"Coverage of the English national human papillomavirus (HPV) immunisation programme among 12 to 17 year-old females by area-level deprivation score, England, 2008 to 2011.\" (2014). doi:10.2807/1560-7917.ES2014.19.2.20677",
+      "year": 2014,
+      "population": "Girls aged 16–17 years offered catch-up HPV immunisation in England, 2008–2010; 151 Primary Care Trusts",
+      "domain": "Epidemiological surveillance of immunisation programmes",
+      "measure": "Three-dose HPV vaccination coverage by area-level deprivation quintile",
+      "methodology": "Ecological analysis with Spearman rank correlation",
+      "relationship": "SUPPORTS",
+      "sample_size": "151 Primary Care Trusts",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "The authors conclude that school-based delivery at age 12 achieves equitable coverage, but catch-up cohorts aged 16+ show concerning inequality. The association with deprivation emerges around age 16, when compulsory full-time education ends in England. This may reflect reduced accessibility to school-based sessions or increased opting-out in older ages. Limitations: Area-level deprivation does not apply uniformly to all residents within an area. Individual-level factors associated with coverage were not assessed. Data recording may have been less complete for older girls vaccinated by GPs. The observed association could reflect either lower uptake or incomplete recording in deprived areas."
+    },
+    {
+      "id": "5b81f6b1-a239-47ef-a775-c44555c4d96c",
+      "claim": "HPV vaccination coverage in adolescent girls varies substantially across countries, ranging from several percent to more than 90%.",
+      "source": "Barbara Owsianka, Maria Gańczak \"Evaluation of human papilloma virus (HPV) vaccination strategies and vaccination coverage in adolescent girls worldwide.\" (2015)",
+      "year": 2015,
+      "population": "Adolescent girls worldwide",
+      "domain": "Epidemiology and public health policy",
+      "measure": "HPV vaccination coverage rates (%)",
+      "methodology": "Literature review and comparative analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Disparities in HPV vaccination coverage rates worldwide may be due to different strategies of vaccination implementation between countries. School-based administration with national funding appears associated with higher coverage rates. Limitations: Study limited to literature review period 2006-2014; specific quantitative variation between highest and lowest regions not explicitly quantified in all cases."
+    },
+    {
+      "id": "301f4d17-e8fb-4c39-b5ab-400b8dfff5d0",
+      "claim": "Among unvaccinated adolescents, 82.5% had at least one missed HPV vaccination opportunity, indicating that achievable coverage could reach 94.8% if vaccination opportunities were not missed.",
+      "source": "S. Meyer, David Nmn Yankey, Laurie D. Elam-Evans, S. Pingali, Shannon Stokley \"P-5. Human Papillomavirus Vaccination Coverage Among Girls and Boys in the United States: A Birth Year Cohort Analysis of the National Immunization Survey-Teen, 2016–2022\" (2025). doi:10.1093/ofid/ofae631.216",
+      "year": 2025,
+      "population": "Unvaccinated adolescents born 1999–2009 in the United States",
+      "domain": "Epidemiological surveillance and immunization policy",
+      "measure": "Missed HPV vaccination opportunities and achievable coverage",
+      "methodology": "Birth cohort analysis using National Immunization Survey-Teen",
+      "relationship": "SUPPORTS",
+      "sample_size": "38,568 unvaccinated adolescents; 31,513 with missed opportunities",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "Opportunities for HPV vaccination before age 13 years are being missed and can be reduced by effective provider recommendations for HPV vaccination and by administering all recommended vaccines during the same visit. Limitations: The study analyzed data from 2016 to 2022 and focused on birth cohorts 1999–2009. NIS-Teen is a telephone survey which may have response bias."
+    },
+    {
+      "id": "0da0ad18-68d4-4458-a2d5-01117d8fac7e",
+      "claim": "HPV vaccination series completion among U.S. adolescents aged 13–17 years remained below the Healthy People 2030 target of 80% during 2021–2023, with completion rates ranging from 62.4% to 63.9%.",
+      "source": "Taylor Mullin, Jesse Plascak, Alai Tan, Jodi Ford, Henry Duah \"Trends in HPV vaccination initiation and completion among U.S. adolescents aged 13-17 years, 2021-2023: Findings from the National Immunization Survey-Teen.\" (2026). doi:10.1371/journal.pone.0349299",
+      "year": 2026,
+      "population": "U.S. adolescents aged 13–17 years (n=126,226)",
+      "domain": "Epidemiological surveillance and immunization coverage",
+      "measure": "HPV vaccination series completion rate (%)",
+      "methodology": "Repeated cross-sectional survey analysis with provider-verified vaccination records",
+      "relationship": "SUPPORTS",
+      "sample_size": "126,226 adolescents",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "HPV vaccine series completion among U.S. adolescents remained stable from 2021 through 2023, with overall completion estimates ranging from approximately 62% to 64%. Despite this stability, substantial gaps in HPV vaccination persist. Approximately one in five adolescents remained unvaccinated each year, and an additional one in seven initiated the vaccine series without completing it. Limitations: HPV vaccination estimates derived from public-use NIS-Teen dataset may differ from CDC's annual MMWR publications due to lack of internal harmonized dose-validation variables and total survey error adjustments. Only three years of data analyzed, limiting ability to infer long-term trends. Study was descriptive and did not examine sociodemographic or contextual predictors of uptake."
+    },
+    {
+      "id": "af12c88d-221e-4f8e-8851-3a2f103f1e43",
+      "claim": "HPV vaccination coverage varies substantially between girls and boys, with girls' coverage reaching 73.4% and boys' coverage reaching 65.9% among the 2009 birth cohort.",
+      "source": "S. Meyer, David Nmn Yankey, Laurie D. Elam-Evans, S. Pingali, Shannon Stokley \"P-5. Human Papillomavirus Vaccination Coverage Among Girls and Boys in the United States: A Birth Year Cohort Analysis of the National Immunization Survey-Teen, 2016–2022\" (2025). doi:10.1093/ofid/ofae631.216",
+      "year": 2025,
+      "population": "Girls and boys born 1999–2009 in the United States",
+      "domain": "Epidemiological surveillance and immunization policy",
+      "methodology": "Birth cohort analysis using National Immunization Survey-Teen",
+      "measure": "HPV vaccination coverage stratified by sex",
+      "relationship": "SUPPORTS",
+      "sample_size": "131,553 records",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "Coverage with on-time HPV vaccination increased by birth cohort among adolescents born 1999–2009 but remains suboptimal, with persistent sex-based disparities. Limitations: The study analyzed data from 2016 to 2022 and focused on birth cohorts 1999–2009. NIS-Teen is a telephone survey which may have response bias."
+    },
+    {
+      "id": "f37cbffd-abed-46ad-9676-d53dc132f125",
+      "claim": "HPV vaccination completion rates vary by insurance type, with patients having private insurance 4% more likely to complete the vaccine series than those with Medicaid.",
+      "source": "L. Khalil, E. Russo, K. Venkatakrishnan, A. Mazul, J. Zevallos \"Barriers to Human Papillomavirus Vaccination Initiation and Completion among Adults Aged 18–26 Years in a Large Healthcare System\" (2023). doi:10.3390/cancers15174243",
+      "year": 2023,
+      "population": "Adults aged 18–26 years with at least one encounter at UPMC between 2018 and 2021",
+      "domain": "Epidemiology and public health vaccination surveillance",
+      "measure": "HPV vaccination completion rate by insurance type (percentage completing full 3-dose series)",
+      "methodology": "Cross-sectional retrospective study with Poisson regression",
+      "relationship": "SUPPORTS",
+      "sample_size": "265,554 patients (80,480 who completed vaccination)",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "The authors note that an association was found between insurance type and HPV vaccination status. Patients with private insurance were found to be more prone to complete HPV vaccination than those with either Medicaid or another insurance type. The exact reasons underlying the observed differences in HPV vaccine uptake across various insurance coverages remain uncertain, and further investigation is necessary. Limitations: Cross-sectional design prevents causal inference. Study limited to UPMC patients in one healthcare system. HPV status subject to recall bias from clinical intake forms, though validation showed high concordance."
+    },
+    {
+      "id": "56ade837-74b4-4079-b289-a852ea7b6439",
+      "claim": "HPV vaccination coverage among university-age and catch-up-eligible populations in Japan remains below public-health targets, with the highest cumulative vaccination rate at 33.6% for first dose among the FY2006 birth cohort as of June 2023.",
+      "source": "Mahiro Sazawa, Chieko Ishiguro, W. Mimura, M. Maeda, Fumiko Murata \"Impact of the resumption of proactive recommendation of HPV vaccination on HPV vaccination rates in Japan: an interrupted time series analysis based on the VENUS study\" (2025). doi:10.1136/bmjph-2024-000982",
+      "year": 2025,
+      "population": "Girls born between fiscal years 2003–2011 eligible for routine HPV vaccination in one Japanese municipality",
+      "domain": "Epidemiological surveillance and vaccination policy implementation",
+      "methodology": "Interrupted time series analysis with segmented Poisson regression",
+      "measure": "Cumulative HPV vaccination rates (first, second, and third doses) among female birth cohorts",
+      "relationship": "SUPPORTS",
+      "sample_size": "13,376 girls",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The resumption of proactive recommendation promoted HPV vaccinations; however, the changes in vaccination rates remain insufficient compared with WHO targets. Additional efforts are required to encourage and promote vaccination in the Japanese population. Limitations: Data from a single municipality in Japan; generalizability to other regions not assessed. Study period limited to January 2019–June 2023."
+    },
+    {
+      "id": "44bd4c25-401d-4e32-974f-f6df4e9e2857",
+      "claim": "HPV vaccination coverage among boys aged 13-17 varies by rural-urban residence, with boys from isolated small rural towns showing lower initiation (17.3%) and completion (5.31%) rates compared to urban boys (28.7% and 10.7% respectively), representing a 11.4 percentage point difference in initiation.",
+      "source": "Allison L. Swiecki‐Sikora, Kevin Henry, Deanna Kepka \"HPV Vaccination Coverage Among US Teens Across the Rural‐Urban Continuum\" (2019). doi:10.1111/jrh.12353",
+      "year": 2019,
+      "population": "US boys aged 13-17 years stratified by rural-urban residence",
+      "domain": "Epidemiological surveillance and immunization coverage",
+      "methodology": "Cross-sectional survey analysis with logistic regression",
+      "measure": "HPV vaccination initiation (≥1 dose) and completion (≥3 doses) rates by geographic region",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Rural boys experience substantially lower HPV vaccination coverage than urban boys. Geographic disparities may reflect differences in healthcare access, provider recommendations, or awareness of HPV vaccination benefits for males. Limitations: Cross-sectional design limits causal inference. Data from 2012-2013 may not reflect current coverage. ZIP code-based classification may not perfectly capture individual rural-urban status."
+    },
+    {
+      "id": "0da40670-5ae6-4f06-a224-8161334b50cb",
+      "claim": "HPV vaccination coverage for full-dose completion among girls aged 9-14 years is 47.6% (95% CI: 39.7%-57.4%), substantially below the 90% public-health target.",
+      "source": "Han Jingjing, Li Zhang, Yuqing Chen, Yuelun Zhang, Le Wang \"Global HPV vaccination programs and coverage rates: a systematic review\" (2025). doi:10.1016/j.eclinm.2025.103290",
+      "year": 2025,
+      "population": "Girls aged 9-14 years across 129 WHO member states",
+      "domain": "Epidemiology and public health immunization",
+      "measure": "HPV vaccination coverage rate (full dose completion)",
+      "methodology": "Systematic review with meta-analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "129 countries",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "The substantial gap between full-dose coverage (47.6%) and first-dose coverage (61.6%) indicates significant dropout between doses, highlighting the need for strategies to improve vaccination completion rates. Limitations: Not explicitly stated in the provided text."
+    },
+    {
+      "id": "e700009e-c833-4150-a2e1-8b9ae8056768",
+      "claim": "HPV vaccination coverage varies by jurisdiction, with differences ranging up to 48.4 percentage points for up-to-date status across selected state and local areas.",
+      "source": "Laurie D. Elam–Evans, David Yankey, James A. Singleton, Natalie Sterrett, Lauri E. Markowitz \"National, Regional, State, and Selected Local Area Vaccination Coverage Among Adolescents Aged 13–17 Years — United States, 2019\" (2020). doi:10.15585/mmwr.mm6933a1",
+      "year": 2020,
+      "population": "Adolescents aged 13–17 years across 50 states, District of Columbia, and selected local areas",
+      "domain": "Epidemiological surveillance and policy implementation",
+      "measure": "HPV up-to-date vaccination coverage by jurisdiction",
+      "methodology": "National cross-sectional survey with jurisdiction-level stratification",
+      "relationship": "SUPPORTS",
+      "sample_size": "18,788 adolescents (national sample)",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "The authors emphasize that disparities in coverage across jurisdictions indicate that not all adolescents are equally protected against vaccine-preventable diseases, highlighting the need for targeted interventions in lower-coverage areas. Limitations: Jurisdiction-level estimates may have wider confidence intervals and lower reliability than national estimates due to smaller sample sizes within some jurisdictions."
+    },
+    {
+      "id": "ce4c67fd-2502-4ea2-bd4f-3877c37794d0",
+      "claim": "HPV vaccination coverage rate in France is 17.2% in girls aged 16 years, which is substantially lower than the 70% coverage rate observed in other Western European countries.",
+      "source": "M. Uhart, Marjorie Adam, André Dahlab, Xavier Bresse \"Loss of chance associated with sub-optimal HPV vaccination coverage rate in France\" (2017). doi:10.1016/j.pvr.2017.02.004",
+      "year": 2017,
+      "population": "Girls aged 16 years in France and Western Europe",
+      "domain": "Public health epidemiology",
+      "measure": "HPV vaccination coverage rate (percentage of girls vaccinated)",
+      "methodology": "Epidemiological surveillance and policy documentation review",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "PDF_FULL_TEXT",
+      "notes": "The authors note that differences in HPV vaccination program implementation and coverage rates may lead to a two-tiered Europe, contributing to health inequality and representing a missed opportunity for thousands of individuals who will not be protected against vaccine-preventable cancers. Limitations: The vaccination coverage rate data were based on 2014-2015 figures; the distribution of vaccinees among cohorts and by year were not fully characterized due to lack of detailed data."
+    }
+  ]
+}

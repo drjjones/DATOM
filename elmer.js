@@ -7,18 +7,24 @@
 const NAV_MAP = {
   // index.html
   "home:hero":      { page: "index.html",    selector: ".hero" },
+  "home:featured":  { page: "index.html",    selector: "#featured-entry" },
+  "home:two-paths": { page: "index.html",    selector: "#two-paths" },
   "home:problem":   { page: "index.html",    selector: "#problem" },
   "home:ledger":    { page: "index.html",    selector: "#ledger" },
+  "home:faq":       { page: "index.html",    selector: "#faq" },
   // product.html
   "product:hero":          { page: "product.html",  selector: "#hero" },
   "product:proof":         { page: "product.html",  selector: "#proof-preview" },
   "product:comparison":    { page: "product.html",  selector: "#comparison" },
   "product:pillars":       { page: "product.html",  selector: "#pillars" },
   "product:responsibility":{ page: "product.html",  selector: "#responsibility" },
-  // solutions.html
-  "solutions:audience":    { page: "solutions.html", selector: "#audience" },
-  "solutions:use-cases":   { page: "solutions.html", selector: "#see-yourself" },
-  "solutions:get-started": { page: "solutions.html", selector: "#get-started" },
+  // organizations.html
+  "organizations:audience":    { page: "organizations.html", selector: "#audience" },
+  "organizations:use-cases":   { page: "organizations.html", selector: "#see-yourself" },
+  "organizations:pricing":     { page: "organizations.html", selector: "#pricing" },
+  "organizations:get-started": { page: "organizations.html", selector: "#get-started" },
+  // pricing.html
+  "pricing:comparison":        { page: "pricing.html", selector: "#comparison" },
   // example.html
   "example:top":           { page: "example.html",  selector: "#top" },
   "example:guide":         { page: "example.html",  selector: "#guide" },
@@ -27,7 +33,6 @@ const NAV_MAP = {
   "example:evidence":      { page: "example.html",  selector: "#evidence" },
   "example:confidence":    { page: "example.html",  selector: "#confidence-scoring" },
   "example:summary":       { page: "example.html",  selector: "#summary" },
-  "example:faq":           { page: "example.html",  selector: "#faq" },
   // research.html
   "research:top":          { page: "research.html", selector: "main" },
   // try.html
@@ -39,7 +44,8 @@ function detectPage() {
   const path = window.location.pathname;
   if (path.includes("example"))   return "example";
   if (path.includes("product"))   return "product";
-  if (path.includes("solutions")) return "solutions";
+  if (path.includes("organizations")) return "organizations";
+  if (path.includes("pricing"))   return "pricing";
   if (path.includes("research"))  return "research";
   if (path.includes("try"))       return "try";
   return "home";
@@ -47,7 +53,7 @@ function detectPage() {
 
 function getCurrentPageFile() {
   const page = detectPage();
-  const map = { home: "index.html", example: "example.html", product: "product.html", solutions: "solutions.html", research: "research.html", try: "try.html" };
+  const map = { home: "index.html", example: "example.html", product: "product.html", organizations: "organizations.html", pricing: "pricing.html", research: "research.html", try: "try.html" };
   return map[page] || "index.html";
 }
 
@@ -119,16 +125,20 @@ function getPageContext() {
   let context = `The visitor is currently on the ${page.toUpperCase()} page of datom.science.\n`;
 
   if (page === "example" && typeof DATOMERS !== "undefined") {
-    context += `\nThis page shows an interactive datomer: "Remote Work → Productivity" with 32 datoms across 4 clusters.\n`;
-    context += `Navigable sections: example:top (overview), example:guide (DATOM standard explanation), example:graph (interactive knowledge graph), example:nucleus (Nucleus Claim), example:evidence (all 4 cluster cards), example:confidence (confidence scoring breakdown), example:summary (operational outcome), example:faq (FAQ).\n`;
+    context += `\nThis page shows a REAL claim from DATOM's production system: "GLP-1 receptor agonist therapy reduces skeletal muscle mass during weight loss in overweight and obese adults" — with 224 real, cited sources (130 direct, 94 background). Of the 130 direct studies, 59% support the claim while 19% contradict it. DATOM's confidence score is still only 44% (Preliminary band) — measuring evidence quality, a separate number from the raw support/contradict split. Every source is a real paper with a real DOI.\n`;
+    context += `Navigable sections: example:top (overview), example:guide (DATOM standard explanation), example:graph (interactive knowledge graph), example:nucleus (Nucleus Claim), example:evidence (all 4 cluster cards), example:confidence (confidence scoring breakdown), example:summary (operational outcome). The general FAQ moved to home:faq on the homepage; this page keeps only a short medical-disclaimer note near the bottom.\n`;
     context += `\nFULL DATOMER DATA:\n` + JSON.stringify(DATOMERS) + `\n`;
     context += `\nWhen discussing a specific datom or cluster, use [[NAV:example:evidence]] to scroll to it.\n`;
   } else if (page === "product") {
-    context += `Navigable sections: product:hero (intro), product:proof (real-time inspectability demo), product:comparison (DATOM vs LLMs table), product:pillars (3 pillars of legibility), product:responsibility (human judgment statement). Audience use cases live on the Solutions page: solutions:use-cases.\n`;
+    context += `This page is technical/mechanism detail aimed at organizations evaluating DATOM (reached via the "See how it works" link on the For Organizations page, not from the main nav). Navigable sections: product:hero (intro), product:proof (real-time inspectability demo), product:comparison (DATOM vs LLMs table), product:pillars (3 pillars of legibility), product:responsibility (human judgment statement). Broader audience use cases live on the For Organizations page: organizations:use-cases.\n`;
   } else if (page === "home") {
-    context += `Navigable sections: home:hero (main headline), home:problem (reproducibility crisis stats), home:ledger (the public ledger: independent, recorded, public). Institutional/B2B content lives on the Solutions page: solutions:audience, solutions:use-cases, solutions:get-started.\n`;
-  } else if (page === "solutions") {
-    context += `Navigable sections: solutions:audience (who it's for: labs & investors), solutions:use-cases (Research Ledger / Maturity Framework / Diligence Primitive), solutions:get-started (Charter Partner Access / Confidence Report CTAs).\n`;
+    context += `Page order top to bottom: home:hero (main headline), home:problem (the reproducibility crisis and misinformation/disinformation on social media -- this page's main educational job for a general audience), home:featured (a manually-cycled carousel of real claims from the production ledger, all Established band and Supported: CRISPR genome editing 82%, smallholder farm productivity 81%, hybrid COVID immunity 81%, eating-disorder brain structure 76%, HPV vaccination coverage 77%, vaccine-funding equity 77%), home:ledger (the public ledger: independent, recorded, public), home:two-paths (Read the record vs. Get your claims verified -- this is the funnel moment for institutions, pointing to the For Organizations page), home:faq (general FAQ, moved here from example.html). Full pricing lives on pricing:comparison. Institutional/B2B content lives on the For Organizations page: organizations:audience, organizations:use-cases, organizations:pricing, organizations:get-started.\n`;
+  } else if (page === "organizations") {
+    context += `Navigable sections: organizations:audience (who it's for: labs & investors), organizations:use-cases (Research Ledger / Maturity Framework / Diligence Primitive), organizations:pricing (DATOM Pro, two paths: Verification -- Confidence Report, Pilot, Verification Membership -- and Integration -- API access, volume verification), organizations:get-started (Pilot Access / Confidence Report CTAs). The site-wide tier comparison lives on pricing:comparison.\n`;
+    context += `DATOM Pro pricing is intentionally not published: it depends on scope and duration. If asked about price, do not state or estimate a number. Direct the visitor to schedule a call: [[NAV:organizations:get-started]] or the "Schedule a call to discuss pricing" link in organizations:pricing.\n`;
+  } else if (page === "pricing") {
+    context += `This page is a ruled comparison of the three tiers, each accumulating on the one before it. Observer ($0): featured entries, full depth, shareable, archive entries show a verdict card only. Investigator ($12/mo, toggle on the page also shows $120/yr): everything in Observer, plus full explanation on every archive claim, plus 3 new-claim requests included monthly then $5 each. Investigators submit and request claims; they do not verify them, the DATOM pipeline does, independent of any subscriber. DATOM Pro (call for pricing, routes to a call, covers what were formerly the separate Organizations and Scale tiers): everything in Investigator, plus commissioned Confidence Reports, Pilot R&D Sandbox access, Verification Membership, full reports and methodology on every claim, API access, and volume verification commitments. Navigable section: pricing:comparison.\n`;
+    context += `DATOM Pro pricing is intentionally not published: it depends on scope and duration. If asked about price, do not state or estimate a number. Direct the visitor to book a call using the links on this page.\n`;
   } else if (page === "try") {
     context += `This page has: Schedule a Technical Briefing (Calendly) and Join the Early Access Waitlist (Google Form).\n`;
   }
@@ -185,7 +195,7 @@ function toggle(forceState) {
       const page = detectPage();
       let greeting;
       if (page === "example") {
-        greeting = "Welcome to the Live Example! I'm Elmer, your Evidence Steward. This page shows a real datomer — **Remote Work \u2192 Productivity** — with 32 atomic evidence units across 4 clusters. I can walk you through the evidence, explain any specific datom, or show you how confidence scoring works. What would you like to explore?";
+        greeting = "Welcome to the Live Example! I'm Elmer, your Evidence Steward. This page shows a real claim from DATOM's production system — **GLP-1 Therapy → Muscle Reduction** — backed by 224 real, cited sources. 59% of the 130 studies that directly measure this support it, but DATOM's confidence score is still only 44%. I can explain why agreement isn't confidence, walk you through the evidence, or show you how confidence scoring works. What would you like to explore?";
       } else if (page === "try") {
         greeting = "Hello! I'm Elmer. You're on our engagement page \u2014 here you can schedule a 30-minute technical briefing or join the early access waitlist. How can I help you decide?";
       } else if (page === "product") {

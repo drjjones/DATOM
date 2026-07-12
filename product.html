@@ -2,50 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>How It Works — DATOM</title>
+<title>How It Works, DATOM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="./Assets/favicon.ico">
-<link rel="stylesheet" href="global.css?v=3">
-<link rel="stylesheet" href="elmer.css">
-
+<link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+<link rel="icon" type="image/png" href="./Assets/favicon.png">
+<link rel="apple-touch-icon" href="./Assets/favicon-180.png">
+<link rel="stylesheet" href="global.css?v=5">
+<link rel="stylesheet" href="elmer.css?v=20260712a">
+<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="design-v1.1.css?v=9">
 <style>
-  /* Preview box */
-  .preview-box {
-    margin: 32px 0;
-    padding: 32px;
-    border: 2px solid var(--accent);
-    border-radius: var(--radius-lg);
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(240, 253, 250, 0.9));
-    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.05);
-  }
-  .datom-pill {
-    display: inline-block;
-    font-family: var(--mono);
-    padding: 4px 8px;
-    background: rgba(6, 182, 212, 0.08);
-    border: 1px solid rgba(6, 182, 212, 0.18);
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--accent);
-  }
-  .preview-provenance {
-    font-size: 14px;
-    color: var(--muted);
-    margin-bottom: 16px;
-  }
-  .preview-quote {
-    font-size: 13px;
-    padding: 16px;
-    border-left: 3px solid var(--accent);
-    background: rgba(255, 255, 255, 0.8);
-    font-style: italic;
-    border-radius: 0 8px 8px 0;
-  }
-
-  /* Audience accordion styles moved to solutions.html with the
-     "See Yourself in DATOM" section */
+  /* Layout-only; visual treatment lives in design-v1.1.css */
+  .pillar-glyph { display: block; margin-bottom: var(--s3); }
 </style>
 </head>
 
@@ -57,10 +25,9 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
   </button>
   <nav>
-    <a href="product.html">How It Works</a>
-    <a href="solutions.html">Solutions</a>
     <a href="example.html">Live Example</a>
-    <a href="research.html">Research</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="organizations.html">For Organizations</a>
     <a href="/app/login" class="btn-login">Log In</a>
     <a href="try.html" class="btn-cta">Get Started</a>
   </nav>
@@ -69,31 +36,42 @@
 <main>
 
   <section id="hero" class="reveal">
-    <h1>Decision Infrastructure for the Empirical Enterprise</h1>
-    <p class="lede">DATOM is a system for representing the structural state of evidence — from published research and in-house experiments — over time, allowing humans to make defensible decisions under uncertainty.</p>
+    <h1>Decision infrastructure for the empirical enterprise</h1>
+    <p class="lede">DATOM is a system for representing the structural state of evidence, from published research and in-house experiments, over time, allowing humans to make defensible decisions under uncertainty.</p>
     <p class="lede">Independence is not asserted here. It is enforced by the mechanism: every score is computed from evidence structure, and every step of the pipeline can be audited by someone other than us.</p>
+    <div class="diagram" style="margin-top:40px; max-width:960px;">
+      <div class="diagram-flow">
+        <div class="diagram-node">Source Material</div>
+        <div class="diagram-arrow">&rarr;</div>
+        <div class="diagram-node">Atomic Claims</div>
+        <div class="diagram-arrow">&rarr;</div>
+        <div class="diagram-node">Structural Confidence</div>
+        <div class="diagram-arrow">&rarr;</div>
+        <div class="diagram-node">Decision-Ready Report</div>
+      </div>
+    </div>
   </section>
 
   <section id="proof-preview" class="reveal">
     <p class="section-label">Inspectability</p>
-    <h2>Inspectability in Real-Time</h2>
+    <h2>Inspectability</h2>
     <p>DATOM decomposes claims from both published literature and in-house experimental data into atomic units so reasoning remains auditable. See how a high-stakes conclusion is analyzed.</p>
-    <div class="card card-accent preview-box">
-      <span class="datom-pill">DATOM ID: B8</span>
-      <h3>Claim: Task errors increase when coordination cues are missing.</h3>
+    <div class="doc preview-box">
+      <span class="datom-pill">DATOM ID: D-LR-F0E00394-1828</span>
+      <h3>Claim: Dulaglutide (1.5 mg weekly) reduces absolute lean body mass during weight loss.</h3>
       <p class="preview-provenance">
-        <strong>Provenance:</strong> Article Text 4244 (2024).<br>
-        <strong>Signal:</strong> <span style="color:var(--accent); font-weight:700;">Supports claim direction (Productivity &#8595;)</span>
+        <strong>Provenance:</strong> Chen et al., "Assessment of Changes in Body Composition After 3 Months of Dulaglutide Treatment" (2024). doi:10.2147/DMSO.S443631<br>
+        <strong>Signal:</strong> <span style="color:var(--signal); font-weight:600;">Supports claim direction (Lean body mass &darr;)</span>
       </p>
       <div class="preview-quote">
-        "Rework is productivity loss even if output appears stable. Missing cues create downstream friction."
+        DATOM's read: absolute lean body mass decreased by 0.6 kg (1.19%) in this cohort, despite a rise in lean-mass percentage, directly supporting the reduction this claim describes.
       </div>
     </div>
   </section>
 
   <section id="comparison" class="reveal">
     <p class="section-label">Architecture</p>
-    <h2>Fundamental Differences: DATOM vs. LLMs</h2>
+    <h2>Fundamental differences: DATOM vs. LLMs</h2>
     <p>It is critical to distinguish between generating a likely answer and mapping a structural evidence state.</p>
     <table class="table-glass">
       <thead>
@@ -130,20 +108,44 @@
 
   <section id="pillars" class="reveal">
     <p class="section-label">Framework</p>
-    <h2>The Three Pillars of Legibility</h2>
+    <h2>The three pillars of legibility</h2>
     <div class="grid-3">
       <div class="card">
-        <p class="pill"><span class="pill-dot"></span>Inspectability</p>
+        <svg class="pillar-glyph" viewBox="0 0 64 64" width="40" height="40" fill="none" aria-hidden="true">
+          <line x1="32" y1="32" x2="32" y2="10" stroke="var(--line-2)" stroke-width="1"/>
+          <line x1="32" y1="32" x2="12" y2="46" stroke="var(--line-2)" stroke-width="1"/>
+          <line x1="32" y1="32" x2="52" y2="46" stroke="var(--line-2)" stroke-width="1"/>
+          <rect x="28" y="28" width="8" height="8" fill="var(--signal)"/>
+          <rect x="28" y="6" width="8" height="8" fill="var(--line-2)"/>
+          <rect x="8" y="42" width="8" height="8" fill="var(--line-2)"/>
+          <rect x="48" y="42" width="8" height="8" fill="var(--line-2)"/>
+        </svg>
+        <p class="pill">Inspectability</p>
         <h3>See every link in the chain.</h3>
-        <p>Every conclusion traces back to atomic evidence units. No hidden reasoning, no opaque summaries — just a fully auditable path from source to score.</p>
+        <p>Every conclusion traces back to atomic evidence units: a fully auditable path from source to score, with no hidden reasoning and no opaque summaries.</p>
       </div>
       <div class="card">
-        <p class="pill"><span class="pill-dot"></span>Structural confidence</p>
+        <svg class="pillar-glyph" viewBox="0 0 64 64" width="40" height="40" fill="none" aria-hidden="true">
+          <line x1="12" y1="52" x2="32" y2="32" stroke="var(--line-2)" stroke-width="1"/>
+          <line x1="32" y1="32" x2="52" y2="12" stroke="var(--line-2)" stroke-width="1"/>
+          <rect x="8" y="48" width="8" height="8" fill="var(--line-2)"/>
+          <rect x="28" y="28" width="8" height="8" fill="var(--line-2)"/>
+          <rect x="48" y="8" width="8" height="8" fill="var(--signal)"/>
+        </svg>
+        <p class="pill">Structural confidence</p>
         <h3>Measure the weight of knowledge.</h3>
         <p>A summary of evidence density. Not an assertion of truth, but a record of how much institutional weight a claim can support.</p>
       </div>
       <div class="card">
-        <p class="pill"><span class="pill-dot"></span>Decision readiness</p>
+        <svg class="pillar-glyph" viewBox="0 0 64 64" width="40" height="40" fill="none" aria-hidden="true">
+          <line x1="32" y1="10" x2="12" y2="48" stroke="var(--line-2)" stroke-width="1"/>
+          <line x1="32" y1="10" x2="52" y2="48" stroke="var(--line-2)" stroke-width="1"/>
+          <line x1="12" y1="48" x2="52" y2="48" stroke="var(--line-2)" stroke-width="1"/>
+          <rect x="28" y="6" width="8" height="8" fill="var(--signal)"/>
+          <rect x="8" y="44" width="8" height="8" fill="var(--line-2)"/>
+          <rect x="48" y="44" width="8" height="8" fill="var(--line-2)"/>
+        </svg>
+        <p class="pill">Decision readiness</p>
         <h3>Map your action thresholds.</h3>
         <p>Determine if current evidence supports a pilot, a pivot, or full-scale deployment based on maturity bands.</p>
       </div>
@@ -153,43 +155,43 @@
   <!-- HOW IT WORKS: 4-STEP WORKFLOW -->
   <section id="workflow" class="reveal">
     <p class="section-label">How It Works</p>
-    <h2>From Evidence to Defensible Decision</h2>
+    <h2>From evidence to defensible decision</h2>
     <p>DATOM processes raw scientific inputs through a structured pipeline. Each step is auditable, reversible, and traceable.</p>
 
     <div class="bento bento-3" style="margin-top:40px;">
 
       <div class="bento-panel bento-span2 reveal" style="position:relative; padding-top:48px;">
-        <div style="position:absolute; top:24px; left:24px; width:28px; height:28px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:#fff;">1</div>
-        <p class="pill" style="margin-bottom:12px;"><span class="pill-dot"></span>Submission</p>
-        <h3>Ingest Source Material</h3>
-        <p>Upload published papers, experimental reports, or raw PDFs. DATOM accepts structured and unstructured inputs — journal articles, internal memos, trial data, or regulatory filings.</p>
+        <div class="step-index" style="position:absolute; top:20px; left:20px;">1</div>
+        <p class="pill" style="margin-bottom:12px;">Submission</p>
+        <h3>Ingest source material</h3>
+        <p>Upload published papers, experimental reports, or raw PDFs. DATOM accepts structured and unstructured inputs: journal articles, internal memos, trial data, or regulatory filings.</p>
       </div>
 
       <div class="bento-panel reveal reveal-d1" style="position:relative; padding-top:48px;">
-        <div style="position:absolute; top:24px; left:24px; width:28px; height:28px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:#fff;">2</div>
-        <p class="pill" style="margin-bottom:12px;"><span class="pill-dot"></span>Extraction</p>
-        <h3>Decompose into Atomic Claims</h3>
-        <p>DATOM's extraction layer isolates each testable claim from source text. Every datom records its claim, its supporting quote, its source document, and the page it came from — creating a fully traceable provenance chain.</p>
+        <div class="step-index" style="position:absolute; top:20px; left:20px;">2</div>
+        <p class="pill" style="margin-bottom:12px;">Extraction</p>
+        <h3>Decompose into atomic claims</h3>
+        <p>DATOM's extraction layer isolates each testable claim from source text. Every datom records its claim, its supporting quote, its source document, and the page it came from, creating a fully traceable provenance chain.</p>
       </div>
 
       <div class="bento-panel reveal reveal-d2" style="position:relative; padding-top:48px;">
-        <div style="position:absolute; top:24px; left:24px; width:28px; height:28px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:#fff;">3</div>
-        <p class="pill" style="margin-bottom:12px;"><span class="pill-dot"></span>Scoring</p>
-        <h3>Compute Structural Confidence</h3>
-        <p>Each claim receives a structural confidence score derived from the geometry of its supporting evidence. Scores are not model opinions — they are structural measurements of how much institutional weight the evidence can bear.</p>
+        <div class="step-index" style="position:absolute; top:20px; left:20px;">3</div>
+        <p class="pill" style="margin-bottom:12px;">Scoring</p>
+        <h3>Compute structural confidence</h3>
+        <p>Each claim receives a structural confidence score derived from the geometry of its supporting evidence. Scores are not model opinions: they are structural measurements of how much institutional weight the evidence can bear.</p>
       </div>
 
       <div class="bento-panel bento-span2 reveal reveal-d1" style="position:relative; padding-top:48px;">
-        <div style="position:absolute; top:24px; left:24px; width:28px; height:28px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:#fff;">4</div>
-        <p class="pill" style="margin-bottom:12px;"><span class="pill-dot"></span>Reporting</p>
-        <h3>Generate Decision-Ready Reports</h3>
-        <p>Export confidence breakdowns, system audits, and evidence summaries as structured reports. Every output is timestamped, signed, and reproducible — designed to stand up to scrutiny in board reviews, regulatory submissions, or investor diligence.</p>
+        <div class="step-index" style="position:absolute; top:20px; left:20px;">4</div>
+        <p class="pill" style="margin-bottom:12px;">Reporting</p>
+        <h3>Generate decision-ready reports</h3>
+        <p>Export confidence breakdowns, system audits, and evidence summaries as structured reports. Every output is timestamped, signed, and reproducible, for use in board reviews, regulatory submissions, or investor diligence.</p>
       </div>
 
     </div>
   </section>
 
-  <!-- "See Yourself in DATOM" moved to solutions.html -->
+  <!-- "See Yourself in DATOM" moved to organizations.html -->
 
   <!-- OUR PRINCIPLES (merged from vision) -->
   <section class="reveal">
@@ -200,7 +202,7 @@
         <h3>Confidence is structural</h3>
         <p>DATOM operates on the principle that confidence is a property of evidence structure, not model authority or model output. For a decision to be defensible, uncertainty and disagreement must be preserved rather than smoothed away.</p>
       </div>
-      <div class="card card-flat">
+      <div class="card">
         <h3>Ethical boundaries</h3>
         <p>DATOM is defined by its constraints. It is not an oracle, a predictor, or a chatbot. The system will never decide, never recommend, and never replace the necessity of human judgment. We record context; we do not authorize action.</p>
       </div>
@@ -210,18 +212,18 @@
   <!-- CONVERSION CTA FOOTER -->
   <section class="reveal" style="text-align:center;">
     <h2>See it on your claims.</h2>
-    <p class="lede" style="margin:0 auto;">DATOM does not just explain structural confidence — it measures it, on the evidence that matters to your work.</p>
+    <p class="lede" style="margin:0 auto;">DATOM measures structural confidence on the evidence that matters to your work.</p>
     <div style="display:flex; gap:14px; justify-content:center; margin-top:32px; flex-wrap:wrap;">
-      <a href="solutions.html" class="btn-primary">See how institutions use DATOM &rarr;</a>
+      <a href="organizations.html" class="btn">See how institutions use DATOM &rarr;</a>
     </div>
   </section>
 
 </main>
 
-<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--accent);">Terms</a></footer>
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &middot; <a href="terms.html">Terms</a></footer>
 
-<script src="shared.js"></script>
-<script src="particles.js"></script>
-<script src="elmer.js?v=20260401"></script>
+<script src="fog-bg.js?v=2"></script>
+<script src="shared.js?v=20260710"></script>
+<script src="elmer.js?v=20260711a"></script>
 </body>
 </html>

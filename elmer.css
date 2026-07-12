@@ -1,5 +1,13 @@
 /* ============================================================
    Elmer Chatbot — Widget Styles
+   Flat v1.1 system: zero radius on structural containers, hairline
+   borders, --ink/--paper/--signal tokens instead of hardcoded cyan.
+   Chat bubbles reuse the same "filled-ink stamp / hairline box" pair
+   already used for buttons sitewide (user = filled, Elmer = hairline).
+   The open/close motion is CSS-transition-driven (scale + opacity from
+   the dock corner), not a keyframe slide -- the same technique (not the
+   same states) the dashboard's Elmer panel uses to glide between
+   layouts: a class toggle plus a transition, no JS animation loop.
    ============================================================ */
 
 /* ── Dock (collapsed pill button) ── */
@@ -11,33 +19,34 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 20px 10px 12px;
-  background: #06b6d4;
-  color: #fff;
-  border: none;
-  border-radius: 999px;
+  padding: 10px 18px 10px 12px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 0;
   cursor: pointer;
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.35);
-  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: var(--font-data);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: none;
+  transition: filter 0.15s ease, opacity 0.2s ease, transform 0.2s ease;
 }
-.elmer-dock:hover {
-  transform: scale(1.04);
-  box-shadow: 0 6px 28px rgba(6, 182, 212, 0.45);
-}
+.elmer-dock:hover { filter: brightness(1.2); }
 .elmer-dock-avatar {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.12);
   padding: 3px;
   flex-shrink: 0;
 }
-.elmer-dock.hidden { display: none; }
+.elmer-dock.hidden { opacity: 0; transform: scale(0.9); pointer-events: none; }
 
-/* ── Panel (expanded chat) ── */
+/* ── Panel (expanded chat) ──
+   Frosted glass, same recipe as the header and the homepage carousel
+   card: rgba(255,255,255,0.78) + blur(12px). */
 .elmer-panel {
   position: fixed;
   bottom: 24px;
@@ -45,22 +54,25 @@
   width: 380px;
   height: 520px;
   z-index: 10000;
-  display: none;
+  display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(15, 23, 42, 0.1);
-  border-radius: 16px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  box-shadow: none;
   overflow: hidden;
-  animation: elmerSlideUp 0.2s ease;
+  transform-origin: bottom right;
+  transform: scale(0.85);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
 }
-.elmer-panel.open { display: flex; }
-
-@keyframes elmerSlideUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+.elmer-panel.open {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* ── Header ── */
@@ -69,29 +81,30 @@
   align-items: center;
   gap: 10px;
   padding: 14px 16px;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-  background: rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid var(--line);
   flex-shrink: 0;
 }
 .elmer-header-avatar {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: rgba(6, 182, 212, 0.08);
-  border: 2px solid #06b6d4;
+  background: rgba(11, 110, 132, 0.08);
+  border: 2px solid var(--signal);
   padding: 4px;
   flex-shrink: 0;
 }
 .elmer-header-info { flex: 1; }
 .elmer-header-name {
-  font-size: 14px;
-  font-weight: 700;
-  color: #0f172a;
+  font-family: var(--font-data);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ink);
   margin: 0;
 }
 .elmer-header-role {
   font-size: 11px;
-  color: #64748b;
+  color: var(--muted);
   margin: 0;
   display: flex;
   align-items: center;
@@ -101,7 +114,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #10b981;
+  background: var(--signal);
   animation: elmerPulse 2s ease infinite;
 }
 @keyframes elmerPulse {
@@ -109,19 +122,19 @@
   50% { opacity: 0.4; }
 }
 .elmer-close {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  border: 1px solid rgba(15, 23, 42, 0.1);
+  width: 26px;
+  height: 26px;
+  border-radius: 0;
+  border: 1px solid var(--line-2);
   background: transparent;
-  color: #64748b;
-  font-size: 16px;
+  color: var(--muted);
+  font-size: 15px;
   cursor: pointer;
   display: grid;
   place-items: center;
-  transition: background 0.15s;
+  transition: background 0.15s ease;
 }
-.elmer-close:hover { background: rgba(15, 23, 42, 0.05); }
+.elmer-close:hover { background: var(--nest); }
 
 /* ── Messages ── */
 .elmer-messages {
@@ -137,25 +150,28 @@
 .elmer-bubble {
   max-width: 84%;
   padding: 10px 14px;
+  font-family: var(--font-body);
   font-size: 13px;
   line-height: 1.55;
-  border-radius: 14px 14px 14px 4px;
-  background: rgba(241, 245, 249, 0.75);
-  color: #0f172a;
+  border-radius: 0;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
   align-self: flex-start;
   word-wrap: break-word;
 }
 .elmer-bubble a {
-  color: #06b6d4;
-  font-weight: 600;
+  color: var(--signal);
+  text-decoration: underline;
+  font-weight: 500;
 }
 .elmer-bubble-user {
-  background: #06b6d4;
-  color: #fff;
-  border-radius: 14px 14px 4px 14px;
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
   align-self: flex-end;
 }
-.elmer-bubble-user a { color: #fff; }
+.elmer-bubble-user a { color: var(--paper); }
 
 /* ── Typing indicator ── */
 .elmer-typing {
@@ -168,7 +184,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #94a3b8;
+  background: var(--line-2);
   animation: elmerBounce 1.2s ease infinite;
 }
 .elmer-typing-dot:nth-child(2) { animation-delay: 0.2s; }
@@ -187,20 +203,19 @@
   flex-shrink: 0;
 }
 .elmer-chip {
-  padding: 6px 14px;
-  border-radius: 20px;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  background: #f8fafc;
-  color: #334155;
+  padding: 6px 12px;
+  border-radius: 0;
+  border: 1px solid var(--line-2);
+  background: transparent;
+  color: var(--muted);
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 .elmer-chip:hover {
-  border-color: #06b6d4;
-  color: #06b6d4;
-  background: rgba(6, 182, 212, 0.05);
+  border-color: var(--signal);
+  color: var(--signal);
 }
 
 /* ── Navigation links in bubbles ── */
@@ -208,22 +223,17 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: #06b6d4;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: rgba(6, 182, 212, 0.08);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  color: var(--signal);
+  text-decoration: underline;
+  font-weight: 500;
+  padding: 0;
+  border: none;
+  background: none;
   cursor: pointer;
-  transition: all 0.2s;
   font-size: 13px;
   margin: 2px 0;
 }
-.elmer-nav-link:hover {
-  background: rgba(6, 182, 212, 0.15);
-  border-color: #06b6d4;
-}
+.elmer-nav-link:hover { filter: brightness(1.2); }
 
 /* ── Input bar ── */
 .elmer-input-bar {
@@ -231,50 +241,50 @@
   align-items: flex-end;
   gap: 8px;
   padding: 12px 16px;
-  border-top: 1px solid rgba(15, 23, 42, 0.08);
-  background: rgba(255, 255, 255, 0.5);
+  border-top: 1px solid var(--line);
   flex-shrink: 0;
 }
 .elmer-textarea {
   flex: 1;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 8px;
+  border: 1px solid var(--line-2);
+  border-radius: 0;
   padding: 9px 12px;
   font-size: 13px;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body);
   line-height: 1.4;
   resize: none;
   max-height: 80px;
   outline: none;
-  color: #0f172a;
-  background: #f8fafc;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  color: var(--ink);
+  background: transparent;
+  transition: border-color 0.15s ease;
 }
 .elmer-textarea:focus {
-  border-color: #06b6d4;
-  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+  border-color: var(--signal);
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
 }
-.elmer-textarea::placeholder { color: #94a3b8; }
+.elmer-textarea::placeholder { color: var(--faint); }
 .elmer-send {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  background: #f1f5f9;
-  color: #94a3b8;
-  font-size: 16px;
+  width: 34px;
+  height: 34px;
+  border-radius: 0;
+  border: 1px solid var(--line-2);
+  background: transparent;
+  color: var(--faint);
+  font-size: 15px;
   cursor: pointer;
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  transition: all 0.15s;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 .elmer-send.active {
-  background: #06b6d4;
-  border-color: #06b6d4;
-  color: #fff;
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
 }
-.elmer-send.active:hover { background: #0891b2; }
+.elmer-send.active:hover { filter: brightness(1.2); }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
@@ -284,10 +294,9 @@
     max-height: 420px;
     bottom: 16px;
     right: 16px;
-    border-radius: 14px;
   }
-  .elmer-dock { bottom: 16px; right: 16px; font-size: 13px; padding: 8px 16px 8px 10px; }
-  .elmer-dock-avatar { width: 24px; height: 24px; }
+  .elmer-dock { bottom: 16px; right: 16px; font-size: 11px; padding: 8px 14px 8px 10px; }
+  .elmer-dock-avatar { width: 22px; height: 22px; }
   .elmer-bubble { max-width: 92%; font-size: 14px; }
   .elmer-chip { font-size: 12px; padding: 6px 10px; }
 }
@@ -299,7 +308,6 @@
     max-height: 360px;
     bottom: 12px;
     right: 12px;
-    border-radius: 14px;
   }
   .elmer-dock { bottom: 12px; right: 12px; }
 }

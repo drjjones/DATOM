@@ -1,0 +1,490 @@
+{
+  "anchorClaim": "Individuals with eating disorders (anorexia nervosa, bulimia nervosa, or clinical risk populations) show measurable structural or functional brain differences, in regions associated with emotion processing and cognitive control, detectable via MRI or fMRI compared to healthy controls.",
+  "as_of": "12 Jul 2026",
+  "confidence_band": "Preliminary",
+  "confidence_score_pct": 35,
+  "dataQualityNote": "This pull is a real 91-datom evidence set, but it has notable quality flags worth surfacing: 44 of 91 datoms (48%) are marked theme_match_low_confidence by the platform's own matching pipeline, and inspection shows several of these are only tangentially related to the anchor claim (e.g. EEG mind-wandering in shift workers, fMRI social-learning tasks in healthy adults, object-recognition memory in rats) rather than direct eating-disorder neuroimaging evidence. Evidence-type metadata is also thin: 40 of 91 datoms (44%) are evidence_type TEXT_NO_METADATA rather than PDF_FULL_TEXT, and 24 of 91 datoms have sample_size \"Not reported.\" Methodology is highly heterogeneous (72 distinct methodology strings across 91 datoms, mostly singletons), which limits direct study-design comparison. No malformed records were skipped; all 91 datom_ids referenced by the Datomer record were successfully fetched.",
+  "datomerId": "65ba2769-243e-444b-8ee5-59c0f8ada7c2",
+  "datoms": [
+    {
+      "id": "9933c55a-534b-466d-9753-1fe8d53c23e1",
+      "claim": "Individuals engaged in mind-wandering tasks show measurable functional brain differences in the prefrontal cortex, detectable via EEG brain network analysis compared to baseline attentional states.",
+      "source": "Qing Xin, Su Hao, Cai Hongbin, Wang Xiaoqin, Wang Jian \"EEG brain network analysis of mind-wandering characteristics and its modulation by shift work in high-risk industries.\" (2026). doi:10.1007/s11571-026-10488-2",
+      "year": 2026,
+      "population": "Workers in high-risk industries",
+      "domain": "Cognitive neuroscience, occupational safety",
+      "measure": "Hub efficiency in left prefrontal cortex; brain network resource allocation",
+      "methodology": "EEG brain network analysis, Lab-in-the-Field experiment",
+      "relationship": "CONDITIONAL",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Low thematic match confidence to anchor claim (similarity 0.29)."
+    },
+    {
+      "id": "552269c1-4b38-44a1-81a1-ef5ab38d206d",
+      "claim": "Body mass index is associated with gray matter volume in parietal, frontal, temporal, and cingulate lobes in females with eating disorders and healthy controls.",
+      "source": "A. Lyall, L. Breithaupt, Chunni Ji, Anastasia Haidar, E. Kotler \"Lower Region-Specific Gray Matter Volume in Females with Atypical Anorexia Nervosa and Anorexia Nervosa\" (2024). doi:10.1002/eat.24168",
+      "year": 2024,
+      "population": "Females with anorexia nervosa, atypical anorexia nervosa, and healthy controls (combined n=101)",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Association between BMI and gray matter volume",
+      "methodology": "Structural MRI with correlation analysis",
+      "relationship": "CONDITIONAL",
+      "sample_size": "101 participants (37 AN, 23 atypical AN, 41 HC)",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Limitations: Not reported in the provided text."
+    },
+    {
+      "id": "3f1b593d-bcbf-4e56-b833-f9b16130c5f0",
+      "claim": "Simulation of others' behavior during learning engages the posterior superior temporal sulcus, a region associated with social cognition and emotion processing, detectable via fMRI.",
+      "source": "Julien Benistant, Valentin Guigon, Alain Nicolas, Edmund Derrington, Jean-Claude Dreher \"Social learning dynamically shapes moral decision-making by biasing subjective valuation.\" (2026). doi:10.1371/journal.pbio.3003889",
+      "year": 2026,
+      "population": "Healthy adult participants in a cheating game task",
+      "domain": "Cognitive neuroscience, social learning",
+      "measure": "fMRI activation in posterior superior temporal sulcus during social learning",
+      "methodology": "Model-based fMRI with behavioral task",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Limitations: Not explicitly stated in the provided text. Low thematic match confidence to anchor claim (similarity 0.28)."
+    },
+    {
+      "id": "d3f08f75-1049-4946-b1c1-a74a6ed5541c",
+      "claim": "Individuals with bulimia nervosa show reduced gray matter volume in the right dorsal anterior insula and bilateral ventral anterior insula compared to healthy controls.",
+      "source": "Weihua Li, Yiling Wang, Jiani Wang, Miao Wang, Jing Liu \"Bulimia nervosa selectively reshapes the structure and intrinsic function of anterior insula subregions associated with cognition-emotion integration.\" (2024). doi:10.1016/j.jad.2024.07.051",
+      "year": 2024,
+      "population": "54 bulimia nervosa patients and 56 healthy controls",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Gray matter volume in anterior insula subregions",
+      "methodology": "Structural MRI with voxel-based morphometry",
+      "relationship": "SUPPORTS",
+      "sample_size": "110 participants (54 BN, 56 HC)",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Limitations: Not explicitly stated in the provided text."
+    },
+    {
+      "id": "a7149599-efd8-4bac-9f78-886ca72bc763",
+      "claim": "Individuals with binge eating show heightened neural responsivity in the right caudate and bilateral ventral striatum during reward anticipation compared to matched controls without binge eating.",
+      "source": "Cassandra J. Lowe, Lindsay P. Bodell \"Examining neural responses to anticipating or receiving monetary rewards and the development of binge eating in youth. A registered report using data from the Adolescent Brain Cognitive Development (ABCD) study\" (2024). doi:10.1016/j.dcn.2024.101377",
+      "year": 2024,
+      "population": "Youth with binge eating and matched controls from the ABCD study",
+      "domain": "Eating disorders and reward processing neurobiology",
+      "measure": "Neural responsivity (fMRI activation) in right caudate and bilateral ventral striatum during reward anticipation",
+      "methodology": "Longitudinal neuroimaging study with fMRI",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Limitations: Not explicitly stated in the provided text. Low thematic match confidence to anchor claim (similarity 0.49)."
+    },
+    {
+      "id": "ee271bff-2e69-46fc-af4c-91cdfdd9db64",
+      "claim": "Individuals with anorexia nervosa show altered resting-state functional connectivity in brain networks associated with cognitive control compared to healthy controls.",
+      "source": "Not reported (2026)",
+      "year": 2026,
+      "population": "Not reported",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Resting-state functional connectivity",
+      "methodology": "Resting-state fMRI with seed-based whole-brain functional connectivity analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": ""
+    },
+    {
+      "id": "a06453c4-398a-4df6-bd1d-60d67040660c",
+      "claim": "Individuals with anorexia nervosa show altered resting-state functional connectivity in emotion processing networks compared to healthy controls.",
+      "source": "Not reported (2026)",
+      "year": 2026,
+      "population": "Not reported",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Resting-state functional connectivity in emotion processing networks",
+      "methodology": "Resting-state fMRI with seed-based whole-brain functional connectivity analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": ""
+    },
+    {
+      "id": "9c4b67df-c46d-405b-af93-bc7e61cf5539",
+      "claim": "Individuals with anorexia nervosa show reduced cortical thickness in regions associated with cognitive control compared to healthy controls.",
+      "source": "Not reported (2026)",
+      "year": 2026,
+      "population": "Not reported",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Cortical thickness",
+      "methodology": "Structural MRI with volumetric and cortical thickness analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": ""
+    },
+    {
+      "id": "0bd549e2-333c-4fd1-934f-e6d10482e8af",
+      "claim": "Individuals with anorexia nervosa show reduced gray matter volume in regions associated with emotion processing compared to healthy controls.",
+      "source": "Not reported (2026)",
+      "year": 2026,
+      "population": "Not reported",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Gray matter volume",
+      "methodology": "Structural MRI with volumetric and cortical thickness analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": ""
+    },
+    {
+      "id": "0c565dff-fc95-4cf2-94c3-9b492d15ed97",
+      "claim": "Individuals with bulimia nervosa show altered white matter microstructure in tracts connecting emotion processing and cognitive control regions compared to healthy controls.",
+      "source": "Not reported (2026)",
+      "year": 2026,
+      "population": "Not reported",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "White matter microstructure",
+      "methodology": "Diffusion-weighted imaging with fixel-based analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": ""
+    },
+    {
+      "id": "3212b9d5-ada4-4b8d-8c4c-c6631e935aa7",
+      "claim": "Individuals at clinical risk for eating disorders show altered amygdala reactivity during emotion processing tasks compared to healthy controls.",
+      "source": "Not reported (2026)",
+      "year": 2026,
+      "population": "Not reported",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Amygdala reactivity during emotion processing",
+      "methodology": "Model-based fMRI with behavioral task",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": ""
+    },
+    {
+      "id": "008ad35b-a402-42ff-adcc-98f5a21e6dd9",
+      "claim": "Individuals with binge eating disorder show reduced prefrontal cortical volume associated with cognitive control deficits compared to healthy controls.",
+      "source": "Not reported (2026)",
+      "year": 2026,
+      "population": "Not reported",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Prefrontal cortical volume",
+      "methodology": "Structural MRI with volumetric and cortical thickness analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": ""
+    },
+    {
+      "id": "fe3add24-d201-478b-9ee9-cff0f4cd3231",
+      "claim": "Individuals with anorexia nervosa show altered structural connectivity between emotion processing and cognitive control regions compared to healthy controls.",
+      "source": "Not reported (2026)",
+      "year": 2026,
+      "population": "Not reported",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Structural connectivity",
+      "methodology": "Diffusion-weighted imaging with fixel-based analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": ""
+    },
+    {
+      "id": "fcd11c0f-0b89-4ff2-aa09-97fd333b8856",
+      "claim": "Individuals with eating disorders show altered functional connectivity between the amygdala and prefrontal cortex during emotion regulation compared to healthy controls.",
+      "source": "Not reported (2026)",
+      "year": 2026,
+      "population": "Not reported",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Amygdala-prefrontal functional connectivity during emotion regulation",
+      "methodology": "Resting-state fMRI with seed-based whole-brain functional connectivity analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": ""
+    },
+    {
+      "id": "fb06d591-6134-4ae1-9aac-fd79aa079312",
+      "claim": "Individuals with eating disorders show reduced insular cortex volume associated with altered interoceptive processing compared to healthy controls.",
+      "source": "Not reported (2026)",
+      "year": 2026,
+      "population": "Not reported",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Insular cortex volume and interoceptive processing",
+      "methodology": "Structural MRI with volumetric and cortical thickness analysis",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": ""
+    },
+    {
+      "id": "b49ebe22-796e-4d53-944f-c13974b9b9bb",
+      "claim": "Not reported",
+      "source": "Not reported (2026)",
+      "year": 2026,
+      "population": "Not reported",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Not reported",
+      "methodology": "Not reported",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": ""
+    },
+    {
+      "id": "b448da06-bad7-4bfe-8b1a-a6ae87ab2f79",
+      "claim": "Not reported",
+      "source": "Not reported (2026)",
+      "year": 2026,
+      "population": "Not reported",
+      "domain": "Neuroimaging and eating disorders",
+      "measure": "Not reported",
+      "methodology": "Not reported",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": ""
+    },
+    {
+      "id": "6aa6e40d-1b1e-4c6b-a160-1d6faa948958",
+      "claim": "Cortical thickness in the lateral orbitofrontal cortex shows differential associations with emotion-related cognitive control performance between individuals with ADHD and healthy controls.",
+      "source": "Anna Luisa Klahn, Frida Bayard, Christoph Abe, Eva Henje, Orestis Floros \"Specific frontostriatal structural alterations underlie emotional instability but not inattention in ADHD and healthy individuals.\" (2026). doi:10.1139/jpn-2025-0198",
+      "year": 2026,
+      "population": "Subsample of adults with ADHD and healthy controls performing emotional Stroop task during MRI",
+      "domain": "Neuroimaging and emotion-related cognitive control",
+      "measure": "Lateral orbitofrontal cortex thickness and emotional Stroop task performance",
+      "methodology": "Structural MRI with emotional Stroop task performance assessment",
+      "relationship": "SUPPORTS",
+      "sample_size": "Not reported",
+      "evidence_type": "TEXT_NO_METADATA",
+      "notes": "Limitations: Medication use within the ADHD group might influence brain-symptom associations. Cross-sectional design precludes conclusions about causality. Low thematic match confidence to anchor claim (similarity 0.35)."
+    }
+  ],
+  "entryId": "D-EC72DA5D",
+  "evidenceSplit": {
+    "supports": 64,
+    "contradicts": 2,
+    "conditional": 25
+  },
+  "figures": {
+    "methodologyMix": [
+      {
+        "label": "Two-sample bidirectional Mendelian randomization",
+        "count": 6
+      },
+      {
+        "label": "Machine learning classification with nested cross-validation",
+        "count": 3
+      },
+      {
+        "label": "Cross-sectional MRI volumetric study",
+        "count": 2
+      },
+      {
+        "label": "Longitudinal neuroimaging study with fMRI",
+        "count": 2
+      },
+      {
+        "label": "Meta-analysis of structural MRI studies",
+        "count": 2
+      },
+      {
+        "label": "Model-based fMRI with behavioral task",
+        "count": 2
+      },
+      {
+        "label": "Prospective cohort study with structural MRI",
+        "count": 2
+      },
+      {
+        "label": "Resting-state fMRI with seed-based whole-brain functional connectivity analysis",
+        "count": 2
+      },
+      {
+        "label": "Structural MRI analysis with dimensional symptom approach",
+        "count": 2
+      },
+      {
+        "label": "Structural MRI with linear mixed-effects models",
+        "count": 2
+      },
+      {
+        "label": "Structural MRI with semi-partial Pearson correlations",
+        "count": 2
+      },
+      {
+        "label": "Structural MRI with volumetric and cortical thickness analysis",
+        "count": 2
+      },
+      {
+        "label": "Systematic review and meta-analysis",
+        "count": 2
+      },
+      {
+        "label": "Systematic review and meta-analysis using GingerALE activation likelihood estimation",
+        "count": 2
+      },
+      {
+        "label": "Animal model study with histological analysis",
+        "count": 1
+      },
+      {
+        "label": "Behavioral testing with object recognition task",
+        "count": 1
+      },
+      {
+        "label": "Case-control MRI study",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional MRI study with graph-theoretical network analysis",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional analysis within prospective cohort study with structural MRI",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional cohort study with structural MRI",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional observational study with neuroimaging",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional structural MRI study",
+        "count": 1
+      },
+      {
+        "label": "Cross-sectional study with structural MRI and diffusion tensor imaging",
+        "count": 1
+      },
+      {
+        "label": "Diffusion-weighted imaging with fixel-based analysis",
+        "count": 1
+      },
+      {
+        "label": "EEG brain network analysis, Lab-in-the-Field experiment",
+        "count": 1
+      },
+      {
+        "label": "Longitudinal cohort study with structural MRI",
+        "count": 1
+      },
+      {
+        "label": "Longitudinal structural MRI study",
+        "count": 1
+      },
+      {
+        "label": "Machine learning classification with structural MRI",
+        "count": 1
+      },
+      {
+        "label": "Meta-analysis of case-control neuroimaging studies",
+        "count": 1
+      },
+      {
+        "label": "Meta-analysis of voxel-based morphometry studies",
+        "count": 1
+      },
+      {
+        "label": "Narrative review",
+        "count": 1
+      },
+      {
+        "label": "Not reported",
+        "count": 19
+      },
+      {
+        "label": "Prospective longitudinal cohort study",
+        "count": 1
+      },
+      {
+        "label": "Randomized controlled trial with neuroimaging",
+        "count": 1
+      },
+      {
+        "label": "Resting-state fMRI with graph theory analysis",
+        "count": 1
+      },
+      {
+        "label": "Resting-state fMRI with independent component analysis",
+        "count": 1
+      },
+      {
+        "label": "Structural MRI with correlation analysis",
+        "count": 1
+      },
+      {
+        "label": "Structural MRI with emotional Stroop task performance assessment",
+        "count": 1
+      },
+      {
+        "label": "Structural MRI with voxel-based morphometry",
+        "count": 1
+      },
+      {
+        "label": "Systematic review",
+        "count": 1
+      },
+      {
+        "label": "Task-based fMRI with reward processing paradigm",
+        "count": 1
+      }
+    ],
+    "sourceTypeMix": [
+      {
+        "label": "PDF_FULL_TEXT",
+        "count": 51
+      },
+      {
+        "label": "TEXT_NO_METADATA",
+        "count": 40
+      }
+    ],
+    "publicationYears": [
+      {
+        "year": 2018,
+        "count": 1
+      },
+      {
+        "year": 2022,
+        "count": 10
+      },
+      {
+        "year": 2023,
+        "count": 14
+      },
+      {
+        "year": 2024,
+        "count": 20
+      },
+      {
+        "year": 2025,
+        "count": 17
+      },
+      {
+        "year": 2026,
+        "count": 29
+      }
+    ]
+  },
+  "guide": {
+    "whatScienceSays": "Of the 91 real datoms linked to this claim, 64 (70%) directly support measurable structural or functional brain differences in people with eating disorders, most commonly reduced gray matter volume, altered cortical thickness, and disrupted resting-state or task-based functional connectivity in regions tied to emotion processing and cognitive control (insula, orbitofrontal cortex, amygdala-prefrontal circuits). 25 datoms (27%) are conditional, often narrowing the effect to a subgroup, a specific region, or a BMI-linked association rather than a clean case-control difference. Only 2 datoms (2%) contradict the claim outright, one a population-based adolescent cohort finding no significant global brain-volume association with subclinical binge-eating symptoms, the other an animal (rat) behavioral study not measuring brain structure directly.",
+    "howConfident": "The platform scores this claim's confidence_band as Preliminary at 35%, despite 91 replications, and that caution is warranted by real data-quality patterns in the fetched set: 44 of 91 datoms (48%) are flagged theme_match_low_confidence by the platform's own matching pipeline, and several of these describe populations or outcomes only loosely related to eating disorders (shift-worker EEG studies, healthy-adult social-learning fMRI, ADHD cortical-thickness studies, rat object-recognition memory). Evidence-type metadata is also thin, with 40 of 91 datoms (44%) sourced as TEXT_NO_METADATA rather than full-text PDFs, and 24 of 91 datoms missing a reported sample size. Methodology is fragmented across 72 distinct descriptions for 91 datoms, limiting direct comparability of study designs.",
+    "decisionSupport": [
+      "The directional signal (70% supports, 2% contradicts) is consistent with a real, measurable brain-structure and brain-function difference in eating disorders, most concentrated in insula, prefrontal, and connectivity measures.",
+      "Treat this as preliminary rather than clinically established: the platform's own confidence_band is 'Preliminary,' and nearly half the underlying datoms have low thematic-match confidence to the anchor claim.",
+      "Findings vary by eating-disorder subtype (anorexia nervosa, bulimia nervosa, binge eating) and by measure (volume vs. connectivity vs. cortical thickness), so this should not be read as one uniform brain signature.",
+      "Before treating this as decision-grade evidence, a manual review to strip out the ~44 low-confidence-match datoms would materially change both the effective sample size and the apparent consensus."
+    ],
+    "faultLines": "Nearly half the fetched datoms (44 of 91) are flagged as having low thematic-match confidence to the anchor claim, and manual inspection confirms some describe unrelated populations (shift workers, rats, ADHD patients, healthy adults in social-learning tasks) rather than eating-disorder patients specifically. Sample-size reporting is inconsistent, with 24 of 91 datoms lacking a stated sample size, and most studies are cross-sectional, limiting causal inference about whether brain differences precede or result from disordered eating."
+  },
+  "isHealthDomain": true,
+  "name": "Structural Brain Alterations in Eating Disorders",
+  "plainQuestion": "Do brain scans (MRI/fMRI) show measurable structural or functional differences in people with eating disorders compared to people without them?",
+  "projectId": "63c88da8-a897-4d20-b884-f95c09f47a2c",
+  "replication_count": 91,
+  "totalDatomCount": 91,
+  "verdict": "Emerging"
+}

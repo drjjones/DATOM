@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>DATOM Claim Record</title>
+  <link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+  <link rel="icon" type="image/png" href="./Assets/favicon.png">
+  <link rel="stylesheet" href="global.css?v=5">
+  <link rel="stylesheet" href="elmer.css?v=20260712a">
+  <link rel="stylesheet" href="tokens.css?v=1">
+  <link rel="stylesheet" href="design-v1.1.css?v=9">
+  <style>
+    /* Same document vocabulary as example.html: zero radius on structural
+       containers, no shadow, no translucent fills, hairline 1px borders,
+       verdict color from tokens.css. This page is data-driven (fetches
+       claims/<id>.json) rather than embedding data, since each of the 6
+       entries is a real but much smaller evidence base than example.html's
+       224-source GLP-1 showcase -- a thinner page for a thinner base,
+       not padded to look bigger than it is. */
+    :root{
+      --support: var(--signal);
+      --contradict: var(--verdict-contra);
+      --moderate: var(--verdict-mixed);
+      --neutral: var(--verdict-unrated);
+    }
+
+    .pillRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+    .pill{
+      display:inline-flex; align-items:center; gap:6px;
+      padding: 4px 10px; border-radius: 0;
+      border: 1px solid var(--line-2); background: transparent;
+      font-family: var(--font-data); font-size: 11px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--signal); font-weight: 500;
+    }
+    .dot{width:6px;height:6px;border-radius:0; background: var(--signal);}
+
+    .sub{ margin:10px 0 0; color: var(--muted); line-height:1.55; max-width: 82ch; font-size: 14px; }
+
+    .section{ margin-top: 18px; }
+    .sectionTitle{
+      font-family: var(--font-data); font-size: 10px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--signal); margin: 0 0 12px;
+    }
+    .guideCard{ padding: 36px; }
+    .figureCard{ padding: 36px; }
+
+    .callout{ border-radius: 0; border: 1px solid var(--line); background: transparent; padding: 16px; }
+    .callout h3{ margin-bottom: 8px; font-weight: 500; font-size: 14px; color: var(--ink); }
+    .callout p{ margin:0; color: var(--muted); line-height:1.55; font-size: 13px; }
+
+    .scoreCard{
+      background: transparent; border: 1px solid var(--line); border-radius: 0;
+      padding: 24px; display: flex; align-items: center; gap: 24px; margin-top: 16px;
+    }
+    .scoreNumber{ font-family: var(--font-data); font-size: 42px; font-weight: 500; line-height: 1; flex-shrink: 0; }
+    .scoreNumber.score-high{ color: var(--signal); }
+    .scoreNumber.score-mid{ color: var(--verdict-mixed); }
+    .scoreNumber.score-low{ color: var(--verdict-contra); }
+    .scoreBar{ width: 120px; height: 4px; border-radius: 0; background: var(--line); margin-top: 6px; overflow: hidden; }
+    .scoreBarFill{ height: 100%; border-radius: 0; }
+    .scoreBarFill.score-high{ background: var(--signal); }
+    .scoreBarFill.score-mid{ background: var(--verdict-mixed); }
+    .scoreBarFill.score-low{ background: var(--verdict-contra); }
+    .scoreDetails{ flex: 1; }
+    .scoreDetails h2{ color: var(--ink); margin: 0 0 6px; font-size: 16px; font-weight: 500; }
+    .scoreDetails p{ margin: 0; font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+    /* Evidence-split bar and generalized proportional bar figures (methodology
+       mix, source-type mix, publication timeline) -- same idiom, reused. */
+    .evidence-split { margin: 20px 0 4px; }
+    .split-bar { display: flex; height: 16px; border: 1px solid var(--ink); background: var(--paper); }
+    .split-seg { height: 100%; }
+    .split-seg + .split-seg { border-left: 1px solid var(--paper); }
+    .split-seg.support { background: var(--signal); }
+    .split-seg.contra  { background: var(--verdict-contra); }
+    .split-seg.mixed   { background: var(--verdict-mixed); }
+    .split-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 12px; font-family: var(--font-data); font-size: 11px; letter-spacing: 0.02em; color: var(--muted); }
+    .split-key { display: inline-flex; align-items: center; gap: 7px; }
+    .split-dot { width: 8px; height: 8px; flex-shrink: 0; }
+    .split-dot.support { background: var(--signal); }
+    .split-dot.contra  { background: var(--verdict-contra); }
+    .split-dot.mixed   { background: var(--verdict-mixed); }
+    .split-caption { margin: 10px 2px 0; font-size: 12px; color: var(--muted); line-height: 1.45; }
+
+    .figure-block { margin-top: 28px; }
+    .figure-block h4 { font-size: 13px; font-weight: 500; color: var(--ink); margin: 0 0 10px; }
+    .bar-row { display: grid; grid-template-columns: 180px 1fr 44px; align-items: center; gap: 10px; margin-bottom: 6px; font-size: 12px; }
+    .bar-row .bar-label { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bar-track { height: 10px; background: var(--nest); border: 1px solid var(--line); }
+    .bar-fill { height: 100%; background: var(--signal); }
+    .bar-row .bar-count { color: var(--faint); font-family: var(--font-data); text-align: right; }
+
+    details.domer{ border-radius: 0; border: 1px solid var(--line); background: transparent; overflow: hidden; box-shadow: none; transition: border-color 0.2s ease; }
+    details.domer:hover{ border-color: var(--line-2); }
+    details.domer > summary{ list-style: none; cursor: pointer; padding: 16px 20px 14px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    details.domer > summary::-webkit-details-marker{display:none;}
+    .domerTitleRow{display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
+    .domerTitle{ font-weight: 500; font-size: 14px; color: var(--ink); }
+    .domerMeta{ font-size: 12px; color: var(--muted); margin-top: 3px; line-height:1.45; }
+    .chips{ display:flex; flex-wrap:wrap; gap:6px; margin-top: 8px; }
+    .chip{ font-family: var(--font-data); font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 0; border: 1px solid var(--line-2); background: transparent; color: var(--muted); }
+    .chev{ width: 28px; height: 28px; border-radius: 0; display:grid; place-items:center; border: 1px solid var(--line-2); background: transparent; flex: 0 0 auto; color: var(--muted); font-size: 14px; transition: transform 0.2s ease; }
+    details[open] .chev{ transform: rotate(180deg); }
+    .domerBody{ padding: 0 20px 20px; }
+
+    .datomsGrid{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+    @media (max-width: 860px) { .datomsGrid{ grid-template-columns: 1fr; } .bar-row { grid-template-columns: 110px 1fr 36px; } }
+
+    .datomCard{ border-radius: 0; border: 1px solid var(--line); background: transparent; padding: 14px; transition: border-color 0.15s ease; }
+    .datomCard:hover{ border-color: var(--line-2); }
+    .datomCard.support{ border-left: 3px solid var(--support); }
+    .datomCard.contradict{ border-left: 3px solid var(--contradict); }
+    .datomCard.moderate{ border-left: 3px solid var(--moderate); }
+    .datomCard.mixed{ border-left: 3px solid var(--neutral); }
+    .datomHead{display:flex; justify-content:space-between; gap:8px; align-items:center;}
+    .datomId{ font-family: var(--font-data); font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 0; border: 1px solid var(--line-2); background: transparent; color: var(--muted); }
+    .badge{ font-family: var(--font-data); font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 0; border: 1px solid currentColor; white-space: nowrap; }
+    .badge.support{ color: var(--support); }
+    .badge.contradict{ color: var(--contradict); }
+    .badge.moderate{ color: var(--moderate); }
+    .badge.mixed{ color: var(--neutral); }
+    .datomClaim{ margin: 8px 0 10px; font-weight: 500; font-size: 13px; line-height:1.4; color: var(--ink); }
+    .kv{ display:grid; grid-template-columns: 110px 1fr; gap: 4px 10px; font-size: 12px; }
+    .k{ color: var(--faint); font-weight: 500; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--font-data); }
+    .v{ color: var(--ink); line-height: 1.4; }
+
+    .decisionGrid{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+    @media (max-width: 860px) { .decisionGrid{ grid-template-columns: 1fr; } }
+    .bullets{ margin:0; padding-left: 18px; color: var(--muted); line-height: 1.55; font-size: 13px; }
+    .bullets li{ margin: 6px 0; }
+
+    .medical-note {
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--verdict-mixed);
+      background: var(--nest);
+      padding: 16px 18px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--ink);
+      margin-top: 18px;
+    }
+    .medical-note strong { color: var(--verdict-mixed); }
+
+    .thin-note {
+      border: 1px solid var(--line);
+      padding: 12px 16px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 14px;
+    }
+
+    #claim-loading, #claim-error { text-align: center; padding: 80px 24px; color: var(--muted); }
+    #claim-error { display: none; }
+  </style>
+</head>
+
+<body>
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="example.html">Live Example</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="organizations.html">For Organizations</a>
+    <a href="/app/login" class="btn-login">Log In</a>
+    <a href="try.html" class="btn-cta">Get Started</a>
+  </nav>
+</header>
+
+<main>
+  <div id="claim-loading">Loading the record&hellip;</div>
+  <div id="claim-error">
+    <p>We couldn't find that entry. <a href="index.html" style="color:var(--signal); text-decoration:underline;">Back to the homepage</a>.</p>
+  </div>
+
+  <div id="claim-content" style="display:none;">
+    <section class="reveal" id="top" style="margin-bottom:24px;">
+      <h1 id="claim-question"></h1>
+      <p class="sub">Everything below is pulled directly from DATOM's production ledger: a real claim, real sources, and a confidence score computed directly from the evidence. Nothing here was invented for this page.</p>
+      <div class="pillRow" aria-label="summary statistics">
+        <span class="pill"><span class="dot"></span><span id="claim-pill-sources"></span></span>
+        <span class="pill"><span class="dot"></span><span id="claim-pill-confidence"></span></span>
+        <span class="pill"><span class="dot"></span><span id="claim-pill-entry"></span></span>
+      </div>
+    </section>
+
+    <section class="section figureCard reveal" id="figure">
+      <div class="sectionTitle">Knowledge Graph Structure</div>
+      <div id="graph3dContainer" role="img" aria-label="Datomer Knowledge Graph 3D" style="height:420px;border-radius:0;overflow:hidden;background:#07070e;"></div>
+      <div class="caption" id="claim-graph-caption" style="margin-top:12px;"></div>
+    </section>
+
+    <section class="section reveal" id="nucleus">
+      <details class="domer" id="nucleusCard" open>
+        <summary>
+          <div>
+            <div class="domerTitleRow"><div class="domerTitle">Anchor Claim</div></div>
+            <div class="domerMeta">The exact claim this entry evaluates.</div>
+            <div class="chips" id="claim-nucleus-chips"></div>
+          </div>
+          <div class="chev" aria-hidden="true">&#x2304;</div>
+        </summary>
+        <div class="domerBody">
+          <div class="datomsGrid">
+            <div class="datomCard support" style="grid-column: 1 / -1;">
+              <div class="datomHead">
+                <div class="datomId">NUCLEUS</div>
+                <span class="badge support">Claim Baseline</span>
+              </div>
+              <div class="datomClaim" id="claim-anchor-text"></div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="section reveal" id="evidence">
+      <div class="sectionTitle" id="claim-evidence-title">Evidence Registry</div>
+      <div class="datomsGrid" id="claim-evidence-grid"></div>
+    </section>
+
+    <section class="section guideCard reveal" id="confidence-scoring">
+      <div class="sectionTitle">Confidence Scoring</div>
+      <div class="scoreCard">
+        <div>
+          <div class="scoreNumber" id="claim-score-number"></div>
+          <div class="scoreBar"><div class="scoreBarFill" id="claim-score-fill"></div></div>
+        </div>
+        <div class="scoreDetails">
+          <h2 id="claim-score-band"></h2>
+          <p id="claim-what-science-says"></p>
+        </div>
+      </div>
+
+      <div class="evidence-split" id="claim-evidence-split" role="img"></div>
+
+      <div class="figure-block" id="claim-figure-methodology">
+        <h4>Methodology mix</h4>
+        <div id="claim-methodology-bars"></div>
+      </div>
+      <div class="figure-block" id="claim-figure-sourcetype">
+        <h4>Source type</h4>
+        <div id="claim-sourcetype-bars"></div>
+      </div>
+      <div class="figure-block" id="claim-figure-years">
+        <h4>Publication timeline</h4>
+        <div id="claim-years-bars"></div>
+      </div>
+
+      <div class="confidence-content" style="margin-top: 20px;">
+        <p id="claim-how-confident"></p>
+      </div>
+    </section>
+
+    <section class="section guideCard reveal" id="summary">
+      <div class="sectionTitle">What DATOM's Evidence Base Supports Doing With This</div>
+      <div class="callout" style="border-color: var(--signal);">
+        <h3>Decision Support (real output, not editorial commentary)</h3>
+        <ul class="bullets" id="claim-decision-support"></ul>
+      </div>
+      <p class="thin-note" id="claim-fault-lines"></p>
+    </section>
+
+    <p class="medical-note" id="claim-medical-note" style="display:none;">
+      <strong>Is this medical advice?</strong> No. This assesses whether current evidence supports a specific claim as scoped. It is not medical advice, does not address safety, dosing, or side effects, and is not a recommendation to use or avoid any medication. Talk to a qualified clinician before making any health decision.
+    </p>
+
+    <section class="reveal" style="text-align:center; margin-top:56px;">
+      <h2>See how a determination is built.</h2>
+      <p class="sub" style="margin:0 auto;">This entry is one of several real, public determinations on DATOM's ledger.</p>
+      <div style="margin-top:20px;">
+        <a href="index.html#featured-entry" class="btn sec">Back to the record &rarr;</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &middot; <a href="terms.html">Terms</a></footer>
+
+<script src="fog-bg.js?v=2"></script>
+<script src="shared.js?v=20260710"></script>
+<script src="elmer.js?v=20260712a"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
+<script src="graph3d.js?v=20260711a" defer></script>
+<script>
+(function () {
+  'use strict';
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function classify(rel) {
+    var t = (rel || '').toLowerCase();
+    if (t.indexOf('support') !== -1) return { label: 'Supports', kind: 'support' };
+    if (t.indexOf('contradict') !== -1) return { label: 'Contradicts', kind: 'contradict' };
+    if (t.indexOf('condition') !== -1 || t.indexOf('mixed') !== -1) return { label: 'Conditional', kind: 'moderate' };
+    return { label: 'Unclassified', kind: 'mixed' };
+  }
+
+  function scoreBand(pct) {
+    if (pct >= 70) return 'score-high';
+    if (pct >= 40) return 'score-mid';
+    return 'score-low';
+  }
+
+  function renderBars(containerId, rows) {
+    var el = document.getElementById(containerId);
+    if (!rows || !rows.length) { el.parentElement.style.display = 'none'; return; }
+    var max = Math.max.apply(null, rows.map(function (r) { return r.count; }));
+    el.innerHTML = rows.map(function (r) {
+      var pct = max ? Math.round((r.count / max) * 100) : 0;
+      return '<div class="bar-row"><div class="bar-label">' + esc(r.label) + '</div>' +
+        '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%"></div></div>' +
+        '<div class="bar-count">' + r.count + '</div></div>';
+    }).join('');
+  }
+
+  function render(data) {
+    document.title = data.name + ', DATOM';
+    document.getElementById('claim-question').textContent = data.plainQuestion;
+
+    var totalDatoms = data.totalDatomCount || data.datoms.length;
+    var shownDatoms = data.datoms.length;
+    document.getElementById('claim-pill-sources').textContent = totalDatoms + ' Source' + (totalDatoms === 1 ? '' : 's') + ' Reviewed';
+    document.getElementById('claim-pill-confidence').textContent = data.confidence_score_pct + '% Confidence';
+    document.getElementById('claim-pill-entry').textContent = 'Entry ' + data.entryId;
+
+    document.getElementById('claim-nucleus-chips').innerHTML =
+      '<span class="chip">Confidence: ' + data.confidence_score_pct + '%</span>' +
+      '<span class="chip">' + totalDatoms + ' source' + (totalDatoms === 1 ? '' : 's') + '</span>' +
+      '<span class="chip">' + data.replication_count + ' independent replication' + (data.replication_count === 1 ? '' : 's') + '</span>' +
+      '<span class="chip">As of ' + esc(data.as_of) + '</span>';
+    document.getElementById('claim-anchor-text').textContent = 'Claim: ' + data.anchorClaim;
+
+    document.getElementById('claim-evidence-title').textContent = shownDatoms < totalDatoms ?
+      'Evidence Registry (' + totalDatoms + ' Real Sources, ' + shownDatoms + ' Shown)' :
+      'Evidence Registry (' + totalDatoms + ' Real Source' + (totalDatoms === 1 ? '' : 's') + ')';
+    var grid = document.getElementById('claim-evidence-grid');
+    grid.innerHTML = data.datoms.map(function (d) {
+      var c = classify(d.relationship);
+      return '<div class="datomCard ' + c.kind + '">' +
+        '<div class="datomHead"><div class="datomId">' + esc(d.id.slice(0, 8)) + '</div><span class="badge ' + c.kind + '">' + esc(c.label) + '</span></div>' +
+        '<div class="datomClaim">' + esc(d.claim) + '</div>' +
+        '<div class="kv">' +
+        '<div class="k">Source</div><div class="v">' + esc(d.source) + '</div>' +
+        '<div class="k">Year</div><div class="v">' + esc(d.year || 'Not reported') + '</div>' +
+        (d.population ? '<div class="k">Population</div><div class="v">' + esc(d.population) + '</div>' : '') +
+        (d.domain ? '<div class="k">Domain</div><div class="v">' + esc(d.domain) + '</div>' : '') +
+        (d.measure ? '<div class="k">Measure</div><div class="v">' + esc(d.measure) + '</div>' : '') +
+        (d.methodology ? '<div class="k">Method</div><div class="v">' + esc(d.methodology) + '</div>' : '') +
+        (d.notes ? '<div class="k">Note</div><div class="v">' + esc(d.notes) + '</div>' : '') +
+        '</div></div>';
+    }).join('');
+
+    var band = scoreBand(data.confidence_score_pct);
+    var scoreNum = document.getElementById('claim-score-number');
+    scoreNum.textContent = data.confidence_score_pct;
+    scoreNum.className = 'scoreNumber ' + band;
+    var scoreFill = document.getElementById('claim-score-fill');
+    scoreFill.className = 'scoreBarFill ' + band;
+    scoreFill.style.width = data.confidence_score_pct + '%';
+    document.getElementById('claim-score-band').textContent = data.confidence_band + ' Confidence';
+    document.getElementById('claim-what-science-says').textContent = data.guide.whatScienceSays;
+    document.getElementById('claim-how-confident').textContent = data.guide.howConfident;
+
+    var s = data.evidenceSplit;
+    var splitTotal = s.supports + s.contradicts + s.conditional;
+    document.getElementById('claim-evidence-split').innerHTML =
+      '<div class="split-bar">' +
+      (s.supports ? '<div class="split-seg support" style="flex-grow:' + s.supports + '"></div>' : '') +
+      (s.contradicts ? '<div class="split-seg contra" style="flex-grow:' + s.contradicts + '"></div>' : '') +
+      (s.conditional ? '<div class="split-seg mixed" style="flex-grow:' + s.conditional + '"></div>' : '') +
+      '</div><div class="split-legend">' +
+      '<span class="split-key"><span class="split-dot support"></span>Supports &middot; ' + s.supports + ' (' + Math.round(100 * s.supports / splitTotal) + '%)</span>' +
+      (s.contradicts ? '<span class="split-key"><span class="split-dot contra"></span>Contradicts &middot; ' + s.contradicts + ' (' + Math.round(100 * s.contradicts / splitTotal) + '%)</span>' : '') +
+      (s.conditional ? '<span class="split-key"><span class="split-dot mixed"></span>Conditional &middot; ' + s.conditional + ' (' + Math.round(100 * s.conditional / splitTotal) + '%)</span>' : '') +
+      '</div><p class="split-caption">Direction of the ' + splitTotal + ' source' + (splitTotal === 1 ? '' : 's') + ' in this entry’s evidence base. Confidence (' + data.confidence_score_pct + '%) is a separate measure of evidence quality.</p>';
+
+    renderBars('claim-methodology-bars', data.figures.methodologyMix);
+    renderBars('claim-sourcetype-bars', data.figures.sourceTypeMix);
+    renderBars('claim-years-bars', (data.figures.publicationYears || []).map(function (y) { return { label: String(y.year), count: y.count }; }));
+
+    document.getElementById('claim-decision-support').innerHTML =
+      data.guide.decisionSupport.map(function (b) { return '<li>' + esc(b) + '</li>'; }).join('');
+    document.getElementById('claim-fault-lines').textContent = 'Fault lines: ' + data.guide.faultLines;
+
+    if (data.isHealthDomain) {
+      document.getElementById('claim-medical-note').style.display = 'block';
+    }
+
+    if (totalDatoms <= 3) {
+      var note = document.createElement('p');
+      note.className = 'thin-note';
+      note.textContent = 'This entry’s evidence base is still small (' + totalDatoms + ' source' + (totalDatoms === 1 ? '' : 's') + '). Confidence and figures above reflect exactly that, not a larger base.';
+      document.getElementById('claim-evidence-grid').insertAdjacentElement('afterend', note);
+    }
+
+    document.getElementById('claim-loading').style.display = 'none';
+    document.getElementById('claim-content').style.display = 'block';
+
+    // 3D knowledge graph: reshape into the window.DATOMERS shape graph3d.js
+    // expects (a single real cluster here, not the multi-cluster set
+    // example.html uses). Same real datoms already rendered above.
+    document.getElementById('claim-graph-caption').textContent = (shownDatoms < totalDatoms ?
+      'Interactive 3-D knowledge graph of the ' + shownDatoms + ' sources shown here (' + totalDatoms + ' real sources total). ' :
+      'Interactive 3-D knowledge graph of ' + shownDatoms + ' real source' + (shownDatoms === 1 ? '' : 's') + '. ') +
+      'Evidence nodes orbit the amber Nucleus by relationship type: cyan (Supports), red (Contradicts), blue (Conditional). Drag to rotate, scroll to zoom, click any node to inspect.';
+    window.DATOMERS = [{
+      id: 'anchor',
+      name: data.name,
+      nucleusClaim: data.anchorClaim,
+      datoms: data.datoms.map(function (d) {
+        return { id: d.id, claim: d.claim, source: d.source, direction: d.relationship };
+      })
+    }];
+    try {
+      if (typeof initGraph === 'function') {
+        initGraph('graph3dContainer');
+      } else {
+        document.getElementById('figure').style.display = 'none';
+      }
+    } catch (e) {
+      document.getElementById('figure').style.display = 'none';
+    }
+  }
+
+  var id = new URLSearchParams(window.location.search).get('id');
+  if (!id) {
+    document.getElementById('claim-loading').style.display = 'none';
+    document.getElementById('claim-error').style.display = 'block';
+  } else {
+    fetch('claims/' + encodeURIComponent(id) + '.json?v=20260712b')
+      .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
+      .then(render)
+      .catch(function () {
+        document.getElementById('claim-loading').style.display = 'none';
+        document.getElementById('claim-error').style.display = 'block';
+      });
+  }
+})();
+</script>
+</body>
+</html>

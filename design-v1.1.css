@@ -1,0 +1,711 @@
+/* ============================================================
+   DATOM · Design Language v1.1 · site override layer
+   Requires tokens.css linked first. Loaded ONLY on the pages in
+   scope for the look-and-language pass (see README note below).
+   Deliberately NOT loaded on example.html or research.html, which
+   keep the prior visual system: those two pages are explicitly
+   out of scope for this pass and must render unchanged.
+   Do not fork token values here; read them from tokens.css.
+   ============================================================ */
+
+/* ---- base ----
+   html carries the paper fill; body is deliberately left without one so
+   sketch-bg.js's fixed canvas (z-index:-1) shows through the page's empty
+   space, e.g. behind the hero. Every text-bearing surface (header, cards,
+   tables, footer) sets its own opaque background below, so legibility
+   never depends on where the canvas happens to be at a given frame.
+   `background: none` is required, not just omitted: global.css sets an
+   opaque radial-gradient + #fff fallback on body, and simply not
+   redeclaring the property here would leave that in effect. Same story
+   for global.css's custom cloud cursor: cleared below, out of place in
+   document vocabulary. */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--paper); }
+body {
+  background: none;
+  cursor: auto;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum" 1;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0 0 var(--s4);
+  /* sentence case is enforced in copy, not CSS: do not text-transform headings */
+}
+h1 { font-size: clamp(28px, 4.4vw, 44px); }
+h2 { font-size: clamp(22px, 3vw, 30px); }
+h3 { font-size: 19px; }
+
+p { margin: 0 0 var(--s4); color: var(--muted); }
+
+a { color: var(--signal); }
+a, button, [role="button"], summary { cursor: pointer; }
+
+code, .mono, .k, .data {
+  font-family: var(--font-data);
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+@media (pointer: coarse) {
+  :where(button, a.btn, .btn, .btn-cta, .btn-login, input, select) {
+    min-height: var(--touch-min);
+  }
+}
+
+/* ---- letterhead header ----
+   Matches the .lh component in datom_design_language_v1.1.html exactly:
+   a double rule (2px + 1px) top and bottom, the block itself bordered
+   left/right. That reference component is a page-title block (mark,
+   H1, fields); adapted here into a horizontal sticky nav bar, but the
+   double-rule + bordered-edges signature is the same, not a simplified
+   single-hairline substitute. */
+header.lh-header {
+  display: block;
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0;
+}
+.lh-header .lh-drule {
+  display: block;
+  width: 100%;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  height: 6px;
+}
+.lh-header-in {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--s4) var(--s5);
+  border-left: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s5);
+  position: relative;
+}
+.lh-header .mark-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+  text-decoration: none;
+}
+.lh-header .mark-link:focus-visible { outline-offset: 4px; }
+.lh-header .mark {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+.lh-header .wordmark {
+  font-family: var(--font-brand);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.01em;
+  color: var(--brand-mark-only);
+}
+
+.lh-header nav {
+  display: flex;
+  align-items: center;
+  gap: var(--s6);
+}
+.lh-header nav a {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding: 2px 0;
+}
+.lh-header nav a:hover,
+.lh-header nav a:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--signal);
+}
+
+/* nav primary/secondary actions reuse the stamp / hairline buttons below */
+.lh-header nav a.btn-cta,
+.lh-header nav a.btn-login {
+  border-bottom: none;
+  padding: 0;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  padding: 8px;
+  color: var(--ink);
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+}
+.menu-toggle svg { width: 20px; height: 20px; }
+
+@media (max-width: 720px) {
+  .lh-header nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--paper);
+    border-left: 1px solid var(--ink);
+    border-right: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: var(--s3) var(--s5);
+    /* global.css's mobile nav adds a rounded, blurred, shadowed panel;
+       all three must be cleared explicitly, not just left undeclared */
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .lh-header nav.open { display: flex; }
+  .lh-header nav a { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .lh-header nav a:hover { border-bottom-color: var(--line); }
+  .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+}
+
+/* ---- header buttons: same filled-ink stamp for both. Previously Get
+   Started was filled and Log In was a hairline outline (primary/
+   secondary); by direct request both now match as identical filled-ink
+   buttons. ---- */
+.btn-login, .btn-cta {
+  padding: 9px 20px;
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  font-family: var(--font-data);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: none;
+  background: var(--ink);
+  color: var(--paper);
+  transition: filter 0.15s ease;
+}
+.btn-login:hover, .btn-cta:hover {
+  filter: brightness(1.2);
+}
+
+/* ---- buttons: filled-ink stamp (primary), hairline box (secondary),
+   bracketed mono arrow (tertiary). ---- */
+.btn {
+  font-family: var(--font-data);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 0;
+  box-shadow: none;
+  transition: filter 0.15s ease;
+}
+.btn:hover {
+  filter: brightness(1.2);
+  transform: none;
+  box-shadow: none;
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn.sec {
+  background: transparent;
+  color: var(--ink);
+}
+.btn.sec:hover {
+  background: var(--nest);
+  color: var(--ink);
+  filter: none;
+}
+a.action {
+  font-family: var(--font-data);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--signal);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  white-space: nowrap;
+}
+a.action::after { content: " \2192"; }
+a.action:hover, a.action:focus-visible { border-bottom-color: var(--signal); }
+
+/* ---- footer ---- */
+footer {
+  background: var(--paper);
+  border-top: 1px solid var(--ink);
+  padding: var(--s5) var(--s6);
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--faint);
+  text-align: center;
+}
+footer a { color: var(--signal); text-decoration: none; border-bottom: 1px solid var(--signal); }
+footer .responsibility { color: var(--muted); margin-bottom: var(--s2); }
+
+/* ---- eyebrow / kicker labels ---- */
+.k {
+  font-family: var(--font-data);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.k-c { color: var(--signal); }
+
+/* ---- ledger table (any tabular data) ---- */
+table.ledger {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--paper);
+  font-family: var(--font-data);
+  font-size: 12.5px;
+}
+table.ledger th {
+  text-align: left;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper-2);
+}
+table.ledger td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+table.ledger td.r { text-align: right; }
+table.ledger tbody tr:hover { background: var(--nest); }
+
+/* ---- leader-dot spec line (label/value pairing) ---- */
+.spec-line {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 14px;
+  padding: 6px 0;
+  border-bottom: 1px dotted var(--line);
+}
+.spec-line .sl-label { color: var(--faint); font-family: var(--font-data); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
+.spec-line .sl-fill { flex: 1; border-bottom: 1px dotted var(--line-2); margin-bottom: 3px; }
+.spec-line .sl-value { color: var(--ink); font-family: var(--font-data); white-space: nowrap; }
+
+/* ---- boxed status field (replaces pills/chips/status dots) ---- */
+.status-box {
+  display: inline-block;
+  font-family: var(--font-data);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--line-2);
+  color: var(--ink);
+  border-radius: 0;
+}
+.status-box.signal { border-color: var(--signal); color: var(--signal); }
+.status-box.mixed { border-color: var(--verdict-mixed); color: var(--verdict-mixed); }
+.status-box.contra { border-color: var(--verdict-contra); color: var(--verdict-contra); }
+
+/* ---- generic flat card (structural, zero radius, no shadow, hairline) ---- */
+.doc {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  padding: var(--s5);
+}
+
+/* ---- section rhythm ---- */
+main.dl { max-width: 1080px; margin: 0 auto; padding: var(--s7) var(--s5) 96px; }
+section { margin-bottom: var(--s7); }
+
+@media (max-width: 720px) {
+  .lh-header { padding: var(--s3) var(--s4); }
+  main.dl { padding: var(--s6) var(--s4) 64px; }
+}
+@media (max-width: 480px) {
+  .lh-header .wordmark { font-size: 15px; }
+  main.dl { padding: var(--s5) var(--s3) 48px; }
+}
+
+/* ============================================================
+   Overrides for pre-existing page-local classes (legacy visual
+   system: gradients, glow, rounded corners, shadows). Redefined
+   here in document vocabulary rather than removed from the HTML,
+   so page markup doesn't need a full class-name migration. Only
+   loaded on in-scope pages; global.css keeps its original rules
+   for example.html/research.html, unaffected by this block.
+   ============================================================ */
+
+.lede {
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 68ch;
+  line-height: 1.6;
+}
+
+/* gradient text is banned outright: render as flat ink */
+.text-gradient {
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
+  color: var(--ink);
+}
+
+.section-label {
+  font-family: var(--font-data);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--signal);
+  margin-bottom: var(--s3);
+}
+
+/* flat document card: replaces the glow/gradient .card and .bento-panel */
+.card, .bento-panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  box-shadow: none;
+  padding: var(--s5);
+  transition: none;
+}
+.card::before, .card::after,
+.bento-panel::before, .bento-panel::after { display: none; }
+.card:hover, .bento-panel:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--line-2);
+}
+.card h3, .bento-panel h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 18px;
+  margin: 0 0 var(--s2);
+}
+.card p, .bento-panel p { color: var(--muted); font-size: 15px; }
+.card-accent { border-top: 1px solid var(--ink); }
+.card-accent::after { display: none; }
+
+.stat-value {
+  font-family: var(--font-data);
+  font-size: 34px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin-bottom: var(--s2);
+}
+
+/* flow diagram: ruled boxes instead of glowing gradient nodes.
+   Shared across pages (index.html, product.html); layout lives here so
+   it isn't duplicated per-page. */
+.diagram {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--s6);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  position: relative;
+}
+.diagram-flow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s4);
+}
+@media (max-width: 800px) {
+  .diagram-flow { flex-direction: column; gap: 16px; }
+  .diagram-arrow { transform: rotate(90deg); }
+}
+.diagram-node {
+  background: var(--paper);
+  border: 1px solid var(--line-2);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 10px 18px;
+  font-family: var(--font-data);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.diagram-arrow { color: var(--signal); }
+.diagram-loop {
+  border: 1px dashed var(--line-2);
+  border-top: none;
+  border-radius: 0;
+  opacity: 1;
+}
+.diagram-loop-label {
+  background: var(--paper);
+  color: var(--faint);
+  font-family: var(--font-data);
+  font-weight: 500;
+}
+
+.card-link {
+  color: var(--signal);
+  font-family: var(--font-data);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ---- pill/status-dot labels: banned outright. Redefined as a plain
+   mono eyebrow, same visual family as .section-label/.k ---- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  font-family: var(--font-data);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--signal);
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+.pill-dot { display: none; } /* status dot: banned, no replacement needed once shape/label already carries meaning */
+.datom-pill {
+  display: inline-block;
+  font-family: var(--font-data);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  background: none;
+  border: 1px solid var(--line-2);
+  border-radius: 0;
+  color: var(--ink);
+  margin-bottom: var(--s3);
+}
+
+/* ---- numbered step badge: was a filled circle (status-dot pattern);
+   redefined as a square mono index ---- */
+.step-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-data);
+  font-weight: 500;
+  font-size: 12px;
+}
+
+/* ---- ledger-style table: replaces .table-glass (frosted/rounded) ---- */
+table.table-glass {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--paper);
+  font-family: var(--font-body);
+  font-size: 14px;
+  border: 1px solid var(--line);
+}
+table.table-glass th {
+  text-align: left;
+  font-family: var(--font-data);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper-2);
+}
+table.table-glass td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  background: transparent;
+}
+table.table-glass tr:last-child td { border-bottom: none; }
+table.table-glass tr:hover td { background: var(--nest); }
+
+/* ---- preview/quote box: was a gradient card with a glow shadow ---- */
+.preview-box {
+  margin: var(--s5) 0;
+  padding: var(--s5);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  box-shadow: none;
+}
+.preview-provenance { font-family: var(--font-body); font-size: 13px; color: var(--muted); }
+.preview-quote {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-style: italic;
+  padding: var(--s4);
+  border-left: 2px solid var(--signal);
+  background: var(--paper-2);
+  border-radius: 0;
+  color: var(--ink);
+}
+
+/* ---- audience accordion (details/summary): was rounded, blurred, glow-on-open ---- */
+details.audience-card {
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--paper);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: border-color 0.2s ease;
+  overflow: hidden;
+}
+details.audience-card[open] {
+  border-color: var(--ink);
+  box-shadow: none;
+}
+summary.audience-header {
+  padding: var(--s5) var(--s6);
+  cursor: pointer;
+  list-style: none;
+}
+summary.audience-header::-webkit-details-marker { display: none; }
+summary.audience-header::marker { display: none; content: ''; }
+.audience-info h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  margin: 0;
+  line-height: 1.2;
+}
+.audience-chevron {
+  font-size: 20px;
+  color: var(--signal);
+  transition: transform 0.2s ease;
+}
+details.audience-card[open] .audience-chevron { transform: rotate(180deg); }
+
+/* ---- power box: was a 4px accent bar + translucent fill + radius ---- */
+.power-box {
+  margin-top: var(--s4);
+  padding: var(--s4);
+  border: 1px solid var(--line);
+  border-top: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+}
+.power-box.dark-top { border-top-color: var(--ink); }
+/* Past-facing and future-facing boxes read identically once flattened
+   (see the frameless override below); the label carries the distinction
+   instead: faint/retrospective vs signal/forward-looking, each paired
+   with a direction arrow matching the one already used in .workflow-list. */
+.power-label {
+  font-family: var(--font-data);
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--faint);
+  margin-bottom: var(--s2);
+}
+.power-box.dark-top .power-label { color: var(--signal); }
+
+.workflow-list { list-style: none; padding: 0; margin: var(--s4) 0; }
+.workflow-list li {
+  position: relative;
+  padding-left: var(--s5);
+  margin-bottom: var(--s3);
+  font-size: 14px;
+  color: var(--muted);
+}
+.workflow-list li::before {
+  content: "\2192";
+  position: absolute;
+  left: 0;
+  color: var(--signal);
+  font-weight: 500;
+}
+
+/* ============================================================
+   "Floating in fog" treatment.
+   The fog (fog-bg.js) is the page surface now. Content sits directly
+   on it with no card chrome: container backgrounds, borders, and
+   shadows are stripped so text and figures read as floating in the
+   fog rather than boxed on paper. Structural dividers that genuinely
+   aid reading (table row rules, the quote's left rule, a hairline
+   between accordion rows) are kept as hairlines, not frames.
+   This block is last so it wins over the framed definitions above.
+   ============================================================ */
+.doc,
+.card, .bento-panel,
+.diagram, .diagram-node,
+.preview-box,
+.power-box, .power-box.dark-top,
+.datom-pill,
+.status-box,
+.step-index,
+details.audience-card,
+details.audience-card[open] {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+.card:hover, .bento-panel:hover { border: none; }
+.card-accent { border-top: none; }
+.diagram-loop-label { background: transparent; }
+.preview-quote { background: transparent; } /* keep only the left signal rule */
+
+/* Tables float too: drop the outer frame and cell fills, keep hairline
+   row separators so columns stay legible over the fog. */
+table.table-glass, table.ledger {
+  background: transparent;
+  border: none;
+}
+table.table-glass th, table.ledger th { background: transparent; }
+table.table-glass td, table.ledger td { background: transparent; }
+table.table-glass tr:hover td,
+table.ledger tbody tr:hover { background: transparent; }
+
+/* Accordion rows: no box, just a hairline divider so the list still
+   reads as distinct, clickable rows. Both selectors carry the [open]
+   variant so the divider survives the border:none reset above (which,
+   via [open], would otherwise out-specify a plain .audience-card rule
+   and drop the divider on the open row only). */
+details.audience-card,
+details.audience-card[open] { border-bottom: 1px solid var(--line); }
+details.audience-card[open] { border-bottom-color: var(--line-2); }
+
+/* Footer floats on the fog as well; keep only its top hairline. */
+footer { background: transparent; }

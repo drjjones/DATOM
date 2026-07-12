@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up, DATOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Get started with DATOM. Self-serve signup is not live yet; this page routes your request directly to the team.">
+<link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+<link rel="icon" type="image/png" href="./Assets/favicon.png">
+<link rel="apple-touch-icon" href="./Assets/favicon-180.png">
+<link rel="stylesheet" href="global.css?v=5">
+<link rel="stylesheet" href="elmer.css?v=20260712a">
+<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="design-v1.1.css?v=9">
+</head>
+
+<body>
+
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="example.html">Live Example</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="organizations.html">For Organizations</a>
+    <a href="/app/login" class="btn-login">Log In</a>
+    <a href="try.html" class="btn-cta">Get Started</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="reveal" style="text-align:center; max-width:560px; margin:0 auto;">
+    <p class="section-label">Sign Up</p>
+    <h1 id="signup-title">Get started with DATOM.</h1>
+    <p class="lede" id="signup-message" style="margin:0 auto;">Self-serve accounts aren't live yet. Send us your email and which plan you want, and we'll set your account up directly.</p>
+    <div style="margin-top:32px;">
+      <a id="signup-cta" href="mailto:info@datom.science?subject=DATOM%20signup" class="btn">Email us to get started &rarr;</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &middot; <a href="terms.html">Terms</a></footer>
+
+<script src="fog-bg.js?v=2"></script>
+<script src="shared.js?v=20260710"></script>
+<script src="elmer.js?v=20260711a"></script>
+<script>
+  // ?plan=observer or ?plan=investigator customizes the copy and the
+  // mailto subject line. No account is created here yet; see
+  // src/lib/provisionAccount.ts (backend-admin-only, no self-serve
+  // Cognito signup exists at the time this page was built).
+  (function () {
+    var plan = new URLSearchParams(window.location.search).get('plan');
+    var PLAN_LABELS = { observer: 'Observer', investigator: 'Investigator' };
+    var label = PLAN_LABELS[plan];
+    if (!label) return;
+    document.getElementById('signup-message').textContent =
+      "Self-serve accounts aren't live yet. Send us your email and we'll set up your " + label + ' account directly.';
+    document.getElementById('signup-cta').href =
+      'mailto:info@datom.science?subject=DATOM%20' + encodeURIComponent(label) + '%20signup';
+  })();
+</script>
+</body>
+</html>

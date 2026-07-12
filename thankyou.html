@@ -5,25 +5,23 @@
 <title>Thank You — DATOM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" href="./Assets/favicon.png" />
-<link rel="stylesheet" href="global.css?v=3" />
-<link rel="stylesheet" href="elmer.css" />
+<link rel="stylesheet" href="global.css?v=5" />
+<link rel="stylesheet" href="elmer.css?v=20260712a" />
+<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="design-v1.1.css?v=9">
 <style>
   .upload-zone {
-    border: 2px dashed var(--accent);
-    border-radius: var(--radius);
+    border: 1px dashed var(--line-2);
     padding: 60px 40px;
     text-align: center;
     cursor: pointer;
-    background: rgba(6,182,212,0.04);
-    transition: border-color 0.2s, background 0.2s;
+    background: transparent;
+    transition: border-color 0.2s;
   }
-  .upload-zone:hover { border-color: var(--accent); background: rgba(6,182,212,0.08); }
-  .upload-zone.dragover { border-color: var(--accent); background: rgba(6,182,212,0.12); }
+  .upload-zone:hover { border-color: var(--ink); }
+  .upload-zone.dragover { border-color: var(--ink); }
   .upload-success {
-    background: rgba(6,182,212,0.08);
-    border: 1px solid rgba(6,182,212,0.25);
     padding: 16px 20px;
-    border-radius: var(--radius);
     margin-top: 20px;
     display: none;
   }
@@ -36,7 +34,7 @@
     counter-increment: steps;
     padding: 16px 0 16px 48px;
     position: relative;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--line);
     font-size: 15px;
     color: var(--muted);
   }
@@ -45,16 +43,10 @@
     position: absolute;
     left: 0;
     top: 16px;
-    width: 28px;
-    height: 28px;
-    background: var(--accent);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    color: var(--signal);
+    font-family: var(--font-data);
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 500;
   }
 </style>
 </head>
@@ -67,10 +59,9 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
   </button>
   <nav>
-    <a href="product.html">How It Works</a>
-    <a href="solutions.html">Solutions</a>
     <a href="example.html">Live Example</a>
-    <a href="research.html">Research</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="organizations.html">For Organizations</a>
     <a href="/app/login" class="btn-login">Log In</a>
     <a href="try.html" class="btn-cta">Get Started</a>
   </nav>
@@ -86,14 +77,14 @@
 
   <!-- Refined-flow confirmation card (only shown when flow=refined) -->
   <section class="reveal" id="refinedSection" style="display:none;">
-    <div style="max-width: 620px; margin: 0 auto; text-align: center; background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 48px 36px;">
-      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="margin:0 auto 18px;display:block;color:var(--accent)" aria-hidden="true">
+    <div style="max-width: 620px; margin: 0 auto; text-align: center; padding: 48px 36px;">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="margin:0 auto 18px;display:block;color:var(--signal)" aria-hidden="true">
         <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
         <polyline points="22 4 12 14.01 9 11.01"/>
       </svg>
       <h2 style="margin-bottom: 12px;">Your analysis is running</h2>
       <p style="color: var(--muted); margin-bottom: 18px;">Your claim is locked in and DATOM is now assembling evidence for your Confidence Report. We&rsquo;ll email you as soon as it&rsquo;s ready.</p>
-      <p style="font-size: 13px; color: var(--muted); margin: 0;">Order ID: <code id="refinedOrderId" style="font-family: var(--mono); background: rgba(6,182,212,0.08); padding: 2px 8px; border-radius: 6px;">&mdash;</code></p>
+      <p style="font-size: 13px; color: var(--muted); margin: 0;">Order ID: <code id="refinedOrderId" style="font-family: var(--font-data); padding: 2px 8px;">&mdash;</code></p>
     </div>
   </section>
 
@@ -102,8 +93,8 @@
        site. Next step: click into the refinement chat with ELMER. This card
        is the primary call to action on this page for paid customers. -->
   <section class="reveal" id="stripePaidSection" style="display:none;">
-    <div style="max-width: 680px; margin: 0 auto; text-align: center; background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 48px 36px;">
-      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="margin:0 auto 18px;display:block;color:var(--accent)" aria-hidden="true">
+    <div style="max-width: 680px; margin: 0 auto; text-align: center; padding: 48px 36px;">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="margin:0 auto 18px;display:block;color:var(--signal)" aria-hidden="true">
         <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
         <polyline points="22 4 12 14.01 9 11.01"/>
       </svg>
@@ -118,7 +109,7 @@
         <a id="stripeRefineBtn" href="#" class="btn-primary" style="font-size: 16px; padding: 16px 36px;">Start refinement with ELMER &rarr;</a>
       </p>
       <p style="font-size: 13px; color: var(--muted); margin: 20px 0 0;">
-        Order ID: <code id="stripePaidOrderId" style="font-family: var(--mono); background: rgba(6,182,212,0.08); padding: 2px 8px; border-radius: 6px;">&mdash;</code>
+        Order ID: <code id="stripePaidOrderId" style="font-family: var(--font-data); padding: 2px 8px;">&mdash;</code>
       </p>
       <p style="font-size: 12px; color: var(--muted); margin: 12px 0 0;">
         We&rsquo;ve also emailed this link to you as a backup. Check your inbox if you navigate away from this page.
@@ -136,7 +127,7 @@
     </p>
 
     <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="Drop files here or click to browse">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 16px;display:block;color:var(--accent)" aria-hidden="true">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 16px;display:block;color:var(--signal)" aria-hidden="true">
         <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
       </svg>
       <p style="margin:0 0 8px;font-weight:600;">Drop files here or click to browse</p>
@@ -148,14 +139,14 @@
 
     <div id="fileList" style="margin-top:16px;" aria-live="polite"></div>
 
-    <div id="fileError" role="alert" style="display:none;margin-top:12px;color:#e05252;font-size:14px;"></div>
+    <div id="fileError" role="alert" style="display:none;margin-top:12px;color:var(--verdict-contra);font-size:14px;"></div>
 
     <div style="margin-top:20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
       <button class="btn-primary" id="uploadBtn" style="display:none;">Upload Documents &rarr;</button>
     </div>
-    <p style="font-size:16px;color:var(--text);margin-top:16px;text-align:center;">
+    <p style="font-size:16px;color:var(--ink);margin-top:16px;text-align:center;">
       Or email your documents directly to
-      <a href="mailto:info@datom.science" style="color:var(--accent);font-weight:600;">info@datom.science</a>
+      <a href="mailto:info@datom.science" style="color:var(--signal);font-weight:600;">info@datom.science</a>
     </p>
 
     <div class="upload-success" id="uploadSuccess" role="alert">
@@ -184,16 +175,16 @@
       <li>The DATOM team reviews your submission and evidence context</li>
       <li>We begin structuring the evidence behind your claim</li>
       <li>Your Confidence Report is delivered to your email within the agreed timeframe</li>
-      <li>Questions at any time &mdash; <a href="mailto:info@datom.science" style="color:var(--accent);">info@datom.science</a></li>
+      <li>Questions at any time &mdash; <a href="mailto:info@datom.science" style="color:var(--signal);">info@datom.science</a></li>
     </ol>
   </section>
 
 </main>
 
-<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--accent);">Terms</a></footer>
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--signal);">Terms</a></footer>
 
-<script src="shared.js"></script>
-<script src="particles.js"></script>
+<script src="fog-bg.js?v=2"></script>
+<script src="shared.js?v=20260710"></script>
 <!-- elmer.js intentionally omitted: this is a terminal confirmation page —
      once a customer has paid or locked their refined claim, the floating
      "Ask Elmer" widget shouldn't reappear and let them keep chatting. -->
@@ -276,7 +267,7 @@
     var msg = document.createElement('section');
     msg.className = 'reveal';
     msg.style.cssText = 'text-align:center;';
-    msg.innerHTML = '<p style="font-size:16px;color:var(--text);max-width:600px;margin:0 auto;">' +
+    msg.innerHTML = '<p style="font-size:16px;color:var(--ink);max-width:600px;margin:0 auto;">' +
       'We are running a literature review on your claim using publicly available sources. ' +
       'No document upload is required.' +
       '</p>';
@@ -334,7 +325,7 @@
 
     selectedFiles = accepted;
     fileList.innerHTML = selectedFiles.map(function (f) {
-      return '<div style="padding:8px 0;font-size:14px;color:var(--muted);border-bottom:1px solid var(--border);">' +
+      return '<div style="padding:8px 0;font-size:14px;color:var(--muted);border-bottom:1px solid var(--line);">' +
         '\uD83D\uDCC4 ' + f.name + ' (' + (f.size / 1024 / 1024).toFixed(1) + 'MB)' +
         '</div>';
     }).join('');

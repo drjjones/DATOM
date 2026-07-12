@@ -5,49 +5,53 @@
 <title>Get Started — DATOM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" href="./Assets/favicon.png" />
-<link rel="stylesheet" href="global.css?v=3" />
-<link rel="stylesheet" href="elmer.css">
+<link rel="stylesheet" href="global.css?v=5" />
+<link rel="stylesheet" href="elmer.css?v=20260712a">
+<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="design-v1.1.css?v=9">
 <style>
   /* ── Tab navigation ── */
   .tab-nav {
     display: flex;
     gap: 0;
-    border-bottom: 2px solid var(--border);
+    border-bottom: 1px solid var(--line-2);
     margin-bottom: 40px;
   }
   .tab-btn {
     flex: 1; padding: 16px 24px; background: none; border: none;
-    border-bottom: 3px solid transparent; margin-bottom: -2px;
+    border-bottom: 3px solid transparent; margin-bottom: -1px;
     font-family: var(--sans); font-size: 16px; font-weight: 600;
     color: var(--muted); cursor: pointer;
     transition: color 0.2s, border-color 0.2s;
   }
-  .tab-btn:hover { color: var(--text); }
-  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-btn:hover { color: var(--ink); }
+  .tab-btn.active { color: var(--signal); border-bottom-color: var(--signal); }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
   .tab-subheading { font-size: 18px; font-weight: 600; color: var(--muted); margin: 8px 0 28px; }
 
-  /* ── Chat UI ─────────────────────────────────────────────────── */
+  /* ── Chat UI (floating in fog: frameless region, but the textarea,
+     send + attach controls keep clearly visible outlines) ───────── */
   .chat-window {
     margin-top: 32px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: rgba(255,255,255,0.6);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     display: flex; flex-direction: column;
     min-height: 540px; max-height: 760px; overflow: hidden;
   }
   .chat-header {
     padding: 14px 18px;
-    border-bottom: 1px solid var(--border);
-    background: rgba(6,182,212,0.04);
+    border-bottom: 1px solid var(--line);
+    background: transparent;
     font-size: 13px; color: var(--muted);
     display: flex; align-items: center; gap: 10px;
   }
   .chat-header-dot {
-    width: 10px; height: 10px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 3px rgba(6,182,212,0.2);
+    width: 10px; height: 10px; border-radius: 0;
+    background: var(--signal);
     animation: chat-pulse 2.4s ease-in-out infinite;
   }
   @keyframes chat-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
@@ -58,7 +62,7 @@
   }
   .chat-msg {
     max-width: 88%;
-    padding: 10px 14px; border-radius: 14px;
+    padding: 10px 14px; border-radius: 0;
     font-size: 14.5px; line-height: 1.55;
     word-wrap: break-word; white-space: pre-wrap;
     animation: chat-fade 0.2s ease-out;
@@ -68,17 +72,17 @@
     to   { opacity: 1; transform: none; }
   }
   .chat-msg.bot {
-    background: #f1f5f9; color: var(--text);
-    border-bottom-left-radius: 4px; align-self: flex-start;
+    background: var(--paper-2); color: var(--ink);
+    align-self: flex-start;
   }
   .chat-msg.user {
-    background: var(--accent); color: #fff;
-    border-bottom-right-radius: 4px; align-self: flex-end;
+    background: var(--ink); color: var(--paper);
+    align-self: flex-end;
   }
   .chat-msg.thinking {
-    background: #f1f5f9; color: var(--muted);
+    background: var(--paper-2); color: var(--muted);
     font-style: italic;
-    border-bottom-left-radius: 4px; align-self: flex-start;
+    align-self: flex-start;
   }
   .chat-msg.thinking::after {
     content: '…'; display: inline-block;
@@ -92,9 +96,9 @@
     100% { content: '.'; }
   }
   .chat-input-area {
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--line);
     padding: 14px 16px;
-    background: rgba(255,255,255,0.85);
+    background: transparent;
   }
   .chat-input-row {
     display: flex; gap: 8px; align-items: flex-end;
@@ -102,72 +106,72 @@
   .chat-input-field {
     flex: 1;
     padding: 12px 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: #fff;
-    font-family: var(--sans); font-size: 14px; color: var(--text);
+    border: 1px solid var(--line-2);
+    border-radius: 0;
+    background: var(--paper);
+    font-family: var(--sans); font-size: 14px; color: var(--ink);
     line-height: 1.55;
     resize: none;
     min-height: 50px; max-height: 260px;
     transition: border-color 0.15s;
   }
   .chat-input-field:focus {
-    outline: none; border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(6,182,212,0.12);
+    outline: none; border-color: var(--ink);
+    box-shadow: none;
   }
   .chat-send-btn {
     padding: 12px 22px;
-    background: var(--accent); color: #fff;
-    border: none; border-radius: var(--radius);
+    background: var(--ink); color: var(--paper);
+    border: 1px solid var(--ink); border-radius: 0;
     font-weight: 600; font-size: 14px;
-    cursor: pointer; transition: background 0.15s;
+    cursor: pointer; transition: filter 0.15s;
     white-space: nowrap; align-self: stretch;
   }
-  .chat-send-btn:hover:not(:disabled) { background: var(--accent-hover); }
+  .chat-send-btn:hover:not(:disabled) { filter: brightness(1.2); }
   .chat-send-btn:disabled { opacity: 0.45; cursor: not-allowed; }
   .chat-attach-btn {
     width: 44px; height: 44px;
-    border: 1px solid var(--border);
-    background: #fff; color: var(--muted);
-    border-radius: var(--radius);
+    border: 1px solid var(--line-2);
+    background: var(--paper); color: var(--muted);
+    border-radius: 0;
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     transition: color 0.15s, border-color 0.15s;
     align-self: flex-end;
   }
-  .chat-attach-btn:hover { color: var(--accent); border-color: var(--accent); }
-  .chat-attach-btn.has-file { color: var(--accent); border-color: var(--accent); background: rgba(6,182,212,0.08); }
+  .chat-attach-btn:hover { color: var(--ink); border-color: var(--ink); }
+  .chat-attach-btn.has-file { color: var(--signal); border-color: var(--signal); background: var(--paper); }
   .chat-attached-chip {
     display: inline-flex; align-items: center; gap: 8px;
     margin-bottom: 8px;
     padding: 6px 12px;
-    background: rgba(6,182,212,0.08);
-    border: 1px solid rgba(6,182,212,0.3);
-    border-radius: 14px;
-    font-size: 12px; color: var(--accent-hover);
+    background: transparent;
+    border: 1px solid var(--line-2);
+    border-radius: 0;
+    font-size: 12px; color: var(--muted);
   }
   .chat-attached-chip button {
     background: none; border: none; color: var(--muted);
     cursor: pointer; padding: 0; font-size: 14px; line-height: 1;
   }
-  .chat-attached-chip button:hover { color: #ef4444; }
+  .chat-attached-chip button:hover { color: var(--verdict-contra); }
   .chat-hint { font-size: 11px; color: var(--muted); margin-top: 6px; padding: 0 4px; }
   .chat-terms {
     display: flex; align-items: flex-start; gap: 10px;
     padding: 14px 16px;
-    background: rgba(6,182,212,0.04);
-    border: 1px solid rgba(6,182,212,0.2);
-    border-radius: var(--radius);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 0;
     margin-bottom: 12px;
   }
   .chat-terms input[type="checkbox"] {
     margin-top: 2px;
     width: 16px; height: 16px;
-    accent-color: var(--accent);
+    accent-color: var(--signal);
     cursor: pointer; flex-shrink: 0;
   }
-  .chat-terms label { font-size: 13px; line-height: 1.55; cursor: pointer; color: var(--text); }
-  .chat-terms a { color: var(--accent); text-decoration: underline; }
+  .chat-terms label { font-size: 13px; line-height: 1.55; cursor: pointer; color: var(--ink); }
+  .chat-terms a { color: var(--signal); text-decoration: underline; }
   .chat-restart {
     display: inline-block;
     margin-left: 12px;
@@ -176,30 +180,30 @@
     background: none; border: none; padding: 0;
     font-family: var(--sans);
   }
-  .chat-restart:hover { color: var(--accent); }
+  .chat-restart:hover { color: var(--signal); }
 
   /* Calendly + message banners (preserved) */
   .form-message {
     display: none;
     padding: 16px 20px;
-    border-radius: var(--radius);
+    border-radius: 0;
     margin-top: 20px; font-size: 14px;
   }
   .form-message.success {
-    background: rgba(6,182,212,0.08);
-    border: 1px solid rgba(6,182,212,0.25);
-    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--signal);
+    color: var(--ink);
   }
   .form-message.error {
-    background: rgba(239,68,68,0.06);
-    border: 1px solid rgba(239,68,68,0.2);
-    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--verdict-contra);
+    color: var(--ink);
   }
   .calendly-step-msg {
-    font-size: 15px; color: var(--text);
-    background: rgba(6,182,212,0.06);
-    border: 1px solid rgba(6,182,212,0.2);
-    border-radius: var(--radius);
+    font-size: 15px; color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 0;
     padding: 14px 18px; margin-bottom: 20px;
   }
 
@@ -207,6 +211,48 @@
     .tab-btn { font-size: 14px; padding: 14px 12px; }
     .chat-msg { max-width: 92%; font-size: 14px; }
   }
+
+  /* ── Front-door: dashboard-style chat-first entry, scoped to this page.
+     Glass treatment matches the header/carousel/Elmer recipe exactly
+     (rgba(255,255,255,0.78) + blur(12px)), kept zero-radius rather than
+     the dashboard's pill shape, to stay inside this site's flat-corner
+     language. No live NLU behind the search bar: simple keyword routing
+     client-side, same honesty rule as everywhere else scripted on this
+     site (see elmer.js) -- it routes, it doesn't pretend to converse. ── */
+  .gs-intro { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+  .gs-intro-logo { width: 64px; height: auto; margin: 0 auto 20px; display: block; }
+  .gs-search {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 28px; padding: 8px 8px 8px 20px;
+    border: 1px solid var(--ink);
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .gs-search input {
+    flex: 1; border: none; outline: none; background: transparent;
+    font-family: var(--sans); font-size: 15px; color: var(--ink);
+    padding: 10px 0;
+  }
+  .gs-search input::placeholder { color: var(--muted); }
+  .gs-search button {
+    width: 38px; height: 38px; flex-shrink: 0;
+    border: 1px solid var(--ink); background: var(--ink); color: var(--paper);
+    cursor: pointer; display: grid; place-items: center;
+    transition: filter 0.15s ease;
+  }
+  .gs-search button:hover { filter: brightness(1.2); }
+  .gs-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
+  .gs-chip {
+    padding: 8px 16px; border: 1px solid var(--line-2);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    color: var(--muted); font-size: 13px; cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .gs-chip:hover { border-color: var(--signal); color: var(--signal); }
+  .gs-divider { display: flex; align-items: center; gap: 16px; max-width: 640px; margin: 56px auto; color: var(--faint); font-family: var(--font-data); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .gs-divider::before, .gs-divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 </style>
 </head>
 
@@ -218,10 +264,9 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
   </button>
   <nav>
-    <a href="product.html">How It Works</a>
-    <a href="solutions.html">Solutions</a>
     <a href="example.html">Live Example</a>
-    <a href="research.html">Research</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="organizations.html">For Organizations</a>
     <a href="/app/login" class="btn-login">Log In</a>
     <a href="try.html" class="btn-cta">Get Started</a>
   </nav>
@@ -229,13 +274,34 @@
 
 <main>
 
-  <section class="reveal" style="text-align:center;">
+  <!-- FRONT DOOR: dashboard-style chat-first entry. Free/paid routes go
+       straight to the real destinations (signup.html, investigator-
+       coming-soon.html); the institutional route scrolls to the existing
+       Lab/VC intake below, which is untouched. -->
+  <section class="reveal gs-intro">
+    <img src="./Assets/logo.png" class="gs-intro-logo" alt="DATOM">
+    <h1>What are you here to do?</h1>
+    <p class="lede" style="margin:0 auto;">Tell Elmer, or pick one below.</p>
+    <div class="gs-search">
+      <input type="text" id="gs-search-input" placeholder="e.g. &quot;I want to read for free&quot; or &quot;I run a research lab&quot;" autocomplete="off">
+      <button type="button" id="gs-search-go" aria-label="Go">&rarr;</button>
+    </div>
+    <div class="gs-chips">
+      <button type="button" class="gs-chip" data-route="observer">Read for free</button>
+      <button type="button" class="gs-chip" data-route="investigator">Subscribe</button>
+      <button type="button" class="gs-chip" data-route="institution">I'm a lab, company, or institution</button>
+    </div>
+  </section>
+
+  <div class="gs-divider">For labs, companies, and institutions</div>
+
+  <section class="reveal" id="institution-intake" style="text-align:center;">
     <h1>Partner with <span class="text-gradient">DATOM</span></h1>
     <p class="lede" style="margin:0 auto;">Science advances on trust. We build the infrastructure to verify it.</p>
   </section>
 
-  <div id="cancelled-message" style="display:none;max-width:680px;margin:0 auto 32px;padding:16px 20px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:var(--radius);font-size:14px;color:var(--text);">
-    Your checkout session was cancelled. Your application has been saved &mdash; you can complete payment at any time. Questions? Email <a href="mailto:info@datom.science" style="color:var(--accent);">info@datom.science</a>.
+  <div id="cancelled-message" style="display:none;max-width:680px;margin:0 auto 32px;padding:16px 20px;background:transparent;border:1px solid var(--verdict-contra);border-radius:0;font-size:14px;color:var(--ink);">
+    Your checkout session was cancelled. Your application has been saved &mdash; you can complete payment at any time. Questions? Email <a href="mailto:info@datom.science" style="color:var(--signal);">info@datom.science</a>.
   </div>
 
   <section class="reveal">
@@ -247,7 +313,7 @@
     <!-- ─── LAB tab ─── -->
     <div class="tab-panel active" id="panel-lab" role="tabpanel" aria-labelledby="tab-lab">
       <h2>For Research Labs</h2>
-      <h3 class="tab-subheading">Request Charter Partner Access to the DATOM R&amp;D Sandbox</h3>
+      <h3 class="tab-subheading">Request Pilot Access to the DATOM R&amp;D Sandbox</h3>
       <p style="margin-bottom:20px;">Access the DATOM R&amp;D Sandbox to validate internal IP and bulletproof pre-prints against the global scientific record.</p>
       <ol>
         <li>Tell us about your research and the claim you want to evaluate</li>
@@ -289,13 +355,13 @@
 
       <div
         id="vc-promo-banner"
-        style="display:none;margin-bottom:20px;padding:18px 22px;border-radius:var(--radius);background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.30);"
+        style="display:none;margin-bottom:20px;padding:18px 22px;border-radius:0;background:transparent;border:1px solid var(--signal);"
       >
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-          <strong style="color:var(--text);font-size:15px;">Free Confidence Report</strong>
+          <strong style="color:var(--ink);font-size:15px;">Free Confidence Report</strong>
         </div>
         <p style="margin:0;font-size:14px;color:var(--muted);">
-          You have a promotional Confidence Report from DATOM for <strong id="vc-promo-email" style="color:var(--text);">&mdash;</strong>. Share your claim in the chat below and you&rsquo;ll skip payment entirely.
+          You have a promotional Confidence Report from DATOM for <strong id="vc-promo-email" style="color:var(--ink);">&mdash;</strong>. Share your claim in the chat below and you&rsquo;ll skip payment entirely.
         </p>
       </div>
 
@@ -321,11 +387,11 @@
 
 </main>
 
-<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--accent);">Terms</a></footer>
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--signal);">Terms</a></footer>
 
-<script src="shared.js"></script>
-<script src="particles.js"></script>
-<script src="elmer.js?v=20260401"></script>
+<script src="fog-bg.js?v=2"></script>
+<script src="shared.js?v=20260710"></script>
+<script src="elmer.js?v=20260711a"></script>
 <script>
 (function () {
   'use strict';
@@ -756,7 +822,7 @@
 
   // ── Lab script: 4 broad turns ─────────────────────────────────────────
   var labScript = [
-    "Hi — I'll help you request Charter Partner access to the DATOM R&D Sandbox. To start: tell me about your lab — its name, the PI, your institution, the best email for us to reach you, and what field you work in.",
+    "Hi, I'll help you request Pilot access to the DATOM R&D Sandbox. To start: tell me about your lab, its name, the PI, your institution, the best email for us to reach you, and what field you work in.",
     "Now the science — what's the most critical claim your lab is currently building on, how confident are you in it right now, and what's driving any uncertainty?",
     "What decision, publication, or funding milestone hinges on getting this claim right — and what would it mean for your lab to make that call with full confidence in the evidence?",
     "Last set: what have you already tried to stress-test this claim, who else at your institution would weigh in on adopting a tool like DATOM, and is your evidence base mostly internal experimental data, published literature, or both? (And if you remember, how did you hear about us?)"
@@ -908,6 +974,36 @@
     onReady: onVcReady
   });
 })();
+</script>
+<script>
+  // Front-door routing: simple keyword matching, no live NLU. Same
+  // honesty rule as elmer.js elsewhere on this site -- routes visitors,
+  // doesn't pretend to converse. The Lab/VC intake below is untouched.
+  (function () {
+    'use strict';
+    function route(kind) {
+      if (kind === 'observer') { window.location.href = 'signup.html?plan=observer'; return; }
+      if (kind === 'investigator') { window.location.href = 'investigator-coming-soon.html'; return; }
+      document.getElementById('institution-intake').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    document.querySelectorAll('.gs-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () { route(chip.dataset.route); });
+    });
+    function routeFromText(text) {
+      var t = text.toLowerCase();
+      if (/\bfree\b|\bobserver\b|\bread\b/.test(t)) { route('observer'); return; }
+      if (/subscri|investigator|\bpay\b|paid/.test(t)) { route('investigator'); return; }
+      route('institution');
+    }
+    var input = document.getElementById('gs-search-input');
+    var go = document.getElementById('gs-search-go');
+    go.addEventListener('click', function () {
+      if (input.value.trim()) routeFromText(input.value);
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && input.value.trim()) routeFromText(input.value);
+    });
+  })();
 </script>
 </body>
 </html>

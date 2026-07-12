@@ -71,6 +71,15 @@ const BOND_OPACITY_LIGHT = {
 
 const SHELL = { SUPPORTS: 2.4, CONDITIONAL: 3.4, CONTRADICTS: 3.4, NEUTRAL: 4.4 };
 
+// Base shell radii above were tuned for small demos (~8-15 nodes per
+// relationship group). Real Datomers can have 100+ items per group, so
+// scale radius with sqrt(count) to keep surface density (and label
+// legibility) roughly constant instead of crowding nodes together.
+function scaledShellRadius(base, count, reference = 12) {
+  const factor = Math.sqrt(Math.max(count, 1) / reference);
+  return base * Math.min(Math.max(factor, 0.7), 3.5);
+}
+
 const BG_SCENE  = { black: '#07070e', grey: '#718096', white: '#eef2f7', blue: '#c0d9f5' };
 const BG_OUTER  = {
   black: 'linear-gradient(160deg,#050509 0%,#0e0e1c 100%)',
@@ -145,7 +154,7 @@ function buildLayout(datomers) {
 
   // Nucleus
   nodes.push({ id: '__nucleus__', rel: 'NUCLEUS', x: 0, y: 0, z: 0,
-               isNucleus: true, claim: 'Remote work reduces employee productivity.',
+               isNucleus: true, claim: (datomers.find(dm => dm.nucleusClaim)?.nucleusClaim) || 'Nucleus claim',
                weight: flat.length });
 
   function placeGroup(members, relKey, positions) {
@@ -156,18 +165,20 @@ function buildLayout(datomers) {
     });
   }
 
-  placeGroup(byRel.SUPPORTS, 'SUPPORTS', fibShell(byRel.SUPPORTS.length, SHELL.SUPPORTS));
-  placeGroup(byRel.NEUTRAL,  'NEUTRAL',  fibShell(byRel.NEUTRAL.length,  SHELL.NEUTRAL));
+  placeGroup(byRel.SUPPORTS, 'SUPPORTS', fibShell(byRel.SUPPORTS.length, scaledShellRadius(SHELL.SUPPORTS, byRel.SUPPORTS.length)));
+  placeGroup(byRel.NEUTRAL,  'NEUTRAL',  fibShell(byRel.NEUTRAL.length,  scaledShellRadius(SHELL.NEUTRAL, byRel.NEUTRAL.length)));
 
   const condCount = byRel.CONDITIONAL.length;
   const contCount = byRel.CONTRADICTS.length;
   const sharedTotal = condCount + contCount;
   if (sharedTotal > 0) {
-    const allPos  = fibShell(sharedTotal, SHELL.CONDITIONAL);
-    const condPos = allPos.filter((_, i) => i % 2 === 0).slice(0, condCount);
-    const contPos = allPos.filter((_, i) => i % 2 === 1).slice(0, contCount);
-    while (condPos.length < condCount) condPos.push(allPos[condPos.length] ?? [0,0,SHELL.CONDITIONAL]);
-    while (contPos.length < contCount) contPos.push(allPos[contPos.length] ?? [0,0,SHELL.CONDITIONAL]);
+    // One shell shared by both groups, split sequentially (not interleaved by
+    // even/odd index — that scheme silently reused positions across groups
+    // whenever condCount and contCount were far from an even split, e.g.
+    // 82 vs 59, producing exactly-overlapping nodes at real Datomer scale).
+    const allPos  = fibShell(sharedTotal, scaledShellRadius(SHELL.CONDITIONAL, sharedTotal));
+    const condPos = allPos.slice(0, condCount);
+    const contPos = allPos.slice(condCount, condCount + contCount);
     placeGroup(byRel.CONDITIONAL, 'CONDITIONAL', condPos);
     placeGroup(byRel.CONTRADICTS, 'CONTRADICTS', contPos);
   }
@@ -246,8 +257,14 @@ function initGraph(containerId) {
   const scene  = new THREE.Scene();
   scene.background = new THREE.Color(BG_SCENE.black);
 
-  const camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 100);
-  camera.position.set(0, 1.8, 9);
+  // Frame the camera to the actual node spread instead of a fixed distance —
+  // shell radius now scales with evidence count (see scaledShellRadius), so a
+  // Datomer with 200+ items needs the camera much further back than one with 20.
+  const maxNodeDist = nodes.reduce((max, n) => n.isNucleus ? max : Math.max(max, Math.sqrt(n.x*n.x + n.y*n.y + n.z*n.z)), 3);
+  const camDist = Math.max(9, maxNodeDist * 1.35);
+
+  const camera = new THREE.PerspectiveCamera(50, W / H, 0.1, Math.max(100, camDist * 4));
+  camera.position.set(0, camDist * 0.2, camDist);
   camera.lookAt(0, 0, 0);
 
   const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -256,7 +273,7 @@ function initGraph(containerId) {
   controls.enableDamping   = true;
   controls.dampingFactor   = 0.07;
   controls.minDistance     = 3;
-  controls.maxDistance     = 28;
+  controls.maxDistance     = Math.max(28, maxNodeDist * 3.5);
 
   let autoRotate = true;
   controls.addEventListener('start', () => { autoRotate = false; });
@@ -422,8 +439,10 @@ function initGraph(containerId) {
     scene.add(mesh);
     nodeMeshes.push(mesh);
 
-    // CSS2DObject label — identical style to dashboard NodeLabel Html component
-    const shortLabel = node.isNucleus ? 'N' : (node.id ?? '').slice(0, 4);
+    // CSS2DObject label — identical style to dashboard NodeLabel Html component.
+    // Datom IDs share a constant "D-LR-<hash>-" prefix within a domer, so the
+    // last dash-delimited segment (not the first 4 chars) is what's unique per node.
+    const shortLabel = node.isNucleus ? 'N' : (node.id ?? '').split('-').pop();
     const accent     = COLORS[node.rel] ?? COLORS.NEUTRAL;
     const div = document.createElement('div');
     div.textContent = shortLabel;

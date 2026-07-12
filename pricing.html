@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pricing, DATOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="DATOM pricing: Observer is free to browse the record, Investigator unlocks the full archive and claim requests, and DATOM Pro covers commissioned verification and platform integration for organizations.">
+<link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+<link rel="icon" type="image/png" href="./Assets/favicon.png">
+<link rel="apple-touch-icon" href="./Assets/favicon-180.png">
+<link rel="stylesheet" href="global.css?v=5">
+<link rel="stylesheet" href="elmer.css?v=20260712a">
+<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="design-v1.1.css?v=9">
+
+<style>
+  /* Layout-only rules; visual treatment lives in design-v1.1.css */
+  table.pricing-table th, table.pricing-table td { text-align: left; vertical-align: top; }
+  table.pricing-table th:not(:first-child), table.pricing-table td:not(:first-child) { min-width: 190px; }
+  .pricing-price { font-family: var(--font-data); font-size: 20px; color: var(--ink); transition: opacity 0.8s ease; }
+  .pricing-cta { margin-top: var(--s3); }
+  .pricing-features { margin: 0; padding-left: 18px; }
+  .pricing-features li { margin-bottom: 6px; color: var(--muted); font-size: 14px; }
+  .pricing-accumulate {
+    font-family: var(--font-data);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--faint);
+    margin: 0 0 8px;
+    text-transform: none;
+  }
+  .pricing-tagline { font-size: 14px; color: var(--muted); margin: 0 0 10px; line-height: 1.5; }
+  .pricing-disambig { font-size: 12px; color: var(--faint); margin: 0; line-height: 1.5; }
+
+  /* ── billing-period toggle (Investigator price only) ── */
+  .price-toggle {
+    display: inline-flex;
+    border: 1px solid var(--line-2);
+    margin-bottom: 8px;
+  }
+  .price-toggle-btn {
+    font-family: var(--font-data);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .price-toggle-btn + .price-toggle-btn { border-left: 1px solid var(--line-2); }
+  .price-toggle-btn.active { background: var(--ink); color: var(--paper); }
+  .price-toggle-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  @media (max-width: 800px) {
+    table.pricing-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="example.html">Live Example</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="organizations.html">For Organizations</a>
+    <a href="/app/login" class="btn-login">Log In</a>
+    <a href="try.html" class="btn-cta">Get Started</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="reveal">
+    <p class="section-label">Pricing</p>
+    <h1>Three ways to use DATOM</h1>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="reveal" id="comparison">
+    <table class="table-glass pricing-table">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>Observer</th>
+          <th>Investigator</th>
+          <th>DATOM Pro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Price</strong></td>
+          <td><span class="pricing-price">$0</span></td>
+          <td>
+            <div class="price-toggle" role="group" aria-label="Investigator billing period">
+              <button type="button" class="price-toggle-btn active" data-period="monthly" aria-pressed="true">Monthly</button>
+              <button type="button" class="price-toggle-btn" data-period="annual" aria-pressed="false">Annual</button>
+            </div>
+            <br><span class="pricing-price" id="reader-price">$12/mo</span>
+          </td>
+          <td><span class="pricing-price">Call for pricing</span></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <p class="pricing-tagline">Follow the investigations, read the verdicts, see what has been checked.</p>
+          </td>
+          <td>
+            <p class="pricing-tagline">Read the full archive, and submit claims for the record to examine, up to 3 a month.</p>
+            <p class="pricing-disambig">Investigators bring us claims to check. The verdict always comes from DATOM's independent review, never from a vote or a subscriber's opinion.</p>
+          </td>
+          <td>
+            <p class="pricing-tagline">Get your claims independently verified, or integrate the Record into your own systems.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>What's included</strong></td>
+          <td>
+            <ul class="pricing-features">
+              <li>Featured entries, full depth</li>
+              <li>Shareable</li>
+              <li>Archive entries: verdict card only</li>
+            </ul>
+          </td>
+          <td>
+            <p class="pricing-accumulate">Everything in Observer, plus:</p>
+            <ul class="pricing-features">
+              <li>Full explanation on every archive claim</li>
+              <li>3 new-claim requests included monthly, $5 per additional request</li>
+            </ul>
+          </td>
+          <td>
+            <p class="pricing-accumulate">Everything in Investigator, plus:</p>
+            <ul class="pricing-features">
+              <li>Commissioned Confidence Reports</li>
+              <li>R&amp;D Sandbox access</li>
+              <li>Verification Membership: ongoing platform access</li>
+              <li>Full reports and methodology on every claim</li>
+              <li>API access for platform integration</li>
+              <li>Volume verification commitments</li>
+              <li>Private ledger for internal claims, alongside the public one</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <a href="signup.html?plan=observer" class="btn pricing-cta">Sign Up</a>
+          </td>
+          <td>
+            <a href="investigator-coming-soon.html" class="btn pricing-cta">Get Investigator access</a>
+          </td>
+          <td>
+            <a href="organizations.html" class="btn pricing-cta">Book a call</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &middot; <a href="terms.html">Terms</a></footer>
+
+<script src="fog-bg.js?v=2"></script>
+<script src="shared.js?v=20260710"></script>
+<script src="elmer.js?v=20260711a"></script>
+<script>
+  (function () {
+    var toggleBtns = document.querySelectorAll('.price-toggle-btn');
+    var priceEl = document.getElementById('reader-price');
+    var PRICES = { monthly: '$12/mo', annual: '$120/yr' };
+    var FADE_MS = 800;
+    toggleBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        toggleBtns.forEach(function (b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+        priceEl.style.opacity = '0';
+        setTimeout(function () {
+          priceEl.textContent = PRICES[btn.dataset.period];
+          priceEl.style.opacity = '1';
+        }, FADE_MS);
+      });
+    });
+  })();
+</script>
+</body>
+</html>

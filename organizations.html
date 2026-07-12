@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Organizations, DATOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="DATOM Pro: independent claim verification and platform integration for companies, research labs, investors, institutions, government agencies, and universities.">
+<link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+<link rel="icon" type="image/png" href="./Assets/favicon.png">
+<link rel="apple-touch-icon" href="./Assets/favicon-180.png">
+<link rel="stylesheet" href="global.css?v=5">
+<link rel="stylesheet" href="elmer.css?v=20260712a">
+<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="design-v1.1.css?v=9">
+
+<style>
+  /* Layout-only rules; visual treatment lives in design-v1.1.css */
+  .audience-card h3 { margin-bottom: 10px; }
+  .audience-card p { margin-bottom: 18px; }
+  .audience-grid { display: grid; grid-template-columns: 1fr; gap: var(--s5); margin-top: var(--s6); }
+  .audience-header { display: flex; justify-content: space-between; align-items: center; }
+  .audience-header-left { display: flex; align-items: center; gap: var(--s4); }
+  .pillar-glyph { flex-shrink: 0; }
+  .audience-content { padding: 0 var(--s6) var(--s6); display: grid; grid-template-columns: 1fr 1fr; gap: var(--s6); }
+
+  @media (max-width: 800px) {
+    .audience-content { grid-template-columns: 1fr; padding: 0 var(--s4) var(--s4); }
+    summary.audience-header { padding: var(--s4); }
+    .pillar-glyph { width: 36px; height: 36px; }
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="example.html">Live Example</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="organizations.html">For Organizations</a>
+    <a href="/app/login" class="btn-login">Log In</a>
+    <a href="try.html" class="btn-cta">Get Started</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="reveal">
+    <p class="section-label">DATOM Pro</p>
+    <h1>DATOM Pro, for <span class="text-gradient">every institution.</span></h1>
+    <p class="lede">DATOM Pro is the version of DATOM built for organizations: companies, research labs, investors, institutions, and government agencies that act on scientific claims, plus universities that want to put evidence literacy directly in front of their students. The mission lives on the ledger. This page is how you engage.</p>
+  </section>
+
+  <!-- AUDIENCE (moved from index.html) -->
+  <section class="reveal" id="audience">
+    <p class="section-label">Who it's for</p>
+    <h2>Built for those who manage high-stakes evidence</h2>
+    <div class="grid-2" style="margin-top:28px;">
+      <div class="card audience-card reveal reveal-d1">
+        <h3>Research Labs</h3>
+        <p>Unify published literature with your own experimental data. Manage claim provenance, eliminate circular research, and turn evidence into a compounding institutional asset.</p>
+        <a href="product.html" class="card-link">See how it works &rarr;</a>
+      </div>
+      <div class="card audience-card reveal reveal-d2">
+        <h3>Investors &amp; Decision Makers</h3>
+        <p>Audit the structural integrity of technical claims during diligence. Know what the evidence actually supports.</p>
+        <a href="#see-yourself" class="card-link">See the use cases &rarr;</a>
+      </div>
+      <div class="card audience-card reveal reveal-d3">
+        <h3>Government Agencies</h3>
+        <p>Check the scientific claims behind proposed regulations, funding decisions, and guidance before they go out.</p>
+        <a href="#see-yourself" class="card-link">See the use cases &rarr;</a>
+      </div>
+      <div class="card audience-card reveal reveal-d1">
+        <h3>Universities</h3>
+        <p>Give students and faculty direct access to DATOM, so evaluating evidence becomes part of how a campus does research.</p>
+        <a href="#see-yourself" class="card-link">See the use cases &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEE YOURSELF IN DATOM (moved from product.html) -->
+  <section id="see-yourself" class="reveal">
+    <p class="section-label">Deployment &amp; Impact</p>
+    <h1>See yourself in DATOM</h1>
+    <p class="lede">Whether managing a lab, a startup, or a portfolio, DATOM provides the infrastructure to make expertise auditable and strategy defensible.</p>
+
+    <div class="audience-grid">
+
+      <details class="audience-card" open>
+        <summary class="audience-header">
+          <div class="audience-header-left">
+            <svg class="pillar-glyph" viewBox="0 0 64 64" width="48" height="48" fill="none" aria-hidden="true">
+              <line x1="32" y1="32" x2="32" y2="10" stroke="var(--line-2)" stroke-width="1"/>
+              <line x1="32" y1="32" x2="12" y2="46" stroke="var(--line-2)" stroke-width="1"/>
+              <line x1="32" y1="32" x2="52" y2="46" stroke="var(--line-2)" stroke-width="1"/>
+              <rect x="28" y="28" width="8" height="8" fill="var(--signal)"/>
+              <rect x="28" y="6" width="8" height="8" fill="var(--line-2)"/>
+              <rect x="8" y="42" width="8" height="8" fill="var(--line-2)"/>
+              <rect x="48" y="42" width="8" height="8" fill="var(--line-2)"/>
+            </svg>
+            <div class="audience-info">
+              <p class="pill">For Researchers</p>
+              <h2>The Research Ledger</h2>
+            </div>
+          </div>
+          <span class="audience-chevron">&#8964;</span>
+        </summary>
+        <div class="audience-content">
+          <div>
+            <p>DATOM integrates into the discovery cycle, combining published literature with your own experimental results to build a structured institutional asset.</p>
+            <ul class="workflow-list">
+              <li><strong>Deployment:</strong> Acts as the primary evidence repository for both literature claims and in-house experimental data during experiment design and claim extraction.</li>
+              <li><strong>Value:</strong> Reduces circular research by surfacing existing contradictions.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="power-box">
+              <div class="power-label">&larr; Past Facing: Institutional Memory</div>
+              <p>Audit the reasoning trajectory from the initial inquiry to ensures memory compounds.</p>
+            </div>
+            <div class="power-box dark-top">
+              <div class="power-label">&rarr; Future Facing: Strategic Optimization</div>
+              <p>Identify the <strong>Next-Best Evidence</strong> to resolve uncertainty relative to cost.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="audience-card">
+        <summary class="audience-header">
+          <div class="audience-header-left">
+            <svg class="pillar-glyph" viewBox="0 0 64 64" width="48" height="48" fill="none" aria-hidden="true">
+              <line x1="12" y1="52" x2="32" y2="32" stroke="var(--line-2)" stroke-width="1"/>
+              <line x1="32" y1="32" x2="52" y2="12" stroke="var(--line-2)" stroke-width="1"/>
+              <rect x="8" y="48" width="8" height="8" fill="var(--line-2)"/>
+              <rect x="28" y="28" width="8" height="8" fill="var(--line-2)"/>
+              <rect x="48" y="8" width="8" height="8" fill="var(--signal)"/>
+            </svg>
+            <div class="audience-info">
+              <p class="pill">For Decision Makers</p>
+              <h2>The Maturity Framework</h2>
+            </div>
+          </div>
+          <span class="audience-chevron">&#8964;</span>
+        </summary>
+        <div class="audience-content">
+          <div>
+            <p>Founders use DATOM to navigate technical maturity and existential risk with structured evidence.</p>
+            <ul class="workflow-list">
+              <li><strong>Deployment:</strong> Integrate into board updates and milestones to show objective progress.</li>
+              <li><strong>Value:</strong> Reduces the risk of premature scaling by identifying pivots before capital is exhausted.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="power-box">
+              <div class="power-label">&larr; Past Facing: Accountability</div>
+              <p>Defend <em>why</em> a path was taken under uncertainty to protect against hindsight bias.</p>
+            </div>
+            <div class="power-box dark-top">
+              <div class="power-label">&rarr; Future Facing: Readiness</div>
+              <p>Map work to readiness bands to identify when to move to full deployment.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="audience-card">
+        <summary class="audience-header">
+          <div class="audience-header-left">
+            <svg class="pillar-glyph" viewBox="0 0 64 64" width="48" height="48" fill="none" aria-hidden="true">
+              <line x1="32" y1="10" x2="12" y2="48" stroke="var(--line-2)" stroke-width="1"/>
+              <line x1="32" y1="10" x2="52" y2="48" stroke="var(--line-2)" stroke-width="1"/>
+              <line x1="12" y1="48" x2="52" y2="48" stroke="var(--line-2)" stroke-width="1"/>
+              <rect x="28" y="6" width="8" height="8" fill="var(--signal)"/>
+              <rect x="8" y="44" width="8" height="8" fill="var(--line-2)"/>
+              <rect x="48" y="44" width="8" height="8" fill="var(--line-2)"/>
+            </svg>
+            <div class="audience-info">
+              <p class="pill">For Investors</p>
+              <h2>The Diligence Primitive</h2>
+            </div>
+          </div>
+          <span class="audience-chevron">&#8964;</span>
+        </summary>
+        <div class="audience-content">
+          <div>
+            <p>VCs deploy DATOM to validate the structural integrity of technical claims across a portfolio.</p>
+            <ul class="workflow-list">
+              <li><strong>Deployment:</strong> Technical due diligence phase to assess "claim weight."</li>
+              <li><strong>Value:</strong> Improves timing for capital injection by reducing asymmetry.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="power-box">
+              <div class="power-label">&larr; Past Facing: Auditability</div>
+              <p>Audit the density and replication history of core technical claims.</p>
+            </div>
+            <div class="power-box dark-top">
+              <div class="power-label">&rarr; Future Facing: Risk Posture</div>
+              <p>Quantify the remaining distance to technical de-risking and next valuation tiers.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="audience-card">
+        <summary class="audience-header">
+          <div class="audience-header-left">
+            <svg class="pillar-glyph" viewBox="0 0 64 64" width="48" height="48" fill="none" aria-hidden="true">
+              <line x1="14" y1="14" x2="50" y2="14" stroke="var(--line-2)" stroke-width="1"/>
+              <line x1="50" y1="14" x2="50" y2="50" stroke="var(--line-2)" stroke-width="1"/>
+              <line x1="50" y1="50" x2="14" y2="50" stroke="var(--line-2)" stroke-width="1"/>
+              <line x1="14" y1="50" x2="14" y2="14" stroke="var(--line-2)" stroke-width="1"/>
+              <rect x="10" y="10" width="8" height="8" fill="var(--signal)"/>
+              <rect x="46" y="10" width="8" height="8" fill="var(--line-2)"/>
+              <rect x="46" y="46" width="8" height="8" fill="var(--line-2)"/>
+              <rect x="10" y="46" width="8" height="8" fill="var(--line-2)"/>
+            </svg>
+            <div class="audience-info">
+              <p class="pill">For Government Agencies</p>
+              <h2>The Policy Evidence Base</h2>
+            </div>
+          </div>
+          <span class="audience-chevron">&#8964;</span>
+        </summary>
+        <div class="audience-content">
+          <div>
+            <p>Regulators and health agencies use DATOM to check the scientific claims behind guidance, funding decisions, and official communications before they go out.</p>
+            <ul class="workflow-list">
+              <li><strong>Deployment:</strong> Screen the evidence behind proposed regulations, grant applications, or health guidance before it's published.</li>
+              <li><strong>Value:</strong> Reduces the risk of basing policy on claims that don't hold up, and gives agencies a defensible record when a decision is reviewed later.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="power-box">
+              <div class="power-label">&larr; Past Facing: Accountability</div>
+              <p>Show the evidence a decision was based on, not just the decision itself, when it's reviewed later.</p>
+            </div>
+            <div class="power-box dark-top">
+              <div class="power-label">&rarr; Future Facing: Institutional Trust</div>
+              <p>Publish the confidence behind a guideline alongside the guideline itself.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="audience-card">
+        <summary class="audience-header">
+          <div class="audience-header-left">
+            <svg class="pillar-glyph" viewBox="0 0 64 64" width="48" height="48" fill="none" aria-hidden="true">
+              <line x1="32" y1="10" x2="12" y2="30" stroke="var(--line-2)" stroke-width="1"/>
+              <line x1="32" y1="10" x2="52" y2="30" stroke="var(--line-2)" stroke-width="1"/>
+              <line x1="12" y1="30" x2="12" y2="50" stroke="var(--line-2)" stroke-width="1"/>
+              <line x1="32" y1="30" x2="32" y2="50" stroke="var(--line-2)" stroke-width="1"/>
+              <line x1="52" y1="30" x2="52" y2="50" stroke="var(--line-2)" stroke-width="1"/>
+              <rect x="28" y="6" width="8" height="8" fill="var(--signal)"/>
+              <rect x="8" y="26" width="8" height="8" fill="var(--line-2)"/>
+              <rect x="28" y="26" width="8" height="8" fill="var(--line-2)"/>
+              <rect x="48" y="26" width="8" height="8" fill="var(--line-2)"/>
+              <rect x="8" y="46" width="8" height="8" fill="var(--line-2)"/>
+              <rect x="28" y="46" width="8" height="8" fill="var(--line-2)"/>
+              <rect x="48" y="46" width="8" height="8" fill="var(--line-2)"/>
+            </svg>
+            <div class="audience-info">
+              <p class="pill">For Universities</p>
+              <h2>Campus-Wide Access</h2>
+            </div>
+          </div>
+          <span class="audience-chevron">&#8964;</span>
+        </summary>
+        <div class="audience-content">
+          <div>
+            <p>Give students and faculty direct access to DATOM, so evaluating evidence becomes part of how they learn to do research, not a separate skill taught once and forgotten.</p>
+            <ul class="workflow-list">
+              <li><strong>Deployment:</strong> Site-wide or department-wide access so students can check claims in coursework, theses, and their own early research.</li>
+              <li><strong>Value:</strong> Builds evidence literacy as a habit, and gives faculty a shared, inspectable standard for what counts as well-supported.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="power-box">
+              <div class="power-label">&larr; Past Facing: Teaching</div>
+              <p>Show students exactly why a claim is or isn't well-supported, not just that it is.</p>
+            </div>
+            <div class="power-box dark-top">
+              <div class="power-label">&rarr; Future Facing: Research Readiness</div>
+              <p>Graduates who already know how to audit evidence before they ever run a lab.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- DATOM PRO: two sections, a verification path (commissioned reports,
+       the former "Organizations" category) and an integration path (API
+       and volume access, the former "Scale" category). Both are display
+       groupings under one merged pricing tier; Organizations and Scale
+       stay distinct as backend categories. -->
+  <section class="reveal" id="pricing">
+    <p class="section-label">DATOM Pro</p>
+    <h2>Two ways to engage</h2>
+    <p class="lede">Every engagement starts with a scoping call, and pricing depends on depth and duration. Whichever path fits, your engagement includes a private ledger for internal or proprietary claims, alongside full access to the public one.</p>
+
+    <p class="pill" style="margin-top:40px;">Verification</p>
+    <div class="grid-3" style="margin-top:16px;">
+      <div class="card reveal reveal-d1">
+        <h3>Confidence Report</h3>
+        <p>A single in-depth verification of one claim, delivered as a standalone report for a specific decision: a diligence call, a board update, a go or no-go.</p>
+      </div>
+      <div class="card reveal reveal-d2">
+        <h3>Pilot</h3>
+        <p>Structured access to the DATOM R&amp;D Sandbox for a defined evaluation period: validate internal IP and pre-prints against the record before committing further.</p>
+      </div>
+      <div class="card reveal reveal-d3">
+        <h3>Verification Membership</h3>
+        <p>Ongoing platform access for labs and portfolios that verify claims continuously, not as a one-time engagement.</p>
+      </div>
+    </div>
+
+    <p class="pill" style="margin-top:40px;">Integration</p>
+    <div class="grid-2" style="margin-top:16px;">
+      <div class="card reveal reveal-d1">
+        <h3>API access</h3>
+        <p>Pull determinations and evidence directly into your own systems, dashboards, or diligence workflows.</p>
+      </div>
+      <div class="card reveal reveal-d2">
+        <h3>Volume verification</h3>
+        <p>Ongoing commitments for portfolios and pipelines that need claims checked at scale, not one at a time.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:40px;">
+      <a href="https://calendly.com/datom/30min" class="btn" target="_blank" rel="noopener">Schedule a call to discuss pricing &rarr;</a>
+    </div>
+  </section>
+
+  <!-- TWO WAYS TO START (moved from index.html) -->
+  <section class="reveal" id="get-started">
+    <p class="section-label">Get Started</p>
+    <h2>Two ways to start</h2>
+    <div class="grid-2" style="margin-top:28px;">
+      <div class="card card-accent reveal reveal-d1" style="display:flex;flex-direction:column;">
+        <h3>For Research Labs</h3>
+        <p style="flex:1;">Evaluate your lab's claims with structured evidence before committing resources. Turn your experimental data into a compounding institutional asset.</p>
+        <a href="try.html#lab" class="btn" style="align-self:flex-start;">Request Pilot Access &rarr;</a>
+      </div>
+      <div class="card card-accent reveal reveal-d2" style="display:flex;flex-direction:column;">
+        <h3>For Investors</h3>
+        <p style="flex:1;">Assess a portfolio company's scientific claims before your next check. Know what the evidence actually supports.</p>
+        <a href="try.html#vc" class="btn" style="align-self:flex-start;">Request a Confidence Report &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &middot; <a href="terms.html">Terms</a></footer>
+
+<script src="fog-bg.js?v=2"></script>
+<script src="shared.js?v=20260710"></script>
+<script src="elmer.js?v=20260711a"></script>
+</body>
+</html>

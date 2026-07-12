@@ -178,42 +178,10 @@ nav a:not(.btn-cta):hover::after {
   width: 100%;
 }
 
-.btn-login {
-  color: #fff;
-  padding: 9px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 13px;
-  text-decoration: none;
-  border: 1px solid var(--accent);
-  transition: all 0.25s;
-  background: var(--accent);
-  box-shadow: 0 2px 8px var(--accent-glow);
-}
-.btn-login:hover {
-  background: var(--accent-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px var(--accent-glow);
-  color: #fff;
-}
+/* .btn-login / .btn-cta visual treatment moved to design-v1.1.css so the
+   header buttons match the flat/hairline system, instead of the legacy
+   rounded-corner cyan-glow buttons that used to live here. */
 nav a.btn-login::after { display: none; }
-
-.btn-cta {
-  background: var(--accent);
-  color: #fff;
-  padding: 9px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 13px;
-  text-decoration: none;
-  transition: all 0.25s;
-  box-shadow: 0 2px 8px var(--accent-glow);
-}
-.btn-cta:hover {
-  background: var(--accent-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px var(--accent-glow);
-}
 
 /* Hamburger */
 .menu-toggle {
@@ -436,20 +404,23 @@ section:last-child { margin-bottom: 0; }
 .table-glass tr:last-child td { border-bottom: none; }
 .table-glass tr:hover td { background: rgba(255, 255, 255, 0.3); }
 
-/* ── Scroll Reveal (condensation — content forms out of the abyss) ── */
+/* ── Scroll Reveal (fade + rise) ──
+   NOTE: intentionally does NOT animate `filter: blur()`. Transitioning a blur
+   filter forces the browser to re-rasterize the whole revealed subtree every
+   frame; on a long page with a large card grid (e.g. the 200+ evidence cards on
+   example.html) that rasterization stalls the render pipeline and the transition
+   freezes near opacity 0, leaving the page visually blank. opacity + transform
+   are GPU-composited and cannot stall this way. Keep it that way. */
 .reveal {
   opacity: 0;
   transform: translateY(22px) scale(0.985);
-  filter: blur(12px);
   transition: opacity 0.9s cubic-bezier(0.4, 0, 0, 1),
-              transform 0.9s cubic-bezier(0.4, 0, 0, 1),
-              filter 0.9s cubic-bezier(0.4, 0, 0, 1);
-  will-change: opacity, transform, filter;
+              transform 0.9s cubic-bezier(0.4, 0, 0, 1);
+  will-change: opacity, transform;
 }
 .reveal.active {
   opacity: 1;
   transform: translateY(0) scale(1);
-  filter: blur(0);
 }
 
 /* Load-in condensation for hero elements (index page) */
