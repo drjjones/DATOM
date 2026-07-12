@@ -469,6 +469,29 @@
     }
     .medical-note strong { color: var(--verdict-mixed); }
 
+    .confidence-summary {
+      display: flex; align-items: center; gap: 20px;
+      border: 1px solid var(--line);
+      padding: 18px 20px;
+      margin-top: 18px;
+    }
+    .confidence-summary-score {
+      font-family: var(--font-data); font-size: 34px; font-weight: 500; line-height: 1;
+      flex-shrink: 0;
+    }
+    .confidence-summary-score.score-high { color: var(--signal); }
+    .confidence-summary-score.score-mid { color: var(--verdict-mixed); }
+    .confidence-summary-score.score-low { color: var(--verdict-contra); }
+    .confidence-summary-band {
+      font-family: var(--font-data); font-size: 11px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--muted); margin: 0 0 4px;
+    }
+    .confidence-summary-text { font-size: 14px; line-height: 1.55; color: var(--ink); margin: 0; }
+    @media (max-width: 520px) {
+      .confidence-summary { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+
     @media (max-width: 979px) {
       .steps{ grid-template-columns: 1fr 1fr; }
     }
@@ -645,6 +668,14 @@
       </div>
 
       <p class="medical-note"><strong>Is this medical advice?</strong> No. This assesses whether current evidence supports a specific claim as scoped. It is not medical advice, does not address safety, dosing, or side effects, and is not a recommendation to use or avoid any medication. Talk to a qualified clinician before making any health decision.</p>
+
+      <div class="confidence-summary">
+        <div class="confidence-summary-score score-mid">44%</div>
+        <div>
+          <p class="confidence-summary-band">Preliminary Confidence</p>
+          <p class="confidence-summary-text">This 44% score is Preliminary because 68 of the 130 directly relevant studies never report how many people they studied, and only 8 used the strongest research design, a randomized controlled trial, even though 59% of them lean toward supporting the claim.</p>
+        </div>
+      </div>
     </section>
 
     <section class="section guideCard reveal" id="guide">

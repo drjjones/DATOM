@@ -6,6 +6,7 @@
   "plainQuestion": "Does having had a prior COVID-19 infection, on top of being vaccinated, give you extra protection against reinfection or severe disease compared to vaccination alone?",
   "confidence_score_pct": 31,
   "confidence_band": "Preliminary",
+  "confidenceSummary": "This 31% score is Preliminary because only 2 of the 45 sources are randomized trials, and just over half of the evidence supports the claim only under specific conditions, like a certain age group or virus variant, rather than as a general effect.",
   "replication_count": 45,
   "as_of": "12 Jul 2026",
   "projectId": "1e0fbc2e-720f-4c69-897e-30c191540494",

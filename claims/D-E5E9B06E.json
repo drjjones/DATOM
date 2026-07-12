@@ -6,6 +6,7 @@
   "plainQuestion": "Does CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) work efficiently and reproducibly across many different organisms, not just one well-studied species?",
   "confidence_score_pct": 35,
   "confidence_band": "Preliminary",
+  "confidenceSummary": "This 35% score is Preliminary because sample size goes unreported for nearly half of the 233 sources, and 208 different research methods were used across them, so the strong 92.7% support figure has not yet been independently repeated under comparable conditions.",
   "replication_count": 233,
   "as_of": "12 Jul 2026",
   "projectId": "bd50104d-463a-4577-a7f0-09a2f1c8a6d0",

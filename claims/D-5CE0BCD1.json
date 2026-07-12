@@ -6,6 +6,7 @@
   "plainQuestion": "Does heating produce to a safe cooking temperature kill Cyclospora, a parasite that causes serious diarrheal illness, better than washing it does?",
   "confidence_score_pct": 23,
   "confidence_band": "Speculative",
+  "confidenceSummary": "This 23% score is Speculative because only 16 of the 54 sources actually tested Cyclospora itself, the rest studied related pathogens or a lab stand in organism, and much of the direct evidence traces back to one research group.",
   "replication_count": 54,
   "as_of": "12 Jul 2026",
   "projectId": "d7b3bee5-5baa-4a16-afd5-6b204516e19e",

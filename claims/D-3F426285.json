@@ -6,6 +6,7 @@
   "plainQuestion": "If a smallholder farming household becomes more productive or diversifies what it grows, does that actually translate into a better, more varied diet and less hunger for the family?",
   "confidence_score_pct": 29,
   "confidence_band": "Preliminary",
+  "confidenceSummary": "This 29% score is Preliminary because the 175 sources use 78 different research methods that rarely repeat each other, and more than half were published in just the last two years, too new to have been independently confirmed.",
   "replication_count": 175,
   "as_of": "12 Jul 2026",
   "projectId": "cf57f478-c564-4e51-bbc2-6491d3149d1b",

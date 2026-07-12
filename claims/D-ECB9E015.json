@@ -6,6 +6,7 @@
   "plainQuestion": "Does HPV vaccination coverage among university-age and catch-up-eligible populations fall short of public-health targets, and how much does it vary from one region to another?",
   "confidence_score_pct": 20,
   "confidence_band": "Speculative",
+  "confidenceSummary": "This 20% score is Speculative because the 196 sources support the general idea that coverage falls short of target, not the specific percentage point gap the claim asks for, and most are based on abstracts rather than the full published study.",
   "replication_count": 196,
   "as_of": "12 Jul 2026",
   "projectId": "18558841-4a2d-4ceb-8f67-1c1ab6c4d1de",
