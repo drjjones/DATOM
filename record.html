@@ -42,14 +42,19 @@
 
 <style>
   /* Record page: receipt style. Layout only; tokens do the visual work. */
-  /* Keep [hidden] authoritative over class-level display (flex/block) so the
-     belief tap can gate the verdict reveal. */
+  /* Keep [hidden] authoritative over class-level display so the belief tap gates the reveal. */
   [hidden] { display: none !important; }
   .rec { max-width: 720px; }
   .rec-claim { font-family: var(--font-display); font-size: 30px; line-height: 1.25; color: var(--ink); margin: 0 0 var(--s2); }
   .rec-eyebrow { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin: 0 0 var(--s2); }
+  .rec-domain { font-family: var(--font-data); font-size: 12px; color: var(--muted); margin: 0 0 var(--s4); }
+  .rec-domain .k { color: var(--faint); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; }
+  .rec-domain .r5 { color: var(--faint); }
 
-  /* b. belief tap (before the verdict is visible) */
+  /* section headings */
+  .rec-h { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin: var(--s5) 0 var(--s2); border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+
+  /* b. belief tap */
   .belief { border: 1px solid var(--line); padding: var(--s4); margin: var(--s4) 0; }
   .belief-q { font-family: var(--font-display); font-size: 18px; color: var(--ink); margin: 0 0 var(--s3); }
   .belief-opts { display: flex; gap: 0; }
@@ -58,9 +63,8 @@
   .belief-btn:hover { background: var(--paper-2); }
   .belief-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
-  /* c. determination stamp: double rule, receipt entries */
+  /* c. determination stamp */
   .stamp { border-top: var(--rule-double) solid var(--ink); border-bottom: 1px solid var(--line); padding: var(--s4) 0; margin: var(--s4) 0; }
-  .stamp[hidden] { display: none; }
   .stamp-row { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--line); }
   .stamp-row:last-child { border-bottom: none; }
   .stamp-label { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
@@ -69,23 +73,39 @@
   .stamp-grade small { font-size: 12px; color: var(--muted); margin-left: 8px; }
   .rec-basis { font-family: var(--font-data); font-size: 12px; color: var(--faint); margin: var(--s3) 0 0; line-height: 1.5; }
 
-  /* d. provenance strip */
+  /* topology block: the checkability core, aggregate structure */
+  .topo { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-bottom: none; }
+  .topo .cell { border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); padding: var(--s3); }
+  .topo .cell:nth-child(3n) { border-right: none; }
+  .topo .n { font-family: var(--font-data); font-size: 22px; color: var(--ink); font-variant-numeric: tabular-nums; display: block; }
+  .topo .l { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
+  .topo .sub { font-family: var(--font-data); font-size: 12px; color: var(--muted); }
+
+  /* bibliography: flat public list, load-bearing highlighted */
+  .bib { list-style: none; margin: var(--s2) 0; padding: 0; }
+  .bib li { border-bottom: 1px solid var(--line); padding: 10px 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .bib li .t { color: var(--ink); }
+  .bib li a { color: var(--signal); text-decoration: none; }
+  .bib li a:hover { text-decoration: underline; }
+  .bib .dir { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; padding: 1px 6px; border: 1px solid var(--line-2); margin-right: 8px; }
+  .bib .dir.supports { color: var(--signal); border-color: var(--signal); }
+  .bib .dir.contradicts { color: var(--verdict-contra); border-color: var(--verdict-contra); }
+  .bib .dir.split { color: var(--verdict-mixed); border-color: var(--verdict-mixed); }
+  .bib li.load { background: var(--paper-2); padding-left: 10px; padding-right: 10px; }
+
+  /* account gate: the explore ring */
+  .gate { border: 1px dashed var(--line-2); padding: var(--s3) var(--s4); margin: var(--s3) 0; font-size: 13px; color: var(--faint); line-height: 1.6; }
+  .gate strong { color: var(--muted); }
+
+  /* provenance strip + version history */
   .prov { border: 1px solid var(--line); padding: var(--s3) var(--s4); margin: var(--s4) 0; }
   .prov-row { display: flex; gap: 12px; font-family: var(--font-data); font-size: 12px; color: var(--muted); padding: 4px 0; }
   .prov-row .k { color: var(--faint); min-width: 130px; text-transform: uppercase; letter-spacing: 0.06em; font-size: 11px; }
+  .history { list-style: none; margin: 6px 0 0; padding: 0; }
+  .history li { font-family: var(--font-data); font-size: 12px; color: var(--muted); padding: 3px 0; }
+  .history li .d { color: var(--faint); margin-right: 8px; }
 
-  /* e. summary evidence */
-  .ev-counts { display: flex; gap: 0; margin: var(--s3) 0; }
-  .ev-count { flex: 1; border: 1px solid var(--line); padding: var(--s3); text-align: center; }
-  .ev-count + .ev-count { border-left: none; }
-  .ev-count .n { font-family: var(--font-data); font-size: 24px; color: var(--ink); font-variant-numeric: tabular-nums; display: block; }
-  .ev-count .l { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
-  .ev-sources { list-style: none; margin: var(--s3) 0; padding: 0; }
-  .ev-sources li { border-top: 1px solid var(--line); padding: 10px 0; font-size: 14px; color: var(--muted); }
-  .ev-sources li:last-child { border-bottom: 1px solid var(--line); }
-  .gate { border: 1px dashed var(--line-2); padding: var(--s3) var(--s4); margin: var(--s3) 0; font-size: 13px; color: var(--faint); }
-
-  /* g. reader-sentiment strip: deliberately distinct from evidence */
+  /* g. reader-sentiment strip */
   .sentiment { background: var(--paper-2); border: 1px solid var(--line); padding: var(--s3) var(--s4); margin: var(--s4) 0; }
   .sentiment .tag { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--verdict-unrated); margin: 0 0 8px; }
   .sentiment .bar { display: flex; height: 10px; border: 1px solid var(--line-2); margin: 8px 0; }
@@ -95,15 +115,18 @@
   .sentiment .bar .unsure { background: var(--line-2); }
   .sentiment .legend { font-family: var(--font-data); font-size: 11px; color: var(--muted); }
 
-  /* h. actions */
+  .freshness { font-family: var(--font-data); font-size: 12px; color: var(--muted); margin: var(--s3) 0; }
+  .freshness .dot { color: var(--signal); }
+
   .rec-actions { display: flex; gap: 12px; margin: var(--s4) 0; flex-wrap: wrap; }
 
-  /* i. footer answer box */
   .catdef { font-family: var(--font-display); font-size: 16px; color: var(--muted); line-height: 1.6; margin: var(--s5) 0 var(--s3); }
   .answerbox { display: flex; gap: 0; margin: var(--s3) 0; }
   .answerbox input { flex: 1; font-family: var(--font-body); font-size: 15px; padding: 12px 14px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); }
   .answerbox input:focus-visible { outline: 2px solid var(--focus); outline-offset: -1px; }
   .answerbox button { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 12px 20px; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); cursor: pointer; }
+
+  @media (max-width: 560px) { .topo { grid-template-columns: repeat(2, 1fr); } .topo .cell:nth-child(3n) { border-right: 1px solid var(--line); } .topo .cell:nth-child(2n) { border-right: none; } }
 </style>
 </head>
 
@@ -126,9 +149,10 @@
 <main>
   <section class="reveal rec">
 
-    <!-- a. the claim, verbatim canonical form -->
+    <!-- a. claim, record ID, and domain classification (public, R5) -->
     <p class="rec-eyebrow">DATOM Record &middot; DTM-2026-0703-2E</p>
     <h1 class="rec-claim">GLP-1 receptor agonists cause clinically meaningful muscle loss during weight loss.</h1>
+    <p class="rec-domain"><span class="k">Domain</span>clinical medicine 80% &middot; endocrinology 20% <span class="r5">&mdash; classification is public and auditable</span></p>
 
     <!-- b. belief tap, shown BEFORE the verdict is visible -->
     <div class="belief" id="preBelief">
@@ -140,49 +164,64 @@
       </div>
     </div>
 
-    <!-- c. verdict + Evidence Grade (absolute) + Field-Relative Grade + basis -->
+    <!-- c. the complete conclusion set: verdict, both grades, basis. Never held back. -->
     <div class="stamp" id="verdictStamp" hidden>
-      <div class="stamp-row">
-        <span class="stamp-label">Verdict</span>
-        <span class="stamp-verdict">Contested</span>
-      </div>
-      <div class="stamp-row">
-        <span class="stamp-label">Evidence Grade</span>
-        <span class="stamp-grade">D <small>Limited evidence base</small></span>
-      </div>
-      <div class="stamp-row">
-        <span class="stamp-label">Field-relative</span>
-        <span class="stamp-grade">D <small>vs experimental-field ceiling</small></span>
-      </div>
-      <p class="rec-basis">Graded against 23 comparable claims in clinical medicine. Domain: clinical medicine 80%, endocrinology 20%. The direct evidence is genuinely split (12 support, 11 contradict; 52% decisive consensus), which is why the verdict is Contested rather than a direction.</p>
+      <div class="stamp-row"><span class="stamp-label">Verdict</span><span class="stamp-verdict">Contested</span></div>
+      <div class="stamp-row"><span class="stamp-label">Evidence Grade</span><span class="stamp-grade">D <small>Limited evidence base</small></span></div>
+      <div class="stamp-row"><span class="stamp-label">Field-relative</span><span class="stamp-grade">D <small>vs experimental-field ceiling</small></span></div>
+      <p class="rec-basis">Graded against 23 comparable claims in clinical medicine. The direct evidence is genuinely split (12 support, 11 contradict; 52% decisive consensus), which is why the verdict is Contested rather than a direction.</p>
     </div>
 
-    <!-- d. provenance strip -->
+    <!-- checkability core: the evidence topology (aggregate structure) -->
+    <div id="topology" hidden>
+      <p class="rec-h">Evidence topology</p>
+      <div class="topo">
+        <div class="cell"><span class="n">23</span><span class="l">Sources evaluated</span></div>
+        <div class="cell"><span class="n">12 / 11 / 0</span><span class="l">Support / contradict / neutral</span></div>
+        <div class="cell"><span class="n">4</span><span class="l">Independent replications</span></div>
+        <div class="cell"><span class="sub">5 RCTs &middot; 13 cohorts &middot; 5 reviews</span><span class="l">Study-type mix</span></div>
+        <div class="cell"><span class="n">18</span><span class="l">Independent groups</span></div>
+        <div class="cell"><span class="sub">Split across groups</span><span class="l">Consilience</span></div>
+      </div>
+      <p class="rec-basis">Read this block in thirty seconds: whether "Contested" rests on two press releases or two dozen independent studies is visible before you read a single paper.</p>
+    </div>
+
+    <!-- full public bibliography: flat list, load-bearing highlighted with direction tags -->
+    <div id="bibliography" hidden>
+      <p class="rec-h">Bibliography &middot; all 23 sources, public</p>
+      <ul class="bib">
+        <li class="load"><span class="dir supports">Supports</span><span class="t">Skeletal muscle mass during semaglutide-induced weight loss: a randomized DXA sub-study.</span> Ahlqvist et al., 2025, New England Journal of Medicine. <a href="https://doi.org/10.0000/example-01" rel="nofollow noopener">doi.org/10.0000/example-01</a></li>
+        <li class="load"><span class="dir contradicts">Contradicts</span><span class="t">Resistance training preserves lean mass under GLP-1 therapy: a controlled trial.</span> Baptiste et al., 2026, JAMA Internal Medicine. <a href="https://doi.org/10.0000/example-02" rel="nofollow noopener">doi.org/10.0000/example-02</a></li>
+        <li class="load"><span class="dir split">Split</span><span class="t">GLP-1 receptor agonists and body composition: a meta-analysis with high heterogeneity.</span> Contreras et al., 2026, The Lancet Diabetes and Endocrinology. <a href="https://doi.org/10.0000/example-03" rel="nofollow noopener">doi.org/10.0000/example-03</a></li>
+        <li>Appendicular lean mass in a real-world semaglutide cohort. Devi et al., 2025, Diabetes Care. <a href="https://doi.org/10.0000/example-04" rel="nofollow noopener">doi.org/10.0000/example-04</a></li>
+        <li>Tirzepatide and muscle quality by MRI: an observational analysis. Erikson et al., 2026, Obesity. <a href="https://doi.org/10.0000/example-05" rel="nofollow noopener">doi.org/10.0000/example-05</a></li>
+        <li>Function outcomes after GLP-1 weight loss in older adults. Fournier et al., 2025, Journal of the American Geriatrics Society. <a href="https://doi.org/10.0000/example-06" rel="nofollow noopener">doi.org/10.0000/example-06</a></li>
+        <li>Systematic review of lean-mass reporting in incretin trials. Gupta et al., 2026, Annals of Internal Medicine. <a href="https://doi.org/10.0000/example-07" rel="nofollow noopener">doi.org/10.0000/example-07</a></li>
+      </ul>
+      <p class="rec-basis">The three highlighted sources are the load-bearing ones, shown with their direction tags as a sample of what the tree holds. The remaining 16 sources appear in the same flat list on the live record.</p>
+    </div>
+
+    <!-- the explore ring: account gate at the interactive tree, not the source list -->
+    <div class="gate" id="treeGate" hidden>
+      <strong>Explore every source.</strong> A free account opens the interactive evidence tree: per-source direction tags across the whole bibliography, each source's study type, sample scale, and replication status, and the navigation from each source up to the aggregate numbers above. The sources themselves are all public, right here; the account adds the structure that connects them. <a href="/app/signup" class="action">Open a free account &rarr;</a>
+    </div>
+
+    <!-- provenance, fully public: hash anchor, timestamps, append-only, version history, disclosure -->
     <div class="prov" id="provStrip" hidden>
       <div class="prov-row"><span class="k">Record</span><span>Append-only. Entries can be added to, never rewritten.</span></div>
       <div class="prov-row"><span class="k">Anchor</span><span>sha256:9c07&hellip;f998ad68</span></div>
+      <div class="prov-row"><span class="k">Entered</span><span>2026-07-03</span></div>
       <div class="prov-row"><span class="k">Last confirmed</span><span>2026-07-14</span></div>
       <div class="prov-row"><span class="k">Disclosure</span><span>Sponsored by Metabolic Health Coalition. Not commissioned.</span></div>
-    </div>
-
-    <!-- e. summary evidence (ungated) -->
-    <div id="summaryEvidence" hidden>
-      <p class="rec-eyebrow">Summary evidence</p>
-      <div class="ev-counts">
-        <div class="ev-count"><span class="n">12</span><span class="l">Support</span></div>
-        <div class="ev-count"><span class="n">11</span><span class="l">Contradict</span></div>
-        <div class="ev-count"><span class="n">23</span><span class="l">Sources</span></div>
+      <div class="prov-row"><span class="k">History</span>
+        <ul class="history">
+          <li><span class="d">2026-07-14</span>Field-relative grade moved C to D after Gupta 2026 review entered the record.</li>
+          <li><span class="d">2026-07-03</span>Record opened. Verdict Contested, Evidence Grade D.</li>
+        </ul>
       </div>
-      <ul class="ev-sources">
-        <li>Randomized trial, semaglutide, DXA lean-mass endpoint (supports)</li>
-        <li>Cohort with resistance-training arm, attenuated loss (contradicts)</li>
-        <li>Meta-analysis, mixed endpoints, high heterogeneity (split)</li>
-      </ul>
-      <p><a href="/app/login" class="action">Read the methodology &rarr;</a></p>
-      <div class="gate">The full interactive evidence tree opens with a free account. Verdict, grades, and this summary are always free.</div>
     </div>
 
-    <!-- f. post-belief re-ask after evidence -->
+    <!-- f. post-belief re-ask after the evidence -->
     <div class="belief" id="postBelief" hidden>
       <p class="belief-q">Now that you have seen the evidence, do you think this claim is true?</p>
       <div class="belief-opts" role="group" aria-label="Your belief after reading">
@@ -192,7 +231,7 @@
       </div>
     </div>
 
-    <!-- g. reader-sentiment strip: reader sentiment, not evidence -->
+    <!-- g. reader-sentiment strip -->
     <div class="sentiment" id="sentimentStrip" hidden>
       <p class="tag">Reader sentiment, not evidence</p>
       <div class="bar" aria-hidden="true">
@@ -200,8 +239,11 @@
         <span class="no" style="width:41%"></span>
         <span class="unsure" style="width:21%"></span>
       </div>
-      <p class="legend">Before reading, 38% thought this was true. After the evidence, readers move; the pre/post shift is what DATOM tracks. This tally carries no weight in the verdict or the grades.</p>
+      <p class="legend">Before reading, 38% thought this was true. The pre/post shift is what DATOM tracks. This tally carries no weight in the verdict or the grades.</p>
     </div>
+
+    <!-- freshness + methodology -->
+    <p class="freshness" id="freshness" hidden><span class="dot">&bull;</span> Continuously monitored. New studies matching this claim enter within days of indexing. &middot; <a href="product.html" class="action">How DATOM checks a claim</a></p>
 
     <!-- h. follow / notify -->
     <div class="rec-actions" id="recActions" hidden>
@@ -226,33 +268,23 @@
 <script src="elmer.js?v=20260711a"></script>
 <script>
   // Belief tap gates the verdict reveal (3.3b): the reader commits a pre-belief
-  // BEFORE seeing the verdict. One tap, no account. Stored locally only.
+  // BEFORE seeing the verdict. One tap, no account, stored locally only.
   (function () {
-    var revealed = ['verdictStamp', 'provStrip', 'summaryEvidence', 'postBelief', 'sentimentStrip', 'recActions'];
+    var revealed = ['verdictStamp', 'topology', 'bibliography', 'treeGate', 'provStrip', 'postBelief', 'sentimentStrip', 'freshness', 'recActions'];
     function reveal() { revealed.forEach(function (id) { var el = document.getElementById(id); if (el) el.hidden = false; }); }
-    var pre = document.getElementById('preBelief');
-    pre.querySelectorAll('.belief-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        try { localStorage.setItem('datom-pre-DTM-2026-0703-2E', btn.dataset.answer); } catch (e) {}
-        pre.querySelectorAll('.belief-btn').forEach(function (b) { b.disabled = true; b.style.opacity = '0.5'; });
-        btn.style.opacity = '1';
-        btn.style.background = 'var(--ink)';
-        btn.style.color = 'var(--paper)';
-        reveal();
-        document.getElementById('verdictStamp').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    function wire(containerId, key) {
+      var c = document.getElementById(containerId);
+      c.querySelectorAll('.belief-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          try { localStorage.setItem(key, btn.dataset.answer); } catch (e) {}
+          c.querySelectorAll('.belief-btn').forEach(function (b) { b.disabled = true; b.style.opacity = '0.5'; });
+          btn.style.opacity = '1'; btn.style.background = 'var(--ink)'; btn.style.color = 'var(--paper)';
+          if (containerId === 'preBelief') { reveal(); document.getElementById('verdictStamp').scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        });
       });
-    });
-    // Post-belief records the shift; local only in this static prototype.
-    var post = document.getElementById('postBelief');
-    post.querySelectorAll('.belief-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        try { localStorage.setItem('datom-post-DTM-2026-0703-2E', btn.dataset.answer); } catch (e) {}
-        post.querySelectorAll('.belief-btn').forEach(function (b) { b.disabled = true; b.style.opacity = '0.5'; });
-        btn.style.opacity = '1';
-        btn.style.background = 'var(--ink)';
-        btn.style.color = 'var(--paper)';
-      });
-    });
+    }
+    wire('preBelief', 'datom-pre-DTM-2026-0703-2E');
+    wire('postBelief', 'datom-post-DTM-2026-0703-2E');
   })();
 </script>
 </body>
