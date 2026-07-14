@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GLP-1 and Muscle Loss, DATOM Record</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="DATOM record: do GLP-1 receptor agonists cause clinically meaningful muscle loss during weight loss? Verdict: Contested. Evidence Grade D. Checked independently, updated as evidence changes.">
+<link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+<link rel="icon" type="image/png" href="./Assets/favicon.png">
+<link rel="apple-touch-icon" href="./Assets/favicon-180.png">
+
+<!-- Unfurl card (Phase 3.4): claim, verdict, one grade, last-updated -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="DATOM">
+<meta property="og:title" content="Contested: GLP-1 receptor agonists cause clinically meaningful muscle loss during weight loss.">
+<meta property="og:description" content="DATOM verdict: Contested. Evidence Grade D (D for its field). Updated 2026-07-14.">
+<meta property="og:url" content="https://datom.science/r/glp1-muscle">
+<meta property="og:image" content="https://datom.science/og/glp1-muscle.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contested: GLP-1 receptor agonists cause clinically meaningful muscle loss during weight loss.">
+<meta name="twitter:description" content="DATOM verdict: Contested. Evidence Grade D (D for its field). Updated 2026-07-14.">
+<meta name="twitter:image" content="https://datom.science/og/glp1-muscle.png">
+
+<!-- ClaimReview JSON-LD (Phase 3.5): search fact-check panel eligibility -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ClaimReview",
+  "url": "https://datom.science/r/glp1-muscle",
+  "claimReviewed": "GLP-1 receptor agonists cause clinically meaningful muscle loss during weight loss.",
+  "datePublished": "2026-07-14",
+  "itemReviewed": { "@type": "Claim", "text": "GLP-1 receptor agonists cause clinically meaningful muscle loss during weight loss." },
+  "reviewRating": { "@type": "Rating", "ratingValue": 3, "bestRating": 5, "worstRating": 1, "alternateName": "Contested" },
+  "author": { "@type": "Organization", "name": "DATOM", "url": "https://datom.science" }
+}
+</script>
+
+<link rel="stylesheet" href="global.css?v=5">
+<link rel="stylesheet" href="elmer.css?v=20260712a">
+<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="design-v1.1.css?v=9">
+
+<style>
+  /* Record page: receipt style. Layout only; tokens do the visual work. */
+  /* Keep [hidden] authoritative over class-level display (flex/block) so the
+     belief tap can gate the verdict reveal. */
+  [hidden] { display: none !important; }
+  .rec { max-width: 720px; }
+  .rec-claim { font-family: var(--font-display); font-size: 30px; line-height: 1.25; color: var(--ink); margin: 0 0 var(--s2); }
+  .rec-eyebrow { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin: 0 0 var(--s2); }
+
+  /* b. belief tap (before the verdict is visible) */
+  .belief { border: 1px solid var(--line); padding: var(--s4); margin: var(--s4) 0; }
+  .belief-q { font-family: var(--font-display); font-size: 18px; color: var(--ink); margin: 0 0 var(--s3); }
+  .belief-opts { display: flex; gap: 0; }
+  .belief-btn { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 20px; background: transparent; border: 1px solid var(--line-2); color: var(--ink); cursor: pointer; }
+  .belief-btn + .belief-btn { border-left: none; }
+  .belief-btn:hover { background: var(--paper-2); }
+  .belief-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  /* c. determination stamp: double rule, receipt entries */
+  .stamp { border-top: var(--rule-double) solid var(--ink); border-bottom: 1px solid var(--line); padding: var(--s4) 0; margin: var(--s4) 0; }
+  .stamp[hidden] { display: none; }
+  .stamp-row { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .stamp-row:last-child { border-bottom: none; }
+  .stamp-label { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+  .stamp-verdict { font-family: var(--font-display); font-size: 26px; color: var(--verdict-mixed); }
+  .stamp-grade { font-family: var(--font-data); font-size: 22px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .stamp-grade small { font-size: 12px; color: var(--muted); margin-left: 8px; }
+  .rec-basis { font-family: var(--font-data); font-size: 12px; color: var(--faint); margin: var(--s3) 0 0; line-height: 1.5; }
+
+  /* d. provenance strip */
+  .prov { border: 1px solid var(--line); padding: var(--s3) var(--s4); margin: var(--s4) 0; }
+  .prov-row { display: flex; gap: 12px; font-family: var(--font-data); font-size: 12px; color: var(--muted); padding: 4px 0; }
+  .prov-row .k { color: var(--faint); min-width: 130px; text-transform: uppercase; letter-spacing: 0.06em; font-size: 11px; }
+
+  /* e. summary evidence */
+  .ev-counts { display: flex; gap: 0; margin: var(--s3) 0; }
+  .ev-count { flex: 1; border: 1px solid var(--line); padding: var(--s3); text-align: center; }
+  .ev-count + .ev-count { border-left: none; }
+  .ev-count .n { font-family: var(--font-data); font-size: 24px; color: var(--ink); font-variant-numeric: tabular-nums; display: block; }
+  .ev-count .l { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+  .ev-sources { list-style: none; margin: var(--s3) 0; padding: 0; }
+  .ev-sources li { border-top: 1px solid var(--line); padding: 10px 0; font-size: 14px; color: var(--muted); }
+  .ev-sources li:last-child { border-bottom: 1px solid var(--line); }
+  .gate { border: 1px dashed var(--line-2); padding: var(--s3) var(--s4); margin: var(--s3) 0; font-size: 13px; color: var(--faint); }
+
+  /* g. reader-sentiment strip: deliberately distinct from evidence */
+  .sentiment { background: var(--paper-2); border: 1px solid var(--line); padding: var(--s3) var(--s4); margin: var(--s4) 0; }
+  .sentiment .tag { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--verdict-unrated); margin: 0 0 8px; }
+  .sentiment .bar { display: flex; height: 10px; border: 1px solid var(--line-2); margin: 8px 0; }
+  .sentiment .bar span { display: block; height: 100%; }
+  .sentiment .bar .yes { background: var(--signal); }
+  .sentiment .bar .no { background: var(--verdict-contra); }
+  .sentiment .bar .unsure { background: var(--line-2); }
+  .sentiment .legend { font-family: var(--font-data); font-size: 11px; color: var(--muted); }
+
+  /* h. actions */
+  .rec-actions { display: flex; gap: 12px; margin: var(--s4) 0; flex-wrap: wrap; }
+
+  /* i. footer answer box */
+  .catdef { font-family: var(--font-display); font-size: 16px; color: var(--muted); line-height: 1.6; margin: var(--s5) 0 var(--s3); }
+  .answerbox { display: flex; gap: 0; margin: var(--s3) 0; }
+  .answerbox input { flex: 1; font-family: var(--font-body); font-size: 15px; padding: 12px 14px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); }
+  .answerbox input:focus-visible { outline: 2px solid var(--focus); outline-offset: -1px; }
+  .answerbox button { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 12px 20px; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); cursor: pointer; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="example.html">Live Example</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="organizations.html">For Organizations</a>
+    <a href="/app/login" class="btn-login">Log In / Sign Up</a>
+    <a href="try.html" class="btn-cta">Get Started</a>
+  </nav>
+</header>
+
+<main>
+  <section class="reveal rec">
+
+    <!-- a. the claim, verbatim canonical form -->
+    <p class="rec-eyebrow">DATOM Record &middot; DTM-2026-0703-2E</p>
+    <h1 class="rec-claim">GLP-1 receptor agonists cause clinically meaningful muscle loss during weight loss.</h1>
+
+    <!-- b. belief tap, shown BEFORE the verdict is visible -->
+    <div class="belief" id="preBelief">
+      <p class="belief-q">Before reading further, do you think this claim is true?</p>
+      <div class="belief-opts" role="group" aria-label="Your belief before reading">
+        <button type="button" class="belief-btn" data-answer="yes">Yes</button>
+        <button type="button" class="belief-btn" data-answer="no">No</button>
+        <button type="button" class="belief-btn" data-answer="unsure">Unsure</button>
+      </div>
+    </div>
+
+    <!-- c. verdict + Evidence Grade (absolute) + Field-Relative Grade + basis -->
+    <div class="stamp" id="verdictStamp" hidden>
+      <div class="stamp-row">
+        <span class="stamp-label">Verdict</span>
+        <span class="stamp-verdict">Contested</span>
+      </div>
+      <div class="stamp-row">
+        <span class="stamp-label">Evidence Grade</span>
+        <span class="stamp-grade">D <small>Limited evidence base</small></span>
+      </div>
+      <div class="stamp-row">
+        <span class="stamp-label">Field-relative</span>
+        <span class="stamp-grade">D <small>vs experimental-field ceiling</small></span>
+      </div>
+      <p class="rec-basis">Graded against 23 comparable claims in clinical medicine. Domain: clinical medicine 80%, endocrinology 20%. The direct evidence is genuinely split (12 support, 11 contradict; 52% decisive consensus), which is why the verdict is Contested rather than a direction.</p>
+    </div>
+
+    <!-- d. provenance strip -->
+    <div class="prov" id="provStrip" hidden>
+      <div class="prov-row"><span class="k">Record</span><span>Append-only. Entries can be added to, never rewritten.</span></div>
+      <div class="prov-row"><span class="k">Anchor</span><span>sha256:9c07&hellip;f998ad68</span></div>
+      <div class="prov-row"><span class="k">Last confirmed</span><span>2026-07-14</span></div>
+      <div class="prov-row"><span class="k">Disclosure</span><span>Sponsored by Metabolic Health Coalition. Not commissioned.</span></div>
+    </div>
+
+    <!-- e. summary evidence (ungated) -->
+    <div id="summaryEvidence" hidden>
+      <p class="rec-eyebrow">Summary evidence</p>
+      <div class="ev-counts">
+        <div class="ev-count"><span class="n">12</span><span class="l">Support</span></div>
+        <div class="ev-count"><span class="n">11</span><span class="l">Contradict</span></div>
+        <div class="ev-count"><span class="n">23</span><span class="l">Sources</span></div>
+      </div>
+      <ul class="ev-sources">
+        <li>Randomized trial, semaglutide, DXA lean-mass endpoint (supports)</li>
+        <li>Cohort with resistance-training arm, attenuated loss (contradicts)</li>
+        <li>Meta-analysis, mixed endpoints, high heterogeneity (split)</li>
+      </ul>
+      <p><a href="/app/login" class="action">Read the methodology &rarr;</a></p>
+      <div class="gate">The full interactive evidence tree opens with a free account. Verdict, grades, and this summary are always free.</div>
+    </div>
+
+    <!-- f. post-belief re-ask after evidence -->
+    <div class="belief" id="postBelief" hidden>
+      <p class="belief-q">Now that you have seen the evidence, do you think this claim is true?</p>
+      <div class="belief-opts" role="group" aria-label="Your belief after reading">
+        <button type="button" class="belief-btn" data-answer="yes">Yes</button>
+        <button type="button" class="belief-btn" data-answer="no">No</button>
+        <button type="button" class="belief-btn" data-answer="unsure">Unsure</button>
+      </div>
+    </div>
+
+    <!-- g. reader-sentiment strip: reader sentiment, not evidence -->
+    <div class="sentiment" id="sentimentStrip" hidden>
+      <p class="tag">Reader sentiment, not evidence</p>
+      <div class="bar" aria-hidden="true">
+        <span class="yes" style="width:38%"></span>
+        <span class="no" style="width:41%"></span>
+        <span class="unsure" style="width:21%"></span>
+      </div>
+      <p class="legend">Before reading, 38% thought this was true. After the evidence, readers move; the pre/post shift is what DATOM tracks. This tally carries no weight in the verdict or the grades.</p>
+    </div>
+
+    <!-- h. follow / notify -->
+    <div class="rec-actions" id="recActions" hidden>
+      <a href="/app/login" class="btn">Follow this claim</a>
+      <a href="/app/login" class="btn sec">Get alerts on updates</a>
+    </div>
+
+    <!-- i. footer: category definition + the answer box again -->
+    <p class="catdef">DATOM is the public record of scientific claims, checked independently, updated as evidence changes.</p>
+    <form class="answerbox" action="try.html" method="get">
+      <input type="text" name="q" placeholder="Paste a claim, a link&hellip;" aria-label="Check a claim">
+      <button type="submit">Check</button>
+    </form>
+
+  </section>
+</main>
+
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &middot; <a href="terms.html">Terms</a></footer>
+
+<script src="fog-bg.js?v=2"></script>
+<script src="shared.js?v=20260710"></script>
+<script src="elmer.js?v=20260711a"></script>
+<script>
+  // Belief tap gates the verdict reveal (3.3b): the reader commits a pre-belief
+  // BEFORE seeing the verdict. One tap, no account. Stored locally only.
+  (function () {
+    var revealed = ['verdictStamp', 'provStrip', 'summaryEvidence', 'postBelief', 'sentimentStrip', 'recActions'];
+    function reveal() { revealed.forEach(function (id) { var el = document.getElementById(id); if (el) el.hidden = false; }); }
+    var pre = document.getElementById('preBelief');
+    pre.querySelectorAll('.belief-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        try { localStorage.setItem('datom-pre-DTM-2026-0703-2E', btn.dataset.answer); } catch (e) {}
+        pre.querySelectorAll('.belief-btn').forEach(function (b) { b.disabled = true; b.style.opacity = '0.5'; });
+        btn.style.opacity = '1';
+        btn.style.background = 'var(--ink)';
+        btn.style.color = 'var(--paper)';
+        reveal();
+        document.getElementById('verdictStamp').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+    // Post-belief records the shift; local only in this static prototype.
+    var post = document.getElementById('postBelief');
+    post.querySelectorAll('.belief-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        try { localStorage.setItem('datom-post-DTM-2026-0703-2E', btn.dataset.answer); } catch (e) {}
+        post.querySelectorAll('.belief-btn').forEach(function (b) { b.disabled = true; b.style.opacity = '0.5'; });
+        btn.style.opacity = '1';
+        btn.style.background = 'var(--ink)';
+        btn.style.color = 'var(--paper)';
+      });
+    });
+  })();
+</script>
+</body>
+</html>

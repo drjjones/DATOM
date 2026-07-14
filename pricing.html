@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Pricing, DATOM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="DATOM pricing: Observer is free to browse the record, Investigator unlocks the full archive and claim requests, and DATOM Pro covers commissioned verification and platform integration for organizations.">
+<meta name="description" content="DATOM pricing: the public record is free to read, submit, and follow. Sponsored Verification moves a claim into production for a flat $1,000. A full private Confidence Report is a flat $5,000. Payment moves priority, never outcome.">
 <link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
 <link rel="icon" type="image/png" href="./Assets/favicon.png">
 <link rel="apple-touch-icon" href="./Assets/favicon-180.png">
@@ -16,8 +16,8 @@
 <style>
   /* Layout-only rules; visual treatment lives in design-v1.1.css */
   table.pricing-table th, table.pricing-table td { text-align: left; vertical-align: top; }
-  table.pricing-table th:not(:first-child), table.pricing-table td:not(:first-child) { min-width: 190px; }
-  .pricing-price { font-family: var(--font-data); font-size: 20px; color: var(--ink); transition: opacity 0.8s ease; }
+  table.pricing-table th:not(:first-child), table.pricing-table td:not(:first-child) { min-width: 200px; }
+  .pricing-price { font-family: var(--font-data); font-size: 22px; color: var(--ink); }
   .pricing-cta { margin-top: var(--s3); }
   .pricing-features { margin: 0; padding-left: 18px; }
   .pricing-features li { margin-bottom: 6px; color: var(--muted); font-size: 14px; }
@@ -30,28 +30,15 @@
     text-transform: none;
   }
   .pricing-tagline { font-size: 14px; color: var(--muted); margin: 0 0 10px; line-height: 1.5; }
-  .pricing-disambig { font-size: 12px; color: var(--faint); margin: 0; line-height: 1.5; }
+  .pricing-terms { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.02em; color: var(--faint); margin: var(--s3) 0 0; line-height: 1.6; }
 
-  /* ── billing-period toggle (sits under the Investigator column title) ── */
-  .price-toggle {
-    display: inline-flex;
-    border: 1px solid var(--line-2);
-    margin-top: 6px;
-  }
-  .price-toggle-btn {
-    font-family: var(--font-data);
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    background: transparent;
-    border: none;
-    color: var(--muted);
-    cursor: pointer;
-  }
-  .price-toggle-btn + .price-toggle-btn { border-left: 1px solid var(--line-2); }
-  .price-toggle-btn.active { background: var(--ink); color: var(--paper); }
-  .price-toggle-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  /* firewall summary */
+  .firewall-list { list-style: none; margin: var(--s3) 0 0; padding: 0; }
+  .firewall-list li { border-top: 1px solid var(--line); padding: var(--s3) 0; }
+  .firewall-list li:last-child { border-bottom: 1px solid var(--line); }
+  .firewall-rule-id { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; color: var(--signal); margin-right: 10px; }
+  .firewall-rule-head { font-family: var(--font-display); font-size: 16px; color: var(--ink); }
+  .firewall-rule-text { font-size: 14px; color: var(--muted); margin: 6px 0 0; line-height: 1.6; }
 
   @media (max-width: 800px) {
     table.pricing-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -80,88 +67,100 @@
   <!-- HERO -->
   <section class="reveal">
     <p class="section-label">Pricing</p>
-    <h1>Three ways to use DATOM</h1>
+    <h1>The record is free. Paying moves priority, never outcome.</h1>
   </section>
 
-  <!-- COMPARISON -->
+  <!-- RATE CARD -->
   <section class="reveal" id="comparison">
     <table class="table-glass pricing-table">
       <thead>
         <tr>
           <th>&nbsp;</th>
-          <th>Observer</th>
-          <th>Investigator<br>
-            <div class="price-toggle" role="group" aria-label="Investigator billing period">
-              <button type="button" class="price-toggle-btn active" data-period="monthly" aria-pressed="true">Monthly</button>
-              <button type="button" class="price-toggle-btn" data-period="annual" aria-pressed="false">Annual</button>
-            </div>
-          </th>
-          <th>DATOM Pro</th>
+          <th>Free</th>
+          <th>Sponsored Verification</th>
+          <th>Confidence Report</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td><strong>Price</strong></td>
           <td><span class="pricing-price">$0</span></td>
-          <td><span class="pricing-price" id="reader-price">$12/mo</span></td>
-          <td><span class="pricing-price">Call for pricing</span></td>
+          <td><span class="pricing-price">$1,000</span> <span class="pricing-accumulate">flat</span></td>
+          <td><span class="pricing-price">$5,000</span> <span class="pricing-accumulate">flat</span></td>
         </tr>
         <tr>
           <td>&nbsp;</td>
-          <td>
-            <p class="pricing-tagline">Follow the investigations, read the verdicts, see what has been checked.</p>
-          </td>
-          <td>
-            <p class="pricing-tagline">Read the full archive, and submit claims for the record to examine, up to 3 a month.</p>
-            <p class="pricing-disambig">Investigators bring us claims to check. The verdict always comes from DATOM's independent review, never from a vote or a subscriber's opinion.</p>
-          </td>
-          <td>
-            <p class="pricing-tagline">Get your claims independently verified, or integrate the Record into your own systems.</p>
-          </td>
+          <td><p class="pricing-tagline">The public record. Read any verdict and grades, submit a claim to the queue, follow a claim.</p></td>
+          <td><p class="pricing-tagline">Move a queued claim into production. Sponsorship is printed on the record. No private deliverable.</p></td>
+          <td><p class="pricing-tagline">The full private dossier. The public record is the exhaust of the work, not the product.</p></td>
         </tr>
         <tr>
           <td><strong>What's included</strong></td>
           <td>
             <ul class="pricing-features">
-              <li>Featured entries, full depth</li>
-              <li>Shareable</li>
-              <li>Archive entries: verdict card only</li>
+              <li>Read the verdict, both grades, and the summary evidence on every published record</li>
+              <li>Submit a claim for the record to examine</li>
+              <li>Follow a claim and get notified when it is verified</li>
             </ul>
           </td>
           <td>
-            <p class="pricing-accumulate">Everything in Observer, plus:</p>
             <ul class="pricing-features">
-              <li>Full explanation on every archive claim</li>
-              <li>3 new-claim requests included monthly, $5 per additional request</li>
+              <li>Moves a queue item into active verification</li>
+              <li>Sponsorship disclosed on the public record</li>
+              <li>The resulting record is public, like any other</li>
             </ul>
           </td>
           <td>
-            <p class="pricing-accumulate">Everything in Investigator, plus:</p>
             <ul class="pricing-features">
-              <li>Commissioned Confidence Reports</li>
-              <li>R&amp;D Sandbox access</li>
-              <li>Verification Membership: ongoing platform access</li>
-              <li>Full reports and methodology on every claim</li>
-              <li>API access for platform integration</li>
-              <li>Volume verification commitments</li>
-              <li>Private ledger for internal claims, alongside the public one</li>
+              <li>Full private Confidence Report dossier</li>
+              <li>Complete methodology, evidence tree, and grading basis</li>
+              <li>The public record is produced as a byproduct</li>
             </ul>
           </td>
         </tr>
         <tr>
           <td>&nbsp;</td>
-          <td>
-            <a href="/app/signup?plan=observer" class="btn pricing-cta">Sign Up</a>
-          </td>
-          <td>
-            <a href="investigator-coming-soon.html" class="btn pricing-cta">Get Investigator access</a>
-          </td>
-          <td>
-            <a href="organizations.html" class="btn pricing-cta">Book a call</a>
-          </td>
+          <td><a href="/app/signup" class="btn pricing-cta">Sign up free</a></td>
+          <td><a href="try.html" class="btn pricing-cta">Sponsor a claim</a></td>
+          <td><a href="organizations.html" class="btn pricing-cta">Commission a report</a></td>
         </tr>
       </tbody>
     </table>
+    <p class="pricing-terms">All prices are flat and one-time. Payments are upfront, non-refundable, and independent of the verdict. There are no discount codes; flexibility is in scope, never price.</p>
+  </section>
+
+  <!-- FIREWALL SUMMARY -->
+  <section class="reveal" id="firewall">
+    <p class="section-label">The firewall</p>
+    <h2>How payment and outcome stay separate</h2>
+    <p class="pricing-tagline">Six rules govern the boundary between who pays and what the record says. They are published in full and written into every engagement letter.</p>
+    <ul class="firewall-list">
+      <li>
+        <span class="firewall-rule-id">R1</span><span class="firewall-rule-head">Payment moves priority, never outcome</span>
+        <p class="firewall-rule-text">Paying moves a claim up the queue. It has no effect on the verdict, the grades, or the evidence.</p>
+      </li>
+      <li>
+        <span class="firewall-rule-id">R2</span><span class="firewall-rule-head">Public demand triggers verification too</span>
+        <p class="firewall-rule-text">When enough people ask for a claim to be checked, it gets verified whether or not the claim's subject pays.</p>
+      </li>
+      <li>
+        <span class="firewall-rule-id">R3</span><span class="firewall-rule-head">Commissioning and sponsorship are disclosed</span>
+        <p class="firewall-rule-text">Every record states who commissioned it and who sponsored it, or that no one did.</p>
+      </li>
+      <li>
+        <span class="firewall-rule-id">R4</span><span class="firewall-rule-head">The ledger is append-only</span>
+        <p class="firewall-rule-text">An unfavorable result can never be withdrawn. It can only be appended to as new evidence arrives.</p>
+      </li>
+      <li>
+        <span class="firewall-rule-id">R5</span><span class="firewall-rule-head">Classification and grading basis are printed</span>
+        <p class="firewall-rule-text">Every record shows how its domain was classified and what field it was graded against.</p>
+      </li>
+      <li>
+        <span class="firewall-rule-id">R6</span><span class="firewall-rule-head">Public sentiment carries zero weight</span>
+        <p class="firewall-rule-text">Reader belief is shown as reader sentiment, never as evidence, enforced structurally by a permanent build gate.</p>
+      </li>
+    </ul>
+    <p class="pricing-cta"><a href="firewall.html" class="action">Read the full firewall policy &rarr;</a></p>
   </section>
 
 </main>
@@ -171,28 +170,5 @@
 <script src="fog-bg.js?v=2"></script>
 <script src="shared.js?v=20260710"></script>
 <script src="elmer.js?v=20260711a"></script>
-<script>
-  (function () {
-    var toggleBtns = document.querySelectorAll('.price-toggle-btn');
-    var priceEl = document.getElementById('reader-price');
-    var PRICES = { monthly: '$12/mo', annual: '$120/yr' };
-    var FADE_MS = 800;
-    toggleBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        toggleBtns.forEach(function (b) {
-          b.classList.remove('active');
-          b.setAttribute('aria-pressed', 'false');
-        });
-        btn.classList.add('active');
-        btn.setAttribute('aria-pressed', 'true');
-        priceEl.style.opacity = '0';
-        setTimeout(function () {
-          priceEl.textContent = PRICES[btn.dataset.period];
-          priceEl.style.opacity = '1';
-        }, FADE_MS);
-      });
-    });
-  })();
-</script>
 </body>
 </html>
