@@ -73,6 +73,48 @@
   .stamp-grade small { font-size: 12px; color: var(--muted); margin-left: 8px; }
   .rec-basis { font-family: var(--font-data); font-size: 12px; color: var(--faint); margin: var(--s3) 0 0; line-height: 1.5; }
 
+  /* verdict spectrum: position on the Unsupported <-> Supported axis */
+  .spectrum { margin: 10px 0 var(--s3); }
+  .spectrum-track { position: relative; display: flex; height: 34px; border: 1px solid var(--line); }
+  .spectrum-zone { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); border-right: 1px solid var(--line); }
+  .spectrum-zone:last-child { border-right: none; }
+  .spectrum-zone.z-unsup { width: 45%; }
+  .spectrum-zone.z-cont  { width: 9%;  color: var(--verdict-mixed); }
+  .spectrum-zone.z-sup   { width: 46%; }
+  .spectrum-zone.active { background: var(--paper-2); font-weight: 700; }
+  .spectrum-mark { position: absolute; top: -6px; bottom: -6px; width: 2px; background: var(--verdict-mixed); }
+  .spectrum-mark::after { content: ""; position: absolute; top: -5px; left: -4px; border: 5px solid transparent; border-top-color: var(--verdict-mixed); }
+  .spectrum-cap { display: flex; justify-content: space-between; font-family: var(--font-data); font-size: 11px; color: var(--muted); margin-top: 6px; }
+  .spectrum-cap .now { color: var(--verdict-mixed); }
+
+  /* grade scale: A B C D F with the current grade marked */
+  .grades { display: flex; gap: var(--s4); flex-wrap: wrap; margin: var(--s3) 0; }
+  .grade-block { }
+  .grade-label { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 6px; }
+  .grade-scale { display: flex; }
+  .grade-cell { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-size: 14px; color: var(--line-2); border: 1px solid var(--line); border-right: none; }
+  .grade-cell:last-child { border-right: 1px solid var(--line); }
+  .grade-cell.on { background: var(--ink); color: var(--paper); border-color: var(--ink); font-weight: 700; }
+  .grade-caption { font-family: var(--font-data); font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+  /* diverging bar: support vs contradict */
+  .split { margin: 8px 0; }
+  .split-bar { display: flex; height: 22px; gap: 2px; }
+  .split-bar .sup { background: var(--signal); }
+  .split-bar .con { background: var(--verdict-contra); }
+  .split-cap { display: flex; justify-content: space-between; font-family: var(--font-data); font-size: 11px; margin-top: 4px; }
+  .split-cap .sup { color: var(--signal); }
+  .split-cap .con { color: var(--verdict-contra); }
+
+  /* segmented bar: study-type mix (neutral steps, color is rationed) */
+  .mix-bar { display: flex; height: 14px; gap: 2px; margin: 6px 0; }
+  .mix-bar span { display: block; }
+  .mix-bar .s1 { background: var(--ink); }
+  .mix-bar .s2 { background: var(--muted); }
+  .mix-bar .s3 { background: var(--line-2); }
+  .mix-legend { font-family: var(--font-data); font-size: 11px; color: var(--muted); }
+  .mix-legend b { font-weight: 400; color: var(--ink); }
+
   /* topology block: the checkability core, aggregate structure */
   .topo { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-bottom: none; }
   .topo .cell { border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); padding: var(--s3); }
@@ -166,24 +208,52 @@
 
     <!-- c. the complete conclusion set: verdict, both grades, basis. Never held back. -->
     <div class="stamp" id="verdictStamp" hidden>
-      <div class="stamp-row"><span class="stamp-label">Verdict</span><span class="stamp-verdict">Contested</span></div>
-      <div class="stamp-row"><span class="stamp-label">Evidence Grade</span><span class="stamp-grade">D <small>Limited evidence base</small></span></div>
-      <div class="stamp-row"><span class="stamp-label">Field-relative</span><span class="stamp-grade">D <small>vs experimental-field ceiling</small></span></div>
-      <p class="rec-basis">Graded against 23 comparable claims in clinical medicine. The direct evidence is genuinely split (12 support, 11 contradict; 52% decisive consensus), which is why the verdict is Contested rather than a direction.</p>
+      <span class="stamp-label">Verdict</span>
+      <div class="spectrum">
+        <div class="spectrum-track">
+          <div class="spectrum-mark" style="left:52%"></div>
+          <div class="spectrum-zone z-unsup">Unsupported</div>
+          <div class="spectrum-zone z-cont active">Contested</div>
+          <div class="spectrum-zone z-sup">Supported</div>
+        </div>
+        <div class="spectrum-cap"><span>0% support</span><span class="now">52% decisive consensus &middot; Contested</span><span>100%</span></div>
+      </div>
+
+      <div class="grades">
+        <div class="grade-block">
+          <p class="grade-label">Evidence Grade</p>
+          <div class="grade-scale"><span class="grade-cell">A</span><span class="grade-cell">B</span><span class="grade-cell">C</span><span class="grade-cell on">D</span><span class="grade-cell">F</span></div>
+          <p class="grade-caption">Limited evidence base</p>
+        </div>
+        <div class="grade-block">
+          <p class="grade-label">Field-relative</p>
+          <div class="grade-scale"><span class="grade-cell">A</span><span class="grade-cell">B</span><span class="grade-cell">C</span><span class="grade-cell on">D</span><span class="grade-cell">F</span></div>
+          <p class="grade-caption">vs experimental-field ceiling</p>
+        </div>
+      </div>
+      <p class="rec-basis">Graded against 23 comparable claims in clinical medicine.</p>
     </div>
 
-    <!-- checkability core: the evidence topology (aggregate structure) -->
+    <!-- checkability core: the evidence topology, mostly graphic -->
     <div id="topology" hidden>
-      <p class="rec-h">Evidence topology</p>
-      <div class="topo">
-        <div class="cell"><span class="n">23</span><span class="l">Sources evaluated</span></div>
-        <div class="cell"><span class="n">12 / 11 / 0</span><span class="l">Support / contradict / neutral</span></div>
-        <div class="cell"><span class="n">4</span><span class="l">Independent replications</span></div>
-        <div class="cell"><span class="sub">5 RCTs &middot; 13 cohorts &middot; 5 reviews</span><span class="l">Study-type mix</span></div>
-        <div class="cell"><span class="n">18</span><span class="l">Independent groups</span></div>
-        <div class="cell"><span class="sub">Split across groups</span><span class="l">Consilience</span></div>
+      <p class="rec-h">Evidence topology &middot; 23 sources, in thirty seconds</p>
+
+      <div class="split">
+        <div class="split-bar"><span class="sup" style="width:52%"></span><span class="con" style="width:48%"></span></div>
+        <div class="split-cap"><span class="sup">12 support</span><span class="con">11 contradict &middot; 0 neutral</span></div>
       </div>
-      <p class="rec-basis">Read this block in thirty seconds: whether "Contested" rests on two press releases or two dozen independent studies is visible before you read a single paper.</p>
+
+      <div class="topo">
+        <div class="cell"><span class="n">4</span><span class="l">Independent replications</span></div>
+        <div class="cell"><span class="n">18</span><span class="l">Independent groups</span></div>
+        <div class="cell"><span class="n">23</span><span class="l">Sources evaluated</span></div>
+      </div>
+
+      <p class="grade-label" style="margin-top:var(--s3)">Study-type mix</p>
+      <div class="mix-bar" role="img" aria-label="5 RCTs, 13 cohorts, 5 reviews">
+        <span class="s1" style="width:22%"></span><span class="s2" style="width:56%"></span><span class="s3" style="width:22%"></span>
+      </div>
+      <p class="mix-legend"><b>5</b> RCTs &middot; <b>13</b> cohorts &middot; <b>5</b> reviews</p>
     </div>
 
     <!-- full public bibliography: flat list, load-bearing highlighted with direction tags -->
