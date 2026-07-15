@@ -96,6 +96,51 @@
   .det-fl { color: var(--faint); text-transform: uppercase; letter-spacing: 0.08em; font-size: 10px; white-space: nowrap; }
   .det-fv { color: var(--ink); }
 
+  /* ── Verdict spectrum + Evidence Grade scale ──
+     Ported from record.html so the homepage card and the record page render the
+     same component, not two lookalikes that can drift. The zone widths mirror
+     PUBLIC_VERDICT_RANGES in verdictProjection.ts (Unsupported 0-45, Contested
+     46-54, Supported 55-100), which is why they are 45/9/46 and not eyeballed. */
+  .spectrum { margin: 6px 0 var(--s3); }
+  .spectrum-track { position: relative; display: flex; height: 34px; border: 1px solid var(--line); }
+  .spectrum-zone { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); border-right: 1px solid var(--line); overflow: hidden; white-space: nowrap; }
+  .spectrum-zone:last-child { border-right: none; }
+  .spectrum-zone.z-unsup { width: 45%; }
+  /* The Contested band is genuinely only 9 points wide (support share 46-54), so
+     its label cannot fit at the same size as its neighbours. Shrink the label
+     rather than widen the zone: the zone widths ARE the published ranges, and a
+     cosmetically wider Contested band would misstate them. */
+  .spectrum-zone.z-cont  { width: 9%; font-size: 8px; letter-spacing: 0; }
+  .spectrum-zone.z-sup   { width: 46%; }
+  .spectrum-zone.active { background: var(--paper-2); font-weight: 700; color: var(--ink); }
+  /* currentColor, not inherit: the JS sets the mark's color to the verdict
+     colour and both the stem and the arrowhead have to follow it. */
+  .spectrum-mark { position: absolute; top: -6px; bottom: -6px; width: 2px; background: currentColor; color: var(--verdict-mixed); z-index: 2; }
+  .spectrum-mark::after { content: ""; position: absolute; top: -5px; left: -4px; border: 5px solid transparent; border-top-color: currentColor; }
+  .spectrum-cap { display: flex; justify-content: space-between; gap: var(--s3); font-family: var(--font-data); font-size: 11px; color: var(--muted); margin-top: 6px; }
+  .spectrum-cap .now { text-align: center; }
+
+  .grades { display: flex; gap: var(--s5); flex-wrap: wrap; margin: var(--s4) 0 var(--s3); }
+  .grade-label { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin: 0 0 6px; }
+  .grade-scale { display: flex; }
+  .grade-cell { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-size: 14px; color: var(--line-2); border: 1px solid var(--line); border-right: none; }
+  .grade-cell:last-child { border-right: 1px solid var(--line); }
+  .grade-cell.on { background: var(--ink); color: var(--paper); border-color: var(--ink); font-weight: 700; }
+  .grade-caption { font-family: var(--font-data); font-size: 11px; color: var(--muted); margin: 6px 0 0; }
+
+  @media (max-width: 560px) {
+    .spectrum-zone { font-size: 8px; letter-spacing: 0.02em; }
+    .spectrum-cap { font-size: 10px; flex-wrap: wrap; }
+    .grades { gap: var(--s4); }
+  }
+  /* Below this width the 9-point Contested band is too narrow for any legible
+     label, and a clipped "NTEST" reads as a rendering bug. Drop the label and
+     keep the band: the caption underneath always names the verdict in full, so
+     nothing is lost but the tick. */
+  @media (max-width: 480px) {
+    .spectrum-zone.z-cont { font-size: 0; }
+  }
+
   /* one plain sentence on what DATOM is */
   .plain-what {
     max-width: 640px; margin: 24px auto 0; text-align: center;
@@ -155,11 +200,48 @@
   .carousel-dot.active { background: var(--signal); }
   .carousel-dot:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
-  /* ── Hero answer box + one live record card (Phase 4.1) ── */
-  .hero-answerbox { display: flex; max-width: 560px; margin: 26px auto 0; gap: 0; }
-  .hero-answerbox input { flex: 1; font-family: var(--font-body); font-size: 16px; padding: 14px 16px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); }
-  .hero-answerbox input:focus-visible { outline: 2px solid var(--focus); outline-offset: -1px; }
-  .hero-answerbox button { font-family: var(--font-data); font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; padding: 14px 22px; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); cursor: pointer; }
+  /* ── Hero answer box ──
+     Structurally the same bar as the get-started page (try.html
+     .gs-landing-search): search icon on the left, borderless transparent
+     input, square action button on the right, 58px tall, border lights up on
+     :focus-within rather than an outline ring.
+
+     DL-0101 port, deliberate: try.html's bar is a 32px pill with a drop
+     shadow, a 50% circular button, a backdrop blur, and forked slate/cyan
+     colors that are not --ink/--signal. DL-0101 mandates --radius:0, hairline
+     rules, and no shadows, and every other component in this hero
+     (.carousel-arrow, the FAQ accordion, the determination stamp) is already
+     square. So this takes the structure and the proportions and drops the
+     pill, the shadow, the blur, and the forked colors. try.html forking those
+     values while loading the same tokens.css is its own outstanding question. */
+  .hero-answerbox {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; max-width: 560px; margin: 26px auto 0;
+    padding: 8px 8px 8px 20px;
+    background: var(--paper);
+    border: var(--rule) solid var(--line);
+    border-radius: var(--radius);
+  }
+  .hero-answerbox:focus-within { border-color: var(--signal); }
+  .hero-answerbox .ab-icon { color: var(--muted); display: flex; flex-shrink: 0; }
+  .hero-answerbox input {
+    flex: 1; min-width: 0; border: none; background: transparent; outline: none;
+    font-family: var(--font-body); font-size: 16px; color: var(--ink); padding: 12px 0;
+  }
+  .hero-answerbox input::placeholder { color: var(--muted); }
+  .hero-answerbox button {
+    flex-shrink: 0; width: 42px; height: 42px;
+    border: var(--rule) solid var(--ink); border-radius: var(--radius);
+    background: var(--ink); color: var(--paper);
+    font-family: var(--font-data); font-size: 18px; line-height: 1;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: filter 0.15s;
+  }
+  .hero-answerbox button:hover { filter: brightness(1.35); }
+  .hero-answerbox button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  /* ── Hero record card (Phase 4.1; superseded by the carousel, kept for the
+     narrow-viewport fallback and any page still rendering a single card) ── */
   .hero-record { max-width: 560px; margin: 22px auto 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); padding: 18px 0; text-align: left; }
   .hero-record .hr-eyebrow { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin: 0 0 8px; }
   .hero-record .hr-claim { font-family: var(--font-display); font-size: 19px; line-height: 1.3; color: var(--ink); margin: 0 0 12px; }
@@ -249,21 +331,99 @@
     <h1 class="condense condense-d2">Science, verified. For everyone.</h1>
     <p class="hero-slogan condense condense-d2">How sure are we, really?</p>
 
-    <!-- Answer box: the one motion (Phase 4.1). Nothing interrupts the box. -->
-    <form class="hero-answerbox condense condense-d3" action="try.html" method="get">
-      <input type="text" name="q" placeholder="Paste a claim, a link&hellip;" aria-label="Check a claim">
-      <button type="submit">Check</button>
+    <!-- Answer box: the one motion (Phase 4.1). Nothing interrupts the box.
+         Still a real GET form to try.html?q=..., so it works with no JS and the
+         browser can autofill it; the submit button stays a submit button. -->
+    <form class="hero-answerbox condense condense-d3" action="try.html" method="get" role="search">
+      <span class="ab-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <input type="text" name="q" placeholder="Ask about any health or science claim&hellip;" aria-label="Ask about any health or science claim">
+      <button type="submit" aria-label="Check this claim"><span aria-hidden="true">&uarr;</span></button>
     </form>
 
-    <!-- ONE live record card beneath it: the GLP-1 canonical record, new format
-         (verdict + Evidence Grade, never a bare confidence percentage). -->
-    <div class="hero-record condense condense-d3">
-      <p class="hr-eyebrow">A claim on the record &middot; DTM-2026-0703-2E</p>
-      <a href="record.html"><h2 class="hr-claim">GLP-1 receptor agonists cause clinically meaningful muscle loss during weight loss.</h2></a>
-      <div class="hr-row"><span class="hr-k">Verdict</span><span class="hr-verdict">Contested</span></div>
-      <div class="hr-row"><span class="hr-k">Evidence Grade</span><span class="hr-grade">D &middot; D field-relative</span></div>
-      <a href="record.html" class="hr-link">Read the record &rarr;</a>
+    <!-- FEATURED RECORD CAROUSEL. Real public-ledger records, cross-fading on a
+         timer; any manual prev/next/dot resets the timer.
+
+         Every value rendered here is GENERATED from src/lib/featuredRecords.ts
+         in the backend repo, which stores the observed numbers (with the datomer
+         id, so any of them can be re-checked against DynamoDB) and projects the
+         verdict and grades through the same functions the record pages use. The
+         entries below are duplicated into #featured-entries as JSON, and
+         src/tests/featuredRecordGate.test.ts (RPV-052) hard-fails CI if this
+         markup ever disagrees with the record it points at.
+
+         That gate is not theoretical: the card this replaced published "GLP-1
+         receptor agonists cause clinically meaningful muscle loss" with verdict
+         "Contested" while record.html, one click away with the same record id,
+         published "preserves skeletal muscle mass" with verdict "Unsupported".
+         The old carousel this restores had the same disease in a different form:
+         a hand-typed snapshot showing a maturity label ("Emerging") in a verdict
+         slot next to a bare confidence percentage. Both are gone by construction
+         now, not by care. -->
+    <div class="det-carousel-wrap condense condense-d3" id="featured-entry">
+      <div class="det-carousel">
+        <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous record">&larr;</button>
+        <div class="determination" id="det-card">
+          <div class="det-rule"></div>
+          <div class="det-in" aria-live="polite">
+            <p class="det-eyebrow">A claim on the record &middot; <span id="det-entry"></span></p>
+            <h2 class="det-claim" id="det-claim"></h2>
+
+            <!-- Verdict as a position on a spectrum, not a word alone. -->
+            <p class="det-fl" style="margin:0 0 6px;">Verdict</p>
+            <div class="spectrum">
+              <div class="spectrum-track" id="det-track">
+                <div class="spectrum-mark" id="det-mark"></div>
+                <div class="spectrum-zone z-unsup" id="det-z-unsup">Unsupported</div>
+                <div class="spectrum-zone z-cont" id="det-z-cont">Contested</div>
+                <div class="spectrum-zone z-sup" id="det-z-sup">Supported</div>
+              </div>
+              <div class="spectrum-cap">
+                <span class="ax" id="det-ax-lo">0% agree</span>
+                <span class="now" id="det-now"></span>
+                <span class="ax" id="det-ax-hi">100%</span>
+              </div>
+            </div>
+
+            <!-- Evidence Grade as a marked A-F scale. The letter is the public
+                 expression of evidence quality; the percentage behind it is
+                 never shown (it reads as a probability that the claim is true). -->
+            <div class="grades">
+              <div class="grade-block">
+                <p class="grade-label">Evidence Grade</p>
+                <div class="grade-scale" id="det-grade-abs"></div>
+                <p class="grade-caption" id="det-grade-cap"></p>
+              </div>
+              <div class="grade-block">
+                <p class="grade-label">For its field</p>
+                <div class="grade-scale" id="det-grade-rel"></div>
+                <p class="grade-caption" id="det-grade-relcap"></p>
+              </div>
+            </div>
+
+            <p class="det-strength" id="det-sources"></p>
+          </div>
+          <div class="det-rule"></div>
+        </div>
+        <button type="button" class="carousel-arrow carousel-next" aria-label="Next record">&rarr;</button>
+      </div>
+      <div class="carousel-dots" id="det-dots" role="tablist" aria-label="Choose a record"></div>
     </div>
+
+    <!-- The featured set, machine-readable. This is what RPV-052 parses; keeping
+         it in the page (rather than only in the JS) means the gate reads exactly
+         what ships. Generated: do not hand-edit. -->
+    <script type="application/json" id="featured-entries">
+[{"entryId":"D-E5E9B06E","plainQuestion":"Does CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) work efficiently and reproducibly across many different organisms, not just one well-studied species?","href":"claim.html?id=D-E5E9B06E","verdictLabel":"Supported","gradeAbsolute":"D","gradeRelative":"D","decisiveSharePct":95,"sourceCount":96,"supports":41,"contradicts":2},
+{"entryId":"D-3F426285","plainQuestion":"If a smallholder farming household becomes more productive or diversifies what it grows, does that actually translate into a better, more varied diet and less hunger for the family?","href":"claim.html?id=D-3F426285","verdictLabel":"Supported","gradeAbsolute":"D","gradeRelative":"D","decisiveSharePct":96,"sourceCount":93,"supports":93,"contradicts":4},
+{"entryId":"D-EC72DA5D","plainQuestion":"Do brain scans (MRI/fMRI) show measurable structural or functional differences in people with eating disorders compared to people without them?","href":"claim.html?id=D-EC72DA5D","verdictLabel":"Supported","gradeAbsolute":"D","gradeRelative":"D","decisiveSharePct":95,"sourceCount":40,"supports":42,"contradicts":2},
+{"entryId":"D-EE363BAC","plainQuestion":"Does having had a prior COVID-19 infection, on top of being vaccinated, give you extra protection against reinfection or severe disease compared to vaccination alone?","href":"claim.html?id=D-EE363BAC","verdictLabel":"Supported","gradeAbsolute":"D","gradeRelative":"D","decisiveSharePct":89,"sourceCount":28,"supports":16,"contradicts":2},
+{"entryId":"D-ECB9E015","plainQuestion":"Does HPV vaccination coverage among university-age and catch-up-eligible populations fall short of public-health targets, and how much does it vary from one region to another?","href":"claim.html?id=D-ECB9E015","verdictLabel":"Supported","gradeAbsolute":"F","gradeRelative":"F","decisiveSharePct":100,"sourceCount":91,"supports":45,"contradicts":0},
+{"entryId":"D-5CE0BCD1","plainQuestion":"Does heating produce to a safe cooking temperature kill Cyclospora, a parasite that causes serious diarrheal illness, better than washing it does?","href":"claim.html?id=D-5CE0BCD1","verdictLabel":"Supported","gradeAbsolute":"F","gradeRelative":"D","decisiveSharePct":56,"sourceCount":39,"supports":5,"contradicts":4},
+{"entryId":"D-540A117F","plainQuestion":"Does cutting international vaccine funding cause vaccination coverage rates to drop in low-income countries?","href":"claim.html?id=D-540A117F","verdictLabel":"Insufficient record","gradeAbsolute":"F","gradeRelative":"F","decisiveSharePct":0,"sourceCount":4,"supports":0,"contradicts":1},
+{"entryId":"DTM-2026-0703-2E","plainQuestion":"Does GLP-1 receptor agonist therapy preserve skeletal muscle mass during weight loss?","href":"record.html","verdictLabel":"Unsupported","gradeAbsolute":"D","gradeRelative":"D","decisiveSharePct":19,"sourceCount":102,"supports":19,"contradicts":81}]
+    </script>
 
     <p class="plain-what condense condense-d3">DATOM checks whether scientific claims hold up, <b>by someone with no stake in the answer</b>, and records the result in one place anyone can read.</p>
   </section>
@@ -474,6 +634,160 @@
   <p>&copy; 2026 DATOM &middot; Science, verified. For everyone. &middot; <a href="terms.html">Terms</a></p>
 </footer>
 
+<script>
+  // ── Featured record carousel ──
+  // Reads #featured-entries (the same JSON the RPV-052 gate parses, so what a
+  // visitor sees and what CI checks cannot drift apart). Cross-fades on a timer;
+  // manual prev/next/dot jumps immediately and resets the timer. Nothing here
+  // computes a verdict or a grade: those arrive already projected from the
+  // backend's featuredRecords.ts. If you find yourself wanting to tweak a
+  // verdict string in this file, that is the RPV-052 defect trying to happen.
+  (function () {
+    var host = document.getElementById('featured-entry');
+    var raw  = document.getElementById('featured-entries');
+    if (!host || !raw) return;
+
+    var ENTRIES;
+    try { ENTRIES = JSON.parse(raw.textContent); } catch (e) { return; }
+    if (!Array.isArray(ENTRIES) || !ENTRIES.length) return;
+
+    var AUTO_ADVANCE_MS = 9000;
+    var FADE_MS = 1200;
+    var GRADE_CAPTION = {
+      A: 'Strong evidence base', B: 'Solid evidence base', C: 'Moderate evidence base',
+      D: 'Limited evidence base', F: 'Weak evidence base'
+    };
+    var VERDICT_COLOR = {
+      'Supported': 'var(--signal)',
+      'Contested': 'var(--verdict-mixed)',
+      'Unsupported': 'var(--verdict-contra)',
+      'Insufficient record': 'var(--verdict-unrated)'
+    };
+
+    var card    = document.getElementById('det-card');
+    var elEntry = document.getElementById('det-entry');
+    var elClaim = document.getElementById('det-claim');
+    var elMark  = document.getElementById('det-mark');
+    var elNow   = document.getElementById('det-now');
+    var elAbs   = document.getElementById('det-grade-abs');
+    var elRel   = document.getElementById('det-grade-rel');
+    var elCap   = document.getElementById('det-grade-cap');
+    var elRelCap= document.getElementById('det-grade-relcap');
+    var elSrc   = document.getElementById('det-sources');
+    var elAxLo  = document.getElementById('det-ax-lo');
+    var elAxHi  = document.getElementById('det-ax-hi');
+    var dotsEl  = document.getElementById('det-dots');
+    var zones   = {
+      'Unsupported': document.getElementById('det-z-unsup'),
+      'Contested':   document.getElementById('det-z-cont'),
+      'Supported':   document.getElementById('det-z-sup')
+    };
+    var idx = 0, timer = null;
+
+    function gradeScale(host, letter) {
+      host.innerHTML = '';
+      ['A','B','C','D','F'].forEach(function (g) {
+        var s = document.createElement('span');
+        s.className = 'grade-cell' + (g === letter ? ' on' : '');
+        s.textContent = g;
+        host.appendChild(s);
+      });
+    }
+
+    function paint() {
+      var e = ENTRIES[idx];
+      var color = VERDICT_COLOR[e.verdictLabel] || 'var(--verdict-unrated)';
+
+      elEntry.textContent = e.entryId;
+      elClaim.textContent = e.plainQuestion;
+
+      Object.keys(zones).forEach(function (k) {
+        if (zones[k]) zones[k].classList.toggle('active', k === e.verdictLabel);
+      });
+
+      // "Insufficient record" is NOT a point on the agreement axis: it is the
+      // state of a record that has not cleared the evidence bar at all. Placing
+      // a mark at 0% would read as "Unsupported", which is the opposite of what
+      // it means. So the spectrum carries no mark and no active zone here.
+      if (e.verdictLabel === 'Insufficient record') {
+        elMark.style.display = 'none';
+        elNow.textContent = 'Not enough on the record to say either way';
+        // The axis ends are hidden too. With no mark, a leftover "0% agree"
+        // sitting beside "not enough on the record" reads as "0% agree", which
+        // is the opposite of what an insufficient record means.
+        elAxLo.style.visibility = 'hidden';
+        elAxHi.style.visibility = 'hidden';
+      } else {
+        elMark.style.display = '';
+        elMark.style.left = e.decisiveSharePct + '%';
+        elMark.style.color = color; // stem and arrowhead both read currentColor
+        elNow.textContent = e.decisiveSharePct + '% of the studies that tested it agree · ' + e.verdictLabel;
+        elAxLo.style.visibility = '';
+        elAxHi.style.visibility = '';
+      }
+      elNow.style.color = color;
+
+      gradeScale(elAbs, e.gradeAbsolute);
+      gradeScale(elRel, e.gradeRelative);
+      elCap.textContent = GRADE_CAPTION[e.gradeAbsolute] || '';
+      elRelCap.textContent = 'Compared with similar research';
+
+      elSrc.textContent = e.sourceCount === 1
+        ? 'Checked against 1 source. Read the record to see every one.'
+        : 'Checked against ' + e.sourceCount + ' sources. Read the record to see every one.';
+
+      Array.prototype.forEach.call(dotsEl.children, function (d, i) {
+        d.classList.toggle('active', i === idx);
+        d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+      });
+    }
+
+    function go(n) {
+      if (n === idx) return;
+      card.classList.add('fade-out');
+      window.setTimeout(function () {
+        idx = (n + ENTRIES.length) % ENTRIES.length;
+        paint();
+        card.classList.remove('fade-out');
+      }, FADE_MS / 2);
+    }
+
+    function reset() {
+      window.clearInterval(timer);
+      timer = window.setInterval(function () { go(idx + 1); }, AUTO_ADVANCE_MS);
+    }
+
+    function jump(n) { go(n); reset(); }
+
+    ENTRIES.forEach(function (e, i) {
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'carousel-dot';
+      d.setAttribute('role', 'tab');
+      d.setAttribute('aria-label', 'Record ' + (i + 1) + ' of ' + ENTRIES.length);
+      d.addEventListener('click', function () { jump(i); });
+      dotsEl.appendChild(d);
+    });
+
+    host.querySelector('.carousel-prev').addEventListener('click', function () { jump(idx - 1); });
+    host.querySelector('.carousel-next').addEventListener('click', function () { jump(idx + 1); });
+
+    card.style.cursor = 'pointer';
+    card.setAttribute('role', 'link');
+    card.setAttribute('tabindex', '0');
+    function open() { window.location.href = ENTRIES[idx].href; }
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); open(); }
+    });
+
+    // Respect a reader who has asked for less motion: render the first record
+    // and never auto-advance. The arrows and dots still work.
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    paint();
+    if (!still) reset();
+  })();
+</script>
 <script src="fog-bg.js?v=2"></script>
 <script src="shared.js?v=20260710"></script>
 <script src="elmer.js?v=20260711a"></script>

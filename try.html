@@ -674,6 +674,18 @@
   landingInputEl.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') { e.preventDefault(); landingSubmit(); }
   });
+
+  // The homepage answer box is a real GET form that posts here as ?q=<claim>.
+  // Nothing read it, so every claim a visitor typed into the site's single
+  // primary call to action was silently dropped on arrival and they landed on
+  // an empty box. Seed the input with it and hand straight off, so the question
+  // they asked on the homepage is the question Elmer receives.
+  (function () {
+    var handoff = new URLSearchParams(window.location.search).get('q');
+    if (!handoff || !handoff.trim()) return;
+    landingInputEl.value = handoff.trim().slice(0, 500);
+    landingSubmit();
+  })();
   landingChipsEl.appendChild(landingChip('Read for free', function () { startObserverFlow(); }));
   landingChipsEl.appendChild(landingChip('Subscribe', function () { startInvestigatorFlow(); }));
   landingChipsEl.appendChild(landingChip("I'm a lab, company, or institution", function () {
