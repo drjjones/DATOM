@@ -148,6 +148,30 @@
   }
   .plain-what b { color: var(--ink); font-weight: 600; }
 
+  /* ── Nesting diagram: study -> datom -> datomer ──
+     Same vocabulary as the flow diagram further down the page: the frame is
+     .diagram, the labels are .diagram-node, the connectors are .diagram-arrow
+     (all in design-v1.1.css), and the glyphs are square-and-hairline marks.
+     The third glyph reuses the radial geometry of the "Public." card glyph on
+     purpose, so the same motif keeps the same meaning; its centre square is
+     outlined rather than filled because the centre is the question, not a
+     datom. One --signal square recurs in all three glyphs: it is the same
+     datom each time. Kept inline for now, same as the stamp and the FAQ. */
+  .nest-flow { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s4); }
+  .nest-step { flex: 1 1 0; min-width: 0; }
+  .nest-glyph { display: block; margin: 0 0 var(--s3); }
+  .nest-arrow { flex: 0 0 auto; margin-top: 14px; font-family: var(--font-data); }
+  .nest-step .diagram-node { text-align: center; }
+  .nest-note { font-family: var(--font-body); font-size: 13px; line-height: 1.5; color: var(--muted); margin: var(--s2) 0 0; text-align: center; }
+  .nest-caption {
+    font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--muted);
+    margin: var(--s5) 0 0; padding-top: var(--s4); border-top: 1px solid var(--line);
+  }
+  @media (max-width: 800px) {
+    .nest-flow { flex-direction: column; align-items: stretch; gap: var(--s4); }
+    .nest-arrow { margin-top: 0; align-self: center; }
+  }
+
   /* ── Determination carousel ──
      Replaces the single static hero example and the separate "Latest on
      the record" strip with one data-driven stamp that auto-advances
@@ -428,6 +452,63 @@
     <p class="plain-what condense condense-d3">DATOM checks whether scientific claims hold up, <b>by someone with no stake in the answer</b>, and records the result in one place anyone can read.</p>
   </section>
 
+  <!-- WHAT A DATOM IS: the site is named after a unit it never defined above
+       the fold. This says it once, as a diagram, in the same square-and-line
+       vocabulary as the flow diagram below. The two FAQ entries at the foot of
+       the page point here rather than restating it. -->
+  <section class="reveal" id="what-is-a-datom">
+    <p class="section-label">The unit</p>
+    <h2>What is a datom?</h2>
+    <div class="diagram" style="margin-top:28px;">
+      <div class="nest-flow">
+        <div class="nest-step">
+          <svg class="nest-glyph" viewBox="0 0 64 64" width="48" height="48" fill="none" aria-hidden="true">
+            <rect x="14" y="8" width="36" height="48" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="20" y1="18" x2="44" y2="18" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="20" y1="26" x2="44" y2="26" stroke="var(--line-2)" stroke-width="1"/>
+            <rect x="20" y="30" width="6" height="6" fill="var(--signal)"/>
+            <line x1="29" y1="33" x2="44" y2="33" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="20" y1="42" x2="44" y2="42" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="20" y1="50" x2="38" y2="50" stroke="var(--line-2)" stroke-width="1"/>
+          </svg>
+          <div class="diagram-node">Study</div>
+          <p class="nest-note">One paper.</p>
+        </div>
+        <div class="diagram-arrow nest-arrow" aria-hidden="true">&rarr;</div>
+        <div class="nest-step">
+          <svg class="nest-glyph" viewBox="0 0 64 64" width="48" height="48" fill="none" aria-hidden="true">
+            <path d="M20 25 V20 H25" stroke="var(--line-2)" stroke-width="1"/>
+            <path d="M39 20 H44 V25" stroke="var(--line-2)" stroke-width="1"/>
+            <path d="M44 39 V44 H39" stroke="var(--line-2)" stroke-width="1"/>
+            <path d="M25 44 H20 V39" stroke="var(--line-2)" stroke-width="1"/>
+            <rect x="28" y="28" width="8" height="8" fill="var(--signal)"/>
+          </svg>
+          <div class="diagram-node">Datom</div>
+          <p class="nest-note">One specific finding from it.</p>
+        </div>
+        <div class="diagram-arrow nest-arrow" aria-hidden="true">&rarr;</div>
+        <div class="nest-step">
+          <svg class="nest-glyph" viewBox="0 0 64 64" width="48" height="48" fill="none" aria-hidden="true">
+            <line x1="32" y1="32" x2="32" y2="12" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="32" y1="32" x2="52" y2="22" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="32" y1="32" x2="49" y2="48" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="32" y1="32" x2="15" y2="48" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="32" y1="32" x2="12" y2="22" stroke="var(--line-2)" stroke-width="1"/>
+            <rect x="28" y="28" width="8" height="8" fill="var(--paper)" stroke="var(--line-2)" stroke-width="1"/>
+            <rect x="28" y="8" width="8" height="8" fill="var(--signal)"/>
+            <rect x="48" y="18" width="8" height="8" fill="var(--line-2)"/>
+            <rect x="45" y="44" width="8" height="8" fill="var(--line-2)"/>
+            <rect x="11" y="44" width="8" height="8" fill="var(--line-2)"/>
+            <rect x="8" y="18" width="8" height="8" fill="var(--line-2)"/>
+          </svg>
+          <div class="diagram-node">Datomer</div>
+          <p class="nest-note">All the datoms that answer one question.</p>
+        </div>
+      </div>
+      <p class="nest-caption">A datom is one finding, small enough that breaking it down further would lose the meaning. A datomer is all the findings that speak to one question.</p>
+    </div>
+  </section>
+
   <!-- THE PROBLEM: moved up, right after the hero. This page's first job
        is educating a general audience on the reproducibility crisis and
        the misinformation/disinformation chaos it feeds, before anything
@@ -529,7 +610,7 @@
     <div class="grid-2" style="margin-top:28px; max-width:820px; margin-left:auto; margin-right:auto; text-align:left;">
       <div class="card reveal reveal-d1">
         <h3>Check a claim you've seen</h3>
-        <p>Look up what the evidence actually says about a claim. Every determination is free to read, with the full evidence one click down.</p>
+        <p>Look up what the evidence actually says about a claim. Every verdict is free to read, with the full evidence one click down.</p>
         <a href="record.html" class="card-link">See a claim on the record &rarr;</a>
       </div>
       <div class="card reveal reveal-d2">
@@ -549,8 +630,8 @@
     <div class="grid-2" style="margin-top:28px;">
       <div class="faq-column">
         <details>
-          <summary>Is a determination an AI opinion? <span class="chev">&#x2304;</span></summary>
-          <div class="faq-body">No. The verdict and grades are computed by DATOM's pipeline from the underlying evidence, not asserted by a human editor. AI assists with extraction and synthesis, but the evidence objects themselves are explicit, referenceable, and auditable: every source behind a determination has a real citation you can check.</div>
+          <summary>Is a verdict an AI opinion? <span class="chev">&#x2304;</span></summary>
+          <div class="faq-body">No. The verdict and grades are computed by DATOM's pipeline from the underlying evidence, not asserted by a human editor. AI assists with extraction and synthesis, but the evidence objects themselves are explicit, referenceable, and auditable: every source behind a verdict has a real citation you can check.</div>
         </details>
         <details>
           <summary>Does DATOM decide what is true? <span class="chev">&#x2304;</span></summary>
@@ -616,12 +697,12 @@
           <div class="faq-body">Infrastructure: a data model, a grading framework, and a trust primitive.</div>
         </details>
         <details>
-          <summary>What is a Datom? <span class="chev">&#x2304;</span></summary>
-          <div class="faq-body">A Datom is an atomic unit of evidence: a specific measurement, method, dataset, assumption, constraint, or replication condition. Datoms cannot be merged or simplified without losing meaning.</div>
+          <summary>What is a datom? <span class="chev">&#x2304;</span></summary>
+          <div class="faq-body">One specific finding from one study: a measurement, a method, a dataset, an assumption, a constraint, or a replication condition. It is small enough that breaking it down further would lose the meaning, which is why datoms cannot be merged or simplified. <a href="#what-is-a-datom" class="card-link">See the diagram &rarr;</a></div>
         </details>
         <details>
-          <summary>What is a Datomer? <span class="chev">&#x2304;</span></summary>
-          <div class="faq-body">A Datomer is a structured evidence object composed of Datoms that together answer a specific empirical question. Datomers are built from inspectable components, not summaries.</div>
+          <summary>What is a datomer? <span class="chev">&#x2304;</span></summary>
+          <div class="faq-body">All the datoms that answer one question, kept as parts you can open rather than flattened into a summary. When a record names its Anchor, that is the datomer its verdict was read from. <a href="#what-is-a-datom" class="card-link">See the diagram &rarr;</a></div>
         </details>
       </div>
     </div>
