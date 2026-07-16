@@ -77,15 +77,21 @@
 
 /* ── Full-chat mode ──
    The homepage answer box expands Elmer from the corner dock into a full-page
-   conversation (elmer.js askElmerWithClaim). Higher specificity than
-   .elmer-panel.open, and placed after it, so these win. */
+   conversation (elmer.js askElmerWithClaim). The look is deliberately NOT a
+   boxed panel: the conversation reads as text floating over the page. The panel
+   is transparent, the page shows through a soft light frost, Elmer's replies are
+   plain floating text (a white glow keeps them legible over the fog), and only
+   the input keeps a light glass pill. Higher specificity than .elmer-panel.open,
+   and placed after it, so these win. */
 .elmer-backdrop {
   position: fixed;
   inset: 0;
   z-index: 9998;
-  background: rgba(19, 37, 58, 0.42);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  /* A light frost, not a dark dim: the page stays visible as the "background"
+     the text floats over, just softened so the floating type reads. */
+  background: rgba(238, 242, 246, 0.70);
+  backdrop-filter: blur(10px) saturate(115%);
+  -webkit-backdrop-filter: blur(10px) saturate(115%);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -94,27 +100,99 @@
 body.elmer-full-open { overflow: hidden; }
 
 .elmer-panel.elmer-panel--full {
-  top: 4vh;
-  bottom: 4vh;
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  width: min(760px, calc(100vw - 32px));
+  margin: 0 auto;
+  width: min(720px, calc(100vw - 40px));
   height: auto;
   transform: none;
   transform-origin: center;
-  background: var(--paper, #fff);
-  box-shadow: 0 24px 80px rgba(19, 37, 58, 0.28);
+  /* No card: the panel is just a column; the text floats over the frosted page. */
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
-.elmer-panel.elmer-panel--full .elmer-messages { padding-top: var(--s3, 12px); }
+
+/* Header: a floating label and close, no bar. */
+.elmer-panel--full .elmer-header {
+  border-bottom: none;
+  background: transparent;
+  padding: 18px 4px 6px;
+}
+.elmer-panel--full .elmer-close {
+  border-color: transparent;
+  background: transparent;
+  font-size: 20px;
+}
+.elmer-panel--full .elmer-close:hover { color: var(--ink); background: transparent; }
+
+/* Messages: a roomy centered column with generous air. */
+.elmer-panel--full .elmer-messages {
+  padding: 8px 4px 8px;
+  gap: 18px;
+}
+
+/* Elmer's replies float as plain text, no bubble, matching the dashboard
+   centered chat. The white glow lifts the ink off the fog behind it. */
+.elmer-panel--full .elmer-bubble {
+  max-width: 100%;
+  border: none;
+  background: transparent;
+  padding: 2px 0;
+  font-size: 16px;
+  line-height: 1.62;
+  color: var(--ink);
+  text-shadow: 0 1px 14px rgba(255, 255, 255, 0.9), 0 0 2px rgba(255, 255, 255, 0.9);
+}
+/* The visitor's own words stay a small solid bubble so it is clear who spoke,
+   but it still floats: no surrounding panel around it. */
+.elmer-panel--full .elmer-bubble-user {
+  max-width: 82%;
+  padding: 11px 16px;
+  border: none;
+  border-radius: 16px 4px 16px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  text-shadow: none;
+  box-shadow: 0 6px 22px rgba(19, 37, 58, 0.18);
+}
+.elmer-panel--full .elmer-typing { padding: 6px 0; }
+
+/* Input: a single floating glass pill at the bottom, no top rule. */
+.elmer-panel--full .elmer-input-bar {
+  border-top: none;
+  padding: 10px 0 22px;
+  align-items: center;
+  gap: 10px;
+}
+.elmer-panel--full .elmer-textarea {
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 34px rgba(19, 37, 58, 0.12);
+  padding: 13px 18px;
+  font-size: 15px;
+}
+.elmer-panel--full .elmer-textarea:focus { outline: none; border-color: var(--signal); }
+.elmer-panel--full .elmer-send {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  align-self: center;
+}
 
 @media (max-width: 768px) {
   .elmer-panel.elmer-panel--full {
-    top: 0; bottom: 0; left: 0; right: 0;
-    width: 100vw;
+    width: calc(100vw - 32px);
     max-height: none;
   }
+  .elmer-panel--full .elmer-bubble { font-size: 15px; }
 }
 
 /* ── Header ── */
