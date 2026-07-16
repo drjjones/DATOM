@@ -353,16 +353,38 @@
     <h1 class="condense condense-d2">Science, verified. For everyone.</h1>
     <p class="hero-slogan condense condense-d2">How sure are we, really?</p>
 
-    <!-- Answer box: the one motion (Phase 4.1). Nothing interrupts the box.
-         Still a real GET form to try.html?q=..., so it works with no JS and the
-         browser can autofill it; the submit button stays a submit button. -->
-    <form class="hero-answerbox condense condense-d3" action="try.html" method="get" role="search">
+    <!-- Answer box: "Ask about any health or science claim". Submitting it opens
+         Elmer and hands the claim straight to the record lookup (the intent
+         ladder in elmer-api), so Elmer tries to surface the matching record. It
+         used to navigate to try.html, which showed the get-started branch
+         selector ("What are you here to do?") instead of answering the claim.
+         The form action stays as a no-JS fallback (Elmer needs JS anyway). -->
+    <form class="hero-answerbox condense condense-d3" id="hero-ask" action="try.html" method="get" role="search">
       <span class="ab-icon" aria-hidden="true">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </span>
-      <input type="text" name="q" placeholder="Ask about any health or science claim&hellip;" aria-label="Ask about any health or science claim">
+      <input type="text" name="q" id="hero-ask-input" placeholder="Ask about any health or science claim&hellip;" aria-label="Ask about any health or science claim">
       <button type="submit" aria-label="Check this claim"><span aria-hidden="true">&uarr;</span></button>
     </form>
+    <script>
+      // Intercept the answer box: open Elmer with the claim rather than
+      // navigating away. datomAskElmer is defined in elmer.js (loaded below).
+      (function () {
+        var form = document.getElementById('hero-ask');
+        var input = document.getElementById('hero-ask-input');
+        if (!form || !input) return;
+        form.addEventListener('submit', function (e) {
+          var q = (input.value || '').trim();
+          if (q && typeof window.datomAskElmer === 'function') {
+            e.preventDefault();
+            window.datomAskElmer(q);
+            input.value = '';
+          }
+          // If Elmer is not loaded (no JS path reached here only if the function
+          // is missing), the form submits normally as a fallback.
+        });
+      })();
+    </script>
 
     <!-- FEATURED RECORD CAROUSEL. Real public-ledger records, cross-fading on a
          timer; any manual prev/next/dot resets the timer.

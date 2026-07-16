@@ -675,16 +675,16 @@
     if (e.key === 'Enter') { e.preventDefault(); landingSubmit(); }
   });
 
-  // The homepage answer box is a real GET form that posts here as ?q=<claim>.
-  // Nothing read it, so every claim a visitor typed into the site's single
-  // primary call to action was silently dropped on arrival and they landed on
-  // an empty box. Seed the input with it and hand straight off, so the question
-  // they asked on the homepage is the question Elmer receives.
+  // A claim query is NOT handed to this page's flow anymore. The homepage answer
+  // box now opens Elmer's claim lookup inline (index.html -> datomAskElmer), so a
+  // typed claim gets its record surfaced instead of landing here on the
+  // get-started branch selector ("What are you here to do?"). If a ?q= still
+  // arrives (an old bookmark or shared link), seed it into the landing box so it
+  // is not lost, but do NOT auto-submit into the branch selector; the visitor
+  // stays in control of the get-started choice.
   (function () {
     var handoff = new URLSearchParams(window.location.search).get('q');
-    if (!handoff || !handoff.trim()) return;
-    landingInputEl.value = handoff.trim().slice(0, 500);
-    landingSubmit();
+    if (handoff && handoff.trim()) landingInputEl.value = handoff.trim().slice(0, 500);
   })();
   landingChipsEl.appendChild(landingChip('Read for free', function () { startObserverFlow(); }));
   landingChipsEl.appendChild(landingChip('Subscribe', function () { startInvestigatorFlow(); }));

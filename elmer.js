@@ -208,6 +208,32 @@ function toggle(forceState) {
   }
 }
 
+// ── Open Elmer with a claim the visitor typed elsewhere on the page ──
+// This is what the homepage answer box calls. The bar says "Ask about any health
+// or science claim", so a submitted query must go straight into Elmer's claim
+// lookup (the intent ladder in elmer-api: understand what they meant, surface the
+// matching record, or suggest the nearest one). It used to navigate to try.html,
+// which dropped the visitor into the get-started branch selector ("What are you
+// here to do?") instead of answering the claim. Opening the chat directly is the
+// fix: no greeting (the answer IS the first turn), just the question and Elmer's
+// resolution.
+function askElmerWithClaim(text) {
+  const q = (text || "").trim();
+  if (!q) return;
+  const dock = document.getElementById("elmerDock");
+  const panel = document.getElementById("elmerPanel");
+  if (!panel) return; // UI not built yet; caller keeps the form fallback
+  isOpen = true;
+  dock.classList.add("hidden");
+  panel.classList.add("open");
+  suggestionsShown = true; // no generic prompts; they already asked something
+  const s = document.getElementById("elmerSuggestions");
+  if (s) s.innerHTML = "";
+  handleSend(q); // routes through /api/elmer-public-chat -> intent ladder
+}
+// Exposed for the homepage answer box (index.html) and any other on-page entry.
+window.datomAskElmer = askElmerWithClaim;
+
 // ── Suggestions ──
 function showSuggestions() {
   const container = document.getElementById("elmerSuggestions");
