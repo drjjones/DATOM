@@ -375,6 +375,14 @@ function autoOpenForPage() {
   if (params.get("elmer_nav")) return;
 
   const page = detectPage();
+
+  // The homepage now leads with the answer box ("Ask about any health or science
+  // claim"), which opens Elmer with the visitor's own question. Auto-popping the
+  // dock with a generic greeting on top of that is redundant and competes with
+  // the box for attention, so the homepage does not auto-open. The dock is still
+  // one click away via "Ask Elmer". Other pages keep the auto-open.
+  if (page === "home") return;
+
   const seenKey = "elmer_seen_" + page;
 
   // Only auto-open once per page per session
