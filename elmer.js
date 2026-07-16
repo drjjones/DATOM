@@ -136,6 +136,11 @@ function checkPendingNav() {
 let isOpen = false;
 let conversationHistory = [];
 let suggestionsShown = false;
+// True when Elmer was expanded to full-page chat from the homepage answer box.
+// In this mode, and ONLY this mode, a confident record match navigates the page
+// to that claim (the chat's job was to identify the claim). The corner dock
+// never navigates; it just shows the answer with a link.
+let elmerFullMode = false;
 
 // ── Build UI ──
 function createUI() {
@@ -164,7 +169,14 @@ function createUI() {
     </div>
   `;
 
+  // Dimmed backdrop, shown only in full-chat mode (when the homepage answer box
+  // expands Elmer into a full-page conversation). The corner dock does not use it.
+  const backdrop = document.createElement("div");
+  backdrop.className = "elmer-backdrop";
+  backdrop.id = "elmerBackdrop";
+
   document.body.appendChild(dock);
+  document.body.appendChild(backdrop);
   document.body.appendChild(panel);
 }
 
@@ -205,6 +217,7 @@ function toggle(forceState) {
   } else {
     dock.classList.remove("hidden");
     panel.classList.remove("open");
+    exitFullMode();
   }
 }
 
@@ -222,10 +235,15 @@ function askElmerWithClaim(text) {
   if (!q) return;
   const dock = document.getElementById("elmerDock");
   const panel = document.getElementById("elmerPanel");
+  const backdrop = document.getElementById("elmerBackdrop");
   if (!panel) return; // UI not built yet; caller keeps the form fallback
   isOpen = true;
+  elmerFullMode = true; // expand into full-page chat
   dock.classList.add("hidden");
   panel.classList.add("open");
+  panel.classList.add("elmer-panel--full");
+  if (backdrop) backdrop.classList.add("show");
+  document.body.classList.add("elmer-full-open"); // lock page scroll behind the chat
   suggestionsShown = true; // no generic prompts; they already asked something
   const s = document.getElementById("elmerSuggestions");
   if (s) s.innerHTML = "";
@@ -233,6 +251,34 @@ function askElmerWithClaim(text) {
 }
 // Exposed for the homepage answer box (index.html) and any other on-page entry.
 window.datomAskElmer = askElmerWithClaim;
+
+// Leave full-chat mode (on close). Idempotent; a no-op for the corner dock.
+function exitFullMode() {
+  elmerFullMode = false;
+  const panel = document.getElementById("elmerPanel");
+  const backdrop = document.getElementById("elmerBackdrop");
+  if (panel) panel.classList.remove("elmer-panel--full");
+  if (backdrop) backdrop.classList.remove("show");
+  document.body.classList.remove("elmer-full-open");
+}
+
+// Only a bare same-site page is a valid navigation target: "record.html" or
+// "claim.html?id=D-ABC123". Anything with a scheme, a host, or a leading slash
+// is rejected, so a malformed match can never redirect the visitor off-site.
+function isSafeRecordHref(href) {
+  return typeof href === "string" && /^[a-z0-9_-]+\.html(\?[a-z0-9=&_.-]*)?$/i.test(href);
+}
+
+// The chat identified the claim; change the page to it. Shows a brief transition
+// so the jump does not feel abrupt, then navigates. Returns true when it has
+// taken over (so the caller stops), false when the href was unusable.
+function goToRecord(match) {
+  if (!isSafeRecordHref(match.href)) return false;
+  const label = match.question ? '"' + String(match.question).slice(0, 140) + '"' : "the record";
+  addBubble("Found the record for " + label + ". Opening it now…", "elmer");
+  window.setTimeout(function () { window.location.href = match.href; }, 1600);
+  return true;
+}
 
 // ── Suggestions ──
 function showSuggestions() {
@@ -345,6 +391,16 @@ async function handleSend(overrideText) {
     const data = await res.json();
     addBubble(data.reply, "elmer");
     conversationHistory.push({ role: "assistant", content: data.reply });
+
+    // A match means the claim has been identified. In full-chat mode (opened
+    // from the homepage answer box), that is the cue to change the page to the
+    // claim page, which is the whole point of the flow. The corner dock does not
+    // navigate: it leaves the reader where they are with the link in the answer.
+    // Guard the href to a same-site relative path so a bad value can never
+    // redirect off-site.
+    if (elmerFullMode && data.match && typeof data.match.href === "string" && goToRecord(data.match)) {
+      return;
+    }
 
   } catch (err) {
     removeTyping();

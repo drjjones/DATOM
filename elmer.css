@@ -75,6 +75,48 @@
   pointer-events: auto;
 }
 
+/* ── Full-chat mode ──
+   The homepage answer box expands Elmer from the corner dock into a full-page
+   conversation (elmer.js askElmerWithClaim). Higher specificity than
+   .elmer-panel.open, and placed after it, so these win. */
+.elmer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(19, 37, 58, 0.42);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.elmer-backdrop.show { opacity: 1; pointer-events: auto; }
+body.elmer-full-open { overflow: hidden; }
+
+.elmer-panel.elmer-panel--full {
+  top: 4vh;
+  bottom: 4vh;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: min(760px, calc(100vw - 32px));
+  height: auto;
+  transform: none;
+  transform-origin: center;
+  background: var(--paper, #fff);
+  box-shadow: 0 24px 80px rgba(19, 37, 58, 0.28);
+}
+.elmer-panel.elmer-panel--full .elmer-messages { padding-top: var(--s3, 12px); }
+
+@media (max-width: 768px) {
+  .elmer-panel.elmer-panel--full {
+    top: 0; bottom: 0; left: 0; right: 0;
+    width: 100vw;
+    max-height: none;
+  }
+}
+
 /* ── Header ── */
 .elmer-header {
   display: flex;
