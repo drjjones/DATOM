@@ -225,26 +225,24 @@
   .carousel-dot:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
   /* ── Hero answer box ──
-     Structurally the same bar as the get-started page (try.html
-     .gs-landing-search): search icon on the left, borderless transparent
-     input, square action button on the right, 58px tall, border lights up on
-     :focus-within rather than an outline ring.
-
-     DL-0101 port, deliberate: try.html's bar is a 32px pill with a drop
-     shadow, a 50% circular button, a backdrop blur, and forked slate/cyan
-     colors that are not --ink/--signal. DL-0101 mandates --radius:0, hairline
-     rules, and no shadows, and every other component in this hero
-     (.carousel-arrow, the FAQ accordion, the determination stamp) is already
-     square. So this takes the structure and the proportions and drops the
-     pill, the shadow, the blur, and the forked colors. try.html forking those
-     values while loading the same tokens.css is its own outstanding question. */
+     Matches the get-started page bar (try.html .gs-landing-search) exactly, by
+     request: the two are the same control and should look identical. That means
+     the rounded "pill" shape, the frosted-glass fill, the soft shadow, and the
+     round send button, not a squared-off port. The --gs-* values below are
+     copied verbatim from try.html so the two bars cannot drift; if try.html's
+     bar is ever restyled, update both. (This is a deliberate exception to the
+     DL-0101 square-corner default for this one shared control.) */
   .hero-answerbox {
     display: flex; align-items: center; gap: 10px;
     width: 100%; max-width: 560px; margin: 26px auto 0;
     padding: 8px 8px 8px 20px;
-    background: var(--paper);
-    border: var(--rule) solid var(--line);
-    border-radius: var(--radius);
+    border-radius: 32px;
+    background: var(--gs-glass, rgba(255, 255, 255, 0.72));
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    border: 1px solid var(--gs-hairline, rgba(15, 23, 42, 0.10));
+    box-shadow: 0 16px 50px rgba(15, 23, 42, 0.10), 0 0 0 1px var(--gs-glow, rgba(8, 145, 178, 0.10));
+    transition: border-color 0.18s, box-shadow 0.18s;
   }
   .hero-answerbox:focus-within { border-color: var(--signal); }
   .hero-answerbox .ab-icon { color: var(--muted); display: flex; flex-shrink: 0; }
@@ -255,13 +253,13 @@
   .hero-answerbox input::placeholder { color: var(--muted); }
   .hero-answerbox button {
     flex-shrink: 0; width: 42px; height: 42px;
-    border: var(--rule) solid var(--ink); border-radius: var(--radius);
+    border: none; border-radius: 50%;
     background: var(--ink); color: var(--paper);
     font-family: var(--font-data); font-size: 18px; line-height: 1;
     cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: filter 0.15s;
+    transition: filter 0.15s, transform 0.15s;
   }
-  .hero-answerbox button:hover { filter: brightness(1.35); }
+  .hero-answerbox button:hover { filter: brightness(1.2); transform: scale(1.06); }
   .hero-answerbox button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
   /* ── Hero record card (Phase 4.1; superseded by the carousel, kept for the
@@ -419,11 +417,6 @@
                 <div class="grade-scale" id="det-grade-abs"></div>
                 <p class="grade-caption" id="det-grade-cap"></p>
               </div>
-              <div class="grade-block">
-                <p class="grade-label">For its field</p>
-                <div class="grade-scale" id="det-grade-rel"></div>
-                <p class="grade-caption" id="det-grade-relcap"></p>
-              </div>
             </div>
 
             <p class="det-strength" id="det-sources"></p>
@@ -439,14 +432,14 @@
          it in the page (rather than only in the JS) means the gate reads exactly
          what ships. Generated: do not hand-edit. -->
     <script type="application/json" id="featured-entries">
-[{"entryId":"D-E5E9B06E","plainQuestion":"Does CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) work efficiently and reproducibly across many different organisms, not just one well-studied species?","href":"claim.html?id=D-E5E9B06E","verdictLabel":"Supported","gradeAbsolute":"D","gradeRelative":"D","decisiveSharePct":95,"sourceCount":96,"supports":41,"contradicts":2},
-{"entryId":"D-3F426285","plainQuestion":"If a smallholder farming household becomes more productive or diversifies what it grows, does that actually translate into a better, more varied diet and less hunger for the family?","href":"claim.html?id=D-3F426285","verdictLabel":"Supported","gradeAbsolute":"D","gradeRelative":"D","decisiveSharePct":96,"sourceCount":93,"supports":93,"contradicts":4},
-{"entryId":"D-EC72DA5D","plainQuestion":"Do brain scans (MRI/fMRI) show measurable structural or functional differences in people with eating disorders compared to people without them?","href":"claim.html?id=D-EC72DA5D","verdictLabel":"Supported","gradeAbsolute":"D","gradeRelative":"D","decisiveSharePct":95,"sourceCount":40,"supports":42,"contradicts":2},
-{"entryId":"D-EE363BAC","plainQuestion":"Does having had a prior COVID-19 infection, on top of being vaccinated, give you extra protection against reinfection or severe disease compared to vaccination alone?","href":"claim.html?id=D-EE363BAC","verdictLabel":"Supported","gradeAbsolute":"D","gradeRelative":"D","decisiveSharePct":89,"sourceCount":28,"supports":16,"contradicts":2},
-{"entryId":"D-ECB9E015","plainQuestion":"Does HPV vaccination coverage among university-age and catch-up-eligible populations fall short of public-health targets, and how much does it vary from one region to another?","href":"claim.html?id=D-ECB9E015","verdictLabel":"Supported","gradeAbsolute":"F","gradeRelative":"F","decisiveSharePct":100,"sourceCount":91,"supports":45,"contradicts":0},
-{"entryId":"D-5CE0BCD1","plainQuestion":"Does heating produce to a safe cooking temperature kill Cyclospora, a parasite that causes serious diarrheal illness, better than washing it does?","href":"claim.html?id=D-5CE0BCD1","verdictLabel":"Supported","gradeAbsolute":"F","gradeRelative":"D","decisiveSharePct":56,"sourceCount":39,"supports":5,"contradicts":4},
-{"entryId":"D-540A117F","plainQuestion":"Does cutting international vaccine funding cause vaccination coverage rates to drop in low-income countries?","href":"claim.html?id=D-540A117F","verdictLabel":"Insufficient record","gradeAbsolute":"F","gradeRelative":"F","decisiveSharePct":0,"sourceCount":4,"supports":0,"contradicts":1},
-{"entryId":"DTM-2026-0703-2E","plainQuestion":"Does GLP-1 receptor agonist therapy preserve skeletal muscle mass during weight loss?","href":"record.html","verdictLabel":"Unsupported","gradeAbsolute":"D","gradeRelative":"D","decisiveSharePct":19,"sourceCount":102,"supports":19,"contradicts":81}]
+[{"entryId":"D-E5E9B06E","plainQuestion":"Does CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) work efficiently and reproducibly across many different organisms, not just one well-studied species?","href":"claim.html?id=D-E5E9B06E","verdictLabel":"Supported","gradeAbsolute":"D","decisiveSharePct":95,"sourceCount":96,"supports":41,"contradicts":2},
+{"entryId":"D-3F426285","plainQuestion":"If a smallholder farming household becomes more productive or diversifies what it grows, does that actually translate into a better, more varied diet and less hunger for the family?","href":"claim.html?id=D-3F426285","verdictLabel":"Supported","gradeAbsolute":"D","decisiveSharePct":96,"sourceCount":93,"supports":93,"contradicts":4},
+{"entryId":"D-EC72DA5D","plainQuestion":"Do brain scans (MRI/fMRI) show measurable structural or functional differences in people with eating disorders compared to people without them?","href":"claim.html?id=D-EC72DA5D","verdictLabel":"Supported","gradeAbsolute":"D","decisiveSharePct":95,"sourceCount":40,"supports":42,"contradicts":2},
+{"entryId":"D-EE363BAC","plainQuestion":"Does having had a prior COVID-19 infection, on top of being vaccinated, give you extra protection against reinfection or severe disease compared to vaccination alone?","href":"claim.html?id=D-EE363BAC","verdictLabel":"Supported","gradeAbsolute":"D","decisiveSharePct":89,"sourceCount":28,"supports":16,"contradicts":2},
+{"entryId":"D-ECB9E015","plainQuestion":"Does HPV vaccination coverage among university-age and catch-up-eligible populations fall short of public-health targets, and how much does it vary from one region to another?","href":"claim.html?id=D-ECB9E015","verdictLabel":"Supported","gradeAbsolute":"F","decisiveSharePct":100,"sourceCount":91,"supports":45,"contradicts":0},
+{"entryId":"D-5CE0BCD1","plainQuestion":"Does heating produce to a safe cooking temperature kill Cyclospora, a parasite that causes serious diarrheal illness, better than washing it does?","href":"claim.html?id=D-5CE0BCD1","verdictLabel":"Supported","gradeAbsolute":"F","decisiveSharePct":56,"sourceCount":39,"supports":5,"contradicts":4},
+{"entryId":"D-540A117F","plainQuestion":"Does cutting international vaccine funding cause vaccination coverage rates to drop in low-income countries?","href":"claim.html?id=D-540A117F","verdictLabel":"Insufficient record","gradeAbsolute":"F","decisiveSharePct":0,"sourceCount":4,"supports":0,"contradicts":1},
+{"entryId":"DTM-2026-0703-2E","plainQuestion":"Does GLP-1 receptor agonist therapy preserve skeletal muscle mass during weight loss?","href":"record.html","verdictLabel":"Unsupported","gradeAbsolute":"D","decisiveSharePct":25,"sourceCount":102,"supports":25,"contradicts":77}]
     </script>
 
     <p class="plain-what condense condense-d3">DATOM checks whether scientific claims hold up, <b>by someone with no stake in the answer</b>, and records the result in one place anyone can read.</p>
@@ -751,9 +744,7 @@
     var elMark  = document.getElementById('det-mark');
     var elNow   = document.getElementById('det-now');
     var elAbs   = document.getElementById('det-grade-abs');
-    var elRel   = document.getElementById('det-grade-rel');
     var elCap   = document.getElementById('det-grade-cap');
-    var elRelCap= document.getElementById('det-grade-relcap');
     var elSrc   = document.getElementById('det-sources');
     var elAxLo  = document.getElementById('det-ax-lo');
     var elAxHi  = document.getElementById('det-ax-hi');
@@ -809,9 +800,7 @@
       elNow.style.color = color;
 
       gradeScale(elAbs, e.gradeAbsolute);
-      gradeScale(elRel, e.gradeRelative);
       elCap.textContent = GRADE_CAPTION[e.gradeAbsolute] || '';
-      elRelCap.textContent = 'Compared with similar research';
 
       elSrc.textContent = e.sourceCount === 1
         ? 'Checked against 1 source. Read the record to see every one.'
