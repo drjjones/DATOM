@@ -280,6 +280,27 @@ function goToRecord(match) {
   return true;
 }
 
+// A clickable card for a record Elmer suggested but did not assert. It is a real
+// same-site <a>, so clicking navigates natively; the href is validated first so
+// a bad suggestion can never point off-site.
+function addRecordSuggestion(suggest) {
+  if (!isSafeRecordHref(suggest.href)) return;
+  const messages = document.getElementById("elmerMessages");
+  if (!messages) return;
+  const a = document.createElement("a");
+  a.className = "elmer-record-cta";
+  a.href = suggest.href;
+  const q = suggest.question ? String(suggest.question) : "this record";
+  a.innerHTML = '<span class="elmer-record-cta-body">' +
+                '<span class="elmer-record-cta-label">Read the record</span>' +
+                '<span class="elmer-record-cta-q">' +
+                q.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") +
+                '</span></span>' +
+                '<span class="elmer-record-cta-arrow" aria-hidden="true">&rarr;</span>';
+  messages.appendChild(a);
+  messages.scrollTop = messages.scrollHeight;
+}
+
 // ── Suggestions ──
 function showSuggestions() {
   const container = document.getElementById("elmerSuggestions");
@@ -400,6 +421,15 @@ async function handleSend(overrideText) {
     // redirect off-site.
     if (elmerFullMode && data.match && typeof data.match.href === "string" && goToRecord(data.match)) {
       return;
+    }
+
+    // A suggestion means Elmer named a likely record but was not confident
+    // enough to change the page on its own (an offer, or a miss with a related
+    // record). Give the visitor a one-click way to open it, so "Elmer suggested
+    // the correct claim but could not navigate" cannot happen. Shown in both the
+    // full chat and the dock; it is a user click, never an auto-redirect.
+    if (data.suggest && typeof data.suggest.href === "string") {
+      addRecordSuggestion(data.suggest);
     }
 
   } catch (err) {

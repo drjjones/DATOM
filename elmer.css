@@ -162,6 +162,17 @@ body.elmer-full-open { overflow: hidden; }
 }
 .elmer-panel--full .elmer-typing { padding: 6px 0; }
 
+/* In full-chat the suggestion card floats as a light glass chip so it reads as a
+   clickable object over the frosted page, not a bordered box. */
+.elmer-panel--full .elmer-record-cta {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 26px rgba(19, 37, 58, 0.12);
+  padding: 13px 16px;
+}
+.elmer-panel--full .elmer-record-cta-q { font-size: 14px; }
+
 /* Input: a single floating glass pill at the bottom, no top rule. */
 .elmer-panel--full .elmer-input-bar {
   border-top: none;
@@ -292,6 +303,30 @@ body.elmer-full-open { overflow: hidden; }
   align-self: flex-end;
 }
 .elmer-bubble-user a { color: var(--paper); }
+
+/* Clickable "read the record" card for a suggested (offer / miss-near) record.
+   A real same-site <a>, so it navigates natively on click. */
+.elmer-record-cta {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 88%;
+  padding: 11px 14px;
+  border: 1px solid var(--signal);
+  background: transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.elmer-record-cta:hover { background: rgba(11, 110, 132, 0.07); transform: translateY(-1px); }
+.elmer-record-cta-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.elmer-record-cta-label {
+  font-family: var(--font-data); font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--signal);
+}
+.elmer-record-cta-q { font-family: var(--font-body); font-size: 13px; line-height: 1.4; color: var(--ink); }
+.elmer-record-cta-arrow { flex-shrink: 0; color: var(--signal); font-size: 18px; }
 
 /* ── Typing indicator ── */
 .elmer-typing {
