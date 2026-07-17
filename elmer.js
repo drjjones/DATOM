@@ -42,6 +42,10 @@ const NAV_MAP = {
 // ── Detect current page ──
 function detectPage() {
   const path = window.location.pathname;
+  // record-pending is its own page and must be tested before "record".
+  if (path.includes("record-pending")) return "record-pending";
+  if (path.includes("record"))    return "record";
+  if (path.includes("claim"))     return "claim";
   if (path.includes("example"))   return "example";
   if (path.includes("product"))   return "product";
   if (path.includes("organizations")) return "organizations";
@@ -53,8 +57,65 @@ function detectPage() {
 
 function getCurrentPageFile() {
   const page = detectPage();
-  const map = { home: "index.html", example: "example.html", product: "product.html", organizations: "organizations.html", pricing: "pricing.html", research: "research.html", try: "try.html" };
+  const map = { home: "index.html", record: "record.html", claim: "claim.html", example: "example.html", product: "product.html", organizations: "organizations.html", pricing: "pricing.html", research: "research.html", try: "try.html" };
   return map[page] || "index.html";
+}
+
+// ── Page awareness: the record the visitor is currently reading ──
+// A record page tells Elmer two things: which record is in front of the reader
+// (so the backend can ground its answers in that record's real facts) and which
+// parts of the page it can scroll them to. record.html is the fixed GLP-1
+// record; claim.html and example.html are data-driven and carry the id in the
+// query string. Sections are filtered to those actually present in the DOM, so
+// a page that renders without (say) the evidence graph never offers to scroll
+// to it. Selectors live here, keys go to the backend; the backend only ever
+// echoes a key, so on-page anchors can change without touching the prompt.
+const CLAIM_SECTIONS = [
+  { key: "verdict",  label: "the verdict and confidence summary",              sel: "#verdict" },
+  { key: "guide",    label: "how to read this record",                         sel: "#guide" },
+  { key: "graph",    label: "the evidence graph",                              sel: "#figure" },
+  { key: "claim",    label: "the exact claim being tested",                    sel: "#nucleus" },
+  { key: "evidence", label: "the evidence and its sources",                    sel: "#evidence" },
+  { key: "scoring",  label: "how the confidence score is built",               sel: "#confidence-scoring" },
+  { key: "summary",  label: "the summary and what it means for a decision",    sel: "#summary" },
+];
+const RECORD_SECTIONS = [
+  { key: "verdict",  label: "the verdict and Evidence Grade",                  sel: "#rec-verdict" },
+  { key: "evidence", label: "what the evidence looks like (support vs against)", sel: "#rec-evidence" },
+  { key: "sources",  label: "the sources behind the record",                   sel: "#rec-sources" },
+  { key: "details",  label: "the record details and where it came from",       sel: "#rec-details" },
+];
+
+// The parts of the current page Elmer can scroll to, filtered to what exists.
+function currentPageSections() {
+  const page = detectPage();
+  const candidates =
+    page === "record" ? RECORD_SECTIONS :
+    (page === "claim" || page === "example") ? CLAIM_SECTIONS :
+    [];
+  return candidates.filter(s => document.querySelector(s.sel));
+}
+
+// The curated record id for the page in front of the reader, or "" if none.
+// Bounded on purpose: the backend only surfaces facts for records it can ground
+// (the curated public set), so anything else resolves to "" and Elmer holds no
+// facts about it, though it can still scroll the page.
+function currentViewingRecordId() {
+  const page = detectPage();
+  if (page === "record") return "DTM-2026-0703-2E"; // record.html is the fixed GLP-1 record
+  if (page === "claim") {
+    const id = new URLSearchParams(window.location.search).get("id");
+    return (id || "").trim();
+  }
+  return "";
+}
+
+// The {viewingRecordId, sections} the backend reads to become page-aware.
+function buildPageContext() {
+  return {
+    viewingRecordId: currentViewingRecordId(),
+    sections: currentPageSections().map(s => ({ key: s.key, label: s.label })),
+  };
 }
 
 // ── Physical navigation ──
@@ -202,8 +263,8 @@ function toggle(forceState) {
       // score vocabulary. Numbers about a claim now come from the record lookup
       // in elmer-api and nowhere else, so a greeting has no business holding any.
       let greeting;
-      if (page === "record" || page === "example") {
-        greeting = "I'm Elmer. This page is one claim, checked against the studies that tested it. I can explain what the verdict means, what the Evidence Grade is telling you, or why those are two different things. What would you like to know?";
+      if (page === "record" || page === "claim" || page === "example") {
+        greeting = "I'm Elmer. This page is one claim, checked against the studies that tested it. I can explain what the verdict means, what the Evidence Grade is telling you, or point you to any part of the page. What would you like to know?";
       } else if (page === "try") {
         greeting = "I'm Elmer. Tell me the claim you want to check, or ask me anything about how DATOM works.";
       } else if (page === "product") {
@@ -345,8 +406,19 @@ function addBubble(text, who) {
   const bubble = document.createElement("div");
   bubble.className = who === "user" ? "elmer-bubble elmer-bubble-user" : "elmer-bubble";
 
-  // Strip [[NAV:...]] commands — navigation happens automatically, not via links
-  let html = text.replace(/\s*\[\[NAV:[^\]]*?\]\]\s*/gi, ' ').trim();
+  // Pull out any [[GO:key]] scroll command Elmer emitted. The key maps to a
+  // section of the page the reader is on; scrolling reveals nothing private (it
+  // is their own page), so there is no href to guard, only a whitelist check
+  // against the sections we actually offered this page. At most one scroll per
+  // reply. The token itself is stripped so the reader never sees it.
+  let scrollKey = null;
+  let html = text.replace(/\[\[GO:([a-z0-9_-]+)\]\]/gi, function (_m, k) {
+    if (!scrollKey) scrollKey = String(k).toLowerCase();
+    return ' ';
+  });
+
+  // Strip any legacy [[NAV:...]] commands; navigation happens via [[GO:...]] now
+  html = html.replace(/\s*\[\[NAV:[^\]]*?\]\]\s*/gi, ' ').trim();
 
   // Convert markdown page links [Text](page.html) to just the text — no links shown
   html = html.replace(/\[([^\]]+)\]\(((?:example|product|research|try|index)\.html[^)]*)\)/g, '$1');
@@ -361,6 +433,14 @@ function addBubble(text, who) {
 
   messages.appendChild(bubble);
   messages.scrollTop = messages.scrollHeight;
+
+  // Act on a scroll command, but only from Elmer (never a user echo) and only
+  // for a key on the current page. A tiny delay lets the bubble lay out first so
+  // the page scroll is not fighting the message-list scroll above.
+  if (scrollKey && who !== "user") {
+    const sec = currentPageSections().find(s => s.key === scrollKey);
+    if (sec) window.setTimeout(function () { scrollToSelector(sec.sel); }, 300);
+  }
   return bubble;
 }
 
@@ -402,7 +482,8 @@ async function handleSend(overrideText) {
       body: JSON.stringify({
         message: text,
         history: conversationHistory.slice(-6),
-        page: detectPage() // pass page context so AI knows where the visitor is
+        page: detectPage(), // pass page context so AI knows where the visitor is
+        pageContext: buildPageContext() // the record being read + parts to scroll to
       })
     });
 
