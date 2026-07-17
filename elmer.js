@@ -429,10 +429,14 @@ function addBubble(text, who) {
     .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" style="color:#06b6d4;text-decoration:underline;">$1</a>')
     .replace(/\n/g, "<br>");
 
-  bubble.innerHTML = html;
-
-  messages.appendChild(bubble);
-  messages.scrollTop = messages.scrollHeight;
+  // A reply that was nothing but a [[GO:...]] token strips to empty. Never render
+  // an empty bubble; the scroll below is the whole response in that case.
+  const hasVisibleText = html.replace(/<[^>]*>/g, "").trim().length > 0;
+  if (hasVisibleText) {
+    bubble.innerHTML = html;
+    messages.appendChild(bubble);
+    messages.scrollTop = messages.scrollHeight;
+  }
 
   // Act on a scroll command, but only from Elmer (never a user echo) and only
   // for a key on the current page. A tiny delay lets the bubble lay out first so
@@ -441,7 +445,7 @@ function addBubble(text, who) {
     const sec = currentPageSections().find(s => s.key === scrollKey);
     if (sec) window.setTimeout(function () { scrollToSelector(sec.sel); }, 300);
   }
-  return bubble;
+  return hasVisibleText ? bubble : null;
 }
 
 function showTyping() {
