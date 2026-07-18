@@ -70,14 +70,11 @@ function getCurrentPageFile() {
 // a page that renders without (say) the evidence graph never offers to scroll
 // to it. Selectors live here, keys go to the backend; the backend only ever
 // echoes a key, so on-page anchors can change without touching the prompt.
+// The reduced claim page (claim.html) has three parts a reader might jump to.
 const CLAIM_SECTIONS = [
-  { key: "verdict",  label: "the verdict and confidence summary",              sel: "#verdict" },
-  { key: "guide",    label: "how to read this record",                         sel: "#guide" },
-  { key: "graph",    label: "the evidence graph",                              sel: "#figure" },
-  { key: "claim",    label: "the exact claim being tested",                    sel: "#nucleus" },
-  { key: "evidence", label: "the evidence and its sources",                    sel: "#evidence" },
-  { key: "scoring",  label: "how the confidence score is built",               sel: "#confidence-scoring" },
-  { key: "summary",  label: "the summary and what it means for a decision",    sel: "#summary" },
+  { key: "verdict",  label: "the verdict and which way the studies point",     sel: "#verdict" },
+  { key: "what",     label: "what this claim checks",                          sel: "#claim-what" },
+  { key: "studies",  label: "the studies behind it",                           sel: "#studies" },
 ];
 const RECORD_SECTIONS = [
   { key: "verdict",  label: "the verdict and Evidence Grade",                  sel: "#rec-verdict" },
@@ -85,13 +82,25 @@ const RECORD_SECTIONS = [
   { key: "sources",  label: "the sources behind the record",                   sel: "#rec-sources" },
   { key: "details",  label: "the record details and where it came from",       sel: "#rec-details" },
 ];
+// example.html is the older, un-reduced showcase (it keeps the full section set),
+// so it needs its own anchors rather than the reduced claim list.
+const EXAMPLE_SECTIONS = [
+  { key: "top",      label: "the claim and its headline result",               sel: "#top" },
+  { key: "guide",    label: "how to read this record",                         sel: "#guide" },
+  { key: "graph",    label: "the evidence graph",                              sel: "#figure" },
+  { key: "claim",    label: "the exact claim being tested",                    sel: "#nucleus" },
+  { key: "evidence", label: "the evidence and its sources",                    sel: "#evidence" },
+  { key: "scoring",  label: "how the confidence score is built",               sel: "#confidence-scoring" },
+  { key: "summary",  label: "the summary and what it means for a decision",    sel: "#summary" },
+];
 
 // The parts of the current page Elmer can scroll to, filtered to what exists.
 function currentPageSections() {
   const page = detectPage();
   const candidates =
-    page === "record" ? RECORD_SECTIONS :
-    (page === "claim" || page === "example") ? CLAIM_SECTIONS :
+    page === "record"  ? RECORD_SECTIONS :
+    page === "claim"   ? CLAIM_SECTIONS :
+    page === "example" ? EXAMPLE_SECTIONS :
     [];
   return candidates.filter(s => document.querySelector(s.sel));
 }
@@ -249,6 +258,21 @@ function toggle(forceState) {
   if (isOpen) {
     dock.classList.add("hidden");
     panel.classList.add("open");
+    // On a record/claim page, and only when the window is wide enough to hold a
+    // column of content AND a rail beside it, Elmer reads as a right-rail of
+    // floating text rather than a boxed corner dock. --float carries the floating
+    // look (shared with full mode); --rail pins it to the right; body.elmer-rail-open
+    // lets the page reserve room so the rail sits BESIDE the content, not over it.
+    // Below the breakpoint the plain boxed dock is used (no classes added), which
+    // needs no reserved space. Deliberately NO backdrop and NO body scroll lock, so
+    // the reader keeps scrolling the record; elmerFullMode stays false, so a
+    // confident match never yanks a reader who is already on the claim page off it.
+    const railPage = detectPage();
+    const railCapable = railPage === "record" || railPage === "claim" || railPage === "example";
+    if (railCapable && window.innerWidth >= 1100) {
+      panel.classList.add("elmer-panel--rail", "elmer-panel--float");
+      document.body.classList.add("elmer-rail-open");
+    }
     if (!suggestionsShown) showSuggestions();
     if (conversationHistory.length === 0) {
       const page = detectPage();
@@ -264,7 +288,7 @@ function toggle(forceState) {
       // in elmer-api and nowhere else, so a greeting has no business holding any.
       let greeting;
       if (page === "record" || page === "claim" || page === "example") {
-        greeting = "I'm Elmer. This page is one claim, checked against the studies that tested it. I can explain what the verdict means, what the Evidence Grade is telling you, or point you to any part of the page. What would you like to know?";
+        greeting = "I'm Elmer. This page is one claim, checked against the studies that tested it. I can explain what the verdict means, how strong the evidence is, or point you to any part of the page. What would you like to know?";
       } else if (page === "try") {
         greeting = "I'm Elmer. Tell me the claim you want to check, or ask me anything about how DATOM works.";
       } else if (page === "product") {
@@ -302,7 +326,7 @@ function askElmerWithClaim(text) {
   elmerFullMode = true; // expand into full-page chat
   dock.classList.add("hidden");
   panel.classList.add("open");
-  panel.classList.add("elmer-panel--full");
+  panel.classList.add("elmer-panel--full", "elmer-panel--float");
   if (backdrop) backdrop.classList.add("show");
   document.body.classList.add("elmer-full-open"); // lock page scroll behind the chat
   suggestionsShown = true; // no generic prompts; they already asked something
@@ -313,14 +337,17 @@ function askElmerWithClaim(text) {
 // Exposed for the homepage answer box (index.html) and any other on-page entry.
 window.datomAskElmer = askElmerWithClaim;
 
-// Leave full-chat mode (on close). Idempotent; a no-op for the corner dock.
+// Leave the floating layouts (full-chat OR right-rail) on close. Idempotent.
+// Clears every floating class and the full-mode-only backdrop/scroll-lock, so
+// the panel returns to the plain boxed dock the next time it opens elsewhere.
 function exitFullMode() {
   elmerFullMode = false;
   const panel = document.getElementById("elmerPanel");
   const backdrop = document.getElementById("elmerBackdrop");
-  if (panel) panel.classList.remove("elmer-panel--full");
+  if (panel) panel.classList.remove("elmer-panel--full", "elmer-panel--rail", "elmer-panel--float");
   if (backdrop) backdrop.classList.remove("show");
   document.body.classList.remove("elmer-full-open");
+  document.body.classList.remove("elmer-rail-open");
 }
 
 // Only a bare same-site page is a valid navigation target: "record.html" or
@@ -591,8 +618,13 @@ document.addEventListener("DOMContentLoaded", () => {
   send.addEventListener("click", () => handleSend());
 
   document.addEventListener("mousedown", (e) => {
-    if (isOpen && !e.target.closest("#elmerPanel") && !e.target.closest("#elmerDock")) {
-      toggle(false);
-    }
+    if (!isOpen || e.target.closest("#elmerPanel") || e.target.closest("#elmerDock")) return;
+    // In right-rail mode the panel sits beside the record the reader is reading,
+    // so a click into the record body (selecting text, following a link) must NOT
+    // dismiss Elmer. The rail closes only via its own close button. The boxed dock
+    // and full-chat keep click-outside-to-close.
+    const panel = document.getElementById("elmerPanel");
+    if (panel && panel.classList.contains("elmer-panel--rail")) return;
+    toggle(false);
   });
 });

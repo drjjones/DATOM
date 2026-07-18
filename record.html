@@ -33,7 +33,7 @@
 </script>
 
 <link rel="stylesheet" href="global.css?v=5">
-<link rel="stylesheet" href="elmer.css?v=20260716d">
+<link rel="stylesheet" href="elmer.css?v=20260717b">
 <link rel="stylesheet" href="tokens.css?v=1">
 <link rel="stylesheet" href="design-v1.1.css?v=9">
 
@@ -44,7 +44,8 @@
   .rec-eyebrow { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin: 0 0 var(--s2); }
   .rec-domain { font-family: var(--font-data); font-size: 12px; color: var(--muted); margin: 0 0 var(--s4); }
   .rec-domain .k { color: var(--faint); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; }
-  .rec-domain .r5 { color: var(--faint); }
+  .rec-precise { font-family: var(--font-body); font-size: 13px; line-height: 1.55; color: var(--muted); margin: calc(-1 * var(--s2)) 0 var(--s3); max-width: 70ch; }
+  .rec-precise .k { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin-right: 8px; display: block; margin-bottom: 3px; }
 
   .rec-h { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin: var(--s5) 0 var(--s2); border-bottom: 1px solid var(--line); padding-bottom: 6px; }
 
@@ -87,11 +88,6 @@
   .split-cap { display: flex; justify-content: space-between; font-family: var(--font-data); font-size: 11px; margin-top: 4px; }
   .split-cap .sup { color: var(--signal); }
   .split-cap .con { color: var(--verdict-contra); }
-  .topo { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-bottom: none; margin-top: var(--s3); }
-  .topo .cell { border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); padding: var(--s3); }
-  .topo .cell:nth-child(3n) { border-right: none; }
-  .topo .n { font-family: var(--font-data); font-size: 22px; color: var(--ink); font-variant-numeric: tabular-nums; display: block; }
-  .topo .l { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
   .mix-bar { display: flex; height: 14px; gap: 2px; margin: 6px 0; }
   .mix-bar span { display: block; }
   .mix-bar .s1 { background: var(--ink); }
@@ -120,6 +116,11 @@
   .bib .dir.contradicts { color: var(--verdict-contra); border-color: var(--verdict-contra); }
   .bib .dir.split { color: var(--verdict-mixed); border-color: var(--verdict-mixed); }
   .bib li.load { background: var(--paper-2); padding-left: 10px; padding-right: 10px; }
+  .bib-more { margin: 0 0 var(--s2); }
+  .bib-more > summary { cursor: pointer; font-family: var(--font-data); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--signal); padding: 10px 0; list-style: none; }
+  .bib-more > summary::-webkit-details-marker { display: none; }
+  .bib-more[open] > summary { color: var(--muted); }
+  .bib-more .bib { margin-top: 0; }
 
   /* account gate */
   .gate { border: 1px dashed var(--line-2); padding: var(--s3) var(--s4); margin: var(--s3) 0; font-size: 13px; color: var(--faint); line-height: 1.6; }
@@ -137,13 +138,14 @@
 
   .rec-actions { display: flex; gap: 12px; margin: var(--s4) 0; flex-wrap: wrap; }
 
+  .medical-note { border: 1px solid var(--line); border-left: 4px solid var(--verdict-mixed); background: var(--nest); padding: 14px 16px; font-size: 13px; line-height: 1.6; color: var(--ink); margin: var(--s4) 0; }
+  .medical-note strong { color: var(--verdict-mixed); }
+
   .catdef { font-family: var(--font-display); font-size: 16px; color: var(--muted); line-height: 1.6; margin: var(--s5) 0 var(--s3); }
   .answerbox { display: flex; gap: 0; margin: var(--s3) 0; }
   .answerbox input { flex: 1; font-family: var(--font-body); font-size: 15px; padding: 12px 14px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); }
   .answerbox input:focus-visible { outline: 2px solid var(--focus); outline-offset: -1px; }
   .answerbox button { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 12px 20px; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); cursor: pointer; }
-
-  @media (max-width: 560px) { .topo { grid-template-columns: repeat(2, 1fr); } .topo .cell:nth-child(3n) { border-right: 1px solid var(--line); } .topo .cell:nth-child(2n) { border-right: none; } }
 </style>
 </head>
 
@@ -167,8 +169,9 @@
   <section class="reveal rec">
 
     <p class="rec-eyebrow">DATOM Record &middot; DTM-2026-0703-2E</p>
-    <h1 class="rec-claim">GLP-1 receptor agonist therapy at clinically approved doses preserves skeletal muscle mass during weight loss in overweight and obese adults, as measured by lean body mass or appendicular skeletal muscle mass over a treatment period of 12 to 68 weeks.</h1>
-    <p class="rec-domain"><span class="k">Domain</span>clinical medicine <span class="r5">&middot; classification is public and auditable</span></p>
+    <h1 class="rec-claim">Do GLP-1 weight-loss drugs protect your muscle while you lose weight?</h1>
+    <p class="rec-precise"><span class="k">Exact claim checked</span> GLP-1 receptor agonist therapy at clinically approved doses preserves skeletal muscle mass during weight loss in overweight and obese adults, as measured by lean body mass or appendicular skeletal muscle mass over a treatment period of 12 to 68 weeks.</p>
+    <p class="rec-domain"><span class="k">Domain</span>clinical medicine</p>
 
     <div class="stamp" id="rec-verdict">
       <span class="stamp-label">Verdict</span>
@@ -179,7 +182,7 @@
           <div class="spectrum-zone z-cont">Contested</div>
           <div class="spectrum-zone z-sup">Supported</div>
         </div>
-        <div class="spectrum-cap"><span>0% agree</span><span class="now" style="color:var(--verdict-contra);">25% of the studies that directly tested it agree &middot; Unsupported</span><span>100%</span></div>
+        <div class="spectrum-cap"><span>0% agree</span><span class="now" style="color:var(--verdict-contra);">25% agree &middot; Unsupported</span><span>100%</span></div>
       </div>
       <!-- The verdict word is read first and read alone. Without this line an
            ordinary reader takes "Unsupported" to mean "debunked", which is a far
@@ -189,20 +192,20 @@
       <div class="grades">
         <div class="grade-block">
           <p class="grade-label">Evidence Grade</p>
-          <div class="grade-scale"><span class="grade-cell">A</span><span class="grade-cell">B</span><span class="grade-cell">C</span><span class="grade-cell on">D</span><span class="grade-cell">F</span></div>
-          <p class="grade-caption">Limited evidence base</p>
+          <div class="grade-scale" role="img" aria-label="Evidence grade D, on a scale from A (strongest) to F (weakest)."><span class="grade-cell">A</span><span class="grade-cell">B</span><span class="grade-cell">C</span><span class="grade-cell on">D</span><span class="grade-cell">F</span></div>
+          <p class="grade-caption">Grade D &middot; limited evidence base</p>
         </div>
       </div>
-      <p class="rec-basis">Of the studies that directly tested the claim, 25% support it (25 support, 77 against), which is why the verdict is Unsupported: the evidence runs against muscle preservation.</p>
     </div>
 
+    <p class="medical-note"><strong>Is this medical advice?</strong> No. This looks at whether current evidence supports one specific claim. It does not cover safety, dosing, or side effects, and it is not a recommendation to use or avoid any medication. Talk to a doctor before making a decision about your health.</p>
+
     <div class="prov" id="rec-details">
-      <div class="prov-row"><span class="k">Record</span><span>Append-only. Entries can be added to, never rewritten.</span></div>
-      <div class="prov-row"><span class="k">Anchor</span><span>datomer 8b066a01-a749-4be6-af08-313116c446a4</span></div>
+      <div class="prov-row"><span class="k">Record</span><span>Never quietly rewritten. New evidence is added, and the change stays visible.</span></div>
       <div class="prov-row"><span class="k">Disclosure</span><span>Not commissioned or sponsored.</span></div>
     </div>
 
-    <p class="rec-h" id="rec-evidence">What the evidence looks like</p>
+    <h2 class="rec-h" id="rec-evidence">What the evidence looks like</h2>
     <!-- One basis only, and it is the verdict's basis: the studies that DIRECTLY
          tested the claim (25 support, 77 against, 25%). The page used to also
          show an all-decisive 47/92/34% bar right here, a different population,
@@ -210,42 +213,42 @@
          each finding sits (direct vs background, decisive vs conditional) is the
          detailed breakdown that belongs in the full Confidence Report, not on the
          public record. Every "25%" on this page now refers to the same thing. -->
-    <p class="split-intro">Of the studies that directly tested this claim:</p>
+    <p class="split-intro">Of the 102 studies that directly tested this claim:</p>
     <div class="split">
       <div class="split-bar"><span class="sup" style="width:25%"></span><span class="con" style="width:75%"></span></div>
       <div class="split-cap"><span class="sup">25 support</span><span class="con">77 against</span></div>
     </div>
-    <div class="topo">
-      <div class="cell"><span class="n">102</span><span class="l">Sources evaluated</span></div>
-      <div class="cell"><span class="n">224</span><span class="l">Findings examined</span></div>
-      <div class="cell"><span class="n">25%</span><span class="l">Agree with the claim</span></div>
-    </div>
 
 
-    <p class="rec-h" id="rec-sources">Bibliography &middot; showing 14 of 102 sources, public</p>
+    <h2 class="rec-h" id="rec-sources">The sources &middot; 14 of 102 shown here, the three that weigh most first</h2>
     <ul class="bib">
       <li class="load"><span class="dir contradicts">Contradicts</span><span class="t">Opportunities to optimize lifestyle interventions in combination with glucagon-like peptide-1-based therapy..</span> Satya Dash, 2024, n/a. <a href="https://doi.org/10.1111/dom.15829" rel="nofollow noopener">doi.org/10.1111/dom.15829</a></li>
       <li class="load"><span class="dir contradicts">Contradicts</span><span class="t">Bimagrumab plus semaglutide alone or in combination for the treatment of obesity: a randomized phase 2 trial.</span> S. Heymsfield et al., 2026, n/a. <a href="https://doi.org/10.1038/s41591-026-04204-0" rel="nofollow noopener">doi.org/10.1038/s41591-026-04204-0</a></li>
       <li class="load"><span class="dir contradicts">Contradicts</span><span class="t">Dionysus or apollo, skeletal muscle mass changes in type 2 diabetes with sarcopenia receiving GLP-1 receptor agonist: systematic review and meta-analysis.</span> Yanying Wang et al., 2025, n/a. <a href="https://doi.org/10.1186/s13098-025-01877-4" rel="nofollow noopener">doi.org/10.1186/s13098-025-01877-4</a></li>
+    </ul>
+    <details class="bib-more">
+      <summary>Show the other 11</summary>
+      <ul class="bib">
       <li><span class="dir contradicts">Contradicts</span><span class="t">The impact of weight loss on fat-free mass, muscle, bone and hematopoiesis health: Implications for emerging pharmacotherapies aiming at fat reduction and lean mass preservation..</span> Konstantinos Stefanakis et al., 2024, n/a. <a href="https://doi.org/10.1016/j.metabol.2024.156057" rel="nofollow noopener">doi.org/10.1016/j.metabol.2024.156057</a></li>
       <li><span class="dir contradicts">Contradicts</span><span class="t">Oral Nutritional Supplements and Body Composition Outcomes Among GLP-1 Receptor Agonist Users: Real-World Evidence..</span> Kurt Hong et al., 2026, n/a. <a href="https://doi.org/10.2147/DMSO.S574765" rel="nofollow noopener">doi.org/10.2147/DMSO.S574765</a></li>
       <li><span class="dir contradicts">Contradicts</span><span class="t">Weighing the risk of GLP-1 treatment in older adults: Should we be concerned about sarcopenic obesity?.</span> Konstantinos Prokopidis et al., 2025, n/a. <a href="https://doi.org/10.1016/j.jnha.2025.100652" rel="nofollow noopener">doi.org/10.1016/j.jnha.2025.100652</a></li>
       <li><span class="dir split">Conditional</span><span class="t">Advantage of Semaglutide: Comprehensive Analysis of Metabolic Impact of Semaglutide‐Treated and Pair‐Fed Rats.</span> Suyeun Byun et al., 2025, n/a. <a href="https://doi.org/10.1002/cph4.70083" rel="nofollow noopener">doi.org/10.1002/cph4.70083</a></li>
-      <li><span class="dir split">Conditional</span><span class="t">Effects of liraglutide treatment for 35-days on total and regional fat free, lean, and bone mass, and on the Myostatin-Activin-Follistatin-IGF-1 axes: a secondary analysis of a randomized placebo-controlled crossover study..</span> Valeria Gutierrez de Pi&amp;#xf1;eres et al., 2026, n/a. <a href="https://doi.org/10.1016/j.diabres.2026.113113" rel="nofollow noopener">doi.org/10.1016/j.diabres.2026.113113</a></li>
+      <li><span class="dir split">Conditional</span><span class="t">Effects of liraglutide treatment for 35-days on total and regional fat free, lean, and bone mass, and on the Myostatin-Activin-Follistatin-IGF-1 axes: a secondary analysis of a randomized placebo-controlled crossover study..</span> Valeria Gutierrez de Pi&#xf1;eres et al., 2026, n/a. <a href="https://doi.org/10.1016/j.diabres.2026.113113" rel="nofollow noopener">doi.org/10.1016/j.diabres.2026.113113</a></li>
       <li><span class="dir split">Conditional</span><span class="t">Preserving the Metabolic Engine: Muscle as the Therapeutic Target for Cardiovascular Prevention in Obesity Pharmacotherapy..</span> Fabian Sanchis-Gomar et al., 2025, n/a. <a href="https://doi.org/10.1007/s11886-025-02334-4" rel="nofollow noopener">doi.org/10.1007/s11886-025-02334-4</a></li>
       <li><span class="dir split">Conditional</span><span class="t">Moving beyond the scale: musculoskeletal risks, evidence gaps and emerging combination strategies to optimize the quality of weight loss pharmacotherapy in older adults.</span> Kieran F. Reid et al., 2025, n/a. <a href="https://doi.org/10.3389/fragi.2025.1640030" rel="nofollow noopener">doi.org/10.3389/fragi.2025.1640030</a></li>
       <li><span class="dir supports">Supports</span><span class="t">SEMAGLUTIDE AND BODY COMPOSITION: A NARRATIVE REVIEW OF ITS EFFECTS ON LEAN MASS AND STRATEGIES FOR PRESERVATION.</span> Anna Tomasiewicz et al., 2025, n/a. <a href="https://doi.org/10.31435/ijitss.3(47).2025.4067" rel="nofollow noopener">doi.org/10.31435/ijitss.3(47).2025.4067</a></li>
       <li><span class="dir supports">Supports</span><span class="t">The Influence of Glucagon-like Peptide-1 Receptor Agonists and Other Incretin Hormone Agonists on Body Composition..</span> Lampros Chrysavgis et al., 2025, n/a. <a href="https://doi.org/10.3390/ijms262412130" rel="nofollow noopener">doi.org/10.3390/ijms262412130</a></li>
       <li><span class="dir supports">Supports</span><span class="t">Weight regain and cardiometabolic effects after withdrawal of semaglutide: The STEP 1 trial extension.</span> J. Wilding et al., 2022, n/a. <a href="https://doi.org/10.1111/dom.14725" rel="nofollow noopener">doi.org/10.1111/dom.14725</a></li>
       <li><span class="dir supports">Supports</span><span class="t">Muscle health in the modern era of incretin-based therapies..</span> Giuseppe De Girolamo et al., 2026, n/a. <a href="https://doi.org/10.1111/eci.70155" rel="nofollow noopener">doi.org/10.1111/eci.70155</a></li>
-    </ul>
-    <p class="rec-basis">Every source carries a real, resolvable DOI. The three highlighted sources are load-bearing; the live record lists all 102.</p>
+      </ul>
+    </details>
+    <p class="rec-basis">Every source links to the original study. The three highlighted weigh most; the full record lists all 102.</p>
 
     <div class="gate">
-      <strong>Explore every source.</strong> A free account opens the interactive evidence tree: per-source direction tags across all 102 sources, each source's study type, sample scale, and replication status, and the navigation from each source up to the aggregate numbers above. The sources themselves are all public; the account adds the structure that connects them. <a href="/app/signup" class="action">Open a free account &rarr;</a>
+      <strong>See all 102 sources, free.</strong> A free account shows every source and which way each one points. The sources are all public; the account just lays them out for you. <a href="/app/signup" class="action">Open a free account &rarr;</a>
     </div>
 
-    <p class="freshness"><span class="dot">&bull;</span> Monitored. The verdict and grades re-score as new studies matching this claim are indexed. &middot; <a href="product.html" class="action">How DATOM checks a claim</a></p>
+    <p class="freshness"><span class="dot">&bull;</span> Watched. The verdict and grade update as new studies on this claim are found. &middot; <a href="product.html" class="action">How DATOM checks a claim</a></p>
 
     <div class="rec-actions">
       <a href="/app/login" class="btn">Follow this claim</a>
@@ -265,6 +268,6 @@
 
 <script src="fog-bg.js?v=2"></script>
 <script src="shared.js?v=20260710"></script>
-<script src="elmer.js?v=20260717a"></script>
+<script src="elmer.js?v=20260717b"></script>
 </body>
 </html>

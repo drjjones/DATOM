@@ -117,28 +117,108 @@ body.elmer-full-open { overflow: hidden; }
   -webkit-backdrop-filter: none;
 }
 
+/* ── Right-rail mode (a claim page) ──
+   On a record/claim page the conversation should read as text floating over the
+   page on the RIGHT, beside the record, not as a boxed corner dock. It reuses
+   the whole floating-text recipe above via the shared .elmer-panel--float class
+   (transparent, plain glowing replies, glass input pill); this rule only sets
+   the geometry: a right-pinned column, no card. Crucially it does NOT lock body
+   scroll and does NOT raise the full-screen frosted backdrop, so the reader can
+   still read and scroll the record it sits beside. Legibility over the live
+   (unfrosted) page rides on the same white text-glow the full mode uses, lifted
+   a touch by a soft right-edge scrim behind the column. */
+.elmer-panel.elmer-panel--rail {
+  top: 92px;
+  bottom: 24px;
+  left: auto;
+  right: 24px;
+  margin: 0;
+  width: min(360px, 34vw);
+  height: auto;
+  transform-origin: bottom right;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  overflow: visible; /* let the soft scrim ::before feather past the column edges */
+}
+/* A faint scrim only behind the rail column, so floating type stays legible over
+   whatever part of the record sits behind it, without a hard box or a full-page
+   frost. Fades to nothing on the left so it never reads as a panel edge. */
+.elmer-panel.elmer-panel--rail::before {
+  content: "";
+  position: absolute;
+  inset: -24px -24px -24px -8px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to left, rgba(238, 242, 246, 0.82) 55%, rgba(238, 242, 246, 0) 100%);
+  -webkit-mask-image: linear-gradient(to left, #000 60%, transparent 100%);
+  mask-image: linear-gradient(to left, #000 60%, transparent 100%);
+}
+/* Stronger glow than full mode: rail text floats over live content, not a frost.
+   Uses the double-class form so it beats the later, equal-specificity
+   .elmer-panel--float .elmer-bubble rule (both classes are on the panel). */
+.elmer-panel.elmer-panel--rail .elmer-bubble {
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.95), 0 0 3px rgba(255, 255, 255, 0.95);
+}
+/* Keep the rail's internal scroll working: the messages column scrolls, the page
+   behind it stays free to scroll on its own. */
+.elmer-panel.elmer-panel--rail .elmer-messages { padding: 8px 2px; }
+
+/* Reserve room on the right for the rail so it sits BESIDE the content, over the
+   empty page background, instead of floating over the record itself. Only at the
+   width the rail is used at (>=1100px, matching the JS gate); the transition makes
+   the content glide aside when Elmer opens rather than jump. */
+@media (min-width: 1100px) {
+  main { transition: padding-right 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+  body.elmer-rail-open main { padding-right: min(420px, 40vw); }
+}
+
+/* On a phone there is no room for a floating rail beside the record, so it
+   collapses to a frosted bottom sheet: still the same plain floating replies,
+   but on a legible surface instead of over live content. */
+@media (max-width: 768px) {
+  .elmer-panel.elmer-panel--rail {
+    top: auto;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    height: 62vh;
+    max-height: 62vh;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--ink);
+  }
+  .elmer-panel.elmer-panel--rail::before { display: none; }
+  .elmer-panel.elmer-panel--rail .elmer-bubble { text-shadow: none; }
+}
+
 /* Header: a floating label and close, no bar. */
-.elmer-panel--full .elmer-header {
+.elmer-panel--float .elmer-header {
   border-bottom: none;
   background: transparent;
   padding: 18px 4px 6px;
 }
-.elmer-panel--full .elmer-close {
+.elmer-panel--float .elmer-close {
   border-color: transparent;
   background: transparent;
   font-size: 20px;
 }
-.elmer-panel--full .elmer-close:hover { color: var(--ink); background: transparent; }
+.elmer-panel--float .elmer-close:hover { color: var(--ink); background: transparent; }
 
 /* Messages: a roomy centered column with generous air. */
-.elmer-panel--full .elmer-messages {
+.elmer-panel--float .elmer-messages {
   padding: 8px 4px 8px;
   gap: 18px;
 }
 
 /* Elmer's replies float as plain text, no bubble, matching the dashboard
    centered chat. The white glow lifts the ink off the fog behind it. */
-.elmer-panel--full .elmer-bubble {
+.elmer-panel--float .elmer-bubble {
   max-width: 100%;
   border: none;
   background: transparent;
@@ -150,7 +230,7 @@ body.elmer-full-open { overflow: hidden; }
 }
 /* The visitor's own words stay a small solid bubble so it is clear who spoke,
    but it still floats: no surrounding panel around it. */
-.elmer-panel--full .elmer-bubble-user {
+.elmer-panel--float .elmer-bubble-user {
   max-width: 82%;
   padding: 11px 16px;
   border: none;
@@ -160,27 +240,27 @@ body.elmer-full-open { overflow: hidden; }
   text-shadow: none;
   box-shadow: 0 6px 22px rgba(19, 37, 58, 0.18);
 }
-.elmer-panel--full .elmer-typing { padding: 6px 0; }
+.elmer-panel--float .elmer-typing { padding: 6px 0; }
 
 /* In full-chat the suggestion card floats as a light glass chip so it reads as a
    clickable object over the frosted page, not a bordered box. */
-.elmer-panel--full .elmer-record-cta {
+.elmer-panel--float .elmer-record-cta {
   background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 8px 26px rgba(19, 37, 58, 0.12);
   padding: 13px 16px;
 }
-.elmer-panel--full .elmer-record-cta-q { font-size: 14px; }
+.elmer-panel--float .elmer-record-cta-q { font-size: 14px; }
 
 /* Input: a single floating glass pill at the bottom, no top rule. */
-.elmer-panel--full .elmer-input-bar {
+.elmer-panel--float .elmer-input-bar {
   border-top: none;
   padding: 10px 0 22px;
   align-items: center;
   gap: 10px;
 }
-.elmer-panel--full .elmer-textarea {
+.elmer-panel--float .elmer-textarea {
   border: 1px solid rgba(15, 23, 42, 0.12);
   border-radius: 26px;
   background: rgba(255, 255, 255, 0.78);
@@ -190,8 +270,8 @@ body.elmer-full-open { overflow: hidden; }
   padding: 13px 18px;
   font-size: 15px;
 }
-.elmer-panel--full .elmer-textarea:focus { outline: none; border-color: var(--signal); }
-.elmer-panel--full .elmer-send {
+.elmer-panel--float .elmer-textarea:focus { outline: none; border-color: var(--signal); }
+.elmer-panel--float .elmer-send {
   width: 42px;
   height: 42px;
   border-radius: 50%;
@@ -203,7 +283,7 @@ body.elmer-full-open { overflow: hidden; }
     width: calc(100vw - 32px);
     max-height: none;
   }
-  .elmer-panel--full .elmer-bubble { font-size: 15px; }
+  .elmer-panel--float .elmer-bubble { font-size: 15px; }
 }
 
 /* ── Header ── */
