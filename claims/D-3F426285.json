@@ -3,7 +3,7 @@
   "datomerId": "fbd5f1b0-fb71-4278-ba10-84927256e377",
   "name": "Smallholder Farm Productivity Determines Household Food Security",
   "anchorClaim": "Increases in crop productivity among smallholder farming households in sub-Saharan Africa and South Asia are associated with measurable improvements in household food security and dietary diversity, as measured in peer-reviewed agricultural economics studies.",
-  "plainQuestion": "If a smallholder farming household becomes more productive or diversifies what it grows, does that actually translate into a better, more varied diet and less hunger for the family?",
+  "plainQuestion": "When a smallholder farming household becomes more productive or diversifies what it grows, it translates into a better, more varied diet and less hunger for the family.",
   "confidence_score_pct": 29,
   "confidence_band": "Preliminary",
   "confidenceSummary": "This 29% score is Preliminary because the 175 sources use 78 different research methods that rarely repeat each other, and more than half were published in just the last two years, too new to have been independently confirmed.",
@@ -13,7 +13,10 @@
   "verdict": "Supported",
   "grade": "D",
   "gradeLabel": "Limited evidence base",
-  "decisive": { "supports": 93, "contradicts": 4 },
+  "decisive": {
+    "supports": 93,
+    "contradicts": 4
+  },
   "totalDatomCount": 175,
   "isHealthDomain": false,
   "dataQualityNote": "This claim's commissioning job (LiteratureReviewJobs) recorded status TIMED_OUT, but the Datomer record and its full list of 175 datom_ids were still written successfully. All 175 datom records were retrieved directly via BatchGetItem on their primary keys (datom_id) using the Datomer's authoritative datom_ids list, and all 175 have complete required fields (claim, source_title, relationship) with no malformed or partial records skipped. One real data-quality artifact of the TIMED_OUT job: the datomerId-createdAt-index GSI query for this datomerId returns zero results, because each individual datom record's own denormalized datomerId attribute still points to whatever earlier Datomer/job first extracted it (a side effect of this system's theme-matched reuse of existing datoms into new claims), rather than to fbd5f1b0-fb71-4278-ba10-84927256e377; the datom_ids list on the Datomer record is the authoritative and correctly-scoped source used here. Minor completeness gaps: 1 of 175 datoms is missing a resolvable publication year (source_year null, fallback year field held junk value \"0\") and 1 is missing an evidence_type tag; both were left honestly blank rather than inferred. The relationship counts (99 supports, 72 conditional, 4 contradicts) exactly match the Datomer record's own confidence_breakdown component counts (supportsCount 99, conditionalCount 72, contradictsCount 4), corroborating the fetch.",

@@ -1,7 +1,7 @@
 [
   {
     "entryId": "D-E5E9B06E",
-    "plainQuestion": "Does CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) work efficiently and reproducibly across many different organisms, not just one well-studied species?",
+    "plainQuestion": "CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) works efficiently and reproducibly across many different organisms, not just one well-studied species.",
     "href": "claim.html?id=D-E5E9B06E",
     "verdict": "Supported",
     "grade": "D",
@@ -17,7 +17,7 @@
   },
   {
     "entryId": "D-3F426285",
-    "plainQuestion": "If a smallholder farming household becomes more productive or diversifies what it grows, does that actually translate into a better, more varied diet and less hunger for the family?",
+    "plainQuestion": "When a smallholder farming household becomes more productive or diversifies what it grows, it translates into a better, more varied diet and less hunger for the family.",
     "href": "claim.html?id=D-3F426285",
     "verdict": "Supported",
     "grade": "D",
@@ -33,7 +33,7 @@
   },
   {
     "entryId": "D-EC72DA5D",
-    "plainQuestion": "Do brain scans (MRI/fMRI) show measurable structural or functional differences in people with eating disorders compared to people without them?",
+    "plainQuestion": "Brain scans (MRI/fMRI) show measurable structural or functional differences in people with eating disorders compared to people without them.",
     "href": "claim.html?id=D-EC72DA5D",
     "verdict": "Supported",
     "grade": "D",
@@ -49,7 +49,7 @@
   },
   {
     "entryId": "D-EE363BAC",
-    "plainQuestion": "Does having had a prior COVID-19 infection, on top of being vaccinated, give you extra protection against reinfection or severe disease compared to vaccination alone?",
+    "plainQuestion": "Having had a prior COVID-19 infection, on top of being vaccinated, gives extra protection against reinfection or severe disease compared to vaccination alone.",
     "href": "claim.html?id=D-EE363BAC",
     "verdict": "Supported",
     "grade": "D",
@@ -65,7 +65,7 @@
   },
   {
     "entryId": "D-ECB9E015",
-    "plainQuestion": "Does HPV vaccination coverage among university-age and catch-up-eligible populations fall short of public-health targets, and how much does it vary from one region to another?",
+    "plainQuestion": "HPV vaccination coverage among university-age and catch-up-eligible populations falls short of public-health targets, and varies widely from one region to another.",
     "href": "claim.html?id=D-ECB9E015",
     "verdict": "Supported",
     "grade": "F",
@@ -81,7 +81,7 @@
   },
   {
     "entryId": "D-5CE0BCD1",
-    "plainQuestion": "Does heating produce to a safe cooking temperature kill Cyclospora, a parasite that causes serious diarrheal illness, better than washing it does?",
+    "plainQuestion": "Heating produce to a safe cooking temperature kills Cyclospora, a parasite that causes serious diarrheal illness, better than washing does.",
     "href": "claim.html?id=D-5CE0BCD1",
     "verdict": "Supported",
     "grade": "F",
@@ -97,7 +97,7 @@
   },
   {
     "entryId": "D-540A117F",
-    "plainQuestion": "Does cutting international vaccine funding cause vaccination coverage rates to drop in low-income countries?",
+    "plainQuestion": "Cutting international vaccine funding causes vaccination coverage rates to drop in low-income countries.",
     "href": "claim.html?id=D-540A117F",
     "verdict": "Insufficient record",
     "grade": "F",
@@ -113,7 +113,7 @@
   },
   {
     "entryId": "DTM-2026-0703-2E",
-    "plainQuestion": "Does GLP-1 receptor agonist therapy reduce skeletal muscle mass during weight loss?",
+    "plainQuestion": "GLP-1 receptor agonist therapy reduces skeletal muscle mass during weight loss.",
     "href": "record.html",
     "verdict": "Supported",
     "grade": "D",

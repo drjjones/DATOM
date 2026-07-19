@@ -3,7 +3,7 @@
   "datomerId": "623b4035-5714-4280-8c2e-d8d9d9ba8447",
   "name": "CRISPR Systems Enable Efficient Genome Editing Across Diverse Organisms",
   "anchorClaim": "CRISPR-based nuclease systems (Cas9 and related tools such as TALENs and TnpB) enable efficient, reproducible genome editing across bacterial, fungal, and parasitic organisms, with documented editing efficiency and off-target rates reported in the primary literature.",
-  "plainQuestion": "Does CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) work efficiently and reproducibly across many different organisms, not just one well-studied species?",
+  "plainQuestion": "CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) works efficiently and reproducibly across many different organisms, not just one well-studied species.",
   "confidence_score_pct": 35,
   "confidence_band": "Preliminary",
   "confidenceSummary": "This 35% score is Preliminary because sample size goes unreported for nearly half of the 233 sources, and 208 different research methods were used across them, so the strong 92.7% support figure has not yet been independently repeated under comparable conditions.",
@@ -13,7 +13,10 @@
   "verdict": "Supported",
   "grade": "D",
   "gradeLabel": "Limited evidence base",
-  "decisive": { "supports": 41, "contradicts": 2 },
+  "decisive": {
+    "supports": 41,
+    "contradicts": 2
+  },
   "totalDatomCount": 233,
   "guide": {
     "whatScienceSays": "We pulled together 233 real pieces of evidence for this claim. Of those, 216 (92.7%) support the idea that CRISPR gene editing works efficiently and reliably across many different kinds of organisms, including bacteria, fungi, and parasites. Another 15 (6.4%) are mixed or depend on specific conditions, and just 2 (0.9%) disagree with the claim outright.\n\nThis isn't just a number, real studies back it up. One study edited E. coli bacteria with up to 100% success at cutting out or inserting genes. Another precisely removed a 3-kilobase (about 3,000-letter) chunk of DNA from the parasite that causes leishmaniasis. Fungi like Trichoderma reesei and Penicillium chrysogenum were also successfully edited, using two different delivery methods.\n\nThe pattern holds in human cells too. In one study, a fat-based delivery system carrying the CRISPR Cas9 tool switched off a marker gene in 78.7% of human kidney cells, and cut a cancer-related gene's activity by 90.8% in breast cancer cells, well ahead of the 51.1% managed by a standard commercial delivery method used for comparison.\n\nPut together, this evidence crosses bacteria, fungi, parasites, plants, and human cells, and it all points the same way: CRISPR editing works, and works well, across very different kinds of life.",
