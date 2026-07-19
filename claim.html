@@ -7,7 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
   <link rel="icon" type="image/png" href="./Assets/favicon.png">
   <link rel="stylesheet" href="global.css?v=5">
-  <link rel="stylesheet" href="elmer.css?v=20260717b">
+  <link rel="stylesheet" href="elmer.css?v=20260719a">
   <link rel="stylesheet" href="tokens.css?v=1">
   <link rel="stylesheet" href="design-v1.1.css?v=9">
   <style>
@@ -46,6 +46,13 @@
     }
     .verdict-summary{ margin: 12px 0 0; font-size: 15px; line-height: 1.6; color: var(--ink); }
 
+    /* Plain-language summary: a short paragraph a general reader can understand,
+       shown right under the question, before the verdict machinery. Reuses the
+       existing whatScienceSays lede already stored in the record JSON. That prose
+       is framed on real evidence counts only (no bare confidence score, no
+       retired band words), so it is safe on a public surface as-is. */
+    .claim-lay-summary{ font-size: 17px; line-height: 1.66; color: var(--ink); margin: 18px 0 0; max-width: 72ch; }
+
     /* Supports vs against bar (spare structural viz, reused idiom). */
     .evidence-split{ margin: 18px 0 2px; }
     .split-bar{ display:flex; height: 16px; border: 1px solid var(--ink); background: var(--paper); }
@@ -59,8 +66,21 @@
     .split-dot{ width: 8px; height: 8px; flex-shrink: 0; }
     .split-dot.support{ background: var(--signal); }
     .split-dot.contra{ background: var(--verdict-contra); }
-    .split-dot.mixed{ background: var(--verdict-mixed); }
     .split-caption{ margin: 10px 2px 0; font-size: 12px; color: var(--muted); line-height: 1.45; }
+    .split-intro{ margin: 0 0 10px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* Evidence grade: the SAME A-F scale idiom the record page uses, so the two
+       public surfaces show the quality axis identically. The verdict word says
+       which way the evidence points; the grade says how strong that evidence is.
+       Both are needed: a "Supported" verdict on a Limited (D) base is honest only
+       when the reader can see the D. */
+    .grade-block{ margin-top: 18px; }
+    .grade-label{ font-family: var(--font-data); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+    .grade-scale{ display: flex; }
+    .grade-cell{ width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-size: 14px; color: var(--line-2); border: 1px solid var(--line); border-right: none; }
+    .grade-cell:last-child{ border-right: 1px solid var(--line); }
+    .grade-cell.on{ background: var(--ink); color: var(--paper); border-color: var(--ink); font-weight: 700; }
+    .grade-caption{ font-family: var(--font-data); font-size: 11px; color: var(--muted); margin: 6px 0 0; }
 
     /* Section heading, shared look with the record page. */
     .rec-h{
@@ -120,7 +140,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
   </button>
   <nav>
-    <a href="example.html">Live Example</a>
+    <a href="record.html">Example</a>
     <a href="pricing.html">Pricing</a>
     <a href="organizations.html">For Organizations</a>
     <a href="/app/login" class="btn-login">Log In / Sign Up</a>
@@ -144,6 +164,8 @@
       </div>
     </section>
 
+    <p class="claim-lay-summary" id="claim-lay-summary"></p>
+
     <p class="medical-note" id="claim-medical-note" style="display:none;">
       <strong>Is this medical advice?</strong> No. This looks at whether current evidence supports one specific claim. It does not cover safety, dosing, or side effects, and it is not a recommendation to use or avoid anything. Talk to a doctor before making a decision about your health.
     </p>
@@ -153,6 +175,11 @@
       <h2 class="rec-h" style="margin-bottom:10px;">Verdict</h2>
       <span class="verdict-label" id="claim-verdict-label"></span>
       <p class="verdict-summary" id="claim-summary-text"></p>
+      <div class="grade-block" id="claim-grade" style="display:none;">
+        <p class="grade-label">Evidence Grade</p>
+        <div class="grade-scale" id="claim-grade-scale" role="img"></div>
+        <p class="grade-caption" id="claim-grade-caption"></p>
+      </div>
       <div class="evidence-split" id="claim-evidence-split" role="img"></div>
     </section>
 
@@ -172,6 +199,10 @@
       <div id="claim-evidence-grid"></div>
     </section>
 
+    <!-- Related-claims strip (3.9): neighbouring records, from records-index.json
+         via related.js (reads the ?id= of the current claim). -->
+    <div id="related-records"></div>
+
     <section style="text-align:center; margin-top:52px;">
       <p class="sub" style="margin:0 auto 18px;">This is one of several real claims checked on DATOM's public record.</p>
       <a href="index.html" class="btn sec">Back to the homepage &rarr;</a>
@@ -182,8 +213,9 @@
 <footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &middot; <a href="terms.html">Terms</a></footer>
 
 <script src="fog-bg.js?v=2"></script>
-<script src="shared.js?v=20260710"></script>
-<script src="elmer.js?v=20260717b"></script>
+<script src="shared.js?v=20260719a"></script>
+<script src="elmer.js?v=20260719a"></script>
+<script src="related.js?v=20260719a"></script>
 <script>
 (function () {
   'use strict';
@@ -199,7 +231,7 @@
     var t = (rel || '').toLowerCase();
     if (t.indexOf('support') !== -1) return 'support';
     if (t.indexOf('contradict') !== -1) return 'contra';
-    return 'mixed'; // conditional / mixed / unclassified all read as "partly"
+    return 'mixed'; // conditional / mixed / unclassified all read as "Conditional"
   }
 
   // Colour the verdict block. Prefer the verdict word; fall back to the split so
@@ -230,45 +262,72 @@
     return src;
   }
 
+  // The Evidence Grade scale (A-F), the same idiom the record page uses. The
+  // letter comes straight from the JSON's `grade` field, which is the projection
+  // of the record's stored evidence-quality score (never re-derived here).
+  function renderGrade(data) {
+    var block = document.getElementById('claim-grade');
+    var g = String(data.grade || '').toUpperCase();
+    var LETTERS = ['A', 'B', 'C', 'D', 'F'];
+    if (LETTERS.indexOf(g) === -1) { block.style.display = 'none'; return; }
+    var scale = document.getElementById('claim-grade-scale');
+    scale.setAttribute('aria-label', 'Evidence grade ' + g + ', on a scale from A (strongest) to F (weakest).');
+    scale.innerHTML = LETTERS.map(function (L) {
+      return '<span class="grade-cell' + (L === g ? ' on' : '') + '">' + L + '</span>';
+    }).join('');
+    var label = data.gradeLabel ? String(data.gradeLabel).toLowerCase() : '';
+    document.getElementById('claim-grade-caption').textContent = 'Grade ' + g + (label ? ' · ' + label : '');
+    block.style.display = 'block';
+  }
+
+  // The support-vs-against bar over the DECISIVE-DIRECT studies: the ones that
+  // directly tested this exact claim. This is the SAME basis the verdict word and
+  // the record page use (record.html shows this same bar), so the bar can never
+  // read as a second, contradicting answer. The whole-corpus evidenceSplit (which
+  // folds in conditional and background findings) is NOT the verdict's basis and
+  // is deliberately not shown here; conditional sources still appear, tagged, in
+  // the studies list below.
   function renderSplit(data) {
-    var s = data.evidenceSplit || { supports: 0, contradicts: 0, conditional: 0 };
-    var total = (s.supports || 0) + (s.contradicts || 0) + (s.conditional || 0);
     var el = document.getElementById('claim-evidence-split');
-    if (!total) { el.style.display = 'none'; return; }
-    // Give the bar a spoken summary so a screen reader conveys the split (role="img"
-    // hides its inner text). Counts here are the full base, matching the caption.
+    var d = data.decisive || {};
+    var s = Number(d.supports), c = Number(d.contradicts);
+    var total = (isFinite(s) ? s : 0) + (isFinite(c) ? c : 0);
+    // An Insufficient record has, by definition, no direction to publish, so it
+    // shows no support-vs-against bar (same rule as the record page).
+    if (!isFinite(s) || !isFinite(c) || total === 0 || verdictKind(data) === 'insufficient') {
+      el.style.display = 'none';
+      return;
+    }
     el.setAttribute('aria-label',
-      'Of ' + total + ' studies: ' + s.supports + ' support, ' + s.contradicts + ' against, ' + s.conditional + ' partly agree.');
+      'Of ' + total + ' studies that directly tested this claim: ' + s + ' support, ' + c + ' against.');
     el.innerHTML =
+      '<p class="split-intro">Of the ' + total + ' stud' + (total === 1 ? 'y' : 'ies') + ' that directly tested this claim:</p>' +
       '<div class="split-bar">' +
-      (s.supports ? '<div class="split-seg support" style="flex-grow:' + s.supports + '"></div>' : '') +
-      (s.contradicts ? '<div class="split-seg contra" style="flex-grow:' + s.contradicts + '"></div>' : '') +
-      (s.conditional ? '<div class="split-seg mixed" style="flex-grow:' + s.conditional + '"></div>' : '') +
+      (s ? '<div class="split-seg support" style="flex-grow:' + s + '"></div>' : '') +
+      (c ? '<div class="split-seg contra" style="flex-grow:' + c + '"></div>' : '') +
       '</div><div class="split-legend">' +
-      '<span class="split-key"><span class="split-dot support"></span>Support &middot; ' + s.supports + '</span>' +
-      '<span class="split-key"><span class="split-dot contra"></span>Against &middot; ' + s.contradicts + '</span>' +
-      (s.conditional ? '<span class="split-key"><span class="split-dot mixed"></span>Partly &middot; ' + s.conditional + '</span>' : '') +
-      '</div><p class="split-caption">Which way the ' + total + ' stud' + (total === 1 ? 'y' : 'ies') + ' lean.</p>';
+      '<span class="split-key"><span class="split-dot support"></span>Support &middot; ' + s + '</span>' +
+      '<span class="split-key"><span class="split-dot contra"></span>Against &middot; ' + c + '</span>' +
+      '</div>';
   }
 
   function buildStudies(data) {
+    // Per-source direction words match the record page's bibliography badges
+    // (Supports / Conditional / Contradicts), so a reader moving between the two
+    // surfaces sees one vocabulary.
     var groups = [
-      { key: 'support', label: 'Support this claim', tag: 'Support', kind: 'support' },
-      { key: 'contra', label: 'Go against this claim', tag: 'Against', kind: 'contra' },
-      { key: 'mixed', label: 'Partly agree', tag: 'Partly', kind: 'mixed' }
+      { key: 'support', label: 'Support this claim', tag: 'Supports', kind: 'support' },
+      { key: 'contra', label: 'Go against this claim', tag: 'Contradicts', kind: 'contra' },
+      { key: 'mixed', label: 'Agree only under certain conditions', tag: 'Conditional', kind: 'mixed' }
     ];
     var byKind = { support: [], contra: [], mixed: [] };
     data.datoms.forEach(function (d) { byKind[classify(d.relationship)].push(d); });
 
-    // The list only ever holds the datoms in the JSON (capped at ~50). When that
-    // is the whole base, the per-group counts match the split bar above and are
-    // worth showing; when it is a sample of a larger base they would contradict
-    // the bar's aggregate counts (e.g. bar "Support 216" vs a sampled "Support 47"),
-    // so we drop them and let the "showing N of M" header carry the sample framing.
-    var shown = data.datoms.length;
-    var total = data.totalDatomCount || shown;
-    var showCounts = shown >= total;
-
+    // No per-group counts. The list holds the datoms in the JSON (capped at ~50)
+    // across every relationship type, so a per-group total here would count off a
+    // different base than the decisive support-vs-against bar above and read as a
+    // contradiction. The bar carries the authoritative counts; this list, like the
+    // record page's bibliography, just tags each source with its direction.
     var grid = document.getElementById('claim-evidence-grid');
     grid.innerHTML = groups.filter(function (g) { return byKind[g.key].length; }).map(function (g) {
       var rows = byKind[g.key].map(function (d) {
@@ -280,7 +339,7 @@
       }).join('');
       return '<div class="study-group">' +
         '<div class="study-group-title">' + esc(g.label) +
-        '<span class="study-tag ' + g.kind + '">' + g.tag + (showCounts ? ' &middot; ' + byKind[g.key].length : '') + '</span></div>' +
+        '<span class="study-tag ' + g.kind + '">' + g.tag + '</span></div>' +
         rows + '</div>';
     }).join('');
   }
@@ -295,6 +354,22 @@
     document.getElementById('claim-pill-sources').textContent =
       total + ' source' + (total === 1 ? '' : 's') + ' reviewed';
     document.getElementById('claim-pill-asof').textContent = 'As of ' + (data.as_of || 'recently');
+
+    // Plain-language summary. We use the first paragraph of guide.whatScienceSays:
+    // it is written for a general reader and framed entirely on real evidence
+    // counts (e.g. "20 of 45 (44%) support..."), never the confidence score, so
+    // it carries no bare score percentage and no retired band word. We do NOT use
+    // aboutClaim here: that field is score-defence prose that leads with the bare
+    // confidence score ("31% confidence score, the Preliminary band"), both of
+    // which are barred from public surfaces. First paragraph only keeps it to a
+    // single scannable summary.
+    var laySummaryEl = document.getElementById('claim-lay-summary');
+    var whatScienceSays = data.guide && data.guide.whatScienceSays;
+    if (whatScienceSays) {
+      laySummaryEl.textContent = String(whatScienceSays).split(/\n\s*\n/)[0].trim();
+    } else {
+      laySummaryEl.style.display = 'none';
+    }
 
     // Verdict block: label + colour + one honest sentence.
     var vb = document.getElementById('verdict');
@@ -320,6 +395,7 @@
       summaryEl.style.display = 'none';
     }
 
+    renderGrade(data);
     renderSplit(data);
 
     // What this checks: plain scope, with the exact wording on demand.
@@ -345,6 +421,8 @@
 
     if (data.isHealthDomain) {
       document.getElementById('claim-medical-note').style.display = 'block';
+      // Blocking, once-per-session acknowledgment before a health claim is read.
+      if (window.datomMedicalGate) { window.datomMedicalGate(); }
     }
     if (total <= 3) {
       var note = document.createElement('p');
@@ -362,7 +440,7 @@
     document.getElementById('claim-loading').style.display = 'none';
     document.getElementById('claim-error').style.display = 'block';
   } else {
-    fetch('claims/' + encodeURIComponent(id) + '.json?v=20260712f')
+    fetch('claims/' + encodeURIComponent(id) + '.json?v=20260719a')
       .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
       .then(render)
       .catch(function () {

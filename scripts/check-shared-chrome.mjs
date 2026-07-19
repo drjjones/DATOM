@@ -28,6 +28,7 @@ const PAGES = [
   'product.html',
   'organizations.html',
   'pricing.html',
+  'ledger.html',
   'example.html',
   'try.html',
   'refine.html',
@@ -67,7 +68,7 @@ let failures = 0;
 // (reachable via the "See how it works" card-link there) rather than as a
 // general-audience nav destination.
 const CANONICAL_NAV = [
-  'example.html::Live Example',
+  'record.html::Example',
   'pricing.html::Pricing',
   'organizations.html::For Organizations',
 ];

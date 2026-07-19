@@ -10,7 +10,10 @@
   "replication_count": 45,
   "as_of": "12 Jul 2026",
   "projectId": "1e0fbc2e-720f-4c69-897e-30c191540494",
-  "verdict": "Mixed",
+  "verdict": "Supported",
+  "grade": "D",
+  "gradeLabel": "Limited evidence base",
+  "decisive": { "supports": 16, "contradicts": 2 },
   "totalDatomCount": 45,
   "guide": {
     "whatScienceSays": "DATOM looked at 45 pieces of evidence for this claim. Of those, 20 (44%) directly support the idea that hybrid immunity, meaning you already had a prior infection plus a vaccine, protects you more than vaccination alone. Only 2 (4%) directly argue against that simple story. The rest, 23 pieces of evidence (51%), a slim majority, only support the claim under certain conditions: specific age groups, specific virus variants, specific vaccines, or specific time windows.\n\nThe single strongest piece of supporting evidence comes from a study that followed 101,941 people. It found that hybrid immunity cut the risk of reinfection by 26 to 36%, a real effect measured in a large group of people.\n\nBut the \"it depends\" evidence is where the real story is. One study followed 56 dialysis patients. Their average age was 69.1, and 76.8% of them already had a documented past infection. Before getting an updated XBB.1.5 vaccine dose, they already had detectable antibodies and immune cells in their blood. That is good evidence for how the immune system works. But it is flagged as conditional, because dialysis patients have weaker immune systems than average. What is true for them may not be true for a healthy adult.\n\nAnd a survey of 535 residents in Pau da Lima, a neighborhood in Salvador, Brazil, found something important. Even though about 97% of people there already had some mix of prior infection and vaccination, a variant called BQ.1* still infected 56% of the population. That is a clear reminder: hybrid immunity lowers your risk, it does not erase it.",

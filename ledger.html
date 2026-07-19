@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- THRESHOLD-GATED (3.9). This register is the "complete view" of the ledger,
+     and a complete view of a thin corpus advertises its thinness. So it is NOT
+     linked in the nav, NOT in the sitemap, and noindex, until published records
+     cross ~200. Browsing before then is carried by the related-claims strips on
+     record pages (always full) and, once shelves are dense, by topic pages. The
+     page and its RPV-052 gate are kept built and correct so the unlock is a flip,
+     not a build: at >=200 records, restore the nav link + sitemap entry and drop
+     the noindex below. Nothing here is hidden that is not reachable elsewhere;
+     what is withheld is only the panoramic view of a half-filled room. -->
+<head>
+<meta charset="UTF-8">
+<title>The Ledger, DATOM</title>
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="The DATOM Ledger: every scientific claim on the public record, with its verdict, evidence grade, and status. Kept openly, entry by entry.">
+<link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+<link rel="icon" type="image/png" href="./Assets/favicon.png">
+<link rel="apple-touch-icon" href="./Assets/favicon-180.png">
+<link rel="stylesheet" href="global.css?v=5">
+<link rel="stylesheet" href="elmer.css?v=20260719a">
+<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="design-v1.1.css?v=9">
+<style>
+  /* The Ledger: a register of entries in receipt styling. Rows and hairlines,
+     like leafing through the book. Layout only; tokens do the visual work. */
+  .ledger-head-block { max-width: 760px; }
+  .ledger-lede { font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--muted); margin: var(--s3) 0 0; max-width: 68ch; }
+
+  /* Facets: plain register controls, no chrome. */
+  .ledger-facets { display: flex; flex-wrap: wrap; gap: var(--s3) var(--s4); align-items: flex-end; margin: var(--s5) 0 var(--s3); }
+  .facet { display: flex; flex-direction: column; gap: 5px; }
+  .facet-label { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+  .facet select { font-family: var(--font-data); font-size: 12px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 0; padding: 7px 10px; min-width: 150px; cursor: pointer; }
+  .facet select:focus { outline: none; border-color: var(--signal); }
+  .ledger-count { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 var(--s2); }
+  .ledger-count b { color: var(--ink); font-weight: 600; }
+
+  /* The register. A table of hairline rows. */
+  .register { border-top: var(--rule-double) solid var(--ink); border-bottom: 1px solid var(--line); }
+  .reg-row { display: grid; grid-template-columns: 42px 96px 1fr 118px 92px; align-items: center; gap: var(--s3); padding: 14px 0; border-top: 1px solid var(--line); }
+  .reg-row:first-child { border-top: none; }
+  .reg-head { border-top: none; padding: 10px 0; }
+  .reg-head span { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+  .reg-no { font-family: var(--font-data); font-size: 12px; color: var(--faint); }
+  .reg-date { font-family: var(--font-data); font-size: 12px; color: var(--muted); }
+  .reg-claim { font-family: var(--font-body); font-size: 15px; line-height: 1.4; color: var(--ink); }
+  .reg-claim a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-2); }
+  .reg-claim a:hover { border-bottom-color: var(--signal); color: var(--signal); }
+  .reg-claim .reg-topic { display: block; font-family: var(--font-data); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--faint); margin-top: 4px; }
+
+  /* Verdict as a bare colored word (a determination, not a link). */
+  .reg-verdict { font-family: var(--font-data); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .reg-verdict.v-supported { color: var(--signal); }
+  .reg-verdict.v-contested { color: var(--verdict-mixed); }
+  .reg-verdict.v-unsupported { color: var(--verdict-contra); }
+  .reg-verdict.v-insufficient { color: var(--verdict-unrated); }
+
+  /* Grade + status: compact data cells. */
+  .reg-meta { display: flex; align-items: center; gap: 8px; }
+  .reg-grade { font-family: var(--font-data); font-size: 12px; color: var(--ink); border: 1px solid var(--line-2); padding: 2px 7px; }
+  .reg-status { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+
+  .ledger-empty { font-family: var(--font-body); font-size: 15px; color: var(--muted); padding: var(--s5) 0; }
+  .ledger-note { font-family: var(--font-data); font-size: 11px; line-height: 1.6; color: var(--faint); margin: var(--s4) 0 0; max-width: 70ch; }
+
+  @media (max-width: 700px) {
+    .reg-head { display: none; }
+    .reg-row { grid-template-columns: 1fr auto; grid-template-areas: "claim verdict" "meta meta"; gap: 8px var(--s3); padding: 16px 0; }
+    .reg-no, .reg-date { display: none; }
+    .reg-claim { grid-area: claim; }
+    .reg-verdict { grid-area: verdict; text-align: right; }
+    .reg-meta { grid-area: meta; }
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="record.html">Example</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="organizations.html">For Organizations</a>
+    <a href="/app/login" class="btn-login">Log In / Sign Up</a>
+    <a href="try.html" class="btn-cta">Get Started</a>
+  </nav>
+</header>
+
+<main class="dl">
+  <section class="reveal">
+    <div class="ledger-head-block">
+      <p class="section-label">The Ledger</p>
+      <h1>The DATOM Ledger</h1>
+      <p class="ledger-lede">Every scientific claim on the public record, kept openly, entry by entry: the claim in plain language, the verdict, the evidence grade, and where it stands. This is the book itself.</p>
+    </div>
+
+    <div class="ledger-facets">
+      <label class="facet"><span class="facet-label">Topic</span>
+        <select id="f-topic"><option value="">All topics</option></select></label>
+      <label class="facet"><span class="facet-label">Verdict</span>
+        <select id="f-verdict"><option value="">All verdicts</option></select></label>
+      <label class="facet"><span class="facet-label">Grade</span>
+        <select id="f-grade"><option value="">All grades</option></select></label>
+      <label class="facet"><span class="facet-label">Status</span>
+        <select id="f-status"><option value="">All statuses</option></select></label>
+      <label class="facet"><span class="facet-label">Sort</span>
+        <select id="f-sort">
+          <option value="recent">Recently added</option>
+          <option value="sources">Most sources</option>
+          <option value="claim">Claim (A–Z)</option>
+        </select></label>
+    </div>
+
+    <p class="ledger-count"><b id="ledger-shown">0</b> of <b id="ledger-total">0</b> entries</p>
+
+    <div class="register" id="register">
+      <div class="reg-row reg-head" aria-hidden="true">
+        <span>No.</span><span>Added</span><span>Claim</span><span>Verdict</span><span>Grade</span>
+      </div>
+      <div id="ledger-rows"></div>
+    </div>
+    <p class="ledger-empty" id="ledger-empty" style="display:none;">No entries match those filters.</p>
+
+    <p class="ledger-note">The register lists only claims that have earned a public listing. Claims still in verification, and pending claims below the listing threshold, are not shown here until they qualify. Verdicts and grades are the same values the record pages project, so this index cannot drift from them.</p>
+  </section>
+</main>
+
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &middot; <a href="terms.html">Terms</a></footer>
+
+<!-- The register's entries. Precomputed from featuredRecords.ts (the source of
+     truth) and gated by RPV-052 so on-page copy cannot drift from the records
+     each row points at. Claim text is the record's plain-language question;
+     verdict/grade/share are its projections. -->
+<script type="application/json" id="ledger-entries">
+[
+  {"no":"01","entryId":"DTM-2026-0703-2E","added":"2026-07-03","dateLabel":"3 Jul 2026","claim":"Does GLP-1 receptor agonist therapy reduce skeletal muscle mass during weight loss?","topic":"Clinical medicine","verdict":"Supported","grade":"D","decisiveSharePct":75,"sourceCount":102,"status":"Published","href":"record.html"},
+  {"no":"02","entryId":"D-E5E9B06E","added":"2026-07-12","dateLabel":"12 Jul 2026","claim":"Does CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) work efficiently and reproducibly across many different organisms, not just one well-studied species?","topic":"General science","verdict":"Supported","grade":"D","decisiveSharePct":95,"sourceCount":96,"status":"Published","href":"claim.html?id=D-E5E9B06E"},
+  {"no":"03","entryId":"D-3F426285","added":"2026-07-12","dateLabel":"12 Jul 2026","claim":"If a smallholder farming household becomes more productive or diversifies what it grows, does that actually translate into a better, more varied diet and less hunger for the family?","topic":"Social science","verdict":"Supported","grade":"D","decisiveSharePct":96,"sourceCount":93,"status":"Published","href":"claim.html?id=D-3F426285"},
+  {"no":"04","entryId":"D-EC72DA5D","added":"2026-07-12","dateLabel":"12 Jul 2026","claim":"Do brain scans (MRI/fMRI) show measurable structural or functional differences in people with eating disorders compared to people without them?","topic":"Clinical medicine","verdict":"Supported","grade":"D","decisiveSharePct":95,"sourceCount":40,"status":"Published","href":"claim.html?id=D-EC72DA5D"},
+  {"no":"05","entryId":"D-EE363BAC","added":"2026-07-12","dateLabel":"12 Jul 2026","claim":"Does having had a prior COVID-19 infection, on top of being vaccinated, give you extra protection against reinfection or severe disease compared to vaccination alone?","topic":"Clinical medicine","verdict":"Supported","grade":"D","decisiveSharePct":89,"sourceCount":28,"status":"Published","href":"claim.html?id=D-EE363BAC"},
+  {"no":"06","entryId":"D-ECB9E015","added":"2026-07-12","dateLabel":"12 Jul 2026","claim":"Does HPV vaccination coverage among university-age and catch-up-eligible populations fall short of public-health targets, and how much does it vary from one region to another?","topic":"Clinical medicine","verdict":"Supported","grade":"F","decisiveSharePct":100,"sourceCount":91,"status":"Published","href":"claim.html?id=D-ECB9E015"},
+  {"no":"07","entryId":"D-5CE0BCD1","added":"2026-07-12","dateLabel":"12 Jul 2026","claim":"Does heating produce to a safe cooking temperature kill Cyclospora, a parasite that causes serious diarrheal illness, better than washing it does?","topic":"Basic science (in vitro)","verdict":"Supported","grade":"F","decisiveSharePct":56,"sourceCount":39,"status":"Published","href":"claim.html?id=D-5CE0BCD1"},
+  {"no":"08","entryId":"D-540A117F","added":"2026-07-12","dateLabel":"12 Jul 2026","claim":"Does cutting international vaccine funding cause vaccination coverage rates to drop in low-income countries?","topic":"Social science","verdict":"Insufficient record","grade":"F","decisiveSharePct":0,"sourceCount":4,"status":"Published","href":"claim.html?id=D-540A117F"}
+]
+</script>
+
+<script src="fog-bg.js?v=2"></script>
+<script src="shared.js?v=20260719a"></script>
+<script src="elmer.js?v=20260719a"></script>
+<script>
+(function () {
+  'use strict';
+  var entries = [];
+  try { entries = JSON.parse(document.getElementById('ledger-entries').textContent); } catch (e) { entries = []; }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function verdictClass(v) {
+    var t = (v || '').toLowerCase();
+    if (t.indexOf('unsupported') !== -1) return 'v-unsupported';
+    if (t.indexOf('insufficient') !== -1) return 'v-insufficient';
+    if (t.indexOf('contested') !== -1) return 'v-contested';
+    return 'v-supported';
+  }
+  function isSafeHref(h) { return /^[a-z0-9_\-]+\.html(\?[a-z0-9_\-=&]*)?$/i.test(h || ''); }
+
+  // Populate a <select> with the distinct values present, so a facet only ever
+  // offers what the register actually holds (no empty categories).
+  function fillFacet(id, key) {
+    var sel = document.getElementById(id);
+    var seen = {};
+    entries.forEach(function (e) { if (e[key]) seen[e[key]] = true; });
+    Object.keys(seen).sort().forEach(function (val) {
+      var o = document.createElement('option'); o.value = val; o.textContent = val; sel.appendChild(o);
+    });
+  }
+  fillFacet('f-topic', 'topic');
+  fillFacet('f-verdict', 'verdict');
+  fillFacet('f-grade', 'grade');
+  fillFacet('f-status', 'status');
+
+  var rowsEl = document.getElementById('ledger-rows');
+  var emptyEl = document.getElementById('ledger-empty');
+  document.getElementById('ledger-total').textContent = String(entries.length);
+
+  function render() {
+    var topic = document.getElementById('f-topic').value;
+    var verdict = document.getElementById('f-verdict').value;
+    var grade = document.getElementById('f-grade').value;
+    var status = document.getElementById('f-status').value;
+    var sort = document.getElementById('f-sort').value;
+
+    var list = entries.filter(function (e) {
+      return (!topic || e.topic === topic) && (!verdict || e.verdict === verdict) &&
+             (!grade || e.grade === grade) && (!status || e.status === status);
+    });
+    list.sort(function (a, b) {
+      if (sort === 'sources') return b.sourceCount - a.sourceCount;
+      if (sort === 'claim') return a.claim.localeCompare(b.claim);
+      // recent: newest added first, then by entry number descending
+      if (a.added !== b.added) return a.added < b.added ? 1 : -1;
+      return a.no < b.no ? 1 : -1;
+    });
+
+    rowsEl.innerHTML = list.map(function (e) {
+      var claimCell = isSafeHref(e.href)
+        ? '<a href="' + esc(e.href) + '">' + esc(e.claim) + '</a>'
+        : esc(e.claim);
+      return '<div class="reg-row">' +
+        '<span class="reg-no">' + esc(e.no) + '</span>' +
+        '<span class="reg-date">' + esc(e.dateLabel) + '</span>' +
+        '<div class="reg-claim">' + claimCell + '<span class="reg-topic">' + esc(e.topic) + '</span></div>' +
+        '<span class="reg-verdict ' + verdictClass(e.verdict) + '">' + esc(e.verdict) + '</span>' +
+        '<div class="reg-meta"><span class="reg-grade">' + esc(e.grade) + '</span>' +
+          '<span class="reg-status">' + esc(e.status) + '</span></div>' +
+        '</div>';
+    }).join('');
+
+    document.getElementById('ledger-shown').textContent = String(list.length);
+    emptyEl.style.display = list.length ? 'none' : 'block';
+    document.getElementById('register').style.display = list.length ? '' : 'none';
+  }
+
+  ['f-topic', 'f-verdict', 'f-grade', 'f-status', 'f-sort'].forEach(function (id) {
+    document.getElementById(id).addEventListener('change', render);
+  });
+  render();
+})();
+</script>
+</body>
+</html>

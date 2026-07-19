@@ -1060,7 +1060,10 @@
   "projectId": "63c88da8-a897-4d20-b884-f95c09f47a2c",
   "replication_count": 91,
   "totalDatomCount": 91,
-  "verdict": "Emerging",
+  "verdict": "Supported",
+  "grade": "D",
+  "gradeLabel": "Limited evidence base",
+  "decisive": { "supports": 42, "contradicts": 2 },
   "scope": "This claim is about teenagers and adults with anorexia nervosa, bulimia nervosa, binge eating, or a clinically significant risk of an eating disorder, compared to healthy people without one. About a third of the 91 linked datoms actually describe people or animals outside that group, for example people with atopic dermatitis, ADHD, or tobacco use, or lab rodents, because of loose topic matching.",
   "metric": "What is measured: the amount of gray matter (the brain's processing tissue), the thickness of the brain's outer layer, the structure of the brain's white matter wiring (measured with scan techniques called DTI or fixel-based analysis), and brain activity and connectivity seen on functional MRI scans, whether at rest or during a task, in areas including the insula, prefrontal cortex, striatum, and cerebellum.",
   "aboutClaim": "This claim is built on 91 pieces of evidence. 64 of them (70%) support the idea that eating disorders come with measurable brain differences, and only 2 (2%) argue against it. But DATOM's confidence score for this claim is just 35%, in the Preliminary band. Why the gap? Nearly half the evidence, 44 of 91 (48%), was flagged by DATOM's matching system as a weak topic match, and a manual check found about 34 of those are really about unrelated things like skin conditions, ADHD, or fear-response tests in rats, not eating disorder patients. On top of that, 40 of 91 (44%) come from thin text summaries rather than full research papers, 24 do not report how many people were studied, and all 91 pieces of evidence trace back to only 40 separate research papers. The strong-looking 70% support figure comes with real caveats about relevance, missing details, and how narrow the underlying research actually is."

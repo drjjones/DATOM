@@ -167,18 +167,25 @@ body.elmer-full-open { overflow: hidden; }
 .elmer-panel.elmer-panel--rail .elmer-messages { padding: 8px 2px; }
 
 /* Reserve room on the right for the rail so it sits BESIDE the content, over the
-   empty page background, instead of floating over the record itself. Only at the
-   width the rail is used at (>=1100px, matching the JS gate); the transition makes
-   the content glide aside when Elmer opens rather than jump. */
-@media (min-width: 1100px) {
-  main { transition: padding-right 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-  body.elmer-rail-open main { padding-right: min(420px, 40vw); }
+   empty page background, instead of floating over the record itself. The reserve
+   is applied to the BODY (not <main>), so the header, main, and footer all glide
+   aside together. Padding <main> alone would only reflow inside its centered
+   max-width column, leaving the layout visually un-shifted on wide screens; a
+   body-level pad genuinely compresses the whole page to make room. The page's
+   fixed background shows through the reserved strip, so Elmer's floating text
+   reads as sitting over the background, not in a boxed panel. */
+@media (min-width: 1000px) {
+  body { transition: padding-right 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+  body.elmer-rail-open { padding-right: min(412px, 40vw); }
 }
 
-/* On a phone there is no room for a floating rail beside the record, so it
-   collapses to a frosted bottom sheet: still the same plain floating replies,
-   but on a legible surface instead of over live content. */
-@media (max-width: 768px) {
+/* Below the desktop shift breakpoint there is no room for a floating rail beside
+   the content, so it collapses to a frosted bottom sheet: still the same plain
+   floating replies, but on a legible surface instead of over live content. This
+   matches the 1000px content-shift boundary above, so a window is either a
+   side rail (with the page shifted) or a bottom sheet, never a rail overlapping
+   un-shifted content. */
+@media (max-width: 999px) {
   .elmer-panel.elmer-panel--rail {
     top: auto;
     bottom: 16px;

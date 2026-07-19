@@ -10,7 +10,10 @@
   "replication_count": 233,
   "as_of": "12 Jul 2026",
   "projectId": "bd50104d-463a-4577-a7f0-09a2f1c8a6d0",
-  "verdict": "Emerging",
+  "verdict": "Supported",
+  "grade": "D",
+  "gradeLabel": "Limited evidence base",
+  "decisive": { "supports": 41, "contradicts": 2 },
   "totalDatomCount": 233,
   "guide": {
     "whatScienceSays": "We pulled together 233 real pieces of evidence for this claim. Of those, 216 (92.7%) support the idea that CRISPR gene editing works efficiently and reliably across many different kinds of organisms, including bacteria, fungi, and parasites. Another 15 (6.4%) are mixed or depend on specific conditions, and just 2 (0.9%) disagree with the claim outright.\n\nThis isn't just a number, real studies back it up. One study edited E. coli bacteria with up to 100% success at cutting out or inserting genes. Another precisely removed a 3-kilobase (about 3,000-letter) chunk of DNA from the parasite that causes leishmaniasis. Fungi like Trichoderma reesei and Penicillium chrysogenum were also successfully edited, using two different delivery methods.\n\nThe pattern holds in human cells too. In one study, a fat-based delivery system carrying the CRISPR Cas9 tool switched off a marker gene in 78.7% of human kidney cells, and cut a cancer-related gene's activity by 90.8% in breast cancer cells, well ahead of the 51.1% managed by a standard commercial delivery method used for comparison.\n\nPut together, this evidence crosses bacteria, fungi, parasites, plants, and human cells, and it all points the same way: CRISPR editing works, and works well, across very different kinds of life.",

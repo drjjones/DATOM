@@ -193,9 +193,10 @@ function checkPendingNav() {
 // getPageContext() lived here and was DEAD: it had a definition and zero call
 // sites, so every fact in it was decorative. handleSend sends only {message,
 // history, page}. It is deleted rather than left dormant because of what it
-// held: the GLP-1 claim with its polarity reversed ("reduces skeletal muscle
-// mass", where the real record asks whether GLP-1 PRESERVES it and finds the
-// evidence says no), a bare confidence percentage, the retired Observer /
+// held: a hardcoded GLP-1 claim line and a bare confidence percentage (the
+// public record is now framed in the loss direction, "does GLP-1 reduce muscle
+// mass?", verdict Supported, so any hardcoded claim line is a liability), the
+// retired Observer /
 // Investigator $12mo / DATOM Pro tiers, and stale carousel figures (CRISPR 82%,
 // eating-disorder 76%) that came from superseded 6-source stubs and contradicted
 // the site's own claim pages. Anyone rewiring it would have shipped all of that
@@ -211,6 +212,44 @@ let suggestionsShown = false;
 // to that claim (the chat's job was to identify the claim). The corner dock
 // never navigates; it just shows the answer with a link.
 let elmerFullMode = false;
+// True only while replaying a persisted transcript onto a freshly loaded page, so
+// addBubble re-renders past turns without re-firing their [[GO:]] page scrolls.
+let isReplaying = false;
+
+// ── Cross-page continuity ──
+// The rail is one conversation as the reader moves across the site (and as a
+// match/suggest sends them to a record). conversationHistory lives in memory and
+// so is wiped on every navigation; without this the thread would vanish the
+// moment Elmer sent the reader to a claim page. We stash the transcript and the
+// open/closed state in sessionStorage on each turn, on open/close, and on unload,
+// then replay it on the next page. sessionStorage (not local) scopes it to the
+// tab/visit and clears when the visit ends.
+const ELMER_STATE_KEY = "elmer_state";
+function persistElmer() {
+  try {
+    sessionStorage.setItem(ELMER_STATE_KEY, JSON.stringify({
+      history: conversationHistory.slice(-40),
+      isOpen: isOpen
+    }));
+  } catch (e) { /* storage full or blocked — continuity is best-effort */ }
+}
+function rehydrateElmer() {
+  let saved = null;
+  try { saved = JSON.parse(sessionStorage.getItem(ELMER_STATE_KEY) || "null"); } catch (e) { saved = null; }
+  if (!saved || !Array.isArray(saved.history) || saved.history.length === 0) return;
+  conversationHistory = saved.history.slice();
+  suggestionsShown = true; // an ongoing thread, not a first visit: no generic prompts
+  isReplaying = true;
+  conversationHistory.forEach(function (m) {
+    addBubble(m.content, m.role === "user" ? "user" : "elmer");
+  });
+  isReplaying = false;
+  const sug = document.getElementById("elmerSuggestions");
+  if (sug) sug.innerHTML = "";
+  // Reopen the rail where they left off. conversationHistory is non-empty, so
+  // toggle() adds no greeting on top of the replayed thread.
+  if (saved.isOpen) toggle(true);
+}
 
 // ── Build UI ──
 function createUI() {
@@ -258,33 +297,29 @@ function toggle(forceState) {
   if (isOpen) {
     dock.classList.add("hidden");
     panel.classList.add("open");
-    // On a record/claim page, and only when the window is wide enough to hold a
-    // column of content AND a rail beside it, Elmer reads as a right-rail of
-    // floating text rather than a boxed corner dock. --float carries the floating
-    // look (shared with full mode); --rail pins it to the right; body.elmer-rail-open
-    // lets the page reserve room so the rail sits BESIDE the content, not over it.
-    // Below the breakpoint the plain boxed dock is used (no classes added), which
-    // needs no reserved space. Deliberately NO backdrop and NO body scroll lock, so
-    // the reader keeps scrolling the record; elmerFullMode stays false, so a
-    // confident match never yanks a reader who is already on the claim page off it.
-    const railPage = detectPage();
-    const railCapable = railPage === "record" || railPage === "claim" || railPage === "example";
-    if (railCapable && window.innerWidth >= 1100) {
-      panel.classList.add("elmer-panel--rail", "elmer-panel--float");
-      document.body.classList.add("elmer-rail-open");
-    }
+    // Elmer docks as a side rail on EVERY page: a column of floating text pinned
+    // to the right, with the page shifted left to make room (body.elmer-rail-open).
+    // --float carries the floating look (transparent panel, glowing replies, glass
+    // input, shared with full mode); --rail pins the geometry. The responsive CSS
+    // decides the rest: a true side rail with the page reserved on desktop
+    // (>=1000px), a frosted bottom sheet below that. Applied at all widths here so
+    // CSS is the single source of the breakpoint. Deliberately NO backdrop and NO
+    // body scroll lock, so the reader keeps reading the page beside it; elmerFullMode
+    // stays false, so a confident match never yanks a reader off the page they are on.
+    panel.classList.add("elmer-panel--rail", "elmer-panel--float");
+    document.body.classList.add("elmer-rail-open");
     if (!suggestionsShown) showSuggestions();
     if (conversationHistory.length === 0) {
       const page = detectPage();
       // Greetings state NO claim facts. The one that used to live here said
       // "GLP-1 Therapy to Muscle Reduction ... 59% of the 130 studies that
       // directly measure this support it, but DATOM's confidence score is still
-      // only 44%", which was wrong three ways at once: it named the claim with
-      // its polarity reversed (the real record asks whether GLP-1 PRESERVES
-      // muscle mass, and on the evidence the answer is no), it printed a bare
-      // confidence percentage, which is banned from public surfaces because it
-      // reads as a probability that the claim is true, and it taught the retired
-      // score vocabulary. Numbers about a claim now come from the record lookup
+      // only 44%", which was wrong several ways at once: it hardcoded stale
+      // figures (130 studies, 59%, a 44% score) that do not match the record's
+      // real numbers, it printed a bare confidence percentage, which is banned
+      // from public surfaces because it reads as a probability that the claim is
+      // true, and it taught the retired score vocabulary. Numbers about a claim
+      // now come from the record lookup
       // in elmer-api and nowhere else, so a greeting has no business holding any.
       let greeting;
       if (page === "record" || page === "claim" || page === "example") {
@@ -304,6 +339,7 @@ function toggle(forceState) {
     panel.classList.remove("open");
     exitFullMode();
   }
+  persistElmer();
 }
 
 // ── Open Elmer with a claim the visitor typed elsewhere on the page ──
@@ -468,7 +504,7 @@ function addBubble(text, who) {
   // Act on a scroll command, but only from Elmer (never a user echo) and only
   // for a key on the current page. A tiny delay lets the bubble lay out first so
   // the page scroll is not fighting the message-list scroll above.
-  if (scrollKey && who !== "user") {
+  if (scrollKey && who !== "user" && !isReplaying) {
     const sec = currentPageSections().find(s => s.key === scrollKey);
     if (sec) window.setTimeout(function () { scrollToSelector(sec.sel); }, 300);
   }
@@ -550,6 +586,9 @@ async function handleSend(overrideText) {
     addBubble(fallback, "elmer");
     conversationHistory.push({ role: "assistant", content: fallback });
   }
+  // Save the thread so it survives navigation to another page (including a
+  // match/suggest jump to a record).
+  persistElmer();
 }
 
 // ── Input handling ──
@@ -566,41 +605,20 @@ function autoResize(textarea) {
   textarea.style.height = Math.min(textarea.scrollHeight, 80) + "px";
 }
 
-// ── Auto-open on new page ──
-function autoOpenForPage() {
-  // Don't auto-open if we arrived via Elmer navigation (checkPendingNav handles that)
-  const params = new URLSearchParams(window.location.search);
-  if (params.get("elmer_nav")) return;
-
-  const page = detectPage();
-
-  // The homepage now leads with the answer box ("Ask about any health or science
-  // claim"), which opens Elmer with the visitor's own question. Auto-popping the
-  // dock with a generic greeting on top of that is redundant and competes with
-  // the box for attention, so the homepage does not auto-open. The dock is still
-  // one click away via "Ask Elmer". Other pages keep the auto-open.
-  if (page === "home") return;
-
-  const seenKey = "elmer_seen_" + page;
-
-  // Only auto-open once per page per session
-  if (sessionStorage.getItem(seenKey)) return;
-  sessionStorage.setItem(seenKey, "1");
-
-  // Small delay so the page renders first
-  setTimeout(() => {
-    toggle(true);
-  }, 1200);
-}
-
 // ── Init ──
 document.addEventListener("DOMContentLoaded", () => {
   createUI();
+  // Restore any in-progress conversation from the previous page and reopen the
+  // rail if it was open. The launcher is otherwise reader-initiated: Elmer does
+  // not auto-open on a fresh page (that was the old autoOpenForPage behaviour).
+  rehydrateElmer();
   checkPendingNav();
-  autoOpenForPage();
 
   document.getElementById("elmerDock").addEventListener("click", () => toggle(true));
   document.getElementById("elmerClose").addEventListener("click", () => toggle(false));
+
+  // Persist on navigation away so the thread survives the jump to the next page.
+  window.addEventListener("beforeunload", persistElmer);
 
   const input = document.getElementById("elmerInput");
   const send = document.getElementById("elmerSend");

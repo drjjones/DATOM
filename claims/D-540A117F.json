@@ -128,7 +128,10 @@
   "projectId": "6391d547-4160-4938-bbba-ca770f16cde7",
   "replication_count": 4,
   "totalDatomCount": 4,
-  "verdict": "Insufficient Evidence",
+  "verdict": "Insufficient record",
+  "grade": "F",
+  "gradeLabel": "Weak evidence base",
+  "decisive": { "supports": 0, "contradicts": 1 },
   "scope": "Studies looked at low and middle-income countries, mostly between 2010 and 2019 (one source is from 2004, outside that range). The people studied range from children under 5 to teenagers, and in some cases the age group isn't specified.",
   "metric": "How much countries spend on vaccine programs over time, how many children get measles and HPV vaccines, and how many illness cases are prevented by vaccination.",
   "aboutClaim": "DATOM found only 4 real sources for this claim, well short of the 100 it aims for. None of them directly tests what the claim says: that a funding cut of 20% or more closely tracks with a national vaccine coverage drop within two years. That's why confidence sits at just 11% (\"Speculative\"). Of the 4 sources: 0 support the claim, 1 is marked as contradicting it, and 3 are only loosely related. One source is from 2004, before the time period this claim covers. One measures vaccine effectiveness, not funding. One documents a coverage slowdown without any funding data attached to it. And one mentions funding only as one of four things happening together behind a slowdown, not as something tested on its own. What is real here is a genuine, well-documented slowdown in vaccination progress in lower-income countries after 2010. But the sources that found it say it was caused by conflict, doubts about vaccines, supply problems, and funding together, not funding cuts by themselves."

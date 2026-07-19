@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" href="./Assets/favicon.png" />
 <link rel="stylesheet" href="global.css?v=5" />
-<link rel="stylesheet" href="elmer.css?v=20260717b">
+<link rel="stylesheet" href="elmer.css?v=20260719a">
 <link rel="stylesheet" href="tokens.css?v=1">
 <link rel="stylesheet" href="design-v1.1.css?v=9">
 <style>
@@ -306,7 +306,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
   </button>
   <nav>
-    <a href="example.html">Live Example</a>
+    <a href="record.html">Example</a>
     <a href="pricing.html">Pricing</a>
     <a href="organizations.html">For Organizations</a>
     <a href="/app/login" class="btn-login">Log In / Sign Up</a>
@@ -385,8 +385,8 @@
 <footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--signal);">Terms</a></footer>
 
 <script src="fog-bg.js?v=2"></script>
-<script src="shared.js?v=20260710"></script>
-<script src="elmer.js?v=20260717b"></script>
+<script src="shared.js?v=20260719a"></script>
+<script src="elmer.js?v=20260719a"></script>
 <script>
 (function () {
   'use strict';
@@ -810,7 +810,7 @@
       if (attachedFile) {
         var chip = document.createElement('div');
         chip.className = 'chat-attached-chip';
-        chip.innerHTML = '<span>📎 ' + attachedFile.name + '</span>';
+        chip.innerHTML = '<span><svg viewBox="0 0 16 16" width="12" height="14" fill="none" aria-hidden="true" style="vertical-align:-2px;margin-right:5px"><path d="M4 1.5h5l3 3v10H4z" stroke="currentColor" stroke-width="1"/><path d="M9 1.5v3h3" stroke="currentColor" stroke-width="1"/><line x1="6" y1="8.5" x2="10" y2="8.5" stroke="currentColor" stroke-width="1"/><line x1="6" y1="11" x2="10" y2="11" stroke="currentColor" stroke-width="1"/></svg>' + attachedFile.name + '</span>';
         var rm = document.createElement('button');
         rm.type = 'button';
         rm.title = 'Remove';
@@ -887,7 +887,7 @@
           return;
         }
         var displayText = raw;
-        if (attachedFile) displayText = (raw ? raw + '\n\n' : '') + '📎 ' + attachedFile.name;
+        if (attachedFile) displayText = (raw ? raw + '\n\n' : '') + 'Attached: ' + attachedFile.name;
 
         addMsg(displayText, 'user');
 
