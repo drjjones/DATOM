@@ -454,7 +454,10 @@
          it in the page (rather than only in the JS) means the gate reads exactly
          what ships. Generated: do not hand-edit. -->
     <script type="application/json" id="featured-entries">
-[{"entryId":"DTM-2026-0703-2E","plainQuestion":"GLP-1 receptor agonist therapy reduces skeletal muscle mass during weight loss.","href":"record.html","verdictLabel":"Supported","gradeAbsolute":"D","decisiveSharePct":75,"sourceCount":102,"supports":77,"contradicts":25}]
+[{"entryId":"DTM-2026-0703-2E","plainQuestion":"GLP-1 receptor agonist therapy reduces skeletal muscle mass during weight loss.","href":"record.html","verdictLabel":"Supported","gradeAbsolute":"D","decisiveSharePct":75,"sourceCount":102,"supports":77,"contradicts":25},
+{"entryId":"D-EE363BAC","plainQuestion":"Having had a prior COVID-19 infection, on top of being vaccinated, gives extra protection against reinfection or severe disease compared to vaccination alone.","href":"claim.html?id=D-EE363BAC","verdictLabel":"Supported","gradeAbsolute":"D","decisiveSharePct":89,"sourceCount":28,"supports":16,"contradicts":2},
+{"entryId":"D-E5E9B06E","plainQuestion":"CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) works efficiently and reproducibly across many different organisms, not just one well-studied species.","href":"claim.html?id=D-E5E9B06E","verdictLabel":"Supported","gradeAbsolute":"D","decisiveSharePct":95,"sourceCount":96,"supports":41,"contradicts":2},
+{"entryId":"D-EC72DA5D","plainQuestion":"Brain scans (MRI/fMRI) show measurable structural or functional differences in people with eating disorders compared to people without them.","href":"claim.html?id=D-EC72DA5D","verdictLabel":"Supported","gradeAbsolute":"D","decisiveSharePct":95,"sourceCount":40,"supports":42,"contradicts":2}]
     </script>
 
     <p class="plain-what condense condense-d3">DATOM checks whether scientific claims hold up, <b>by someone with no stake in the answer</b>, and records the result in one place anyone can read.</p>
@@ -867,9 +870,8 @@
 
     // With a single featured record there is nothing to cycle, so stand the
     // arrows, dots, and auto-advance down: the one card should read as a card,
-    // not as a carousel missing its other slides. (The seven other records were
-    // un-featured on 2026-07-19 pending a re-derivation of their evidence bases;
-    // they remain fully published on the ledger and answerable by Elmer.)
+    // not as a carousel missing its other slides. Inert at four cards, kept
+    // because the curated set is data-driven and can legitimately shrink.
     var single = ENTRIES.length <= 1;
     if (single) {
       var pv = host.querySelector('.carousel-prev');
