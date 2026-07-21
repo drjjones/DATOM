@@ -124,8 +124,8 @@
   .bib-more .bib { margin-top: 0; }
 
   /* account gate */
-  .gate { border: 1px dashed var(--line-2); padding: var(--s3) var(--s4); margin: var(--s3) 0; font-size: 13px; color: var(--faint); line-height: 1.6; }
-  .gate strong { color: var(--muted); }
+  .gate { border: 1px solid var(--line); border-left: 4px solid var(--signal); background: var(--nest); padding: 14px 16px; margin: var(--s4) 0; font-size: 14px; color: var(--ink); line-height: 1.6; }
+  .gate strong { color: var(--signal); }
 
   /* provenance + version history */
   .prov { border: 1px solid var(--line); padding: var(--s3) var(--s4); margin: var(--s4) 0; }
@@ -203,7 +203,6 @@
     <p class="medical-note"><strong>Is this medical advice?</strong> No. This looks at whether current evidence supports one specific claim. It does not cover safety, dosing, or side effects, and it is not a recommendation to use or avoid any medication. Talk to a doctor before making a decision about your health.</p>
 
     <div class="prov" id="rec-details">
-      <div class="prov-row"><span class="k">Record</span><span>Never quietly rewritten. New evidence is added, and the change stays visible.</span></div>
       <div class="prov-row"><span class="k">Disclosure</span><span>Not commissioned or sponsored.</span></div>
     </div>
 
@@ -245,10 +244,10 @@
       <li><span class="dir supports">Supports</span><span class="t">Muscle health in the modern era of incretin-based therapies..</span> Giuseppe De Girolamo et al., 2026, n/a. <a href="https://doi.org/10.1111/eci.70155" rel="nofollow noopener">doi.org/10.1111/eci.70155</a></li>
       </ul>
     </details>
-    <p class="rec-basis">Every source links to the original study. The three highlighted weigh most; the full record lists all 102.</p>
+    <p class="rec-basis">Every source links to the original study. These are the ones that weigh most; the complete list of all 102 is in the full Confidence Report.</p>
 
     <div class="gate">
-      <strong>See all 102 sources, free.</strong> A free account shows every source and which way each one points. The sources are all public; the account just lays them out for you. <a href="/app/signup" class="action">Open a free account &rarr;</a>
+      <strong>Don't lose track of this claim.</strong> A free account lets you follow this record and check back as new studies land and the verdict moves. No cost, no card. <a href="/app/signup" class="action">Open a free account &rarr;</a>
     </div>
 
     <p class="freshness"><span class="dot">&bull;</span> Watched. The verdict and grade update as new studies on this claim are found. &middot; <a href="product.html" class="action">How DATOM checks a claim</a></p>

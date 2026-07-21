@@ -21,15 +21,16 @@ import path from 'node:path';
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
 // Pages that share the canonical header/nav/footer. research.html is
-// intentionally excluded (slated for deletion separately). example.html
-// is included now that it has been brought into the v1.1 design language.
+// intentionally excluded (slated for deletion separately). example.html was
+// removed from this list 2026-07-20: it is now a bare redirect stub pointing at
+// record.html (like solutions.html), so it deliberately has no header/nav/footer
+// to compare and this check would fail on it forever.
 const PAGES = [
   'index.html',
   'product.html',
   'organizations.html',
   'pricing.html',
   'ledger.html',
-  'example.html',
   'try.html',
   'refine.html',
   'pitch-select.html',
