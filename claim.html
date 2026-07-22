@@ -4,6 +4,22 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>DATOM Claim Record</title>
+  <meta name="description" content="A scientific claim on the public record: DATOM's verdict, its evidence grade, and every study behind it, checked by a party with no stake in the answer."/>
+  <!-- claim.html is a client-rendered template (the record varies by ?id=), so a
+       crawler that does not run JS sees only these static tags. They are therefore
+       generic and branded rather than per-record; the specific records are indexed
+       via record.html and the related-claims strip. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DATOM">
+  <meta property="og:title" content="A claim on the DATOM record">
+  <meta property="og:description" content="DATOM's verdict, its evidence grade, and every study behind it, checked by a party with no stake in the answer.">
+  <meta property="og:image" content="https://datom.science/og/home.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A claim on the DATOM record">
+  <meta name="twitter:description" content="DATOM's verdict, its evidence grade, and every study behind it.">
+  <meta name="twitter:image" content="https://datom.science/og/home.png">
   <link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
   <link rel="icon" type="image/png" href="./Assets/favicon.png">
   <link rel="stylesheet" href="global.css?v=5">
@@ -151,7 +167,7 @@
 <main>
   <div id="claim-loading">Loading the record&hellip;</div>
   <div id="claim-error">
-    <p>We couldn't find that entry. <a href="index.html" style="color:var(--signal); text-decoration:underline;">Back to the homepage</a>.</p>
+    <p>That record is not on the ledger. The link may be old or mistyped. <a href="record.html" style="color:var(--signal); text-decoration:underline;">Read a record</a> or <a href="index.html" style="color:var(--signal); text-decoration:underline;">start from the homepage</a>.</p>
   </div>
 
   <div id="claim-content" style="display:none;">
@@ -350,9 +366,13 @@
 
     var total = data.totalDatomCount || data.datoms.length;
     document.getElementById('claim-sub').textContent =
-      'Every source below is a real study DATOM read. Nothing here was written for this page.';
+      'Every finding below is drawn from a real study DATOM read. Nothing here was written for this page.';
+    // "findings", not "sources": this counts datoms (individual findings), of
+    // which several can come from one paper. The bar below counts the studies
+    // that directly tested the claim, a smaller and different number, so the two
+    // labels must stay distinct or they read as a contradiction (audit item 14).
     document.getElementById('claim-pill-sources').textContent =
-      total + ' source' + (total === 1 ? '' : 's') + ' reviewed';
+      total + ' finding' + (total === 1 ? '' : 's') + ' reviewed';
     document.getElementById('claim-pill-asof').textContent = 'As of ' + (data.as_of || 'recently');
 
     // Plain-language summary. We use the first paragraph of guide.whatScienceSays:
