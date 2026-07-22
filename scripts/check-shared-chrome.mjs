@@ -24,8 +24,9 @@ const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 // deliberately have no header/nav/footer and are excluded: example.html and
 // solutions.html (redirect to record.html / organizations.html), and
 // investigator-coming-soon.html (removed 2026-07-22; now redirects to
-// pricing.html per B3/H1/A4). research.html is excluded pending keep-or-kill
-// triage. 404.html is the minimal error page and carries its own chrome.
+// pricing.html per B3/H1/A4), and research.html (removed 2026-07-22; now
+// redirects to organizations.html, like solutions.html). 404.html is the
+// minimal error page and carries its own chrome.
 const PAGES = [
   'index.html',
   'claim.html',

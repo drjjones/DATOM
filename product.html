@@ -2,8 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>How It Works, DATOM</title>
+<title>How it works, DATOM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How a DATOM record is made: where the verdict and the two grades come from, what can never influence them, and how a record changes over time.">
+<link rel="canonical" href="https://datom.science/product.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DATOM">
+<meta property="og:title" content="How a DATOM record is made">
+<meta property="og:description" content="Where the verdict and the two grades come from, what can never influence them, and how a record changes over time.">
+<meta property="og:url" content="https://datom.science/product.html">
+<meta property="og:image" content="https://datom.science/og/home.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How a DATOM record is made">
+<meta name="twitter:description" content="Where the verdict and the two grades come from, what can never influence them, and how a record changes over time.">
+<meta name="twitter:image" content="https://datom.science/og/home.png">
 <link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
 <link rel="icon" type="image/png" href="./Assets/favicon.png">
 <link rel="apple-touch-icon" href="./Assets/favicon-180.png">
@@ -11,6 +25,31 @@
 <link rel="stylesheet" href="elmer.css?v=20260719a">
 <link rel="stylesheet" href="tokens.css?v=1">
 <link rel="stylesheet" href="design-v1.1.css?v=9">
+<style>
+  /* DL-0101 receipt styling: square corners, hairline rules, no pills,
+     gradients, or shadows. Light/paper theme. */
+  main.doc { max-width: 760px; }
+  .doc h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(26px, 4vw, 34px); line-height: 1.15; margin: 0 0 10px; }
+  .doc .lead { font-size: 17px; line-height: 1.66; color: var(--ink); margin: 0 0 var(--s4); max-width: 70ch; }
+  .doc h2 { font-family: var(--font-display); font-weight: 500; font-size: 20px; margin: var(--s5) 0 var(--s2); padding-top: var(--s3); border-top: 1px solid var(--line); }
+  .doc p { font-size: 15px; line-height: 1.7; color: var(--ink); margin: 0 0 var(--s3); max-width: 70ch; }
+  .doc strong { font-weight: 600; }
+  .doc a { color: var(--signal); }
+
+  /* The verdict ledger: a hairline-ruled receipt, one row per term. Square,
+     no bullets. The band value renders in the data face. */
+  .verdict-list { list-style: none; margin: var(--s3) 0 var(--s4); padding: 0; border-top: 1px solid var(--line); }
+  .verdict-row { border-bottom: 1px solid var(--line); padding: var(--s3) 0; max-width: 72ch; }
+  .verdict-term { font-family: var(--font-display); font-weight: 600; font-size: 16px; color: var(--ink); }
+  .verdict-desc { font-size: 15px; line-height: 1.7; color: var(--ink); }
+  .verdict-band { display: block; margin-top: 6px; font-family: var(--font-data); font-size: 12px; letter-spacing: 0.02em; color: var(--muted); }
+  .verdict-row--insufficient .verdict-desc { color: var(--muted); }
+
+  /* The two grades, same receipt treatment. */
+  .grade-list { list-style: none; margin: var(--s3) 0 var(--s3); padding: 0; border-top: 1px solid var(--line); }
+  .grade-row { border-bottom: 1px solid var(--line); padding: var(--s3) 0; max-width: 72ch; }
+  .grade-name { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.06em; color: var(--signal); display: block; margin-bottom: 4px; }
+</style>
 </head>
 
 <body>
@@ -29,41 +68,53 @@
   </nav>
 </header>
 
-<main>
+<main class="doc">
 
-  <section id="hero" class="reveal">
-    <h1>How DATOM checks a claim</h1>
-    <p class="lede">DATOM reads the studies behind a claim, one by one, and records what each one actually found. You see how many studies back the claim, how many go against it, and how good those studies are. Then you decide.</p>
-    <p class="lede">As new studies come out, the record updates, and you can see what changed.</p>
-    <p class="lede">We do not ask you to take our word for it. Every source is listed, so you can go and read them yourself. Anyone can pay to get a claim checked, and nobody can pay to change what the check finds.</p>
-  </section>
+  <h1>How a record is made</h1>
+  <p class="lead">Every entry in the ledger is a receipt for one claim: the claim in canonical form, a verdict, two grades, and the evidence they rest on. This page explains where each part comes from, what can never influence it, and how a record changes over time.</p>
 
-  <!-- "See Yourself in DATOM" moved to organizations.html -->
+  <h2>The verdict: which way the evidence points</h2>
+  <p>A verdict is a statement of direction, nothing more. There are exactly four:</p>
+  <ul class="verdict-list">
+    <!-- BUILD:VERDICT_BANDS (generated by scripts/build-methodology.ts from PUBLIC_VERDICT_RANGES; do not hand-edit) -->
+    <li class="verdict-row" data-verdict="SUPPORTED" data-lo="55" data-hi="100"><span class="verdict-term">Supported.</span> <span class="verdict-desc">The weight of evidence points toward the claim.</span><span class="verdict-band">Decisive support share of 55% or above.</span></li>
+    <li class="verdict-row" data-verdict="CONTESTED" data-lo="46" data-hi="54"><span class="verdict-term">Contested.</span> <span class="verdict-desc">Substantial evidence points both ways.</span><span class="verdict-band">Decisive support share from 46% to 54%.</span></li>
+    <li class="verdict-row" data-verdict="UNSUPPORTED" data-lo="0" data-hi="45"><span class="verdict-term">Unsupported.</span> <span class="verdict-desc">The weight of evidence points against the claim.</span><span class="verdict-band">Decisive support share of 45% or below.</span></li>
+    <li class="verdict-row verdict-row--insufficient" data-verdict="INSUFFICIENT"><span class="verdict-term">Insufficient record.</span> <span class="verdict-desc">There is not yet enough qualifying evidence to state a direction. This determination comes first: if the evidence base does not meet our sufficiency requirements, no direction is stated at all.</span></li>
+    <!-- /BUILD:VERDICT_BANDS -->
+  </ul>
+  <p>Each term is bound to published numeric thresholds over the support and contradiction structure of the evidence, shown above. The thresholds are calibrated against a fixed suite of claims with well-established status, spanning settled findings, collapsed findings, and live controversies, so that a settled claim cannot render as doubtful and a collapsed one cannot render as supported.</p>
 
-  <!-- OUR PRINCIPLES (merged from vision) -->
-  <section class="reveal">
-    <p class="section-label">Principles</p>
-    <h2>What we believe</h2>
-    <div class="grid-2">
-      <div class="card">
-        <h3>Confidence is structural</h3>
-        <p>DATOM operates on the principle that confidence is a property of evidence structure, not model authority or model output. For a decision to be defensible, uncertainty and disagreement must be preserved rather than smoothed away.</p>
-      </div>
-      <div class="card">
-        <h3>Ethical boundaries</h3>
-        <p>DATOM is defined by its constraints. It is not an oracle, a predictor, or a chatbot. The system will never decide, never recommend, and never replace the necessity of human judgment. We record context; we do not authorize action.</p>
-      </div>
-    </div>
-  </section>
+  <h2>The two grades: how strong the ground is</h2>
+  <p>A verdict tells you which way the evidence points. The grades tell you how solid the ground is under it. There are two, and they answer different questions.</p>
+  <ul class="grade-list">
+    <li class="grade-row">
+      <span class="grade-name">Evidence grade (A to F)</span>
+      <span class="verdict-desc">Measures the evidence against a single strict standard applied identically to every claim in every field: replication, independence of the groups involved, methodological quality, and the stability of results. It never adjusts for any field's customs. A weak evidence base grades low no matter how popular its conclusion.</span>
+    </li>
+    <li class="grade-row">
+      <span class="grade-name">Field-relative grade (A to F)</span>
+      <span class="verdict-desc">Measures the same evidence against the strongest form evidence can realistically take for that kind of question. Some questions permit controlled trials; some can only ever be studied observationally; fields differ in how much replication their structures produce. The ceiling for each field is derived empirically from the literature itself, not chosen by us, and every field-relative grade carries a basis line stating what it was measured against.</span>
+    </li>
+  </ul>
+  <p>Reading them together is the point. A claim can be the best its field can offer and still rest on limited ground; the two grades say both things at once instead of hiding one inside the other. Grades are letters, never percentages, because a percentage reads as the probability a claim is true, and that is not what a grade measures.</p>
 
-  <!-- CONVERSION CTA FOOTER -->
-  <section class="reveal" style="text-align:center;">
-    <h2>See it on your claims.</h2>
-    <p class="lede" style="margin:0 auto;">DATOM checks the evidence that matters to your work.</p>
-    <div style="display:flex; gap:14px; justify-content:center; margin-top:32px; flex-wrap:wrap;">
-      <a href="organizations.html" class="btn">See how institutions use DATOM &rarr;</a>
-    </div>
-  </section>
+  <h2>The evidence</h2>
+  <p>Every published record lists its sources: title, authors, year, venue, and a resolvable identifier, in public, on the record. Every citation on every record is machine-verified to resolve to a real publication with matching title and year before the record can publish. A record whose sources cannot be verified does not ship.</p>
+
+  <h2>What can never touch a score</h2>
+  <p>Money moves priority, never outcome. Whoever pays for a verification, and whether anyone pays at all, has no path into the verdict or the grades, and every record states who commissioned or sponsored it.</p>
+  <p>Public opinion carries zero weight. We measure what people believe about claims, but that data is stored where the scoring system has no ability to read it, and we prove it continuously: the pipeline is run with that data present and with it removed, and the verdict and grades must be identical to the last bit, or the system fails its own tests.</p>
+  <p>The classification of a claim into its field is printed on the record, so the standard it was graded against can be inspected, not taken on trust.</p>
+
+  <h2>How records change</h2>
+  <p>The ledger is append-only. A published record can be added to, never rewritten and never withdrawn. When new evidence changes a verdict or a grade, the change is made in public, dated, with the triggering evidence named, and the record's full history remains visible. We treat corrections as a feature of the record, not an embarrassment to it: a ledger that cannot change its entries cannot follow the evidence.</p>
+
+  <h2>How claims enter verification</h2>
+  <p>Entries advance through continuous prioritization across three paths: editorial selection, reader demand, and sponsorship. Commissioned work is private by default and publishes at the customer's choice, with two permanent rules. A displayed verification mark always requires a published record. And privacy attaches to the engagement, never to the claim: no one can prevent a claim itself from being verified through public demand, and once a record is published, it is published forever.</p>
+
+  <h2>What we do not do</h2>
+  <p>We do not decide what is true. A record states which way the evidence points and how strong the ground is; the conclusion remains yours. Responsibility for decisions stays human. We provide the record that makes them defensible.</p>
 
 </main>
 

@@ -33,8 +33,6 @@ const NAV_MAP = {
   "example:evidence":      { page: "example.html",  selector: "#evidence" },
   "example:confidence":    { page: "example.html",  selector: "#confidence-scoring" },
   "example:summary":       { page: "example.html",  selector: "#summary" },
-  // research.html
-  "research:top":          { page: "research.html", selector: "main" },
   // try.html
   "try:top":               { page: "try.html",      selector: "main" },
 };
@@ -50,14 +48,13 @@ function detectPage() {
   if (path.includes("product"))   return "product";
   if (path.includes("organizations")) return "organizations";
   if (path.includes("pricing"))   return "pricing";
-  if (path.includes("research"))  return "research";
   if (path.includes("try"))       return "try";
   return "home";
 }
 
 function getCurrentPageFile() {
   const page = detectPage();
-  const map = { home: "index.html", record: "record.html", claim: "claim.html", example: "example.html", product: "product.html", organizations: "organizations.html", pricing: "pricing.html", research: "research.html", try: "try.html" };
+  const map = { home: "index.html", record: "record.html", claim: "claim.html", example: "example.html", product: "product.html", organizations: "organizations.html", pricing: "pricing.html", try: "try.html" };
   return map[page] || "index.html";
 }
 
