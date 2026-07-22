@@ -419,10 +419,10 @@
   </button>
   <nav>
     <a href="record.html">Example</a>
-    <a href="pricing.html">Pricing</a>
+    <a href="product.html">How it works</a>
     <a href="organizations.html">For Organizations</a>
-    <a href="/app/login" class="btn-login">Log In / Sign Up</a>
-    <a href="try.html" class="btn-cta">Get Started</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="/app/login" class="btn-login">Sign in</a>
   </nav>
 </header>
 
@@ -536,7 +536,7 @@
   </div>
 </main>
 
-<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--signal);">Terms</a></footer>
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--signal);">Terms</a> &nbsp;&middot;&nbsp; <a href="privacy.html" style="color:var(--signal);">Privacy</a> &nbsp;&middot;&nbsp; <a href="firewall.html" style="color:var(--signal);">Firewall</a> &nbsp;&middot;&nbsp; <a href="product.html" style="color:var(--signal);">How it works</a></footer>
 
 <script src="fog-bg.js?v=2"></script>
 <script src="shared.js?v=20260719a"></script>
@@ -896,7 +896,7 @@
 
     state.selectedFiles = accepted;
     $('file-list').innerHTML = accepted.map(function (f) {
-      return '<div class="file-row"><span><svg viewBox="0 0 16 16" width="12" height="14" fill="none" aria-hidden="true" style="vertical-align:-2px;margin-right:5px"><path d="M4 1.5h5l3 3v10H4z" stroke="currentColor" stroke-width="1"/><path d="M9 1.5v3h3" stroke="currentColor" stroke-width="1"/><line x1="6" y1="8.5" x2="10" y2="8.5" stroke="currentColor" stroke-width="1"/><line x1="6" y1="11" x2="10" y2="11" stroke="currentColor" stroke-width="1"/></svg>' + escHtml(f.name) + ' (' + (f.size / 1024 / 1024).toFixed(1) + ' MB)</span><span class="file-status">queued</span></div>';
+      return '<div class="file-row"><span><svg viewBox="0 0 16 16" width="12" height="14" fill="none" aria-hidden="true" style="vertical-align:-2px;margin-right:5px"><path d="M4 1.5h5l3 3v10H4z" stroke="currentColor" stroke-width="1"/><path d="M9 1.5v3h3" stroke="currentColor" stroke-width="1"/><line x1="6" y1="8.5" x2="10" y2="8.5" stroke="currentColor" stroke-width="1"/><line x1="6" y1="11" x2="10" y2="11" stroke="currentColor" stroke-width="1"/></svg>' + escHtml(f.name) + ' (' + (f.size / 1024 / 1024).toFixed(1) + ' MB)</span><span class="file-status">Received</span></div>';
     }).join('');
   }
 

@@ -307,10 +307,10 @@
   </button>
   <nav>
     <a href="record.html">Example</a>
-    <a href="pricing.html">Pricing</a>
+    <a href="product.html">How it works</a>
     <a href="organizations.html">For Organizations</a>
-    <a href="/app/login" class="btn-login">Log In / Sign Up</a>
-    <a href="try.html" class="btn-cta">Get Started</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="/app/login" class="btn-login">Sign in</a>
   </nav>
 </header>
 
@@ -318,7 +318,7 @@
 
   <section class="reveal gs-intro">
     <h1>Let's get you started.</h1>
-    <p class="lede" style="margin:0 auto;">Elmer will help you find the right way in, whether that's a free account, a subscription, or setting up your lab or firm.</p>
+    <p class="lede" style="margin:0 auto;">Elmer will help you find the right way in, whether that's a free account or setting up your lab or firm.</p>
   </section>
 
   <div id="cancelled-message" style="display:none;max-width:720px;margin:0 auto 20px;padding:16px 20px;background:transparent;border:1px solid var(--verdict-contra);border-radius:0;font-size:14px;color:var(--ink);">
@@ -382,7 +382,7 @@
 
 </main>
 
-<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--signal);">Terms</a></footer>
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &nbsp;&middot;&nbsp; <a href="terms.html" style="color:var(--signal);">Terms</a> &nbsp;&middot;&nbsp; <a href="privacy.html" style="color:var(--signal);">Privacy</a> &nbsp;&middot;&nbsp; <a href="firewall.html" style="color:var(--signal);">Firewall</a> &nbsp;&middot;&nbsp; <a href="product.html" style="color:var(--signal);">How it works</a></footer>
 
 <script src="fog-bg.js?v=2"></script>
 <script src="shared.js?v=20260719a"></script>
@@ -687,7 +687,6 @@
     if (handoff && handoff.trim()) landingInputEl.value = handoff.trim().slice(0, 500);
   })();
   landingChipsEl.appendChild(landingChip('Read for free', function () { startObserverFlow(); }));
-  landingChipsEl.appendChild(landingChip('Subscribe', function () { startInvestigatorFlow(); }));
   landingChipsEl.appendChild(landingChip("I'm a lab, company, or institution", function () {
     addMsg("Are you a research lab looking for pilot access, or an investor or decision-maker looking for a Confidence Report?", 'bot');
     addChipRow([
@@ -1207,11 +1206,11 @@
       onReady: onVcReady });
   }
 
-  // ── Observer / Investigator: short conversational hand-off into the
-  //    real signup flow (signup.html actually creates the account and its
-  //    Commons/social access; this chat explains what happens and routes
-  //    there, it doesn't fake a multi-turn intake for something that's
-  //    really just a one-page form). ─────────────────────────────────────
+  // ── Observer: short conversational hand-off into the real signup flow
+  //    (signup.html actually creates the account and its Commons/social
+  //    access; this chat explains what happens and routes there, it doesn't
+  //    fake a multi-turn intake for something that's really just a one-page
+  //    form). ──────────────────────────────────────────────────────────────
   function startObserverFlow() {
     addMsg("Great choice. A free Observer account gets you the public ledger, the social feed, and following claims you care about. I'll take you to account setup, it takes about a minute.", 'bot');
     clearInput();
@@ -1222,23 +1221,12 @@
     btn.onclick = function () { window.location.href = '/app/signup?plan=observer'; };
     inputEl.appendChild(btn);
   }
-  function startInvestigatorFlow() {
-    addMsg("Investigator gets you full confidence reports, deeper evidence access, and the same social feed. Subscriptions are opening shortly, I'll take you to the waitlist so you're first in line.", 'bot');
-    clearInput();
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'chat-cta-btn';
-    btn.textContent = 'Join the waitlist →';
-    btn.onclick = function () { window.location.href = 'investigator-coming-soon.html'; };
-    inputEl.appendChild(btn);
-  }
 
   // ── The branch: one bot turn, chips, no separate section ───────────────
   function startBranchSelector() {
     addMsg("What are you here to do?", 'bot');
     addChipRow([
       { label: 'Read for free', onClick: function () { addMsg('Read for free', 'user'); startObserverFlow(); } },
-      { label: 'Subscribe', onClick: function () { addMsg('Subscribe', 'user'); startInvestigatorFlow(); } },
       { label: "I'm a lab, company, or institution", onClick: function () {
           addMsg("I'm a lab, company, or institution", 'user');
           addMsg("Are you a research lab looking for pilot access, or an investor or decision-maker looking for a Confidence Report?", 'bot');
