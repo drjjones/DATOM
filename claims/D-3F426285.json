@@ -1,15 +1,10 @@
 {
   "entryId": "D-3F426285",
-  "datomerId": "fbd5f1b0-fb71-4278-ba10-84927256e377",
   "name": "Smallholder Farm Productivity Determines Household Food Security",
   "anchorClaim": "Increases in crop productivity among smallholder farming households in sub-Saharan Africa and South Asia are associated with measurable improvements in household food security and dietary diversity, as measured in peer-reviewed agricultural economics studies.",
   "plainQuestion": "When a smallholder farming household becomes more productive or diversifies what it grows, it translates into a better, more varied diet and less hunger for the family.",
-  "confidence_score_pct": 29,
-  "confidence_band": "Preliminary",
   "confidenceSummary": "The Grade D is a caution about depth: the studies use many different research methods that rarely repeat one another, and more than half were published in just the last two years, too recent to have been independently confirmed.",
-  "replication_count": 175,
   "as_of": "12 Jul 2026",
-  "projectId": "cf57f478-c564-4e51-bbc2-6491d3149d1b",
   "verdict": "Supported",
   "grade": "D",
   "gradeLabel": "Limited evidence base",
@@ -19,7 +14,6 @@
   },
   "totalDatomCount": 175,
   "isHealthDomain": false,
-  "dataQualityNote": "This claim's commissioning job (LiteratureReviewJobs) recorded status TIMED_OUT, but the Datomer record and its full list of 175 datom_ids were still written successfully. All 175 datom records were retrieved directly via BatchGetItem on their primary keys (datom_id) using the Datomer's authoritative datom_ids list, and all 175 have complete required fields (claim, source_title, relationship) with no malformed or partial records skipped. One real data-quality artifact of the TIMED_OUT job: the datomerId-createdAt-index GSI query for this datomerId returns zero results, because each individual datom record's own denormalized datomerId attribute still points to whatever earlier Datomer/job first extracted it (a side effect of this system's theme-matched reuse of existing datoms into new claims), rather than to fbd5f1b0-fb71-4278-ba10-84927256e377; the datom_ids list on the Datomer record is the authoritative and correctly-scoped source used here. Minor completeness gaps: 1 of 175 datoms is missing a resolvable publication year (source_year null, fallback year field held junk value \"0\") and 1 is missing an evidence_type tag; both were left honestly blank rather than inferred. The relationship counts (99 supports, 72 conditional, 4 contradicts) exactly match the Datomer record's own confidence_breakdown component counts (supportsCount 99, conditionalCount 72, contradictsCount 4), corroborating the fetch.",
   "guide": {
     "whatScienceSays": "DATOM looked at 97 studies that directly tested this claim. Of those, 93 (96%) support the idea that when a smallholder farming household grows more food or a wider variety of it, the family eats better and goes hungry less often; 4 (4%) point the other way. So most of the clear findings back the claim, which is what the \"Supported\" verdict below means. But the Grade D beside it matters just as much: the evidence base is limited, so this is the current direction of the evidence, not a settled, high-certainty result. Many more studies touched on the topic without testing this exact claim; they appear further down, tagged by what they looked at.",
     "howConfident": "Why 57% support doesn't mean 29% confidence: DATOM's confidence score for this claim is 29% (\"Preliminary\"), well below the 57% of sources that support it. That's because the confidence score measures how strong and consistent the evidence base is as a whole, not just which way the studies point.\n\nFirst, the 175 sources trace back to about 93 different original studies. But they used a huge mix of methods: no single research approach accounts for more than 6 of the 175 sources, and 78 of the 175 use a method that appears only once. That makes it hard to combine these studies the way you could if they all used the same, repeated approach.\n\nSecond, 83 of the 175 sources (47%), nearly half, come from text summaries rather than the full original document. That means for almost half the evidence, we're missing some of the detail and background that a full paper would give us. As one concrete example, the sample record from Zambia's productivity program evaluation doesn't even report how many households were studied.\n\nThird, the 41% of sources calling this \"conditional\" doesn't mean many studies disagree with the claim. In fact, only 4 of 175 (2%) actually disagree. What it means is that the single largest group of sources says the benefit depends on other things, like market access, local growing conditions, or women's decision-making power. That weakens our confidence that simply boosting farm productivity, on its own, would produce the same result everywhere.\n\nDATOM also flags 25 of the underlying findings as individually too small to trust strongly on their own. That means those particular studies didn't have enough people or samples to be confident in their result by itself. That reinforces the overall picture: a lot of small, differently-designed studies rather than a few large, repeated ones.\n\nFinally, the process that generated this claim recorded a timeout error partway through. We independently double-checked the full set of 175 sources and confirmed the counts matched, so the result is accurate. But that hiccup is one more reason to treat this score as preliminary rather than fully settled.",
@@ -271,7 +265,6 @@
   },
   "datoms": [
     {
-      "id": "1df414fa-a4cf-4114-abcc-ff17a1c70685",
       "claim": "Agricultural production diversification is positively associated with dietary diversity among children in farm households in Bangladesh.",
       "source": "M. J. Alam, I. A. Begum, Tamanna Mastura, A. Kishore, J. Woodhill \"Agricultural diversification and intra-household dietary diversity: Panel data analysis of farm households in Bangladesh\" (2023). doi:10.1371/journal.pone.0287321",
       "year": 2023,
@@ -281,11 +274,9 @@
       "methodology": "Panel data Poisson regression with fixed effects",
       "relationship": "SUPPORTS",
       "sample_size": "3,436 farm households with child members (balanced panel)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The study uses secondary data with 24-hour recall period which may not capture seasonal or cultural dietary variation. Analysis focuses on farm households only. The paper notes that although agricultural diversification shows positive associations, it is not always an effective solution for improving nutrition in all contexts."
     },
     {
-      "id": "300f9577-f4e0-41db-8e2b-611e6e40dbc3",
       "claim": "Increases in farm production diversity among smallholder farming households are associated with measurable improvements in dietary diversity among women.",
       "source": "Temesgen Awoke Yalew, A. Weldesilassie, Stephen Thornhill, Edward Lahiff \"The influence of farm production diversity on women's dietary quality in Ethiopia\" (2025). doi:10.1007/s44187-025-00665-3",
       "year": 2025,
@@ -295,11 +286,9 @@
       "methodology": "Cross-sectional regression analysis",
       "relationship": "SUPPORTS",
       "sample_size": "1,910 women",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study does not report temporal causality or longitudinal follow-up; cross-sectional design limits causal inference."
     },
     {
-      "id": "b76a0b7b-3f89-4a51-b966-fbd62c127e1a",
       "claim": "Agricultural productivity promotion programs increase dietary diversity among smallholder farming households in sub-Saharan Africa.",
       "source": "Kibrom T. Sibhatu, Aslihan Arslan, Emanuele Zucchini \"The effect of agricultural programs on dietary diversity and food security: Insights from the smallholder productivity promotion program in Zambia\" (2022). doi:10.1016/j.foodpol.2022.102268",
       "year": 2022,
@@ -309,11 +298,9 @@
       "methodology": "Quasi-experimental impact evaluation with propensity score matching",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study is limited to one country (Zambia) and one specific program, which may limit generalizability. Cross-sectional nature of some measurements may limit causal inference."
     },
     {
-      "id": "5096d9bb-7530-4caa-a5ce-acedae72cac1",
       "claim": "Higher levels of on-farm crop diversity (Simpson's Diversity Index) are associated with increased household dietary diversity among smallholder farmers in Uganda.",
       "source": "Katherine Morrissey, Travis Reynolds, Daniel Tobin, Carina Isbell \"Market engagement, crop diversity, dietary diversity, and food security: evidence from small-scale agricultural households in Uganda\" (2023). doi:10.1007/s12571-023-01411-2",
       "year": 2023,
@@ -323,11 +310,9 @@
       "methodology": "Structural Equation Modeling with bivariate ordinal logistic regression",
       "relationship": "SUPPORTS",
       "sample_size": "2,485 households",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Cross-sectional design prevents causal inference. Study limited to Uganda context. Crop diversity estimates based on household-level data rather than geospatial data. Some variables had missing data requiring listwise deletion."
     },
     {
-      "id": "189367cb-708c-426f-a867-a5ddea55e4ea",
       "claim": "Increases in crop diversity among smallholder farming households are associated with measurable improvements in dietary diversity.",
       "source": "C. Bacon, Maria Eugenia Flores Gomez, Vanessa Shin, Gabi Ballardo, Skyler Kriese \"Beyond the bean: Analyzing diversified farming, food security, dietary diversity, and gender in Nicaragua's smallholders coffee cooperatives\" (2023). doi:10.1080/21683565.2023.2171172",
       "year": 2023,
@@ -337,11 +322,9 @@
       "methodology": "Mixed methods study with surveys and statistical correlation analysis",
       "relationship": "SUPPORTS",
       "sample_size": "171 surveys",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study is geographically limited to Nicaragua's coffee cooperatives and may not generalize to other regions or farming systems. Gender disparities in farm size and participation in diversification training were identified but not fully resolved."
     },
     {
-      "id": "9e449428-aa86-4c9c-8107-aa17633df970",
       "claim": "Non-farm income sources have a significant positive association with household dietary diversity, though the effect is smaller than agricultural production diversification.",
       "source": "Tamanna Mastura, I. A. Begum, A. Kishore, T. Jackson, J. Woodhill \"Diversified agriculture leads to diversified diets: panel data evidence from Bangladesh\" (2023). doi:10.3389/fsufs.2023.1044105",
       "year": 2023,
@@ -351,11 +334,9 @@
       "methodology": "Panel data Poisson regression with fixed effects",
       "relationship": "SUPPORTS",
       "sample_size": "4,093 farm households across three survey waves",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The study does not fully explore the mechanisms through which non-farm income affects dietary diversity or the quality of non-farm income sources. The relative contribution of non-farm income compared to agricultural diversification may vary by household characteristics."
     },
     {
-      "id": "b783da8d-bf4f-440a-bc0b-bf9c28930d7f",
       "claim": "The association between farm production diversity and household dietary diversity is conditional on salinity zone, being stronger in low and medium salinity zones than in high salinity zones.",
       "source": "Hazrat Ali, K. Murshed-e-Jahan \"The role of farm production diversity in enhancing dietary diversity and food security in Southern Bangladesh\" (2025). doi:10.1007/s12571-025-01620-x",
       "year": 2025,
@@ -365,11 +346,9 @@
       "methodology": "Poisson regression model with subgroup analysis by salinity zone",
       "relationship": "CONDITIONAL",
       "sample_size": "768 households (LSZ: 167, MSZ: 311, HSZ: 290)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The study is cross-sectional. Environmental variability across salinity zones limits generalizability of findings to other contexts. The paper acknowledges that the relationship between production diversity and dietary diversity is highly context-specific."
     },
     {
-      "id": "be0f3a93-3cff-4958-8a65-348582f55a18",
       "claim": "Crop diversity among smallholder farming households in Ghana is positively associated with improved dietary diversity.",
       "source": "Raymond Boadi Fremmpong, Elena Gross, Victor Owusu \"Crop diversity, sustainable food and nutritional security among smallholder farmers in Ghana\" (2023). doi:10.1108/bfj-12-2022-1060",
       "year": 2023,
@@ -379,11 +358,9 @@
       "methodology": "Panel data fixed effects modeling",
       "relationship": "SUPPORTS",
       "sample_size": "2,553 households",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study is limited to northern Ghana and may not be generalizable to other regions of sub-Saharan Africa or South Asia. The paper does not report specific effect sizes or statistical significance levels for the associations."
     },
     {
-      "id": "98776382-36aa-4271-9f66-9a89454de80c",
       "claim": "Higher levels of on-farm crop diversity are associated with improved household food security (measured as months of adequate food provisioning) among smallholder farmers in Uganda.",
       "source": "Katherine Morrissey, Travis Reynolds, Daniel Tobin, Carina Isbell \"Market engagement, crop diversity, dietary diversity, and food security: evidence from small-scale agricultural households in Uganda\" (2023). doi:10.1007/s12571-023-01411-2",
       "year": 2023,
@@ -393,11 +370,9 @@
       "methodology": "Structural Equation Modeling with bivariate ordinal logistic regression",
       "relationship": "SUPPORTS",
       "sample_size": "2,503 households",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Cross-sectional design prevents causal inference. Study limited to Uganda context. Food security measured by self-reported hunger rather than more detailed food insecurity scales. Some variables had missing data."
     },
     {
-      "id": "33e6c671-d48a-4ba1-bbf5-49d8f1a1bba2",
       "claim": "Crop diversity among smallholder farming households in Ghana is positively associated with improved household food security, as measured by reduced hunger and food scarcity.",
       "source": "Raymond Boadi Fremmpong, Elena Gross, Victor Owusu \"Crop diversity, sustainable food and nutritional security among smallholder farmers in Ghana\" (2023). doi:10.1108/bfj-12-2022-1060",
       "year": 2023,
@@ -407,11 +382,9 @@
       "methodology": "Panel data fixed effects modeling",
       "relationship": "SUPPORTS",
       "sample_size": "2,553 households",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study is limited to northern Ghana and may not be generalizable to other regions of sub-Saharan Africa or South Asia. Specific quantitative effect sizes are not reported."
     },
     {
-      "id": "5dfc453d-ec4a-41ed-934d-4169686e2851",
       "claim": "Agricultural diversification is positively associated with dietary diversity among smallholder farming households in Nepal.",
       "source": "Bikram Nepali, Tamara Jackson, C. Johns \"Exploring the Potential of Agriculture Diversification as a Pathway to an Improved Smallholder Livelihood Dietary System in Nepal\" (2024). doi:10.3390/su16219384",
       "year": 2024,
@@ -421,11 +394,9 @@
       "methodology": "Panel data analysis with Simpson diversification index and food consumption scores",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The paper does not explicitly state limitations regarding generalizability beyond Nepal or temporal scope constraints."
     },
     {
-      "id": "92155563-1183-4b08-a57c-580c5e40b81b",
       "claim": "Increases in agricultural productivity are associated with improvements in household food security and dietary diversity among smallholder farming households in Tanzania.",
       "source": "Fausta Marcellus Mapunda \"Agricultural productivity, crop diversity and nutritional security in Tanzania\". doi:10.18174/585727",
       "population": "Smallholder farming households in Tanzania",
@@ -434,11 +405,9 @@
       "methodology": "Cross-sectional observational study",
       "relationship": "CONDITIONAL",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Full methodological details, sample size, and specific effect sizes are not available from the title and abstract alone. Publication year was not resolvable from the source data (left blank rather than fabricated)."
     },
     {
-      "id": "33ef4bc9-6012-40f8-91c1-b43d935051be",
       "claim": "Greater farm production diversity is significantly associated with improved household dietary diversity in smallholder farming households in southern Bangladesh.",
       "source": "Hazrat Ali, K. Murshed-e-Jahan \"The role of farm production diversity in enhancing dietary diversity and food security in Southern Bangladesh\" (2025). doi:10.1007/s12571-025-01620-x",
       "year": 2025,
@@ -448,11 +417,9 @@
       "methodology": "Poisson regression model with cross-sectional survey data",
       "relationship": "SUPPORTS",
       "sample_size": "768 households",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The study is cross-sectional, limiting causal inference. Environmental variability across salinity zones affects the generalizability of findings. The paper notes that the relationship between production diversity and dietary diversity is not always direct or consistent, being influenced by market access, household preferences, and income."
     },
     {
-      "id": "ace0c678-2ed8-49e8-a0c3-6c528570d519",
       "claim": "Agricultural production diversification has a significantly positive effect on household dietary diversity among smallholder farm households in Bangladesh.",
       "source": "Tamanna Mastura, I. A. Begum, A. Kishore, T. Jackson, J. Woodhill \"Diversified agriculture leads to diversified diets: panel data evidence from Bangladesh\" (2023). doi:10.3389/fsufs.2023.1044105",
       "year": 2023,
@@ -462,11 +429,9 @@
       "methodology": "Panel data Poisson regression with fixed effects",
       "relationship": "SUPPORTS",
       "sample_size": "4,093 farm households across three survey waves",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The study focuses on rural Bangladesh and may not be generalizable to other regions. The effect magnitude of agricultural diversification on dietary diversity, while significant, is relatively modest. The study does not fully capture the complexity of the relationship between production diversity and consumption diversity."
     },
     {
-      "id": "696194cd-599c-44c0-9156-ec503f102146",
       "claim": "Increases in farm production diversity among smallholder farming households are associated with measurable improvements in minimum dietary diversity for women.",
       "source": "Temesgen Awoke Yalew, A. Weldesilassie, Stephen Thornhill, Edward Lahiff \"The influence of farm production diversity on women's dietary quality in Ethiopia\" (2025). doi:10.1007/s44187-025-00665-3",
       "year": 2025,
@@ -476,11 +441,9 @@
       "methodology": "Cross-sectional regression analysis",
       "relationship": "SUPPORTS",
       "sample_size": "1,910 women",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study does not report temporal causality or longitudinal follow-up; cross-sectional design limits causal inference."
     },
     {
-      "id": "6abc8264-018b-44c2-a756-47aa64c472c9",
       "claim": "Crop diversification among smallholder farmers in Zimbabwe increases household dietary diversity, as measured by household dietary diversity score (HDDS).",
       "source": "Clifton Makate, Rongchang Wang, Marshall Makate, N. Mango \"Crop diversification and livelihoods of smallholder farmers in Zimbabwe: adaptive management for environmental change\" (2016). doi:10.1186/s40064-016-2802-4",
       "year": 2016,
@@ -490,11 +453,9 @@
       "methodology": "Conditional mixed process regression with endogeneity correction",
       "relationship": "SUPPORTS",
       "sample_size": "531 households",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Cross-sectional design limits causal inference. Results based on voluntary adoption of crop diversification which may reflect unobserved farmer characteristics. Dietary diversity is a proxy measure rather than direct nutritional assessment."
     },
     {
-      "id": "169a062d-b54c-493d-a571-0dbf4fad0f45",
       "claim": "Increases in farm production diversity among smallholder farming households are associated with measurable improvements in nutrient adequacy, as measured by mean adequacy ratio.",
       "source": "Temesgen Awoke Yalew, A. Weldesilassie, Stephen Thornhill, Edward Lahiff \"The influence of farm production diversity on women's dietary quality in Ethiopia\" (2025). doi:10.1007/s44187-025-00665-3",
       "year": 2025,
@@ -504,11 +465,9 @@
       "methodology": "Cross-sectional regression analysis",
       "relationship": "SUPPORTS",
       "sample_size": "1,910 women",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study does not report temporal causality or longitudinal follow-up; cross-sectional design limits causal inference."
     },
     {
-      "id": "9dc2f196-a96d-477a-ade4-0a6cbe1224b0",
       "claim": "Agricultural production diversification is positively associated with dietary diversity among adult men in farm households in Bangladesh.",
       "source": "M. J. Alam, I. A. Begum, Tamanna Mastura, A. Kishore, J. Woodhill \"Agricultural diversification and intra-household dietary diversity: Panel data analysis of farm households in Bangladesh\" (2023). doi:10.1371/journal.pone.0287321",
       "year": 2023,
@@ -518,11 +477,9 @@
       "methodology": "Panel data Poisson regression with fixed effects",
       "relationship": "SUPPORTS",
       "sample_size": "3,512 farm households with men members (balanced panel)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The study uses secondary data with 24-hour recall period which may not capture seasonal or cultural dietary variation. The analysis focuses on farm households only, limiting generalizability to non-farm households. The paper notes that although agricultural diversification shows positive associations, it is not always an effective solution for improving nutrition in all contexts."
     },
     {
-      "id": "6b01e039-ec7d-4bba-a7c0-639d32b742d4",
       "claim": "Greater farm production diversity is significantly associated with reduced household food insecurity in smallholder farming households in southern Bangladesh.",
       "source": "Hazrat Ali, K. Murshed-e-Jahan \"The role of farm production diversity in enhancing dietary diversity and food security in Southern Bangladesh\" (2025). doi:10.1007/s12571-025-01620-x",
       "year": 2025,
@@ -532,11 +489,9 @@
       "methodology": "Ordered probit regression model with cross-sectional survey data",
       "relationship": "SUPPORTS",
       "sample_size": "768 households",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The study is cross-sectional, limiting causal inference. Environmental variability across salinity zones affects generalizability. The relationship between production diversity and food security is influenced by multiple mediating factors including market access and off-farm income."
     },
     {
-      "id": "2306babd-95f5-4e30-beb5-7ae666c6c8d4",
       "claim": "Farm production diversity among smallholder households in rain-fed regions of southern Punjab, Pakistan is associated with increased household dietary diversity.",
       "source": "Muhammad Waseem, Ihsan Jamil, Abu Hayat Md. Saiful Islam, Bushra Mughal, Mohamed Alnafissa \"Enhancing Dietary Diversity and Nutritional Security Through Farm Production Diversity: Evidence From Rain-Fed Regions in Southern Punjab, Pakistan\" (2025). doi:10.1002/fes3.70101",
       "year": 2025,
@@ -546,11 +501,9 @@
       "methodology": "Cross-sectional survey with regression analysis",
       "relationship": "SUPPORTS",
       "sample_size": "450 households",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study is limited to rain-fed regions of southern Punjab and may not generalize to other contexts. The paper does not explicitly report quantitative effect sizes for the associations measured."
     },
     {
-      "id": "a5a530fb-8e05-448b-beca-2b1d26d09c83",
       "claim": "Increased crop diversity among farming households is positively associated with dietary diversity, a measure of household food security.",
       "source": "I. Amao, A. Ogunniyi, G. Mavrotas, A. Omotayo \"Factors Affecting Food Security among Households in Nigeria: The Role of Crop Diversity\" (2023). doi:10.3390/su15118534",
       "year": 2023,
@@ -560,11 +513,9 @@
       "methodology": "Ordinary least squares, Poisson regression, instrumental variables Poisson regression",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Not reported"
     },
     {
-      "id": "09da2ba0-128d-402b-9c38-94bbfd769a44",
       "claim": "Dry season crop diversification is positively associated with dietary diversity among smallholder farming households in Nepal.",
       "source": "Bikram Nepali, Tamara Jackson, C. Johns \"Exploring the Potential of Agriculture Diversification as a Pathway to an Improved Smallholder Livelihood Dietary System in Nepal\" (2024). doi:10.3390/su16219384",
       "year": 2024,
@@ -574,11 +525,9 @@
       "methodology": "Panel data analysis with Simpson diversification index and food consumption scores",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The paper does not explicitly state limitations regarding the generalizability of seasonal findings or potential confounding variables."
     },
     {
-      "id": "43e5acf0-e4cf-4e31-820d-6f6927b7dfeb",
       "claim": "Adoption of climate-smart agricultural practices by smallholder farmers is associated with measurable improvements in household dietary diversity, as measured by Household Dietary Diversity Scores.",
       "source": "A. Omotayo, K. Olagunju, A. Ogunniyi, Femi E. Hounnou \"Climate-smart agricultural practices and food-nutrition security outcomes: insight from rural smallholder farmers\" (2025). doi:10.1186/s40066-025-00549-w",
       "year": 2025,
@@ -588,11 +537,9 @@
       "methodology": "Endogenous Switching Regression model",
       "relationship": "SUPPORTS",
       "sample_size": "320 farmers",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Not explicitly stated in the provided text."
     },
     {
-      "id": "dc919891-9ccf-4978-ae0f-6aed4ded9eb4",
       "claim": "In Kenya, increased soybean production was associated with increased soybean consumption by children through the production-own consumption pathway, but not through the income-food purchase pathway.",
       "source": "Ilse de Jager, Abdul-Razak Abizari, Jacob C. Douma, Ken E. Giller, Inge D. Brouwer \"Grain legume cultivation and children's dietary diversity in smallholder farming households in rural Ghana and Kenya\" (2017). doi:10.1007/s12571-017-0720-0",
       "year": 2017,
@@ -602,11 +549,9 @@
       "methodology": "Structural equation modelling of cross-sectional data",
       "relationship": "CONDITIONAL",
       "sample_size": "340 children from Kenya (154 from N2Africa households, 186 from non-N2Africa households)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The structural equation modelling analysis was limited to soybean production data. The cross-sectional design prevents causal inference. The model fit was described as 'relatively good' but specific fit indices were not reported in the text."
     },
     {
-      "id": "398d91c1-7326-4fb9-b68e-5a6aa2bf84b2",
       "claim": "Agricultural production diversification is positively associated with dietary diversity among adult women in farm households in Bangladesh.",
       "source": "M. J. Alam, I. A. Begum, Tamanna Mastura, A. Kishore, J. Woodhill \"Agricultural diversification and intra-household dietary diversity: Panel data analysis of farm households in Bangladesh\" (2023). doi:10.1371/journal.pone.0287321",
       "year": 2023,
@@ -616,11 +561,9 @@
       "methodology": "Panel data Poisson regression with fixed effects",
       "relationship": "SUPPORTS",
       "sample_size": "4,082 farm households with women members (balanced panel)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The study uses secondary data with 24-hour recall period which may not capture seasonal or cultural dietary variation. Analysis focuses on farm households only. The paper notes that although agricultural diversification shows positive associations, it is not always an effective solution for improving nutrition in all contexts."
     },
     {
-      "id": "1eb563eb-2e17-4eba-ab5b-fc14bb050004",
       "claim": "Livelihood diversification among maize-growing smallholder farmers in sub-Saharan Africa is associated with measurable improvements in household food security.",
       "source": "Alice Takyiwaa Baah, Reuben Amewuda, Bismark Amfo, N. Esther \"Livelihood diversification and food security of maize-growing households in techiman municipality of Ghana\" (2026). doi:10.1007/s44187-025-00677-z",
       "year": 2026,
@@ -630,11 +573,9 @@
       "methodology": "Doubly-robust inverse-probability-weighted regression adjustment (IPWRA)",
       "relationship": "SUPPORTS",
       "sample_size": "392 farmers",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study is limited to maize farmers in one municipality in Ghana, which may limit generalizability to other regions or crops. The cross-sectional nature of the data and reliance on self-reported measures via HFIAS may introduce measurement error."
     },
     {
-      "id": "a6e99d0f-243e-4975-b03c-118d9b89b623",
       "claim": "Agricultural diversification among smallholder farming households is associated with measurable improvements in dietary diversity and quality.",
       "source": "Neville N. Suh, Canan F. Abay \"Agricultural Diversification, Market Participation, and Dietary Diversity and Quality in Rural Turkiye\" (2025). doi:10.1002/agr.70039",
       "year": 2025,
@@ -644,11 +585,9 @@
       "methodology": "Cross-sectional household survey with dietary recall",
       "relationship": "SUPPORTS",
       "sample_size": "268 households",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The overall influence of agricultural diversification on dietary diversity and quality is modest, mainly due to the low levels of diversification observed in the study population. The study is cross-sectional, limiting causal inference."
     },
     {
-      "id": "67a30330-b499-4c62-a8e9-9c8955d4028e",
       "claim": "Participation in a multisectoral nutrition-sensitive agricultural program is associated with measurable improvements in dietary diversity among smallholder farming households living with HIV in sub-Saharan Africa.",
       "source": "Sarah Drummond, Jacques F Sambou, Seckou Badji, Anais Senghor, Andre Sadio \"Perceptions and impact of a multisectoral nutrition-sensitive agricultural program among people living with HIV in Senegal, West Africa: A pilot study.\" (2026). doi:10.1371/journal.pgph.0006743",
       "year": 2026,
@@ -658,11 +597,9 @@
       "methodology": "Mixed methods pilot study with qualitative interviews",
       "relationship": "CONDITIONAL",
       "sample_size": "56 MNSA participants interviewed",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Study did not use a validated dietary diversity scale. Qualitative data only from intervention group, not controls. Small sample size. No quantitative measure of dietary diversity was collected."
     },
     {
-      "id": "42f900a8-1047-4274-b981-078de9ba0fe9",
       "claim": "Rice price volatility is positively associated with household dietary diversity among smallholder farm households in Bangladesh.",
       "source": "Tamanna Mastura, Mohammad Jahangir Alam, I. A. Begum, Md. Asif Iqbal, Andrew M. McKenzie \"Rice price volatility and dietary diversity in Bangladeshi farm households: panel data evidence\" (2026). doi:10.3389/fnut.2025.1691049",
       "year": 2026,
@@ -672,11 +609,9 @@
       "methodology": "Fixed-effects Poisson regression model with panel data",
       "relationship": "SUPPORTS",
       "sample_size": "3,690 farm households with 11,070 observations across three survey waves",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Division-level price data may not fully capture heterogeneity of price shocks experienced by individual households within each division. Classical measurement error in the volatility variable is expected to bias estimates toward zero, making findings conservative estimates. The BIHS surveys relied on respondent memory for consumption data."
     },
     {
-      "id": "06c21b6a-e04f-4dea-a90c-8d574742e8b4",
       "claim": "Crop diversification among smallholder farms in sub-Saharan Africa enhances productivity and improves dietary diversity among farming households.",
       "source": "Donald Nyamayevu, I. Nyagumbo, Rui-qi Li, Wei-li Liang, Joao Vasco Silva \"Crop Diversification as a Pathway to Achieve Sustainable Development Goals 1 (No Poverty) and 2 (Zero Hunger) Among Smallholder Farms of Sub-Saharan Africa: A Structured Narrative Review\" (2025). doi:10.1002/sd.70549",
       "year": 2025,
@@ -686,11 +621,9 @@
       "methodology": "Structured narrative review",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The review notes that adoption of crop diversification remains limited due to systemic challenges including small landholdings, agronomic constraints, weak market linkages, and inadequate policy and infrastructural support. Specific quantitative effect sizes are not provided in the findings presented."
     },
     {
-      "id": "becb1455-6a82-44ee-931f-67d8f85cb086",
       "claim": "Quality seed adoption increases consumption of animal-source proteins, fruits, and vegetables among smallholder farming households in Kenya.",
       "source": "M. Mwangi, W. Nyarindo, M. Ngigi, H. Isaboke \"Seeding food security: Overcoming barriers to quality potato seed adoption among smallholders in Kenya\" (2026). doi:10.1371/journal.pone.0346796",
       "year": 2026,
@@ -700,11 +633,9 @@
       "methodology": "Propensity score matching with observational survey data",
       "relationship": "SUPPORTS",
       "sample_size": "541 households",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The study does not report specific quantitative effect sizes for each nutrient-dense food category. Observational design limits causal inference."
     },
     {
-      "id": "312d18e7-8b57-48c0-9cc6-9f48ffa8d716",
       "claim": "Adoption of quality seed potatoes increases household dietary diversity scores (HDDS) among smallholder farmers in Kenya.",
       "source": "M. Mwangi, W. Nyarindo, M. Ngigi, H. Isaboke \"Seeding food security: Overcoming barriers to quality potato seed adoption among smallholders in Kenya\" (2026). doi:10.1371/journal.pone.0346796",
       "year": 2026,
@@ -714,11 +645,9 @@
       "methodology": "Propensity score matching with observational survey data",
       "relationship": "SUPPORTS",
       "sample_size": "541 households",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The study relies on observational data and propensity score matching rather than randomization, which may not fully eliminate selection bias from unobservable factors. The cross-sectional design limits causal inference."
     },
     {
-      "id": "f4e760d3-f78e-4977-9c3d-eaaf3db24fc6",
       "claim": "Household dietary diversity increases over time among smallholder farm households in Bangladesh, with mean HDDS rising from 9.751 in 2012 to 10.600 in 2018.",
       "source": "Tamanna Mastura, Mohammad Jahangir Alam, I. A. Begum, Md. Asif Iqbal, Andrew M. McKenzie \"Rice price volatility and dietary diversity in Bangladeshi farm households: panel data evidence\" (2026). doi:10.3389/fnut.2025.1691049",
       "year": 2026,
@@ -728,11 +657,9 @@
       "methodology": "Descriptive panel analysis with parametric tests comparing means across survey waves",
       "relationship": "SUPPORTS",
       "sample_size": "3,690 farm households with 11,070 observations across three survey waves",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The analysis is descriptive and does not establish causality. Temporal trends may reflect multiple confounding factors beyond those examined in the study."
     },
     {
-      "id": "d4bdde95-3e97-4d49-afce-2215bee8b6cc",
       "claim": "Household dietary diversity score is inversely associated with waist-hip ratio among women in smallholder farming households in coastal Kenya.",
       "source": "Rosebella Iseme-Ondiek, Eunice Muthoni Mwangi, R. M. Riang'a, F. Agoi, Noveline Khatievi \"The association between food production, food security, household consumer behaviour and waist-hip ratio amongst women in smallholder farming households in Kilifi County, Kenya.\" (2024). doi:10.1111/nbu.12718",
       "year": 2024,
@@ -742,11 +669,9 @@
       "methodology": "Cross-sectional pathway-based regression analysis",
       "relationship": "CONDITIONAL",
       "sample_size": "394 households",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Cross-sectional design limits causal inference. Study focused on a specific coastal community in Kenya, potentially limiting generalizability. Food insecurity associations with HDDS and WHR did not reach statistical significance."
     },
     {
-      "id": "44b338af-f99d-49d2-8d6e-6490ab70f679",
       "claim": "Cacao farmers in wetter growing zones report greater crop diversity than coffee growers in the same region.",
       "source": "Christopher Bacon, William A Sundstrom \"Diversified farming and agroecology: Assessing cacao and coffee smallholders' food security, dietary diversity, and vulnerability to hurricanes and other hazards in Central America\" (2025). doi:10.21203/rs.3.rs-4903058/v1",
       "year": 2025,
@@ -756,11 +681,9 @@
       "methodology": "Cross-sectional survey with comparative analysis",
       "relationship": "CONDITIONAL",
       "sample_size": "429 farmers",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study is limited to northern Nicaragua and cross-sectional in design. The specific magnitude of crop diversity differences is not quantified in the abstract."
     },
     {
-      "id": "5bdf64d3-f671-4671-b690-5df908b4c1da",
       "claim": "Greater women's input into productive decisions is associated with increased food group diversity among smallholder farming households in sub-Saharan Africa and South Asia.",
       "source": "Kaela Connors, L. Jaacks, A. Awasthi, Karolin Becker, R. Bezner Kerr \"Women's empowerment, production choices, and crop diversity in Burkina Faso, India, Malawi, and Tanzania: a secondary analysis of cross-sectional data\" (2023). doi:10.1016/s2542-5196(23)00125-0",
       "year": 2023,
@@ -770,11 +693,9 @@
       "methodology": "Secondary analysis of cross-sectional data from cluster-randomised controlled trials",
       "relationship": "CONDITIONAL",
       "sample_size": "7306 women across four countries",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Cross-sectional design prevents causal inference. High heterogeneity across countries suggests context-specific associations. Data on agricultural assets only available for Burkina Faso and India. Missing covariate data imputed using mean imputation."
     },
     {
-      "id": "ef71ae3b-ee3c-454c-8de5-032cab0d4cb8",
       "claim": "Participation in a multisectoral nutrition-sensitive agricultural program is associated with measurable improvements in household food security among smallholder farming households living with HIV in sub-Saharan Africa.",
       "source": "Sarah Drummond, Jacques F Sambou, Seckou Badji, Anais Senghor, Andre Sadio \"Perceptions and impact of a multisectoral nutrition-sensitive agricultural program among people living with HIV in Senegal, West Africa: A pilot study.\" (2026). doi:10.1371/journal.pgph.0006743",
       "year": 2026,
@@ -784,11 +705,9 @@
       "methodology": "Mixed methods pilot study with historical controls",
       "relationship": "CONDITIONAL",
       "sample_size": "115 participants (56 MNSA, 59 controls)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Small sample size limited statistical power. Participants were not randomized; comparison group consisted of historical controls collected 2018-2019, not contemporaneous with intervention group (2023-2024). Cannot infer causal relationship."
     },
     {
-      "id": "67c18b79-d88a-4330-84f5-bbabcb2a3c4e",
       "claim": "Home gardening increases household dietary diversity, as measured by food item consumption categories in sub-Saharan African smallholder households.",
       "source": "K. Adeosun, B. Omonona, Ayoola Adewale, O. A. Adewusi \"Would home gardening enhance food diversity? Empirical evidence from home gardening households in Nigeria\" (2025). doi:10.1080/19320248.2025.2549599",
       "year": 2025,
@@ -798,11 +717,9 @@
       "methodology": "Cross-sectional survey with systematic sampling",
       "relationship": "SUPPORTS",
       "sample_size": "733 households",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Not reported in abstract."
     },
     {
-      "id": "b4838c45-b9f9-426a-aaff-b09fe90c999b",
       "claim": "Food insecurity is not significantly associated with household dietary diversity score among smallholder farming households in coastal Kenya.",
       "source": "Rosebella Iseme-Ondiek, Eunice Muthoni Mwangi, R. M. Riang'a, F. Agoi, Noveline Khatievi \"The association between food production, food security, household consumer behaviour and waist-hip ratio amongst women in smallholder farming households in Kilifi County, Kenya.\" (2024). doi:10.1111/nbu.12718",
       "year": 2024,
@@ -812,11 +729,9 @@
       "methodology": "Cross-sectional pathway-based regression analysis",
       "relationship": "CONTRADICTS",
       "sample_size": "394 households",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Cross-sectional design limits causal inference. Study focused on a specific coastal community in Kenya, potentially limiting generalizability. Non-significant associations suggest weak or absent relationships in this population."
     },
     {
-      "id": "4c2ff669-be5e-4b7b-810d-9dad6a224b79",
       "claim": "Increases in total cultivated land area among smallholder farming households are associated with measurable improvements in farm-level agrobiodiversity.",
       "source": "K. Hoang, Deborah Nabuuma, K. Swaans, Diego Naziri, Ronnie Vernooy \"Understanding agrobiodiversity and nutritional outcomes: a study of socio-economic differentiation among smallholder vegetable farming in northern Vietnam\" (2025). doi:10.1080/21683565.2025.2560914",
       "year": 2025,
@@ -826,11 +741,9 @@
       "methodology": "Household survey with multivariate analysis",
       "relationship": "CONDITIONAL",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study does not report sample size or study duration. The relationship between agrobiodiversity and food security is not directly measured."
     },
     {
-      "id": "5b1b873b-34c9-4e2e-9e18-4369f938a402",
       "claim": "Production diversity among smallholder farming households is positively associated with dietary diversity.",
       "source": "Michael Keenan, Stanley Karanja Ng'ang'a, Haki Pamuk, Ruerd Ruben \"Smallholder Farming Households' Make-or-Buy Decisions: Linking Market Access, Production Risks, and Production Diversity to Dietary Diversity\" (2022). doi:10.2139/ssrn.4235974",
       "year": 2022,
@@ -840,11 +753,9 @@
       "methodology": "Cross-sectional observational study",
       "relationship": "CONDITIONAL",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The paper does not explicitly report sample size, effect sizes, or study duration in the available abstract and title information."
     },
     {
-      "id": "cc734429-095c-4b95-9fa0-6541b3484eae",
       "claim": "Crop diversity is independently associated with higher dietary diversity among farming households.",
       "source": "Lorena Lombardozzi \"Untangling the nexus between marketization, crop diversity, farmers' wealth and nutrition: The case of Uzbekistan\" (2023). doi:10.1002/jid.3867",
       "year": 2023,
@@ -854,11 +765,9 @@
       "methodology": "Regression analysis",
       "relationship": "CONDITIONAL",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Not explicitly stated in the provided text."
     },
     {
-      "id": "fddfa05e-f6f7-45cf-94a7-d38d8878804d",
       "claim": "Greater women's input into productive decisions is associated with increased total food crop diversity among smallholder farming households in sub-Saharan Africa and South Asia.",
       "source": "Kaela Connors, L. Jaacks, A. Awasthi, Karolin Becker, R. Bezner Kerr \"Women's empowerment, production choices, and crop diversity in Burkina Faso, India, Malawi, and Tanzania: a secondary analysis of cross-sectional data\" (2023). doi:10.1016/s2542-5196(23)00125-0",
       "year": 2023,
@@ -868,11 +777,9 @@
       "methodology": "Secondary analysis of cross-sectional data from cluster-randomised controlled trials",
       "relationship": "CONDITIONAL",
       "sample_size": "7306 women across four countries",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Cross-sectional design prevents causal inference. High heterogeneity across countries suggests context-specific associations. Data on agricultural assets only available for Burkina Faso and India. Missing covariate data imputed using mean imputation."
     },
     {
-      "id": "bc2df8e0-8352-45e4-98c7-00325f289602",
       "claim": "Adoption of climate-smart agriculture practices by small-scale urban crop farmers is associated with measurable improvements in household dietary diversity, as measured by the Household Dietary Diversity Score (HDDS).",
       "source": "N. Z. Khumalo, M. Sibanda, L. Mdoda \"The effect of heterogeneous adoption of climate-smart agriculture practices on household food and nutrition security of small-scale urban crop farmers in eThekwini Municipality\" (2025). doi:10.1371/journal.pclm.0000551",
       "year": 2025,
@@ -882,11 +789,9 @@
       "methodology": "Endogenous switching regression with marginal treatment effects",
       "relationship": "SUPPORTS",
       "sample_size": "412 farmers",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Study limited to small-scale urban crop farmers in one municipality (eThekwini). Purposive sampling may introduce selection bias. Study duration not reported."
     },
     {
-      "id": "47e21582-ff63-4416-92d7-3f45b37fecb7",
       "claim": "Households with more diverse agricultural production have more diverse diets in pastoral and agro-pastoral settings.",
       "source": "B. O. Ipara, David Jakinda Otieno, W. Oluoch-Kosura, A. Andago, Magnus Jirstrom \"Does production diversity support dietary diversity? Evidence from pastoral and agro-pastoral households in West Pokot County, Kenya\" (2025). doi:10.3389/fsufs.2025.1512272",
       "year": 2025,
@@ -896,11 +801,9 @@
       "methodology": "Poisson regression analysis",
       "relationship": "SUPPORTS",
       "sample_size": "502 households",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "The study was conducted during the short dry season (August-September), which is a harvesting period and may not represent year-round dietary patterns. The food purchase variable does not account for quantity purchased, variety within food categories, or processing level of foods purchased. The study is limited to pastoral and agro-pastoral contexts in one county in Kenya."
     },
     {
-      "id": "c6b4b45d-3b44-4615-9ede-01778b280929",
       "claim": "Increases in crop productivity through grain legume intensification and diversification are associated with measurable improvements in household food self-sufficiency among smallholder farming households in the Guinea savanna of Ghana.",
       "source": "M. Kermah \"Sustainable intensification and diversification options with grain legumes for smallholder farming systems in the Guinea savanna of Ghana\" (2020). doi:10.18174/507853",
       "year": 2020,
@@ -910,11 +813,9 @@
       "methodology": "Scenario analysis with field experiments and household survey data",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Multi-year analysis using modeling would be relevant for understanding long-term nutrient balances and sustainability. The scenario analysis is model-based rather than empirical measurement of actual household outcomes."
     },
     {
-      "id": "c72c5738-7e95-4c3b-b962-ce1a924dbbc6",
       "claim": "Increases in vegetable production area among smallholder farming households are associated with measurable improvements in dietary diversity.",
       "source": "K. Hoang, Deborah Nabuuma, K. Swaans, Diego Naziri, Ronnie Vernooy \"Understanding agrobiodiversity and nutritional outcomes: a study of socio-economic differentiation among smallholder vegetable farming in northern Vietnam\" (2025). doi:10.1080/21683565.2025.2560914",
       "year": 2025,
@@ -924,11 +825,9 @@
       "methodology": "Household survey with multivariate analysis",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study does not report sample size or study duration. Socio-economic differences among farmers are noted as requiring better accounting in policy interventions."
     },
     {
-      "id": "59a75625-5f27-4546-87fb-a73b7f255950",
       "claim": "Participation in cluster farming among smallholder wheat farmers is associated with increased household dietary diversity, measured as a 14% higher dietary diversity score compared to non-participants.",
       "source": "Addisu Bezabeh Ali, Tesfaye Lemma Tefera \"The Nexus between Cluster Farming and Household Dietary Diversity among Smallholder Wheat Farmers in Ethiopia\" (2024). doi:10.24925/turjaf.v12i10.1753-1761.6977",
       "year": 2024,
@@ -938,11 +837,9 @@
       "methodology": "Cross-sectional survey with binary logistic regression",
       "relationship": "SUPPORTS",
       "sample_size": "384 household heads",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Cross-sectional design limits causal inference; study focused on wheat farmers in one region of Ethiopia."
     },
     {
-      "id": "58099d47-4f8b-48a0-a8f0-6d20ffa6c113",
       "claim": "Increased crop diversity among smallholder cacao and coffee farmers is associated with improved household dietary diversity.",
       "source": "Christopher Bacon, William A Sundstrom \"Diversified farming and agroecology: Assessing cacao and coffee smallholders' food security, dietary diversity, and vulnerability to hurricanes and other hazards in Central America\" (2025). doi:10.21203/rs.3.rs-4903058/v1",
       "year": 2025,
@@ -952,11 +849,9 @@
       "methodology": "Cross-sectional survey with multivariate regression analysis",
       "relationship": "SUPPORTS",
       "sample_size": "429 farmers",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "The study is cross-sectional and limited to northern Nicaragua; causality cannot be inferred. The specific magnitude of the correlation coefficient is not reported in the abstract."
     },
     {
-      "id": "627cf030-ebd0-40a9-a3c2-9a7b181ecbc8",
       "claim": "Household food security is positively associated with dietary diversity among smallholder farming households in rural Uganda.",
       "source": "Deborah Nabuuma, Beatrice Ekesa, Mieke Faber, Xikombiso Mbhenyane \"Food security and food sources linked to dietary diversity in rural smallholder farming households in central Uganda\" (2021). doi:10.3934/agrfood.2021038",
       "year": 2021,
@@ -966,11 +861,9 @@
       "methodology": "Cross-sectional observational study",
       "relationship": "CONDITIONAL",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Study limited to central Uganda; cross-sectional design prevents causal inference; specific sample size and effect magnitudes not provided in available text."
     }
   ],
   "scope": "Smallholder farm households in sub-Saharan Africa, South Asia, and Central America, including Bangladesh, Ethiopia, Zambia, Uganda, Ghana, and Nicaragua.",
-  "metric": "How varied and healthy people's diets are, using standard survey scores for households, children, and women (HDDS, CDDS, WDDS, HFVS), plus separate scales that measure whether a household has enough reliable access to food.",
-  "aboutClaim": "This claim is built from 175 sources drawn from about 93 different agricultural economics studies. Of these, 99 (57%) support a positive link between farm productivity or crop variety and household food security. 72 (41%) find that link depends on factors like market access or local soil conditions. Only 4 (2%) contradict it.\n\nThat's a large and mostly consistent body of evidence. Even so, the confidence score sits at just 29% (the \"Preliminary\" band). That's because most of the studies compare different households at a single point in time, rather than tracking the same households over time or running controlled experiments. Those are the kinds of designs that can prove one thing causes another.\n\nOn top of that, about one in seven of the underlying findings (25 of 175) are individually too small to trust strongly on their own.\n\nIn short: this pattern shows up again and again across many single-country studies. But the methods used so far can't yet prove that better farm productivity causes better food security, only that the two tend to go together."
+  "metric": "How varied and healthy people's diets are, using standard survey scores for households, children, and women (HDDS, CDDS, WDDS, HFVS), plus separate scales that measure whether a household has enough reliable access to food."
 }

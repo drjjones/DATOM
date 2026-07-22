@@ -1,14 +1,9 @@
 {
   "anchorClaim": "In low-income countries from 2010-2020, reductions of 20% or more in international vaccine funding correlate at r>=0.5 with declines in national vaccination coverage rates within 2 years.",
   "as_of": "12 Jul 2026",
-  "confidence_band": "Speculative",
   "confidenceSummary": "This is a genuine shortage of evidence, not a finding: DATOM located only a few studies, none of which directly measures vaccine funding levels against coverage, so there is not yet enough here to judge the claim either way.",
-  "confidence_score_pct": 11,
-  "dataQualityNote": "Only 4 real datoms exist for this claim against a sources_target of 100, a genuinely thin evidence base; the confidence_band (Speculative) and low score (0.11) reflect that honestly. None of the 4 retrieved sources directly measures the nucleus claim's specific quantitative relationship (20% funding cut correlating at r>=0.5 with coverage decline within 2 years): one paper (Berman 2004) predates the 2010-2020 study window, one (Lewnard 2020) measures vaccine effectiveness rather than funding-coverage links, one (Bruni 2020) documents a coverage-pattern trend without funding data, and one (Sbarra/LBD 2020) touches funding only as one of four co-named drivers (alongside conflict, vaccine scepticism, and supply disruption) behind a documented coverage slowdown, not as an independently tested predictor of it. Also worth flagging: the datomerId field stored on all 4 of the 4 individual datom records (44535375-36ad-4e00-9450-6b8936d9aee9 on three, f44ce3cf-a04f-4766-9d2f-db38f1800889 on one) does not match the parent Datomer's own datomerId (458642d5-4d7e-4840-89c9-081c23ccd489); linkage was confirmed instead via the Datomer's explicit datom_ids array and matching projectId (6391d547-4160-4938-bbba-ca770f16cde7), so a direct GSI query on datomerId returned zero rows.",
-  "datomerId": "458642d5-4d7e-4840-89c9-081c23ccd489",
   "datoms": [
     {
-      "id": "b05794ce-8d48-42da-8067-dc9d841a2c50",
       "claim": "The paper does not measure the correlation between international vaccine funding reductions and vaccination coverage rate declines in low-income countries during 2010-2020.",
       "source": "P. Berman. \"Immunization financing in developing countries and the international vaccine market: trends and issues\" (2004). doi:10.1590/S0042-96862004000900017",
       "year": 2004,
@@ -18,11 +13,9 @@
       "methodology": "Literature review and policy analysis",
       "relationship": "CONDITIONAL",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Published in 2004, predating the 2010-2020 window specified in the nucleus claim; does not measure the funding-coverage correlation. Sample size not reported; flagged with a statistical-reliability warning during ingestion."
     },
     {
-      "id": "99286d6c-a65d-43de-983f-00f42799c91a",
       "claim": "Low- and middle-income countries with HPV vaccination programs achieved lower final-dose coverage rates than high-income countries due to higher dropout rates between first and final doses.",
       "source": "Laia Bruni, Anna Saura-Lázaro, Alexandra Montoliu, María Brotons, Laia Alemany. \"HPV vaccination introduction worldwide and WHO and UNICEF estimates of national HPV immunization coverage 2010-2019\" (2020). doi:10.1016/j.ypmed.2020.106399",
       "year": 2020,
@@ -32,11 +25,9 @@
       "methodology": "Cross-sectional analysis of WHO/UNICEF vaccination coverage estimates",
       "relationship": "CONDITIONAL",
       "sample_size": "107 countries with HPV vaccination introduced",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Addresses coverage outcomes in low-income settings but does not examine funding data or the relationship between funding reductions and coverage declines. Global population-weighted final-dose coverage was only 15% in 2019; only 6% of countries reached >90% final-dose coverage."
     },
     {
-      "id": "8e72f147-19a4-4e0d-8b04-f1e0010a0326",
       "claim": "The paper does not measure the correlation between international vaccine funding reductions and vaccination coverage declines; it measures vaccine effectiveness against antibiotic-treated illness outcomes.",
       "source": "Joseph A. Lewnard, Nathan C. Lo, Nimalan Arinaminpathy, Isabel Frost, Ramanan Laxminarayan. \"Childhood vaccines and antibiotic use in low- and middle-income countries\" (2020). doi:10.1038/s41586-020-2238-4",
       "year": 2020,
@@ -46,11 +37,9 @@
       "methodology": "Case-control study with household survey data",
       "relationship": "CONTRADICTS",
       "sample_size": "65,815 children from case-control analysis; 944,173 children across 77 countries in incidence analysis",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Measures vaccine effectiveness against antibiotic-treated illness, not the funding-to-coverage relationship in the nucleus claim; scored as contradicting because it is off-target to the claim rather than confirming it. Relied on mother-reported outcomes rather than standardized clinical assessment."
     },
     {
-      "id": "b55c1ab1-c58e-4296-b978-7036b3f2d441",
       "claim": "In low-income and middle-income countries, measles vaccination coverage declined or stagnated in more than half of districts between 2010 and 2019, following gains from 2000 to 2010.",
       "source": "Local Burden of Disease Vaccine Coverage Collaborators, Alyssa N. Sbarra, Sam Rolfe, Jason Q. Nguyen, Lucas Earl. \"Mapping routine measles vaccination in low- and middle-income countries\" (2020). doi:10.1038/s41586-020-03043-4",
       "year": 2020,
@@ -60,7 +49,6 @@
       "methodology": "Geostatistical modelling with Bayesian hierarchical framework",
       "relationship": "CONDITIONAL",
       "sample_size": "1,697,570 children from 354 household surveys",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Documents a slowdown in coverage progress after 2010 (70.5% of districts improving 2000-2010 versus only 40.1% in 2010-2019), which authors attribute to conflict, vaccine scepticism, funding support, and supply disruptions jointly, not funding withdrawal in isolation. Cites Angola's 28% drop in per-capita health spending (2010-2018) coinciding with coverage declines as one example among several drivers."
     }
   ],
@@ -125,8 +113,6 @@
   "isHealthDomain": true,
   "name": "Vaccination Coverage Equity and Health System Financing",
   "plainQuestion": "Cutting international vaccine funding causes vaccination coverage rates to drop in low-income countries.",
-  "projectId": "6391d547-4160-4938-bbba-ca770f16cde7",
-  "replication_count": 4,
   "totalDatomCount": 4,
   "verdict": "Insufficient record",
   "grade": "F",
@@ -136,6 +122,5 @@
     "contradicts": 1
   },
   "scope": "Studies looked at low and middle-income countries, mostly between 2010 and 2019 (one source is from 2004, outside that range). The people studied range from children under 5 to teenagers, and in some cases the age group isn't specified.",
-  "metric": "How much countries spend on vaccine programs over time, how many children get measles and HPV vaccines, and how many illness cases are prevented by vaccination.",
-  "aboutClaim": "DATOM found only 4 real sources for this claim, well short of the 100 it aims for. None of them directly tests what the claim says: that a funding cut of 20% or more closely tracks with a national vaccine coverage drop within two years. That's why confidence sits at just 11% (\"Speculative\"). Of the 4 sources: 0 support the claim, 1 is marked as contradicting it, and 3 are only loosely related. One source is from 2004, before the time period this claim covers. One measures vaccine effectiveness, not funding. One documents a coverage slowdown without any funding data attached to it. And one mentions funding only as one of four things happening together behind a slowdown, not as something tested on its own. What is real here is a genuine, well-documented slowdown in vaccination progress in lower-income countries after 2010. But the sources that found it say it was caused by conflict, doubts about vaccines, supply problems, and funding together, not funding cuts by themselves."
+  "metric": "How much countries spend on vaccine programs over time, how many children get measles and HPV vaccines, and how many illness cases are prevented by vaccination."
 }

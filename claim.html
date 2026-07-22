@@ -395,7 +395,7 @@
     var vb = document.getElementById('verdict');
     vb.className = 'verdict-block v-' + verdictKind(data);
     document.getElementById('claim-verdict-label').textContent =
-      data.verdict || (data.confidence_band ? data.confidence_band + ' evidence' : 'Under review');
+      data.verdict || 'Under review';
     // The verdict sentence is shown in plain words, with the bare score percentage
     // taken out: a standalone "11%" reads to a lay visitor as "11% chance it is
     // true", which is not what the score means. Only the score/confidence figure
@@ -419,7 +419,7 @@
     renderSplit(data);
 
     // What this checks: plain scope, with the exact wording on demand.
-    var scope = data.scope || data.aboutClaim || '';
+    var scope = data.scope || '';
     if (scope) {
       document.getElementById('claim-scope').textContent = scope;
     } else {

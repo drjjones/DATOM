@@ -1,14 +1,9 @@
 {
   "anchorClaim": "Individuals with eating disorders (anorexia nervosa, bulimia nervosa, or clinical risk populations) show measurable structural or functional brain differences, in regions associated with emotion processing and cognitive control, detectable via MRI or fMRI compared to healthy controls.",
   "as_of": "12 Jul 2026",
-  "confidence_band": "Preliminary",
   "confidenceSummary": "The Grade D is a caution about fit: a number of the studies reviewed were a weak match to the exact question, and manual checking found some describe related conditions rather than eating disorders specifically.",
-  "confidence_score_pct": 35,
-  "dataQualityNote": "This file was fully rebuilt from verified production DynamoDB data (Datomers table record 65ba2769-243e-444b-8ee5-59c0f8ada7c2 and all 91 linked records in the datoms table, fetched via a single BatchGetItem call with zero unprocessed keys) after an earlier version was found to contain 12 fabricated datom entries whose claim, source, population, and methodology text did not match the live database (9 of those 12 records were not even about eating disorders in the live data). Every datom below and every aggregate figure was independently re-derived from the live records; none of the prior file's per-datom text was reused. Real data quality caveats surfaced in this rebuild: 44 of 91 datoms (48%) are flagged theme_match_low_confidence by the platform's own matching pipeline, and manual review shows about 34 of those are genuinely off topic (atopic dermatitis, tobacco use disorder, ADHD, borderline personality disorder, mind wandering EEG, and rodent studies) rather than direct eating disorder neuroimaging evidence. 40 of 91 datoms (44%) are evidence_type TEXT_NO_METADATA rather than PDF_FULL_TEXT, and 24 of 91 (26%) have sample_size recorded exactly as Not reported. The 91 datoms trace back to only 40 distinct source papers, with one Mendelian randomization study alone contributing 6. All 91 methodology fields are populated in the live data (no Not reported methodology values were found, unlike the prior file). No malformed or missing records were encountered.",
-  "datomerId": "65ba2769-243e-444b-8ee5-59c0f8ada7c2",
   "datoms": [
     {
-      "id": "0462d1d4-db01-4bff-a4ca-ee1e8f4e1fc1",
       "claim": "Individuals with anorexia nervosa show measurable structural brain differences in the striatum (putamen) detectable via MRI compared to healthy controls and other eating disorder subgroups.",
       "source": "R. Molina-Ruiz, J. Looi, M. Walterfang, T. García-Saiz, Fiona A. Wilkes \"Striatal volumes as potential biomarkers in Eating Disorders: A pilot study.\" (2022). doi:10.1016/j.rpsmen.2022.06.003",
       "year": 2022,
@@ -18,11 +13,9 @@
       "methodology": "Cross-sectional MRI volumetric study",
       "relationship": "SUPPORTS",
       "sample_size": "24 female patients plus 19 healthy controls (43 total)",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Pilot study with small sample size; preliminary results requiring replication in larger cohorts."
     },
     {
-      "id": "1e8dbc90-9a11-4713-9379-977b0ca1f573",
       "claim": "Individuals with anorexia nervosa show increased grey matter volume in the orbitofrontal cortex and medial temporal lobe compared to healthy controls, detectable via structural MRI.",
       "source": "Michelle Sader, Justin H. G. Williams, G. Waiter \"A meta‐analytic investigation of grey matter differences in anorexia nervosa and autism spectrum disorder\" (2022). doi:10.1002/erv.2915",
       "year": 2022,
@@ -32,11 +25,9 @@
       "methodology": "Meta-analysis of structural MRI studies",
       "relationship": "SUPPORTS",
       "sample_size": "23 publications analyzed",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: The meta-analysis was limited to structural MRI studies; functional neuroimaging data were not included in this analysis."
     },
     {
-      "id": "e937ba1c-b8f7-47a0-a542-e15634b1aa5a",
       "claim": "Adult individuals with anorexia nervosa show structural brain differences in the genu of the anterior cingulate cortex compared to healthy controls, detectable via structural MRI.",
       "source": "Michelle Sader, Justin H. G. Williams, G. Waiter \"A meta‐analytic investigation of grey matter differences in anorexia nervosa and autism spectrum disorder\" (2022). doi:10.1002/erv.2915",
       "year": 2022,
@@ -46,11 +37,9 @@
       "methodology": "Meta-analysis of structural MRI studies",
       "relationship": "SUPPORTS",
       "sample_size": "Subset of 23 publications (adult-only)",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: The meta-analysis was limited to structural MRI studies; functional neuroimaging data were not included in this analysis."
     },
     {
-      "id": "cfd6bd81-9012-4c25-85fd-e9459e2d129e",
       "claim": "Individuals with anorexia nervosa show measurable gray matter alterations in brain regions associated with the auditory network, default mode network, and sensorimotor network, detectable via structural MRI compared to healthy controls.",
       "source": "Hucheng Yang, Shu Wang, HuaLiang Li, Siyu Gu, Fengmei Zhang \"Mapping gray matter changes in anorexia nervosa: a functional connectivity network approach\" (2025). doi:10.3389/fnut.2025.1667729",
       "year": 2025,
@@ -60,11 +49,9 @@
       "methodology": "Systematic review with functional connectivity network mapping",
       "relationship": "SUPPORTS",
       "sample_size": "667 AN participants, 659 healthy controls",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: The study integrated data from multiple VBM studies with varying methodological quality and thresholds. The FCNM approach relies on mapping coordinates from prior studies onto functional connectivity data from healthy controls, which may not fully capture disease-specific functional alterations."
     },
     {
-      "id": "a276ec9c-43e8-4662-b3d9-d0450908c88e",
       "claim": "Individuals with anorexia nervosa show measurable structural brain differences in the prefrontal cortex, nucleus accumbens, hippocampus, and insula compared to healthy controls, detectable via structural MRI.",
       "source": "M. Wayda-Zalewska, Agnieszka Pluta, Tomasz Wolak, Mateusz Wojtczak, Jakub Wojciechowski \"Interaction between emotion lability, emotion regulation and structural brain abnormalities in patients with anorexia nervosa and borderline personality disorder\" (2025). doi:10.3389/fnins.2025.1545599",
       "year": 2025,
@@ -74,11 +61,9 @@
       "methodology": "Structural MRI with volumetric and cortical thickness analysis",
       "relationship": "SUPPORTS",
       "sample_size": "32 AN participants, 41 healthy controls",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Study included only female subjects due to higher prevalence of AN diagnoses and unavailability of male patients. AN-Binge Eating/Purging Type patients were excluded. Cross-sectional design limits causal inference."
     },
     {
-      "id": "083ffc81-db7a-4ee9-a544-ebc836e722ef",
       "claim": "Individuals with bulimia nervosa show increased gray matter volume in the left medial orbitofrontal cortex compared to healthy controls, detectable via structural MRI.",
       "source": "Weihua Li, Li-rong Tang, Miao Wang, Jiani Wang, T. Guo \"Altered gray matter volume and functional connectivity in medial orbitofrontal cortex of bulimia nervosa patients: A combined VBM and FC study\" (2022). doi:10.3389/fpsyt.2022.963092",
       "year": 2022,
@@ -88,11 +73,9 @@
       "methodology": "Voxel-based morphometry (VBM) structural MRI",
       "relationship": "SUPPORTS",
       "sample_size": "29 BN patients, 28 healthy controls",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Modest sample size limited to adult women, so results cannot be generalized to men. Single seed region selected for rsFC analysis. Descriptive rather than mechanistic study. Menstrual status not controlled."
     },
     {
-      "id": "4689dd22-f685-4227-97b0-8cc6aeac6c1b",
       "claim": "Individuals with anorexia nervosa show measurable gray matter volume reduction in brain regions compared to healthy controls, detectable via MRI.",
       "source": "Huaze Gao, Shuoyu Chen, Lei Wang, P. B. Shih \"The Impact of Age on Gray Matter Volume Reduction in Anorexia Nervosa: A Systematic Review\" (2025). doi:10.1101/2025.03.03.25322748",
       "year": 2025,
@@ -102,11 +85,9 @@
       "methodology": "Systematic review and meta-analysis",
       "relationship": "SUPPORTS",
       "sample_size": "1391 AN patients, 1566 controls across 44 studies",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: The paper does not explicitly state limitations but notes greater variability in regional findings for older AN patients, suggesting heterogeneity in aging effects."
     },
     {
-      "id": "85ce8527-fd05-4ee8-9cc7-a2acf87b469a",
       "claim": "Individuals with anorexia nervosa show measurable volume alterations in brain regions associated with emotion processing (hippocampus, amygdala) and cognitive control (precuneus), detectable via MRI compared to healthy controls.",
       "source": "Huaze Gao, Shuoyu Chen, Lei Wang, P. B. Shih \"The Impact of Age on Gray Matter Volume Reduction in Anorexia Nervosa: A Systematic Review\" (2025). doi:10.1101/2025.03.03.25322748",
       "year": 2025,
@@ -116,11 +97,9 @@
       "methodology": "Systematic review and meta-analysis",
       "relationship": "SUPPORTS",
       "sample_size": "1391 AN patients, 1566 controls across 44 studies",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: The review notes greater variability in regional findings for older AN patients, which may limit generalizability of regional findings across age groups."
     },
     {
-      "id": "03beb26d-46b3-49bc-afd1-b594e667e409",
       "claim": "Females with anorexia nervosa show significantly lower gray matter volume in frontal, temporal, and parietal brain regions compared to healthy controls.",
       "source": "A. Lyall, L. Breithaupt, Chunni Ji, Anastasia Haidar, E. Kotler \"Lower Region-Specific Gray Matter Volume in Females with Atypical Anorexia Nervosa and Anorexia Nervosa\" (2024). doi:10.1002/eat.24168",
       "year": 2024,
@@ -130,11 +109,9 @@
       "methodology": "Structural MRI with linear mixed-effects models",
       "relationship": "SUPPORTS",
       "sample_size": "101 participants (37 AN, 23 atypical AN, 41 HC)",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Not reported in the provided text."
     },
     {
-      "id": "b638eb06-258f-41f8-8455-fff288d208fe",
       "claim": "Females with atypical anorexia nervosa show significantly lower gray matter volume in frontal, temporal, and parietal brain regions compared to healthy controls.",
       "source": "A. Lyall, L. Breithaupt, Chunni Ji, Anastasia Haidar, E. Kotler \"Lower Region-Specific Gray Matter Volume in Females with Atypical Anorexia Nervosa and Anorexia Nervosa\" (2024). doi:10.1002/eat.24168",
       "year": 2024,
@@ -144,11 +121,9 @@
       "methodology": "Structural MRI with linear mixed-effects models",
       "relationship": "SUPPORTS",
       "sample_size": "64 participants (23 atypical AN, 41 HC)",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Not reported in the provided text."
     },
     {
-      "id": "552269c1-4b38-44a1-81a1-ef5ab38d206d",
       "claim": "Body mass index is associated with gray matter volume in parietal, frontal, temporal, and cingulate lobes in females with eating disorders and healthy controls.",
       "source": "A. Lyall, L. Breithaupt, Chunni Ji, Anastasia Haidar, E. Kotler \"Lower Region-Specific Gray Matter Volume in Females with Atypical Anorexia Nervosa and Anorexia Nervosa\" (2024). doi:10.1002/eat.24168",
       "year": 2024,
@@ -158,11 +133,9 @@
       "methodology": "Structural MRI with correlation analysis",
       "relationship": "CONDITIONAL",
       "sample_size": "101 participants (37 AN, 23 atypical AN, 41 HC)",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Not reported in the provided text."
     },
     {
-      "id": "0f30af4f-b91a-406d-af11-53f93ba1aba1",
       "claim": "Individuals with anorexia nervosa show significantly smaller gray matter volume in multiple brain regions including the cerebellum, thalamus, temporal gyrus, orbital frontal gyrus, and sensorimotor gyrus compared to healthy controls.",
       "source": "Fengting Wang, Wei Liu, Halimureti Paerhati, Zhengyu Lin, Kuanghao Ye \"Weight restoration in patients with anorexia nervosa after stereotactic surgery and brain morphometric insights\" (2025). doi:10.1186/s12888-025-06890-5",
       "year": 2025,
@@ -172,11 +145,9 @@
       "methodology": "Voxel-based morphometry (VBM) structural MRI analysis",
       "relationship": "SUPPORTS",
       "sample_size": "19 AN patients; healthy control sample size not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Small sample size (19 patients); further studies with larger patient numbers are warranted to better evaluate surgical outcomes and predictive value of imaging characteristics."
     },
     {
-      "id": "c31de3ee-7351-4121-93f2-7884230b0e36",
       "claim": "Decreased surface area of the right inferior temporal gyrus and left lateral orbital gyrus causally decreases risk of bulimia nervosa.",
       "source": "Weihua Li, Xinghao Wang, Yiling Wang, Jiani Wang, Xinyu Huang \"Dissecting the Causal Association Between Bulimia Nervosa and Structural Brain Abnormalities: A Two‐Sample Bidirectional Mendelian Randomization Study\" (2025). doi:10.1002/brb3.70859",
       "year": 2025,
@@ -186,11 +157,9 @@
       "methodology": "Two-sample bidirectional Mendelian randomization",
       "relationship": "SUPPORTS",
       "sample_size": "2,442 participants (BN GWAS); UK Biobank 3D-T1 MRI cohort (size not specified)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Moderate GWAS sample size for BN; European genetic background limits generalizability; bidirectional causality findings may reflect shared etiological factors; gender differences and comorbid psychological symptoms not fully controlled."
     },
     {
-      "id": "5f92df23-f7b9-42d2-a673-38a844f72af4",
       "claim": "Individuals with anorexia nervosa and bulimia nervosa show bilateral reduction in cerebellar gray matter volume compared to healthy controls, with significant clusters in Crus I and Lobule VI.",
       "source": "Michelle Sader, G. Waiter, Justin H G Williams \"The cerebellum plays more than one role in the dysregulation of appetite: Review of structural evidence from typical and eating disorder populations\" (2023). doi:10.1002/brb3.3286",
       "year": 2023,
@@ -200,11 +169,9 @@
       "methodology": "Systematic review and meta-analysis using GingerALE activation likelihood estimation",
       "relationship": "SUPPORTS",
       "sample_size": "510 eating disorder participants; 787 total case-control participants",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Publications older than 10 years were excluded; animal studies were excluded; only voxel-based morphometry studies were included, excluding fMRI studies; authors were unable to correct for age and gender across datasets due to limited literature."
     },
     {
-      "id": "d6383895-7ea1-4e59-89ae-910289bc17e3",
       "claim": "Individuals with obesity show unilateral (left hemisphere) reduction in cerebellar gray matter volume in Crus I and Lobule VI compared to healthy controls.",
       "source": "Michelle Sader, G. Waiter, Justin H G Williams \"The cerebellum plays more than one role in the dysregulation of appetite: Review of structural evidence from typical and eating disorder populations\" (2023). doi:10.1002/brb3.3286",
       "year": 2023,
@@ -214,11 +181,9 @@
       "methodology": "Systematic review and meta-analysis using GingerALE activation likelihood estimation",
       "relationship": "SUPPORTS",
       "sample_size": "277 obesity case-control participants",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Publications older than 10 years were excluded; animal studies were excluded; only voxel-based morphometry studies were included, excluding fMRI studies; sensitivity analyses indicated OB-specific heterogeneity; authors were unable to correct for age and gender across datasets. Low thematic match confidence to anchor claim (similarity 0.4851823283781364)."
     },
     {
-      "id": "5bd2fb13-834c-4c8e-a254-24ba108220a7",
       "claim": "In normative populations, cerebellar gray matter volume negatively correlates with BMI in the right posterior lobe, including regions Crus I/II, Lobule VI, and Lobule VIIb.",
       "source": "Michelle Sader, G. Waiter, Justin H G Williams \"The cerebellum plays more than one role in the dysregulation of appetite: Review of structural evidence from typical and eating disorder populations\" (2023). doi:10.1002/brb3.3286",
       "year": 2023,
@@ -228,11 +193,9 @@
       "methodology": "Systematic review and meta-analysis using GingerALE activation likelihood estimation on normative cohorts",
       "relationship": "CONDITIONAL",
       "sample_size": "3830 participants from normative populations",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Publications older than 10 years were excluded; animal studies were excluded; only voxel-based morphometry studies were included, excluding fMRI studies; one study (Figley et al.) did not include individuals with excess weight; three studies did not include individuals with obesity. Low thematic match confidence to anchor claim (similarity 0.3895042227698341)."
     },
     {
-      "id": "de2c8b7b-b373-47b2-8b2b-6f97937d2f1e",
       "claim": "Individuals with anorexia nervosa show reduced brain volume detectable via MRI compared to healthy controls.",
       "source": "Linda Frintrop, Johanna Liesbrock, L. Paulukat, S. Johann, M. Kas \"Reduced astrocyte density underlying brain volume reduction in activity-based anorexia rats\" (2018). doi:10.1080/15622975.2016.1273552",
       "year": 2018,
@@ -242,11 +205,9 @@
       "methodology": "Animal model study with histological analysis",
       "relationship": "CONDITIONAL",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: This is an animal model study; findings may not directly translate to human anorexia nervosa pathophysiology. The study does not directly measure human brain structure via MRI."
     },
     {
-      "id": "e5badc1c-11a4-4fb5-9f3f-b2c26bf2920c",
       "claim": "Individuals with acute anorexia nervosa show measurable multivariate structural brain differences detectable via MRI compared to healthy controls.",
       "source": "Dominic Arold, F. Bernardoni, Daniel Geisler, Arne Doose, Volkan Uen \"Predicting long-term outcome in anorexia nervosa: a machine learning analysis of brain structure at different stages of weight recovery\" (2023). doi:10.1017/S0033291723001861",
       "year": 2023,
@@ -256,11 +217,9 @@
       "methodology": "Machine learning classification with nested cross-validation",
       "relationship": "SUPPORTS",
       "sample_size": "165 acAN-TP1 patients, 289 healthy controls",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: The study included predominantly female participants (100% female) and European participants (98%), limiting generalizability. The cross-sectional design at baseline does not establish causality. The study excluded participants with bulimia nervosa history and certain medications, which may limit applicability to broader AN populations."
     },
     {
-      "id": "aaf868eb-8450-4aec-bbe4-f1f57268f710",
       "claim": "Individuals with anorexia nervosa after partial weight restoration show measurable multivariate structural brain differences detectable via MRI compared to healthy controls.",
       "source": "Dominic Arold, F. Bernardoni, Daniel Geisler, Arne Doose, Volkan Uen \"Predicting long-term outcome in anorexia nervosa: a machine learning analysis of brain structure at different stages of weight recovery\" (2023). doi:10.1017/S0033291723001861",
       "year": 2023,
@@ -270,11 +229,9 @@
       "methodology": "Machine learning classification with nested cross-validation",
       "relationship": "SUPPORTS",
       "sample_size": "115 acAN-TP2 patients, 289 healthy controls",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: The study included predominantly female participants (100% female) and European participants (98%). The cross-sectional design at this timepoint does not establish causality. Only 64% of acAN-TP2 participants completed the 1-year outcome assessment."
     },
     {
-      "id": "7e70faec-e0d6-4241-8fca-9d1f030d0206",
       "claim": "Structural brain alterations in regions with high functional network centrality are more pronounced in individuals with anorexia nervosa after partial weight restoration.",
       "source": "Dominic Arold, F. Bernardoni, Daniel Geisler, Arne Doose, Volkan Uen \"Predicting long-term outcome in anorexia nervosa: a machine learning analysis of brain structure at different stages of weight recovery\" (2023). doi:10.1017/S0033291723001861",
       "year": 2023,
@@ -284,11 +241,9 @@
       "methodology": "Connectome contextualization using functional connectivity data from Human Connectome Project",
       "relationship": "SUPPORTS",
       "sample_size": "115 acAN-TP2 patients; HCP reference sample (size not specified in this paper)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: The analysis assumes that network centrality properties in healthy controls from the HCP also apply to individuals with AN, which may not be entirely accurate. The cross-sectional design limits causal inference about the relationship between network properties and structural alterations."
     },
     {
-      "id": "73867ba4-d949-433c-af01-5a89a859f834",
       "claim": "Multivariate structural brain alterations in anorexia nervosa after partial weight restoration predict long-term clinical outcome at 1-year follow-up.",
       "source": "Dominic Arold, F. Bernardoni, Daniel Geisler, Arne Doose, Volkan Uen \"Predicting long-term outcome in anorexia nervosa: a machine learning analysis of brain structure at different stages of weight recovery\" (2023). doi:10.1017/S0033291723001861",
       "year": 2023,
@@ -298,11 +253,9 @@
       "methodology": "Generalized linear model predicting clinical outcome from ML-based risk score",
       "relationship": "SUPPORTS",
       "sample_size": "74 acAN-TP2 patients with complete outcome data",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Only 64% of acAN-TP2 participants (74 of 115) completed the structured Morgan-Russell interview at 1-year follow-up, which may introduce selection bias. The effect size is modest (R2 = 0.065), explaining only 6.5% of outcome variance. The study included predominantly female participants (100% female) and European participants (98%)."
     },
     {
-      "id": "fc8052ee-9aba-4c6d-ab99-7b1e6710d81a",
       "claim": "Individuals with anorexia nervosa after long-term weight recovery do not show detectable multivariate structural brain differences compared to healthy controls.",
       "source": "Dominic Arold, F. Bernardoni, Daniel Geisler, Arne Doose, Volkan Uen \"Predicting long-term outcome in anorexia nervosa: a machine learning analysis of brain structure at different stages of weight recovery\" (2023). doi:10.1017/S0033291723001861",
       "year": 2023,
@@ -312,11 +265,9 @@
       "methodology": "Machine learning classification with nested cross-validation",
       "relationship": "CONDITIONAL",
       "sample_size": "89 recAN patients, 289 healthy controls",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: The study included predominantly female participants (100% female) and European participants (98%). The cross-sectional design does not establish causality. The recAN sample was older (mean age 22.18 years) than the acute AN samples, which may confound age-related brain changes. Low thematic match confidence to anchor claim (similarity 0.5047291101718451)."
     },
     {
-      "id": "7fc1b413-7f2f-4de1-863c-395541278ab0",
       "claim": "Individuals with anorexia nervosa show reduced neuromelanin contrast-to-noise ratio in the substantia nigra pars compacta compared to healthy controls, detectable via neuromelanin-sensitive MRI.",
       "source": "Stuart B. Murray, J. Diaz-Fong, V. Mak, J. Feusner \"Assessing midbrain neuromelanin and its relationship to reward learning in anorexia nervosa: Stage 1 of a registered report\" (2024). doi:10.1002/brb3.3573",
       "year": 2024,
@@ -326,11 +277,9 @@
       "methodology": "Cross-sectional neuroimaging study with neuromelanin-sensitive MRI",
       "relationship": "SUPPORTS",
       "sample_size": "90 participants (30 acute AN, 30 weight-restored AN, 30 healthy controls)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: This is a Stage 1 registered report with no data collected yet. The study is limited to female participants aged 12-22 years, which may limit generalizability. No published effect size estimates exist for neuromelanin in AN, so power calculations are based on the parent study's primary outcomes."
     },
     {
-      "id": "d3ffdcb6-b412-4b1b-b22e-9214653fd5a2",
       "claim": "Individuals with anorexia nervosa show reduced gray matter volume in the ventral striatum and orbitofrontal cortex compared to healthy controls, detectable via structural MRI.",
       "source": "Stuart B. Murray, J. Diaz-Fong, V. Mak, J. Feusner \"Assessing midbrain neuromelanin and its relationship to reward learning in anorexia nervosa: Stage 1 of a registered report\" (2024). doi:10.1002/brb3.3573",
       "year": 2024,
@@ -340,11 +289,9 @@
       "methodology": "Structural MRI studies (cited literature review)",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: This is a literature review; specific limitations of individual studies are not detailed."
     },
     {
-      "id": "697fb2cd-5b2e-4e66-9791-80bea80522d7",
       "claim": "Individuals with anorexia nervosa show diminished corticostriatal activity in response to food cues during fMRI compared to healthy controls.",
       "source": "Stuart B. Murray, J. Diaz-Fong, V. Mak, J. Feusner \"Assessing midbrain neuromelanin and its relationship to reward learning in anorexia nervosa: Stage 1 of a registered report\" (2024). doi:10.1002/brb3.3573",
       "year": 2024,
@@ -354,11 +301,9 @@
       "methodology": "Functional MRI studies during food cue exposure (cited literature review)",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: This is a literature review; specific limitations of individual studies are not detailed."
     },
     {
-      "id": "d0f1e097-eb96-49ab-aaee-5355153b039b",
       "claim": "Patients with bulimia nervosa show measurable white matter microstructural differences in multiple brain regions compared to healthy controls, detectable via diffusion tensor imaging.",
       "source": "Qian Chen, Miao Wang, Guo-wei Wu, Weihua Li, Xiaodan Ren \"Characteristics of white matter alterations along fibres in patients with bulimia nervosa: A combined voxelwise and tractography study\" (2023). doi:10.1111/ejn.16077",
       "year": 2023,
@@ -368,11 +313,9 @@
       "methodology": "Structural and diffusion tensor imaging with voxel-based morphometry",
       "relationship": "SUPPORTS",
       "sample_size": "74 participants (43 BN patients, 31 healthy controls)",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Not explicitly stated in the provided excerpt."
     },
     {
-      "id": "3917c47c-085b-46c6-ab17-7863f19cfa54",
       "claim": "Individuals with anorexia nervosa show reduced fibre-bundle cross-section in the anterior corona radiata and genu of corpus callosum compared to healthy controls, detectable via fixel-based analysis of diffusion-weighted imaging.",
       "source": "F. de la Cruz, A. Schumann, Katrin Rieger, Monica di Giuliano, K. Bär \"Fibre-specific white matter changes in anorexia nervosa.\" (2023). doi:10.1016/j.pscychresns.2023.111736",
       "year": 2023,
@@ -382,11 +325,9 @@
       "methodology": "Diffusion-weighted imaging with fixel-based analysis",
       "relationship": "SUPPORTS",
       "sample_size": "57 participants (26 AN patients, 31 controls)",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Not explicitly stated in the provided text."
     },
     {
-      "id": "dc37ab6c-74a7-417d-940c-2c4dbe8e9e39",
       "claim": "Telomere length shortening is causally associated with increased risk of anorexia nervosa through white matter microstructural changes in specific brain regions including the internal capsule, corona radiata, posterior thalamic radiation, left cingulate gyrus, left longitudinal fasciculus, and left forceps minor.",
       "source": "Haoyuan Qiu, Miao Shi, Z. Zhong, Haoran Hu, Hunini Sang \"Causal Relationship between Aging and Anorexia Nervosa: A White-Matter-Microstructure-Mediated Mendelian Randomization Analysis\" (2024). doi:10.3390/biomedicines12081874",
       "year": 2024,
@@ -396,11 +337,9 @@
       "methodology": "Two-step Mendelian randomization analysis with mediation effect calculation",
       "relationship": "SUPPORTS",
       "sample_size": "472,174 participants (telomere length GWAS); 72,517 individuals (anorexia nervosa GWAS); 8,428 participants (dMRI phenotypes)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: The study used GWAS summary statistics from populations of European ancestry, which may limit generalizability to other ethnic groups. The test group results showed heterogeneity, though external validation and pleiotropy analysis supported the findings. The study is observational and based on genetic associations rather than direct clinical measurement. Low thematic match confidence to anchor claim (similarity 0.5022854079533127)."
     },
     {
-      "id": "87163d4c-5a99-49ed-a8a5-29b3db8ee72c",
       "claim": "Individuals with anorexia nervosa exhibit altered white matter microstructure (measured by fractional anisotropy, mean diffusivity, and intracellular volume fraction) in emotion processing and cognitive control regions including the internal capsule, cingulate gyrus, and forceps minor.",
       "source": "Haoyuan Qiu, Miao Shi, Z. Zhong, Haoran Hu, Hunini Sang \"Causal Relationship between Aging and Anorexia Nervosa: A White-Matter-Microstructure-Mediated Mendelian Randomization Analysis\" (2024). doi:10.3390/biomedicines12081874",
       "year": 2024,
@@ -410,11 +349,9 @@
       "methodology": "Two-step Mendelian randomization with diffusion tensor imaging phenotype analysis",
       "relationship": "SUPPORTS",
       "sample_size": "8,428 participants (dMRI phenotypes); 72,517 individuals (anorexia nervosa GWAS)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Study based on genetic associations from European ancestry populations; generalizability to other ethnic groups unclear. Heterogeneity detected in test group results. Observational design based on GWAS summary statistics rather than direct clinical neuroimaging."
     },
     {
-      "id": "1207955d-e7d5-4b69-a81c-d5d30cb8615b",
       "claim": "Adolescents with anorexia nervosa show reduced fractional anisotropy (FA) in white matter regions including the corpus callosum, cingulum, and fornix compared to healthy controls in the acute disease state.",
       "source": "Manuela Gander, Lukas Lenhart, R. Steiger, A. Buchheim, S. Mangesius \"Attachment Trauma Is Associated with White Matter Fiber Microstructural Alterations in Adolescents with Anorexia Nervosa before and after Exposure to Psychotherapeutic and Nutritional Treatment\" (2023). doi:10.3390/brainsci13050798",
       "year": 2023,
@@ -424,11 +361,9 @@
       "methodology": "Cross-sectional DTI MRI comparison",
       "relationship": "SUPPORTS",
       "sample_size": "22 AN patients, 18 healthy controls",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: The study was limited to female adolescents aged 14-18 years, which may limit generalizability. Results are cross-sectional at baseline and may reflect state-related effects of malnutrition rather than trait-related abnormalities. The study did not employ attachment-based treatment during hospitalization."
     },
     {
-      "id": "6b1df5b6-cb77-49d7-a1c4-7c99f649dfb3",
       "claim": "White matter microstructural alterations (reduced FA and elevated mean diffusivity) in the corpus callosum, cingulum, and fornix normalize after weight restoration and psychotherapeutic treatment in adolescents with anorexia nervosa.",
       "source": "Manuela Gander, Lukas Lenhart, R. Steiger, A. Buchheim, S. Mangesius \"Attachment Trauma Is Associated with White Matter Fiber Microstructural Alterations in Adolescents with Anorexia Nervosa before and after Exposure to Psychotherapeutic and Nutritional Treatment\" (2023). doi:10.3390/brainsci13050798",
       "year": 2023,
@@ -438,11 +373,9 @@
       "methodology": "Longitudinal DTI MRI pre-post treatment comparison",
       "relationship": "SUPPORTS",
       "sample_size": "18 AN patients with longitudinal data (22 at baseline, 4 lost to follow-up)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: The study was limited to female adolescents aged 14-18 years. Four patients were lost to follow-up (18% attrition). The study did not employ attachment-based treatment, which may have affected outcomes. Results may reflect state-related effects of malnutrition and refeeding rather than trait-related changes."
     },
     {
-      "id": "87374d47-62ce-4627-9f56-ec9300081836",
       "claim": "Individuals with anorexia nervosa show reduced fractional anisotropy in white matter tracts connecting the ventral tegmental area and nucleus accumbens compared to healthy controls, detectable via diffusion MRI.",
       "source": "Stuart B. Murray, J. Diaz-Fong, V. Mak, J. Feusner \"Assessing midbrain neuromelanin and its relationship to reward learning in anorexia nervosa: Stage 1 of a registered report\" (2024). doi:10.1002/brb3.3573",
       "year": 2024,
@@ -452,11 +385,9 @@
       "methodology": "Cross-sectional diffusion MRI study",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: This is a citation of prior work; specific limitations of that study are not detailed in the current manuscript."
     },
     {
-      "id": "beec55f2-4391-4878-b78b-18ebfc1c0830",
       "claim": "Individuals with anorexia nervosa show elevated dopamine receptor availability in the ventral striatum compared to healthy controls, detectable via PET imaging.",
       "source": "Stuart B. Murray, J. Diaz-Fong, V. Mak, J. Feusner \"Assessing midbrain neuromelanin and its relationship to reward learning in anorexia nervosa: Stage 1 of a registered report\" (2024). doi:10.1002/brb3.3573",
       "year": 2024,
@@ -466,11 +397,9 @@
       "methodology": "Positron emission tomography (PET) imaging studies (cited literature review)",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: This is a literature review; specific limitations of individual PET studies are not detailed. Low thematic match confidence to anchor claim (similarity 0.4811682726054157)."
     },
     {
-      "id": "8e965465-0a33-4319-8ec3-3f5a884dcbcf",
       "claim": "Individuals with bulimia nervosa show altered resting-state functional connectivity in the medial orbitofrontal cortex, a region associated with emotion processing and cognitive control, detectable via fMRI compared to healthy controls.",
       "source": "Weihua Li, Li-rong Tang, Miao Wang, Jiani Wang, T. Guo \"Altered gray matter volume and functional connectivity in medial orbitofrontal cortex of bulimia nervosa patients: A combined VBM and FC study\" (2022). doi:10.3389/fpsyt.2022.963092",
       "year": 2022,
@@ -480,11 +409,9 @@
       "methodology": "Resting-state functional MRI with seed-based functional connectivity analysis",
       "relationship": "SUPPORTS",
       "sample_size": "29 BN patients, 28 healthy controls",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Modest sample size limited to adult women. Single seed region selected for rsFC analysis. Descriptive rather than mechanistic study. Menstrual status not controlled."
     },
     {
-      "id": "d3f08f75-1049-4946-b1c1-a74a6ed5541c",
       "claim": "Individuals with bulimia nervosa show reduced gray matter volume in the right dorsal anterior insula and bilateral ventral anterior insula compared to healthy controls.",
       "source": "Weihua Li, Yiling Wang, Jiani Wang, Miao Wang, Jing Liu \"Bulimia nervosa selectively reshapes the structure and intrinsic function of anterior insula subregions associated with cognition-emotion integration.\" (2024). doi:10.1016/j.jad.2024.07.051",
       "year": 2024,
@@ -494,11 +421,9 @@
       "methodology": "Structural MRI with voxel-based morphometry",
       "relationship": "SUPPORTS",
       "sample_size": "110 participants (54 BN, 56 HC)",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Not explicitly stated in the provided text."
     },
     {
-      "id": "ce5334ef-7b28-4af0-9a1d-f3ac9dbd1ad4",
       "claim": "Individuals with bulimia nervosa show decreased amplitude of low frequency fluctuation in the slow-5 band of bilateral dorsal anterior insula compared to healthy controls.",
       "source": "Weihua Li, Yiling Wang, Jiani Wang, Miao Wang, Jing Liu \"Bulimia nervosa selectively reshapes the structure and intrinsic function of anterior insula subregions associated with cognition-emotion integration.\" (2024). doi:10.1016/j.jad.2024.07.051",
       "year": 2024,
@@ -508,11 +433,9 @@
       "methodology": "Resting-state fMRI with amplitude of low frequency fluctuation analysis",
       "relationship": "SUPPORTS",
       "sample_size": "110 participants (54 BN, 56 HC)",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Not explicitly stated in the provided text."
     },
     {
-      "id": "89826eea-ad18-4a83-86f7-7f2651b4f61c",
       "claim": "Individuals with bulimia nervosa show increased functional connectivity between bilateral dorsal anterior insula and precuneus or right superior frontal gyri compared to healthy controls.",
       "source": "Weihua Li, Yiling Wang, Jiani Wang, Miao Wang, Jing Liu \"Bulimia nervosa selectively reshapes the structure and intrinsic function of anterior insula subregions associated with cognition-emotion integration.\" (2024). doi:10.1016/j.jad.2024.07.051",
       "year": 2024,
@@ -522,11 +445,9 @@
       "methodology": "Resting-state fMRI with seed-based whole-brain functional connectivity analysis",
       "relationship": "SUPPORTS",
       "sample_size": "110 participants (54 BN, 56 HC)",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Not explicitly stated in the provided text."
     },
     {
-      "id": "1180db50-cc7c-404e-8223-57d4179f6301",
       "claim": "Individuals with bulimia nervosa show decreased functional connectivity between bilateral ventral anterior insula and anterior cingulate/paracingulate gyri and median cingulate/paracingulate gyri compared to healthy controls.",
       "source": "Weihua Li, Yiling Wang, Jiani Wang, Miao Wang, Jing Liu \"Bulimia nervosa selectively reshapes the structure and intrinsic function of anterior insula subregions associated with cognition-emotion integration.\" (2024). doi:10.1016/j.jad.2024.07.051",
       "year": 2024,
@@ -536,11 +457,9 @@
       "methodology": "Resting-state fMRI with seed-based whole-brain functional connectivity analysis",
       "relationship": "SUPPORTS",
       "sample_size": "110 participants (54 BN, 56 HC)",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Not explicitly stated in the provided text."
     },
     {
-      "id": "5a146a5f-98e7-4fdf-9514-d283581f8097",
       "claim": "Bulimia nervosa causally reduces volume of the left nucleus accumbens, a region associated with reward processing and cognitive control.",
       "source": "Weihua Li, Xinghao Wang, Yiling Wang, Jiani Wang, Xinyu Huang \"Dissecting the Causal Association Between Bulimia Nervosa and Structural Brain Abnormalities: A Two‐Sample Bidirectional Mendelian Randomization Study\" (2025). doi:10.1002/brb3.70859",
       "year": 2025,
@@ -550,11 +469,9 @@
       "methodology": "Two-sample bidirectional Mendelian randomization",
       "relationship": "SUPPORTS",
       "sample_size": "2,442 participants (BN GWAS); UK Biobank 3D-T1 MRI cohort (size not specified)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Moderate GWAS sample size for BN; European genetic background limits generalizability; bidirectional causality findings may reflect shared etiological factors rather than true reciprocal causality; gender differences and comorbid psychological symptoms not fully controlled."
     },
     {
-      "id": "9ac7b2aa-d3aa-421d-9bb4-d3cf7524b25e",
       "claim": "Bulimia nervosa causally decreases surface area of the left inferior temporal gyrus, a region involved in visual and cognitive processing.",
       "source": "Weihua Li, Xinghao Wang, Yiling Wang, Jiani Wang, Xinyu Huang \"Dissecting the Causal Association Between Bulimia Nervosa and Structural Brain Abnormalities: A Two‐Sample Bidirectional Mendelian Randomization Study\" (2025). doi:10.1002/brb3.70859",
       "year": 2025,
@@ -564,11 +481,9 @@
       "methodology": "Two-sample bidirectional Mendelian randomization",
       "relationship": "SUPPORTS",
       "sample_size": "2,442 participants (BN GWAS); UK Biobank 3D-T1 MRI cohort (size not specified)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Moderate GWAS sample size for BN; European genetic background limits generalizability; bidirectional causality findings may reflect shared etiological factors; gender differences and comorbid psychological symptoms not fully controlled."
     },
     {
-      "id": "1be2db25-7b52-4a76-b90f-553e0e7bae03",
       "claim": "Bulimia nervosa causally increases cortical thickness of the left planum temporale and right inferior temporal gyrus, regions involved in cognitive and emotional processing.",
       "source": "Weihua Li, Xinghao Wang, Yiling Wang, Jiani Wang, Xinyu Huang \"Dissecting the Causal Association Between Bulimia Nervosa and Structural Brain Abnormalities: A Two‐Sample Bidirectional Mendelian Randomization Study\" (2025). doi:10.1002/brb3.70859",
       "year": 2025,
@@ -578,11 +493,9 @@
       "methodology": "Two-sample bidirectional Mendelian randomization",
       "relationship": "SUPPORTS",
       "sample_size": "2,442 participants (BN GWAS); UK Biobank 3D-T1 MRI cohort (size not specified)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Moderate GWAS sample size for BN; European genetic background limits generalizability; bidirectional causality findings may reflect shared etiological factors; gender differences and comorbid psychological symptoms not fully controlled."
     },
     {
-      "id": "9f0eedca-6116-4b66-9c0e-de99f630414f",
       "claim": "Increased volume of the right putamen and left hippocampus, regions involved in reward processing and emotional regulation, causally increases risk of bulimia nervosa.",
       "source": "Weihua Li, Xinghao Wang, Yiling Wang, Jiani Wang, Xinyu Huang \"Dissecting the Causal Association Between Bulimia Nervosa and Structural Brain Abnormalities: A Two‐Sample Bidirectional Mendelian Randomization Study\" (2025). doi:10.1002/brb3.70859",
       "year": 2025,
@@ -592,11 +505,9 @@
       "methodology": "Two-sample bidirectional Mendelian randomization",
       "relationship": "SUPPORTS",
       "sample_size": "2,442 participants (BN GWAS); UK Biobank 3D-T1 MRI cohort (size not specified)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Moderate GWAS sample size for BN; European genetic background limits generalizability; bidirectional causality findings may reflect shared etiological factors; gender differences and comorbid psychological symptoms not fully controlled."
     },
     {
-      "id": "25f2c966-89c7-4c7a-bcd8-1ec3df094bb7",
       "claim": "Increased cortical thickness of the right planum temporale causally increases risk of bulimia nervosa, while decreased cortical thickness of the left superior occipital gyrus causally decreases risk.",
       "source": "Weihua Li, Xinghao Wang, Yiling Wang, Jiani Wang, Xinyu Huang \"Dissecting the Causal Association Between Bulimia Nervosa and Structural Brain Abnormalities: A Two‐Sample Bidirectional Mendelian Randomization Study\" (2025). doi:10.1002/brb3.70859",
       "year": 2025,
@@ -606,11 +517,9 @@
       "methodology": "Two-sample bidirectional Mendelian randomization",
       "relationship": "SUPPORTS",
       "sample_size": "2,442 participants (BN GWAS); UK Biobank 3D-T1 MRI cohort (size not specified)",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: Moderate GWAS sample size for BN; European genetic background limits generalizability; bidirectional causality findings may reflect shared etiological factors; gender differences and comorbid psychological symptoms not fully controlled."
     },
     {
-      "id": "ac5a14e7-9eab-402f-b6dc-3dfe67e4457b",
       "claim": "The insula shows functional compromise in bulimia nervosa, with altered activation patterns compared to healthy controls.",
       "source": "M. Romeo, Gina Cavaliere, Giovanna Traina \"Bulimia Nervosa and Depression, from the Brain to the Gut Microbiota and Back.\" (2024). doi:10.31083/j.fbl2908277",
       "year": 2024,
@@ -620,11 +529,9 @@
       "methodology": "Literature review with neuroimaging synthesis",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: This is a narrative review without original data collection. The paper synthesizes existing literature without conducting new neuroimaging studies or providing quantitative effect sizes from primary research."
     },
     {
-      "id": "e2e2c040-6edb-49f2-b1bb-c632343e15b2",
       "claim": "Individuals with bulimia nervosa show reduced opioid receptor (MOR) binding in the left insular cortex compared to healthy controls, proportional to fasting behavior.",
       "source": "M. Romeo, Gina Cavaliere, Giovanna Traina \"Bulimia Nervosa and Depression, from the Brain to the Gut Microbiota and Back.\" (2024). doi:10.31083/j.fbl2908277",
       "year": 2024,
@@ -634,11 +541,9 @@
       "methodology": "Literature review synthesizing neuroimaging receptor binding studies",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: This is a narrative review synthesizing prior studies without original neuroimaging data. Specific sample sizes and effect sizes from the cited studies are not provided in this review. Low thematic match confidence to anchor claim (similarity 0.5481531714513783)."
     },
     {
-      "id": "3f1b593d-bcbf-4e56-b833-f9b16130c5f0",
       "claim": "Simulation of others' behavior during learning engages the posterior superior temporal sulcus, a region associated with social cognition and emotion processing, detectable via fMRI.",
       "source": "Julien Benistant, Valentin Guigon, Alain Nicolas, Edmund Derrington, Jean-Claude Dreher \"Social learning dynamically shapes moral decision-making by biasing subjective valuation.\" (2026). doi:10.1371/journal.pbio.3003889",
       "year": 2026,
@@ -648,11 +553,9 @@
       "methodology": "Model-based fMRI with behavioral task",
       "relationship": "SUPPORTS",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Not explicitly stated in the provided text. Low thematic match confidence to anchor claim (similarity 0.27658395888519377)."
     },
     {
-      "id": "93d769e4-cca7-4b97-aba5-daeda7494e37",
       "claim": "Individuals with tobacco use disorder show reduced functional connectivity between the insula and nucleus accumbens, precuneus, and occipital pole compared to those who do not respond to rTMS treatment.",
       "source": "Michael R Apostol, Timothy Jordan, Gino Haase, Lucina Q Uddin, Andrew F Leuchter \"Determinants of Repetitive Transcranial Magnetic Stimulation Efficacy in Tobacco Use Disorder: A Pre-Registered Study.\" (2026). doi:10.64898/2026.06.23.26356059",
       "year": 2026,
@@ -662,11 +565,9 @@
       "methodology": "fMRI functional connectivity analysis",
       "relationship": "CONDITIONAL",
       "sample_size": "60 participants",
-      "evidence_type": "PDF_FULL_TEXT",
       "notes": "Limitations: The study examined only acute rTMS response in a single session. Preregistered hypotheses about DLPFC-frontoparietal and insula whole-brain functional connectivity did not show significant differences, limiting generalizability of connectivity findings. Low thematic match confidence to anchor claim (similarity 0.31261056402813703)."
     },
     {
-      "id": "4e42a55a-1b89-4301-8a15-64347b299236",
       "claim": "Structural integrity of the superior longitudinal fasciculus (SLF), measured via diffusion MRI fractional anisotropy and mean diffusivity, predicts sustained attention performance in older adults.",
       "source": "S Subbulakshmi, Jennifer Park, Julia Rathmann-Bloch, Tyler Ward, Gloria L Cheng \"Dissociable structural and molecular pathways of age-related change in sustained attention.\" (2026). doi:10.64898/2026.06.29.735429",
       "year": 2026,
@@ -676,11 +577,9 @@
       "methodology": "Diffusion MRI tractography with parallel mediation analysis",
       "relationship": "CONDITIONAL",
       "sample_size": "162 participants",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: The study is limited to cognitively unimpaired older adults and does not include individuals with eating disorders or clinical eating disorder risk populations. The cross-sectional design limits causal inference. Low thematic match confidence to anchor claim (similarity 0.19743431170314732)."
     },
     {
-      "id": "198b9460-1321-4cb4-b7a0-ad9cdd81743c",
       "claim": "The left anterior supramarginal gyrus and right medial prefrontal cortex show increased representational similarity for antagonistic (negative) interpersonal relationships during fMRI scanning.",
       "source": "Isato Chikazawa, Ryo Ishibashi, Tamami Nakano \"Antagonism shapes social maps in the human brain.\" (2026). doi:10.1038/s44271-026-00491-y",
       "year": 2026,
@@ -690,11 +589,9 @@
       "methodology": "fMRI with representational similarity analysis",
       "relationship": "CONDITIONAL",
       "sample_size": "Not reported",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: The study examined healthy participants in a specific narrative context; generalizability to clinical populations or other social contexts is unclear. Sample size not reported. Low thematic match confidence to anchor claim (similarity 0.19710637748594972)."
     },
     {
-      "id": "62bcc54c-f2c2-43b5-8b28-c9ef808647e1",
       "claim": "Individuals with comorbid eating disorder and borderline personality disorder show measurable structural brain differences in the striatum (right putamen) detectable via MRI compared to healthy controls.",
       "source": "R. Molina-Ruiz, J. Looi, M. Walterfang, T. García-Saiz, Fiona A. Wilkes \"Striatal volumes as potential biomarkers in Eating Disorders: A pilot study.\" (2022). doi:10.1016/j.rpsmen.2022.06.003",
       "year": 2022,
@@ -704,7 +601,6 @@
       "methodology": "Cross-sectional MRI volumetric study",
       "relationship": "SUPPORTS",
       "sample_size": "7 EDc patients plus 19 healthy controls (26 total)",
-      "evidence_type": "TEXT_NO_METADATA",
       "notes": "Limitations: Pilot study with small sample size; preliminary results requiring replication. Low thematic match confidence to anchor claim (similarity 0.5494291659570926)."
     }
   ],
@@ -1057,8 +953,6 @@
   "isHealthDomain": true,
   "name": "Structural Brain Alterations in Eating Disorders",
   "plainQuestion": "Brain scans (MRI/fMRI) show measurable structural or functional differences in people with eating disorders compared to people without them.",
-  "projectId": "63c88da8-a897-4d20-b884-f95c09f47a2c",
-  "replication_count": 91,
   "totalDatomCount": 91,
   "verdict": "Supported",
   "grade": "D",
@@ -1068,6 +962,5 @@
     "contradicts": 2
   },
   "scope": "This claim is about teenagers and adults with anorexia nervosa, bulimia nervosa, binge eating, or a clinically significant risk of an eating disorder, compared to healthy people without one. About a third of the 91 linked datoms actually describe people or animals outside that group, for example people with atopic dermatitis, ADHD, or tobacco use, or lab rodents, because of loose topic matching.",
-  "metric": "What is measured: the amount of gray matter (the brain's processing tissue), the thickness of the brain's outer layer, the structure of the brain's white matter wiring (measured with scan techniques called DTI or fixel-based analysis), and brain activity and connectivity seen on functional MRI scans, whether at rest or during a task, in areas including the insula, prefrontal cortex, striatum, and cerebellum.",
-  "aboutClaim": "This claim is built on 91 pieces of evidence. 64 of them (70%) support the idea that eating disorders come with measurable brain differences, and only 2 (2%) argue against it. But DATOM's confidence score for this claim is just 35%, in the Preliminary band. Why the gap? Nearly half the evidence, 44 of 91 (48%), was flagged by DATOM's matching system as a weak topic match, and a manual check found about 34 of those are really about unrelated things like skin conditions, ADHD, or fear-response tests in rats, not eating disorder patients. On top of that, 40 of 91 (44%) come from thin text summaries rather than full research papers, 24 do not report how many people were studied, and all 91 pieces of evidence trace back to only 40 separate research papers. The strong-looking 70% support figure comes with real caveats about relevance, missing details, and how narrow the underlying research actually is."
+  "metric": "What is measured: the amount of gray matter (the brain's processing tissue), the thickness of the brain's outer layer, the structure of the brain's white matter wiring (measured with scan techniques called DTI or fixel-based analysis), and brain activity and connectivity seen on functional MRI scans, whether at rest or during a task, in areas including the insula, prefrontal cortex, striatum, and cerebellum."
 }
