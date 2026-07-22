@@ -944,598 +944,301 @@
       "claim": "CRISPR-Cas9 system enables efficient genome editing in Escherichia coli, achieving up to 100% editing efficiency for gene deletion and insertion.",
       "source": "Yu Jiang, Biao Chen, Chunlan Duan, Bingbing Sun, Junjie Yang. \"Multigene Editing in the Escherichia coli Genome via the CRISPR-Cas9 System\" (2015). doi:10.1128/aem.04023-14",
       "year": 2015,
-      "population": "Escherichia coli",
-      "domain": "Synthetic biology / Genome engineering",
-      "measure": "Genome editing efficiency for gene deletion and insertion",
-      "methodology": "Targeted multigene editing in bacterial genome",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported"
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9 system enables efficient gene disruption in the fungal organism Lipomyces starkeyi, as demonstrated by frameshift mutations and loss of GFP fluorescence.",
       "source": "Rikako Sato, Kaito Maruyama, Satoshi Ara, Masayuki Shibata, Yosuke Shida. \"A CRISPR/Cas9-based genome-editing platform enabling efficient and precise gene replacement in Lipomyces starkeyi.\" (2026). doi:10.1093/femsyr/foag014",
       "year": 2026,
-      "population": "Lipomyces starkeyi CBS1807 wild-type and ∆lslig4 strains",
-      "domain": "Fungal genome editing",
-      "measure": "GFP fluorescence loss and frameshift mutations at target locus",
-      "methodology": "In vivo GFP disruption assay with sequencing validation",
-      "relationship": "SUPPORTS",
-      "sample_size": "10 colonies sequenced for sgRNA(GFP1); 10 colonies for sgRNA(GFP2)",
-      "notes": "Study found possible off-target cleavage by sgRNA(GFP1) at sites near the target; no genome-wide off-target screen was performed."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 ribonucleoprotein complexes enable precise targeted gene editing in maize, with documented editing efficiency for endogenous gene modification.",
       "source": "Sergei Svitashev, Christine Schwartz, Brian Lenderts, Joshua K. Young, A. Mark Cigan. \"Genome editing in maize directed by CRISPR–Cas9 ribonucleoprotein complexes\" (2016). doi:10.1038/ncomms13274",
       "year": 2016,
-      "population": "Maize (Zea mays) Hi-II immature embryo cells",
-      "domain": "Plant genome editing",
-      "measure": "Precise targeted gene editing efficiency (homology-directed repair at ALS2 locus)",
-      "methodology": "Biolistic delivery with homology-directed repair template and herbicide selection",
-      "relationship": "SUPPORTS",
-      "sample_size": "40-50 bombarded embryos per experiment; 2 independent experiments",
-      "notes": "Only two independent experiments were run for the ALS2 edit, and the paper does not report HDR frequency relative to total embryos bombarded."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9-mediated gene knockout achieves 90.8% mRNA reduction in MDA-MB-231 cancer cells, outperforming commercial Lipofectamine reagent (51.1% reduction).",
       "source": "Xinpu Yang, Rui Sang, Gyorgy Hutvagner, Alex W Hewitt, Diangeng Li. \"An optimised lipid nanoparticle platform enables efficient CRISPR/Cas9 genome editing in hard-to-transfect cells.\" (2026). doi:10.1016/j.actbio.2026.05.044",
       "year": 2026,
-      "population": "MDA-MB-231 human breast cancer cells",
-      "domain": "Genome editing, CRISPR/Cas9 delivery",
-      "measure": "LCN2 gene knockout efficiency (mRNA reduction %)",
-      "methodology": "In vitro cell transfection with lipid nanoparticles and comparative analysis",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "Testing was limited to an in vitro cancer cell line, so generalizability to other cell types or in vivo systems is not established."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 system enables precise deletion of multi-kilobase genomic regions in parasitic organisms, as demonstrated by successful 3-kb gene deletion in Leishmania donovani.",
       "source": "Wen‐Wei Zhang, Greg Matlashewski. \"CRISPR-Cas9-Mediated Genome Editing in Leishmania donovani\" (2015). doi:10.1128/mbio.00861-15",
       "year": 2015,
-      "population": "Leishmania donovani protozoan parasites",
-      "domain": "Parasitology and genome engineering",
-      "measure": "Precise deletion efficiency of multi-kilobase genomic regions",
-      "methodology": "Experimental genome editing with dual-gRNA vectors",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported"
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9-mediated genome editing achieves high knockout efficiency in human cell lines, with GFP knockout reaching 78.7% in HEK-293 cells.",
       "source": "Xinpu Yang, Rui Sang, Gyorgy Hutvagner, Alex W Hewitt, Diangeng Li. \"An optimised lipid nanoparticle platform enables efficient CRISPR/Cas9 genome editing in hard-to-transfect cells.\" (2026). doi:10.1016/j.actbio.2026.05.044",
       "year": 2026,
-      "population": "HEK-293 human embryonic kidney cells",
-      "domain": "Genome editing, CRISPR/Cas9 delivery",
-      "measure": "GFP knockout efficiency (%)",
-      "methodology": "In vitro cell transfection with lipid nanoparticles",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "Testing was limited to in vitro cell lines; applicability to in vivo systems or other organisms was not addressed."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9 systems enable efficient genome editing in Penicillium chrysogenum, a filamentous fungus.",
       "source": "Craig Pohl, Jan A.K.W. Kiel, Arnold J. M. Driessen, Roel A. L. Bovenberg, Yvonne Nygård. \"CRISPR/Cas9 Based Genome Editing of <i>Penicillium chrysogenum</i>\" (2016). doi:10.1021/acssynbio.6b00082",
       "year": 2016,
-      "population": "Penicillium chrysogenum cells",
-      "domain": "Fungal genome engineering",
-      "measure": "Efficiency of marker-based and marker-free genome modifications",
-      "methodology": "In vitro genome editing with CRISPR/Cas9 ribonucleoproteins and plasmid expression",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported"
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9 system enables simultaneous targeting and editing of multiple genes in filamentous fungi.",
       "source": "Rui Liu, Ling Chen, Yanping Jiang, Zhihua Zhou, Gen Zou. \"Efficient genome editing in filamentous fungus Trichoderma reesei using the CRISPR/Cas9 system\" (2015). doi:10.1038/celldisc.2015.7",
       "year": 2015,
-      "population": "Trichoderma reesei filamentous fungus",
-      "domain": "Fungal genome editing and biotechnology",
-      "measure": "Capability for simultaneous multi-gene targeting",
-      "methodology": "Experimental multiplexed genome editing in fungal cells",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The paper does not report quantitative multiplexing efficiency or success rates."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Ex vivo CRISPR editing in hematopoietic stem and progenitor cells (HSPCs) using clinically relevant workflows produces fewer than one true off-target site per guide RNA on average.",
       "source": "Beeke Wienert, M. Kyle Cromer. \"CRISPR nuclease off-target activity and mitigation strategies\" (2022). doi:10.3389/fgeed.2022.1050507",
       "year": 2022,
-      "population": "Hematopoietic stem and progenitor cells (HSPCs) in clinically relevant workflows",
-      "domain": "Genome editing efficiency and off-target activity",
-      "measure": "Frequency of bonafide off-target sites per guide RNA",
-      "methodology": "Ex vivo HSPC editing with comprehensive off-target detection",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "Testing was limited to HSPCs in an ex vivo setting, so results may not generalize to other cell types or in vivo use."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 enables efficient genome editing in Saccharomyces cerevisiae (yeast) through Cas9-targeted DNA breaks that promote homologous recombination with mutagenic template DNA.",
       "source": "Marian F. Laughery, John J. Wyrick. \"Simple CRISPR‐Cas9 Genome Editing in <i>Saccharomyces cerevisiae</i>\" (2019). doi:10.1002/cpmb.110",
       "year": 2019,
-      "population": "Saccharomyces cerevisiae (baker's yeast)",
-      "domain": "Fungal genome editing",
-      "measure": "Efficiency of genome editing (DNA substitutions, insertions, deletions)",
-      "methodology": "Protocol development and genome editing demonstration",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "This is a protocol paper; it does not report quantitative editing efficiency or off-target rates."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Cas9 nuclease systems demonstrate measurable off-target editing activity in mammalian cells, with specificity rates quantifiable through unbiased genome-wide assessment.",
       "source": "Vikram Pattanayak, John P. Guilinger, David R. Liu. \"Determining the Specificities of TALENs, Cas9, and Other Genome-Editing Enzymes\" (2014). doi:10.1016/b978-0-12-801185-0.00003-9",
       "year": 2014,
-      "population": "mammalian cells (HEK293T human embryonic kidney cells)",
-      "domain": "genome editing, CRISPR-Cas9 specificity",
-      "measure": "off-target cleavage frequency and specificity rates",
-      "methodology": "Unbiased genome-wide off-target assessment in mammalian cells",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "Testing was done in mammalian cell lines and detects cleavage events without necessarily predicting their functional consequences."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 genome editing has been successfully established in more than 40 different species of filamentous fungi and oomycetes.",
       "source": "Mariana Schuster, Regine Kahmann. \"CRISPR-Cas9 genome editing approaches in filamentous fungi and oomycetes\" (2019). doi:10.1016/j.fgb.2019.04.016",
       "year": 2019,
-      "population": "Filamentous fungi and oomycetes species",
-      "domain": "Fungal and oomycete genome editing",
-      "measure": "Number of species in which CRISPR-Cas9 system has been established",
-      "methodology": "Literature review and synthesis",
-      "relationship": "SUPPORTS",
-      "sample_size": "40+ species",
-      "notes": "This is a review article; it synthesizes existing work rather than presenting original efficiency or off-target data."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 system achieves single gene editing efficiency of 31.7% in Aspergillus niger when using a single guide RNA targeting the albA locus.",
       "source": "Guoliang Yuan, Shuang Deng, Jeffrey J. Czajka, Ziyu Dai, Beth A. Hofstad. \"CRISPR-Cas9/Cas12a systems for efficient genome editing and large genomic fragment deletions in Aspergillus niger\" (2024). doi:10.3389/fbioe.2024.1452496",
       "year": 2024,
-      "population": "Aspergillus niger strain ATCC 11414",
-      "domain": "Fungal genetic engineering",
-      "measure": "Genome editing efficiency (percentage of edited colonies)",
-      "methodology": "Protoplast transformation with single colony isolation and PCR genotyping",
-      "relationship": "SUPPORTS",
-      "sample_size": "3 biological replicates",
-      "notes": "Three biological replicates were run for most vectors (fewer for pGY177 and pGY178), and single colonies were isolated 19 to 24 hours post-transformation, before colonies were visible to the naked eye."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9-mediated editing of StDND2 in potato results in a consistent T→G nucleotide substitution (missense mutation: leucine-to-glutamine) that is maintained across T0 and T1 generations.",
       "source": "Arsh Bibi, Irshad Ullah, Shaheen Aftab, Imran Amin, Bushra Bibi. \"Genome editing of susceptibility gene StDND2 enhances Phytophthora resistance in Solanum tuberosum.\" (2026). doi:10.3389/fpls.2026.1807632",
       "year": 2026,
-      "population": "Solanum tuberosum cv. Kuroda T0 and T1 transgenic lines",
-      "domain": "CRISPR/Cas9 genome editing efficiency and mutation characterization",
-      "measure": "Nucleotide substitution type and consistency across generations and allelic copies",
-      "methodology": "Targeted next-generation sequencing (NGS) of genomic DNA",
-      "relationship": "SUPPORTS",
-      "sample_size": "Multiple edited T0 plants and corresponding T1 progeny",
-      "notes": "Whether editing events across the analyzed lines were truly independent could not be conclusively determined, and analysis was limited to the T0 and T1 generations."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9 system enables efficient genome editing in the filamentous fungus Trichoderma reesei through site-specific mutations via homologous recombination.",
       "source": "Rui Liu, Ling Chen, Yanping Jiang, Zhihua Zhou, Gen Zou. \"Efficient genome editing in filamentous fungus Trichoderma reesei using the CRISPR/Cas9 system\" (2015). doi:10.1038/celldisc.2015.7",
       "year": 2015,
-      "population": "Trichoderma reesei filamentous fungus",
-      "domain": "Fungal genome editing and biotechnology",
-      "measure": "Site-specific mutation efficiency and homologous recombination capability",
-      "methodology": "Experimental genome editing with codon optimization and inducible expression",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The paper does not report quantitative editing efficiency percentages or off-target mutation rates."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 genome editing produces substantially fewer off-target effects compared to existing genome editing methods.",
       "source": "Ophir Shalem, Neville E. Sanjana, E. Hartenian, Xi Shi, David A. Scott. \"Genome-Scale CRISPR-Cas9 Knockout Screening in Human Cells\" (2014). doi:10.1126/science.1247005",
       "year": 2014,
-      "population": "Human cells (cancer and pluripotent stem cells)",
-      "domain": "Genome editing; functional genomics",
-      "measure": "Off-target effects rate relative to siRNA and existing methods",
-      "methodology": "Comparative analysis of CRISPR-Cas9 versus siRNA and other genome editing methods",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "Off-target rates are described qualitatively rather than with specific numbers."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Double-nicking strategy using Cas9 nickase mutant with paired guide RNAs reduces off-target cleavage in mammalian cells.",
       "source": "F. Ran, P. Hsu, Jason B Wright, Vineeta Agarwala, Vineeta Agarwala. \"Genome engineering using the CRISPR-Cas9 system\" (2013). doi:10.1038/nprot.2013.143",
       "year": 2013,
-      "population": "mammalian cells",
-      "domain": "genome engineering",
-      "measure": "off-target cleavage activity",
-      "methodology": "Experimental protocol development",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "This protocol paper proposes the double-nicking strategy without extensive quantitative off-target validation."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 genome editing induces large structural variants (>50 Kb) at off-target sites without sequence similarity to the sgRNA in edited human pluripotent stem cells.",
       "source": "Hsiu-Hui Tsai, H. Kao, Ming-Wei Kuo, Chin-Hsien Lin, Chunghun Chang. \"Whole genomic analysis reveals atypical non-homologous off-target large structural variants induced by CRISPR-Cas9-mediated genome editing\" (2023). doi:10.1038/s41467-023-40901-x",
       "year": 2023,
-      "population": "Human induced pluripotent stem cells (iPSCs), 13 edited cell lines",
-      "domain": "Genome editing safety and integrity",
-      "measure": "Off-target large structural variants (deletions) at non-homologous sites without sgRNA sequence similarity",
-      "methodology": "Linked-read sequencing, optical genome mapping, PCR validation",
-      "relationship": "CONTRADICTS",
-      "sample_size": "13 human pluripotent stem cell lines",
-      "notes": "Of 13 iPSC lines examined, only 2 showed the atypical off-target structural variants, and the underlying mechanism remains unclear; delivery was by plasmid DNA, so RNP delivery effects were not directly tested."
+      "relationship": "CONTRADICTS"
     },
     {
       "claim": "CRISPR/Cas9 with 5′-truncated sgRNAs enables efficient single-base genome editing in bacterial cells (E. coli), with editing efficiency reaching 80-83% for galK targets and 63% overall success rate across multiple target positions.",
       "source": "Ho Joung Lee, H. Kim, S. J. Lee. \"Mismatch Intolerance of 5′-Truncated sgRNAs in CRISPR/Cas9 Enables Efficient Microbial Single-Base Genome Editing\" (2021). doi:10.3390/ijms22126457",
       "year": 2021,
-      "population": "E. coli MG1655 cells with chromosomally integrated cas9 gene",
-      "domain": "Microbial genome editing",
-      "measure": "Single-base editing efficiency (percentage of white colonies indicating successful single-base mutations)",
-      "methodology": "Bacterial colony selection and Sanger sequencing",
-      "relationship": "SUPPORTS",
-      "sample_size": "4 randomly selected colonies per electroporation; 3 independent experiments",
-      "notes": "Editing failed at bases 10 nucleotides from the PAM in some targets (T508, T648) even though it succeeded there in other genes, and standard Cas9's 5'-NGG PAM requirement restricts targeting range."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9-based genome editing in Stropharia rugosoannulata shows no detectable off-target effects at predicted off-target sites.",
       "source": "Haibo Hao, Shuzhen Song, Qian Wang, Zongjun Tong, Wen Xu. \"Unlocking the Potential for Genetic Engineering of the Straw-Degrading Mushroom Stropharia rugosoannulata by Constructing a CRISPR/Cas9 Gene Editing System.\" (2026). doi:10.3390/jof12040269",
       "year": 2026,
-      "population": "Stropharia rugosoannulata edited strains (T26, T32, T101, T127)",
-      "domain": "Fungal genome editing specificity",
-      "measure": "Off-target editing events detected at predicted off-target sites",
-      "methodology": "Whole-genome off-target prediction with deep sequencing validation",
-      "relationship": "SUPPORTS",
-      "sample_size": "8 predicted off-target sites tested",
-      "notes": "Only 8 of 20 predicted off-target sites were experimentally tested, detection was limited to sites with 3 to 4 mismatches, and no quantitative off-target rate is reported."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9 system enables efficient genome editing in amphioxus (a non-mammalian chordate organism) with documented mutation efficiency rates.",
       "source": "Liuru Su, Chenggang Shi, Xin Huang, Yiquan Wang, Guang Li. \"Application of CRISPR/Cas9 Nuclease in Amphioxus Genome Editing\" (2020). doi:10.3390/genes11111311",
       "year": 2020,
-      "population": "Amphioxus (Branchiostoma floridae) unfertilized eggs and embryos",
-      "domain": "Genome editing in model organisms",
-      "measure": "Mutation efficiency (percentage of target sites mutagenized)",
-      "methodology": "Microinjection of Cas9 protein and sgRNA into amphioxus embryos with T7EI cleavage assay and DNA sequencing",
-      "relationship": "SUPPORTS",
-      "sample_size": "100-200 unfertilized eggs or 50 two-cell embryos per experiment",
-      "notes": "Testing covered only nine sgRNAs across five genes in a single amphioxus species, and off-target effects were not systematically evaluated."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9 system in L. starkeyi exhibits occasional off-target cleavage at proximal genomic sites with partial sgRNA complementarity, similar to observations in S. cerevisiae.",
       "source": "Rikako Sato, Kaito Maruyama, Satoshi Ara, Masayuki Shibata, Yosuke Shida. \"A CRISPR/Cas9-based genome-editing platform enabling efficient and precise gene replacement in Lipomyces starkeyi.\" (2026). doi:10.1093/femsyr/foag014",
       "year": 2026,
-      "population": "Lipomyces starkeyi WT/Cas9/GFP strain",
-      "domain": "Fungal genome editing",
-      "measure": "Off-target cleavage frequency at proximal sites",
-      "methodology": "DNA sequencing of mutant loci following CRISPR/Cas9 treatment",
-      "relationship": "SUPPORTS",
-      "sample_size": "10 colonies analyzed for sgRNA(GFP1)",
-      "notes": "Off-target analysis was not genome-wide; it covered only the AcGFP locus and only one of the two sgRNAs tested."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas12a system achieves large genomic fragment deletion efficiency of up to 60.4% in Aspergillus niger, with deletions ranging from 20.8 kb to 101.8 kb.",
       "source": "Guoliang Yuan, Shuang Deng, Jeffrey J. Czajka, Ziyu Dai, Beth A. Hofstad. \"CRISPR-Cas9/Cas12a systems for efficient genome editing and large genomic fragment deletions in Aspergillus niger\" (2024). doi:10.3389/fbioe.2024.1452496",
       "year": 2024,
-      "population": "Aspergillus niger strain ATCC 11414",
-      "domain": "Fungal genetic engineering",
-      "measure": "Large genomic fragment deletion efficiency (percentage of edited colonies)",
-      "methodology": "Protoplast transformation with multi-gRNA targeting and PCR genotyping validation",
-      "relationship": "SUPPORTS",
-      "sample_size": "3 biological replicates for pGY175",
-      "notes": "Data on the pGY158 and pGY176 constructs were insufficient because isolated colonies failed to grow, possibly due to disruption of essential genes."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 system achieves large genomic fragment deletion efficiency of up to 69.1% in Aspergillus niger, with deletions ranging from 3.5 kb to 40.5 kb.",
       "source": "Guoliang Yuan, Shuang Deng, Jeffrey J. Czajka, Ziyu Dai, Beth A. Hofstad. \"CRISPR-Cas9/Cas12a systems for efficient genome editing and large genomic fragment deletions in Aspergillus niger\" (2024). doi:10.3389/fbioe.2024.1452496",
       "year": 2024,
-      "population": "Aspergillus niger strain ATCC 11414",
-      "domain": "Fungal genetic engineering",
-      "measure": "Large genomic fragment deletion efficiency (percentage of edited colonies)",
-      "methodology": "Protoplast transformation with multi-gRNA targeting and PCR genotyping validation",
-      "relationship": "SUPPORTS",
-      "sample_size": "3 biological replicates for pGY42, pGY56, pGY76, pGY77, pGY108, pGY175",
-      "notes": "Data on the pGY109, pGY158, and pGY176 constructs were insufficient because isolated colonies failed to grow, possibly due to disruption of essential genes."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 ribonucleoprotein complexes enable efficient genome editing in maize, with documented editing efficiency measured by mutation frequency at target sites.",
       "source": "Sergei Svitashev, Christine Schwartz, Brian Lenderts, Joshua K. Young, A. Mark Cigan. \"Genome editing in maize directed by CRISPR–Cas9 ribonucleoprotein complexes\" (2016). doi:10.1038/ncomms13274",
       "year": 2016,
-      "population": "Maize (Zea mays) Hi-II immature embryo cells",
-      "domain": "Plant genome editing",
-      "measure": "Mutation frequency at target sites (NHEJ mutations detected by deep sequencing)",
-      "methodology": "Biolistic delivery with amplicon deep sequencing",
-      "relationship": "SUPPORTS",
-      "sample_size": "30 embryos pooled for deep sequencing; 60 embryos for plant regeneration experiments",
-      "notes": "Testing focused on maize and did not extensively cover other crops; off-target analysis covered only one site for MS45, and mutation stability beyond the T1 generation was not reported for most targets."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 enables efficient genome editing in Leishmania parasites, including gene deletion, precise editing, and endogenous locus tagging.",
       "source": "An&#x131;l Ata, Derya Topuz Ata. \"A comprehensive review of CRISPR-Cas9-mediated genome editing in Leishmania strains: methodologies, applications, challenges and future directions.\" (2026). doi:10.1007/s11033-026-12285-w",
       "year": 2026,
-      "population": "Leishmania species (parasitic organisms)",
-      "domain": "Parasitology and genome editing",
-      "measure": "Genome editing efficiency across multiple editing modalities (gene deletion, precise editing, locus tagging)",
-      "methodology": "Systematic literature review and synthesis",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "This review identifies constraints such as genome plasticity, multicopy gene families, essential-gene targeting, guide design limits, and off-target considerations, without presenting new experimental data."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9-mediated precise genome editing achieves efficiency rates of up to 45% in induced pluripotent stem cells (iPSCs) with co-delivered Cas9 RNP and donor DNA.",
       "source": "Xiquan Liang, J. Potter, Shantanu Kumar, N. Ravinder, J. Chesnut. \"Enhanced CRISPR/Cas9-mediated precise genome editing by improved design and delivery of gRNA, Cas9 nuclease, and donor DNA.\" (2017). doi:10.1016/j.jbiotec.2016.11.011",
       "year": 2017,
-      "population": "Induced pluripotent stem cells (iPSCs)",
-      "domain": "Genome editing",
-      "measure": "Precise genome editing efficiency (%)",
-      "methodology": "Cell-based genome editing with RNP delivery",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "Testing was limited to mammalian cell systems; applicability to bacterial, fungal, or parasitic organisms was not evaluated."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 systems enable genome editing with measurable off-target rates that have been documented and characterized in the primary literature.",
       "source": "Daisy Li, Hong Zhou, Xiao Zeng. \"Battling CRISPR-Cas9 off-target genome editing\" (2019). doi:10.1007/s10565-019-09485-5",
       "year": 2019,
-      "population": "CRISPR-Cas9 genome editing studies across multiple organisms",
-      "domain": "Genome editing and CRISPR technology",
-      "measure": "Off-target editing rates and characterization",
-      "methodology": "Literature review and analysis",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "This review article synthesizes existing literature rather than reporting original quantitative off-target data."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 enables gene disruptions, gene replacements, and precise editing in filamentous fungi and oomycetes through varying strategies.",
       "source": "Mariana Schuster, Regine Kahmann. \"CRISPR-Cas9 genome editing approaches in filamentous fungi and oomycetes\" (2019). doi:10.1016/j.fgb.2019.04.016",
       "year": 2019,
-      "population": "Filamentous fungi and oomycetes",
-      "domain": "Fungal and oomycete genome editing",
-      "measure": "Types of genome editing outcomes achieved (disruptions, replacements, precise edits)",
-      "methodology": "Literature review and synthesis",
-      "relationship": "SUPPORTS",
-      "sample_size": "40+ species reviewed",
-      "notes": "This review does not provide quantitative efficiency or off-target data and presents no original experimental validation."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Cas9 nucleases produce indels (1-2 bp) or larger deletions (20-30 bp) that include loss of the PAM site, whereas LbCas12a produces deletions (2-20 bp) without PAM site loss.",
       "source": "R. Banakar, Mollie S. Schubert, Michael A. Collingwood, Christopher A. Vakulskas, A. Eggenberger. \"Comparison of CRISPR-Cas9/Cas12a Ribonucleoprotein Complexes for Genome Editing Efficiency in the Rice Phytoene Desaturase (OsPDS) Gene\" (2020). doi:10.1186/s12284-019-0365-z",
       "year": 2020,
-      "population": "Rice (Oryza sativa) callus lines derived from embryos",
-      "domain": "Plant genome editing",
-      "measure": "Type and size of mutations (indels, deletions) and PAM site preservation",
-      "methodology": "NGS analysis of edited rice callus lines",
-      "relationship": "SUPPORTS",
-      "sample_size": "15 edited lines analyzed (2 WT Cas9, 3 HiFi Cas9, 10 LbCas12a)",
-      "notes": "Analysis was done on callus tissue, which can be mosaic for mutations; sample size was limited and only one target site was evaluated."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9 system achieves genome editing in the fungal organism Stropharia rugosoannulata with documented editing efficiency of 14.9% at the ura3 locus.",
       "source": "Haibo Hao, Shuzhen Song, Qian Wang, Zongjun Tong, Wen Xu. \"Unlocking the Potential for Genetic Engineering of the Straw-Degrading Mushroom Stropharia rugosoannulata by Constructing a CRISPR/Cas9 Gene Editing System.\" (2026). doi:10.3390/jof12040269",
       "year": 2026,
-      "population": "Stropharia rugosoannulata monokaryotic strain Y27",
-      "domain": "Fungal genome editing",
-      "measure": "Editing efficiency at ura3 locus (percentage of edited transformants)",
-      "methodology": "Agrobacterium-mediated transformation with dual antibiotic selection",
-      "relationship": "SUPPORTS",
-      "sample_size": "87 transformants",
-      "notes": "Editing efficiency was relatively low at 14.9 percent, delivery used ATMT-based plasmids rather than RNP complexes, and off-target results are reported only as none detected at 8 tested sites rather than as a quantitative rate."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "LbCas12a ribonucleoprotein complexes achieve higher editing efficiency (32.3%) in rice PDS gene compared to WT Cas9 (3.6%) and HiFi Cas9 (8.8%).",
       "source": "R. Banakar, Mollie S. Schubert, Michael A. Collingwood, Christopher A. Vakulskas, A. Eggenberger. \"Comparison of CRISPR-Cas9/Cas12a Ribonucleoprotein Complexes for Genome Editing Efficiency in the Rice Phytoene Desaturase (OsPDS) Gene\" (2020). doi:10.1186/s12284-019-0365-z",
       "year": 2020,
-      "population": "Rice (Oryza sativa) embryos, 5-day-old mature seed derived",
-      "domain": "Plant genome editing",
-      "measure": "Editing efficiency (percentage of edited lines detected by NGS)",
-      "methodology": "Biolistic delivery of RNP complexes with NGS analysis",
-      "relationship": "SUPPORTS",
-      "sample_size": "31 LbCas12a lines, 56 WT Cas9 lines, 34 HiFi Cas9 lines analyzed by NGS",
-      "notes": "Sample size was small, only one crRNA was tested per nuclease (except Cas9 D10A), analysis used mosaic callus tissue rather than regenerated plants, and AsCas12a was run at 28C rather than the 37C typical for human cells, which may have reduced its apparent efficiency."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 systems enable high efficiency genome editing across diverse organisms.",
       "source": "Saurabh Mishra, Samrah Rehan, Ahmad Mujtaba Barekzai, Ambika Sharma, Alok Raghav. \"Emerging frontiers in genome editing: From CRISPR to next-generation technologies.\" (2026). doi:10.1016/j.ymeth.2026.05.011",
       "year": 2026,
-      "population": "Diverse organisms",
-      "domain": "Genome editing",
-      "measure": "Editing efficiency",
-      "methodology": "Literature review",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The paper acknowledges that off-target effects, immunogenicity, and germline ethics remain unresolved barriers to clinical translation."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9 enables efficient genome editing in cassava (Manihot esculenta), with editing efficiency reaching 90-100% in two cultivars.",
       "source": "John Odipio, Titus Alicai, Ivan Ingelbrecht, Dmitri A. Nusinow, Rebecca Bart. \"Efficient CRISPR/Cas9 Genome Editing of Phytoene desaturase in Cassava\" (2017). doi:10.3389/fpls.2017.01780",
       "year": 2017,
-      "population": "Cassava (Manihot esculenta) cultivars 60444 and TME 204",
-      "domain": "Plant genome editing",
-      "measure": "Editing efficiency (percentage of plant lines with albino phenotype and confirmed mutations)",
-      "methodology": "Agrobacterium-mediated transformation with molecular sequencing validation",
-      "relationship": "SUPPORTS",
-      "sample_size": "38 plant lines sequenced (19 from each cultivar)",
-      "notes": "T-DNA integration is not ideal for breeding improved germplasm given cassava's heterozygosity and inbreeding depression, and minor 1 bp off-target substitutions and deletions were observed near the target region."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-Cas9 system enables precise site-directed point mutations in bacterial genomes, with 95% efficiency for single nucleotide substitutions in Corynebacterium glutamicum.",
       "source": "Bo Wang, Qitiao Hu, Yu Zhang, Ruilin Shi, Xin Chai. \"A RecET-assisted CRISPR–Cas9 genome editing in Corynebacterium glutamicum\" (2018). doi:10.1186/s12934-018-0910-2",
       "year": 2018,
-      "population": "Corynebacterium glutamicum ATCC 13032",
-      "domain": "Bacterial genome engineering",
-      "measure": "Site-directed mutation efficiency (%)",
-      "methodology": "Experimental site-directed mutagenesis with DNA sequencing verification",
-      "relationship": "SUPPORTS",
-      "sample_size": "11 colonies tested for pgi mutation",
-      "notes": "Testing was limited to the pgi and argB genes, and the method requires careful repair-template design to avoid re-cleavage."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Cas9 nuclease systems enable efficient genome editing in human cells, with editing efficiency measurable and reportable.",
       "source": "Mitchell O Roth, Yuerong Shu, Yu Zhao, Despoina Trasanidou, Renee D Hoffman. \"Molecular basis for methylation-sensitive editing by Cas9.\" (2026). doi:10.1038/s41586-026-10384-z",
       "year": 2026,
-      "population": "Human cell lines with distinct DNA methylation landscapes",
-      "domain": "Genome editing, CRISPR-Cas9",
-      "measure": "Genome editing efficiency by ThermoCas9 in human cells",
-      "methodology": "In vitro biochemistry and human cell genome editing",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The paper does not report quantitative off-target rates or compare efficiency across cell types or organisms beyond human cell lines."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "A designed SuperFi-Cas9 variant with mutations in the RuvC loop domain achieves 500-fold reduction in off-target (18–20 MM) cleavage while maintaining wild-type on-target cleavage rates (~2 s−1).",
       "source": "Jack P. K. Bravo, Mu-Sen Liu, Grace N. Hibshman, Tyler L. Dangerfield, Kyungseok Jung. \"Structural basis for mismatch surveillance by CRISPR–Cas9\" (2022). doi:10.1038/s41586-022-04470-1",
       "year": 2022,
-      "population": "Wild-type SpCas9 and engineered 7-D mutant (SuperFi-Cas9) with synthetic DNA substrates",
-      "domain": "Genome editing; high-fidelity CRISPR-Cas9 engineering",
-      "measure": "On-target and off-target DNA cleavage rates; specificity ratio in competition assay",
-      "methodology": "Kinetic analysis and site-directed mutagenesis of Cas9 variants",
-      "relationship": "SUPPORTS",
-      "sample_size": "Multiple kinetic replicates and competition assays (not explicitly stated)",
-      "notes": "The work was done in vitro with synthetic DNA substrates, so it may not fully predict in vivo performance, and further study is needed on the kinetic basis of the discrimination change."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "TALENs enable genome editing in plant organellar genomes (mitochondrial and plastid) with documented capability.",
       "source": "Chang Zhou, Shin-Ichi Arimura. \"TALENs and Related Technologies for Editing Nuclear and Organellar Genomes in a Model Plant, Arabidopsis thaliana.\" (2026). doi:10.21769/BioProtoc.5668",
       "year": 2026,
-      "population": "Arabidopsis thaliana plants",
-      "domain": "Plant biotechnology and organellar genome editing",
-      "measure": "TALEN-mediated genome editing capability in plant organellar genomes",
-      "methodology": "Protocol development and vector construction",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "This protocol paper does not report quantitative editing efficiency or off-target rates for organellar genome editing."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "TnpB (a CRISPR-related nuclease) enables efficient genome editing in E. coli with documented editing efficiency rates.",
       "source": "Qian Guo, Qi Shen, Lixiang Zhao, Xiaoting Zhou, Sunjian Yan. \"One Plasmid Is All You Need: Genome Editing in Escherichia coli Using Endogenous TnpB and Endogenous Recombination System.\" (2026). doi:10.1002/bit.70281",
       "year": 2026,
-      "population": "E. coli BL21 (DE3) strain",
-      "domain": "Bacterial genome engineering",
-      "measure": "Genome editing efficiency (percentage of cells with successful edits at target loci)",
-      "methodology": "In vivo genome editing with plasmid-based system",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "Testing was limited to a single bacterial strain (BL21 DE3), off-target rates were not explicitly reported, and broader applicability to other bacterial species is not yet demonstrated."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9 systems enable reproducible genome editing in fungal organisms without significant adverse effects on cellular phenotypes when Cas9 is stably expressed.",
       "source": "Jiawei Sun, Zichao Hu, Yingwu Yang. \"An ATMT-CRISPR/Cas9 system for genome editing in Monascus purpureus.\" (2026). doi:10.1007/s11274-026-04943-9",
       "year": 2026,
-      "population": "Monascus purpureus with stably integrated Cas9 expression cassette",
-      "domain": "Fungal genome editing",
-      "measure": "Cellular phenotype assessment (growth, reproduction, pigment biosynthesis)",
-      "methodology": "Agrobacterium tumefaciens-mediated transformation with stable Cas9 integration",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The study does not provide quantitative growth, reproduction, or pigment production comparisons between wild-type and Cas9-expressing strains."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPOR supports efficiency scoring for non-SpCas9 nucleases including SaCas9 and Cpf1, enabling genome editing efficiency prediction across multiple CRISPR nuclease systems.",
       "source": "J. Concordet, M. Haeussler. \"CRISPOR: intuitive guide selection for CRISPR/Cas9 genome editing experiments and screens\" (2018). doi:10.1093/nar/gky354",
       "year": 2018,
-      "population": "Guide RNA sequences for SaCas9, Cpf1, and SpCas9 across multiple genomes",
-      "domain": "Genome editing tool development",
-      "measure": "Efficiency prediction scores for non-SpCas9 CRISPR nucleases",
-      "methodology": "Web tool implementation with integrated efficiency prediction algorithms for multiple nucleases",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The paper does not provide quantitative validation data for the SaCas9 and Cpf1 efficiency scores within CRISPOR itself."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9-based genome editing achieves efficient multiplex knockout in the fungal organism Acremonium chrysogenum, with documented editing efficiencies ranging from 50.0% to 95.5% depending on target number and promoter selection.",
       "source": "Zhen Chen, Wei Hong, Xiaorong Wei, Yifan Li, Tao Feng. \"A Versatile tRNA-gRNA Array-Based CRISPR/Cas9 Platform Enabling Multiplex Genome Editing and Large-Fragment Engineering in Acremonium chrysogenum.\" (2026). doi:10.1021/acssynbio.6c00052",
       "year": 2026,
-      "population": "Acremonium chrysogenum wild-type and industrial strains",
-      "domain": "Fungal genome engineering and metabolic engineering",
-      "measure": "Knockout efficiency (percentage of successful edits at single, double, and triple loci)",
-      "methodology": "Multiplex genome editing with tRNA-gRNA arrays in fungal strain",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The paper does not report off-target editing rates, nor detailed study duration or sample sizes for individual experiments."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-associated transposases (CASTs) enable RNA-guided DNA insertion across diverse bacterial species.",
       "source": "Thea C T Irvine, Andrew M Bailey, Thomas E Gorochowski. \"A Golden Gate-Compatible CRISPR-Associated Transposon Tool for Multiplexed Bacterial Genome Editing.\" (2026). doi:10.1007/978-1-0716-5304-3_2",
       "year": 2026,
-      "population": "Diverse bacterial species including Escherichia coli BL21",
-      "domain": "Synthetic biology and bacterial genome engineering",
-      "measure": "Functional RNA-guided DNA insertion capability across bacterial species",
-      "methodology": "Tool development and validation study",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The paper does not report quantitative editing efficiency or off-target rates for the CAST system."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR/Cas9-based genome editing enables targeted editing of upstream open reading frames (uORFs) in fungal organisms.",
       "source": "Mengqian Liu, Sijin Chen, Jingting Wang, Guoliang Meng, Caihong Dong. \"OmniEdit: A unified CRISPR/Cas9 platform for precise genome engineering and strain optimization of the Cordyceps militaris cell factory.\" (2026). doi:10.1016/j.synbio.2026.04.015",
       "year": 2026,
-      "population": "Cordyceps militaris strain CGMCC 3.16323",
-      "domain": "Fungal genome engineering",
-      "measure": "Successful targeted uORF editing with introduction of premature stop codons",
-      "methodology": "PEG-mediated protoplast transformation with CRISPR/Cas9 targeting uORF sequences",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The study does not report uORF editing efficiency as a percentage of transformants, and the functional impact on GABA production is not quantified."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "CRISPR-based nuclease systems exhibit off-target effects that represent a documented safety concern.",
       "source": "Saurabh Mishra, Samrah Rehan, Ahmad Mujtaba Barekzai, Ambika Sharma, Alok Raghav. \"Emerging frontiers in genome editing: From CRISPR to next-generation technologies.\" (2026). doi:10.1016/j.ymeth.2026.05.011",
       "year": 2026,
-      "population": "Diverse organisms",
-      "domain": "Genome editing",
-      "measure": "Off-target effects documentation",
-      "methodology": "Literature review",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The paper treats off-target effects as a general unresolved challenge without organism-specific data or detailed characterization."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Cas9/sgRNA-mediated genome editing achieves high editing efficiency in citrus, with mutation rates ranging from 21.43% to 100% at the target locus.",
       "source": "Hongge Jia, Zhuyuan Hu, Hao Wu, Yucheng Duan, Janice Zale. \"Cas9/sgRNA-mediated genome editing of citrus via mature tissue transformation enables both high-efficacy genome editing and early flowering.\" (2026). doi:10.3389/fpls.2026.1852804",
       "year": 2026,
-      "population": "Valencia sweet orange (Citrus sinensis) mature internodal stem segments",
-      "domain": "Plant genome editing",
-      "measure": "Cas9/sgRNA-mediated mutation frequency at target locus EBEpthA4-TI CsLOBP",
-      "methodology": "Agrobacterium-mediated mature tissue transformation with Sanger sequencing",
-      "relationship": "SUPPORTS",
-      "sample_size": "3 independent transgenic lines, 50 sequenced colonies per line",
-      "notes": "Biallelic and homozygous mutations were achieved less successfully than with epicotyl or embryogenic protoplast methods, and the plants generated were transgenic; non-transgenic genome-edited citrus was not explored here."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Transient expression of CRISPR/Cas9 RNA (in vitro transcripts) in wheat produces transgene-free mutants with 100% frequency in the T0 generation, with no detectable integration of external nucleic acids.",
       "source": "Yi Zhang, Zhen Liang, Yuan Zong, Yanpeng Wang, Jin‐Xing Liu. \"Efficient and transgene-free genome editing in wheat through transient expression of CRISPR/Cas9 DNA or RNA\" (2016). doi:10.1038/ncomms12617",
       "year": 2016,
-      "population": "Hexaploid bread wheat (Triticum aestivum L., cv. Kenong199)",
-      "domain": "Plant genome editing; transgene-free genome editing",
-      "measure": "Frequency of transgene-free mutants in T0 generation",
-      "methodology": "Biolistic bombardment with in vitro transcribed Cas9 mRNA and sgRNA; PCR detection of transgenes",
-      "relationship": "SUPPORTS",
-      "sample_size": "1,600 bombarded immature embryos; 17 T0 mutants identified",
-      "notes": "The RNA-based TECCRNA method had a lower mutagenesis frequency (1.1 percent) than the DNA-based TECCDNA method (3.3 percent), possibly due to RNA instability and degradation, and RNA preparation is noted as more difficult to work with than DNA delivery."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Off-target genome editing at predicted off-target sites is not detected in CRISPR/Cas9-edited Marchantia polymorpha lines with on-target mutations.",
       "source": "Shigeo S. Sugano, Ryuichi Nishihama, Makoto Shirakawa, Junpei Takagi, Y. Matsuda. \"Efficient CRISPR/Cas9-based genome editing and its application to conditional genetic analysis in Marchantia polymorpha\" (2018). doi:10.1371/journal.pone.0205117",
       "year": 2018,
-      "population": "Marchantia polymorpha T1 transformants with confirmed on-target mutations (39 plants for ARF1_1; 32 plants for NOP1_1)",
-      "domain": "Plant molecular genetics",
-      "measure": "Off-target mutation rate at predicted off-target sites",
-      "methodology": "Genomic DNA sequencing of predicted off-target sites",
-      "relationship": "SUPPORTS",
-      "sample_size": "39 plants sequenced for ARF1_1 off-target sites; 32 plants sequenced for NOP1_1 off-target sites",
-      "notes": "Only the three most likely off-target sites were analyzed, lower-probability sites were not assessed, and whether off-target mutations accumulate over prolonged culture or generations was not tested."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "TALENs enable site-specific DNA cleavage for genome editing applications.",
       "source": "Saurabh Mishra, Samrah Rehan, Ahmad Mujtaba Barekzai, Ambika Sharma, Alok Raghav. \"Emerging frontiers in genome editing: From CRISPR to next-generation technologies.\" (2026). doi:10.1016/j.ymeth.2026.05.011",
       "year": 2026,
-      "population": "Diverse organisms",
-      "domain": "Genome editing",
-      "measure": "Site-specific DNA cleavage capability",
-      "methodology": "Literature review",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The paper does not provide quantitative efficiency or off-target data for TALENs, treating them only as a foundational method with inherent limitations."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "SpCas9-HF1 substantially reduces off-target mutations for sgRNAs targeting repetitive or homopolymeric sequences, with 123 of 144 off-target sites for a cytosine-rich homopolymeric target and 31 of 32 off-target sites for a TG-repeat target rendered undetectable.",
       "source": "Benjamin P. Kleinstiver, Vikram Pattanayak, Michelle S. Prew, Shengdar Q. Tsai, Nathalie T. Nguyen. \"High-fidelity CRISPR–Cas9 nucleases with no detectable genome-wide off-target effects\" (2016). doi:10.1038/nature16526",
       "year": 2016,
-      "population": "Human U2OS cells with sgRNAs targeting VEGFA homopolymeric and repetitive sequences",
-      "domain": "Genome editing; CRISPR-Cas9 specificity on challenging sequences",
-      "measure": "Off-target site reduction for repetitive and homopolymeric target sequences",
-      "methodology": "GUIDE-seq in human cells with challenging repetitive target sequences",
-      "relationship": "SUPPORTS",
-      "sample_size": "2 sgRNAs (VEGFA site 2 and VEGFA site 3); 144 and 32 potential off-target sites respectively",
-      "notes": "Testing was limited to two challenging repetitive or homopolymeric sequences in the VEGFA gene, and only in human cells; the mechanism behind the specificity improvement needs further study."
+      "relationship": "SUPPORTS"
     }
   ],
   "scope": "Bacteria, fungi, plants, parasites, and human cells, tested in organisms ranging from E. coli bacteria to the Leishmania parasite to human HEK-293 cells.",

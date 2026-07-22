@@ -7,49 +7,25 @@
       "claim": "The paper does not measure the correlation between international vaccine funding reductions and vaccination coverage rate declines in low-income countries during 2010-2020.",
       "source": "P. Berman. \"Immunization financing in developing countries and the international vaccine market: trends and issues\" (2004). doi:10.1590/S0042-96862004000900017",
       "year": 2004,
-      "population": "Developing countries",
-      "domain": "Public health policy and immunization financing",
-      "measure": "Immunization financing trends and vaccine market dynamics",
-      "methodology": "Literature review and policy analysis",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "Published in 2004, predating the 2010-2020 window specified in the nucleus claim; does not measure the funding-coverage correlation. Sample size not reported; flagged with a statistical-reliability warning during ingestion."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Low- and middle-income countries with HPV vaccination programs achieved lower final-dose coverage rates than high-income countries due to higher dropout rates between first and final doses.",
       "source": "Laia Bruni, Anna Saura-Lázaro, Alexandra Montoliu, María Brotons, Laia Alemany. \"HPV vaccination introduction worldwide and WHO and UNICEF estimates of national HPV immunization coverage 2010-2019\" (2020). doi:10.1016/j.ypmed.2020.106399",
       "year": 2020,
-      "population": "Low- and middle-income countries (LMICs) and high-income countries with HPV vaccination programs, 2010-2019",
-      "domain": "Public health, vaccine coverage epidemiology",
-      "measure": "HPV vaccination coverage rates (first dose and final dose)",
-      "methodology": "Cross-sectional analysis of WHO/UNICEF vaccination coverage estimates",
-      "relationship": "CONDITIONAL",
-      "sample_size": "107 countries with HPV vaccination introduced",
-      "notes": "Addresses coverage outcomes in low-income settings but does not examine funding data or the relationship between funding reductions and coverage declines. Global population-weighted final-dose coverage was only 15% in 2019; only 6% of countries reached >90% final-dose coverage."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "The paper does not measure the correlation between international vaccine funding reductions and vaccination coverage declines; it measures vaccine effectiveness against antibiotic-treated illness outcomes.",
       "source": "Joseph A. Lewnard, Nathan C. Lo, Nimalan Arinaminpathy, Isabel Frost, Ramanan Laxminarayan. \"Childhood vaccines and antibiotic use in low- and middle-income countries\" (2020). doi:10.1038/s41586-020-2238-4",
       "year": 2020,
-      "population": "Children under five years of age in low- and middle-income countries",
-      "domain": "Vaccine effectiveness and antimicrobial resistance",
-      "measure": "Antibiotic-treated acute respiratory infection and diarrhoea episodes prevented by vaccination",
-      "methodology": "Case-control study with household survey data",
-      "relationship": "CONTRADICTS",
-      "sample_size": "65,815 children from case-control analysis; 944,173 children across 77 countries in incidence analysis",
-      "notes": "Measures vaccine effectiveness against antibiotic-treated illness, not the funding-to-coverage relationship in the nucleus claim; scored as contradicting because it is off-target to the claim rather than confirming it. Relied on mother-reported outcomes rather than standardized clinical assessment."
+      "relationship": "CONTRADICTS"
     },
     {
       "claim": "In low-income and middle-income countries, measles vaccination coverage declined or stagnated in more than half of districts between 2010 and 2019, following gains from 2000 to 2010.",
       "source": "Local Burden of Disease Vaccine Coverage Collaborators, Alyssa N. Sbarra, Sam Rolfe, Jason Q. Nguyen, Lucas Earl. \"Mapping routine measles vaccination in low- and middle-income countries\" (2020). doi:10.1038/s41586-020-03043-4",
       "year": 2020,
-      "population": "Children aged 12-59 months in 101 low- and middle-income countries",
-      "domain": "Immunization and vaccine coverage epidemiology",
-      "measure": "District-level measles-containing vaccine first-dose (MCV1) coverage",
-      "methodology": "Geostatistical modelling with Bayesian hierarchical framework",
-      "relationship": "CONDITIONAL",
-      "sample_size": "1,697,570 children from 354 household surveys",
-      "notes": "Documents a slowdown in coverage progress after 2010 (70.5% of districts improving 2000-2010 versus only 40.1% in 2010-2019), which authors attribute to conflict, vaccine scepticism, funding support, and supply disruptions jointly, not funding withdrawal in isolation. Cites Angola's 28% drop in per-capita health spending (2010-2018) coinciding with coverage declines as one example among several drivers."
+      "relationship": "CONDITIONAL"
     }
   ],
   "entryId": "D-540A117F",

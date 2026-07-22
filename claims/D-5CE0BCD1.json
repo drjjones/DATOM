@@ -307,601 +307,301 @@
       "claim": "Microwave heating inactivates Cyclospora cayetanensis oocysts with measurable reduction in sporulation and viability.",
       "source": "Ynés R. Ortega, Jye‐Yin Liao \"Microwave Inactivation of Cyclospora cayetanensis Sporulation and Viability of Cryptosporidium parvum Oocysts\" (2006). doi:10.4315/0362-028x-69.8.1957",
       "year": 2006,
-      "population": "Cyclospora cayetanensis oocysts in laboratory culture",
-      "domain": "Food microbiology; parasitology",
-      "measure": "Oocyst sporulation and viability reduction via microwave heating",
-      "methodology": "In vitro thermal inactivation study",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The abstract does not provide specific quantitative efficacy data (log-reduction values or percentage inactivation) needed to directly compare against the nucleus claim's >99.9% (3-log) threshold."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "High hydrostatic pressure treatment of produce contaminated with Eimeria acervulina (a Cyclospora cayetanensis surrogate) achieves measurable inactivation of oocysts.",
       "source": "Kalmia E. Kniel, Adrienne E.H. Shearer, Jennifer L. Cascarino, G. C. Wilkins, Mark C. Jenkins \"High Hydrostatic Pressure and UV Light Treatment of Produce Contaminated with Eimeria acervulina as a Cyclospora cayetanensis Surrogate\" (2007). doi:10.4315/0362-028x-70.12.2837",
       "year": 2007,
-      "population": "Fresh produce contaminated with Eimeria acervulina oocysts",
-      "domain": "Food safety microbiology",
-      "measure": "Oocyst inactivation/reduction",
-      "methodology": "Experimental treatment study with surrogate organism",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The study uses a surrogate organism rather than the target pathogen, which may not perfectly model Cyclospora cayetanensis response to treatments."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal processing at 70°C for 2 minutes does not achieve >99.9% (3-log) inactivation of Clostridioides difficile spores in milk.",
       "source": "Gizem Taylan Yalçın, Melike Nur Tosun Demir, Nükhet Nilüfer Demirel Zorba \"High thermal resistance and inactivation behaviour of Clostridioides difficile spores in milk.\" (2026). doi:10.1007/s42770-026-01975-z",
       "year": 2026,
-      "population": "Clostridioides difficile spores (strains and milk-derived isolates) in milk",
-      "domain": "Food microbiology and thermal processing",
-      "measure": "Log reduction of spore inactivation at specified temperatures and time intervals",
-      "methodology": "Thermal inactivation kinetics study with log-linear, Weibull, and biphasic modeling",
-      "relationship": "CONTRADICTS",
-      "sample_size": "Not reported",
-      "notes": "The study focused on C. difficile spores in milk rather than fresh produce; results may not directly transfer to other food matrices or pathogens."
+      "relationship": "CONTRADICTS"
     },
     {
       "claim": "Thermal processing at 70°C for 2 minutes achieves >99.9% (3-log) inactivation of Cyclospora cayetanensis oocysts in fresh produce.",
       "source": "Ynés R. Ortega, Lucy J. Robertson \"Assessing and Controlling the Risk of Cyclospora cayetanensis in the Food-Chain\" (2017). doi:10.1007/978-3-319-53587-6_7",
       "year": 2017,
-      "population": "Cyclospora cayetanensis oocysts on fresh agricultural produce",
-      "domain": "Food safety and parasitology",
-      "measure": "Log reduction of Cyclospora cayetanensis oocysts following thermal processing",
-      "methodology": "Laboratory thermal inactivation study",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The review synthesizes existing data; direct experimental validation across all produce varieties was not performed in this paper."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Heating Cyclospora cayetanensis oocysts to 70°C prevents sporulation (an indicator of viability) in basil and water substrates.",
       "source": "Lakshmi Sathyanarayanan, Ynés R. Ortega \"EFFECTS OF TEMPERATURE AND DIFFERENT FOOD MATRICES ON CYCLOSPORA CAYETANENSIS OOCYST SPORULATION\" (2006). doi:10.1645/ge-630r.1",
       "year": 2006,
-      "population": "Unsporulated Cyclospora cayetanensis oocysts in basil leaves and water",
-      "domain": "Food microbiology and parasitology",
-      "measure": "Oocyst sporulation (viability indicator) after thermal exposure",
-      "methodology": "In vitro thermal inactivation with sporulation assay",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The paper does not report the exact duration of heating at 70°C, does not quantify inactivation as log-reductions, and does not test fresh produce varieties beyond basil or assess washing protocols."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Heating Cyclospora cayetanensis oocysts to 100°C prevents sporulation in basil and water substrates.",
       "source": "Lakshmi Sathyanarayanan, Ynés R. Ortega \"EFFECTS OF TEMPERATURE AND DIFFERENT FOOD MATRICES ON CYCLOSPORA CAYETANENSIS OOCYST SPORULATION\" (2006). doi:10.1645/ge-630r.1",
       "year": 2006,
-      "population": "Unsporulated Cyclospora cayetanensis oocysts in basil leaves and water",
-      "domain": "Food microbiology and parasitology",
-      "measure": "Oocyst sporulation (viability indicator) after thermal exposure",
-      "methodology": "In vitro thermal inactivation with sporulation assay",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The paper does not report the exact duration of heating at 100°C, does not quantify inactivation as log-reductions, and does not test fresh produce varieties beyond basil or assess washing protocols."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Heating C. cayetanensis oocysts to 70°C prevents sporulation of the parasite.",
       "source": "S. Almerı́a, Hediye Nese Cinar, J. P. Dubey \"Cyclospora cayetanensis and Cyclosporiasis: An Update\" (2019). doi:10.3390/microorganisms7090317",
       "year": 2019,
-      "population": "C. cayetanensis oocysts in water, basil, and dairy products",
-      "domain": "Food safety and parasitology",
-      "measure": "Sporulation of C. cayetanensis oocysts after thermal exposure",
-      "methodology": "In vitro thermal inactivation study",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The paper is a review article and does not present original experimental data. The specific duration of heating at 70°C is not clearly stated for all matrices. The paper does not report quantitative measures of oocyst viability loss or log-reduction values."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "The paper studies inactivation of E. coli O157:H7, Salmonella enterica, and Listeria monocytogenes in coconut liquid endosperm, not Cyclospora cayetanensis oocysts in fresh produce.",
       "source": "A. Gabriel, Jeffrey M. Ostonal, Jannelle O Cristobal, Gladess A. Pagal, John Vincent E Armada \"Individual and combined efficacies of mild heat and ultraviolet-c radiation against Escherichia coli O157:H7, Salmonella enterica, and Listeria monocytogenes in coconut liquid endosperm.\" (2018). doi:10.1016/j.ijfoodmicro.2018.04.019",
       "year": 2018,
-      "population": "Bacterial cocktails in coconut liquid endosperm",
-      "domain": "Food microbiology and pathogen inactivation",
-      "measure": "Log reduction of bacterial pathogens under heat and UV-C treatment",
-      "methodology": "In vitro heat and UV-C inactivation kinetics study",
-      "relationship": "CONTRADICTS",
-      "sample_size": "Not reported",
-      "notes": "Study limited to three bacterial pathogens in a single liquid substrate; does not assess efficacy against parasitic oocysts or on whole fresh produce surfaces."
+      "relationship": "CONTRADICTS"
     },
     {
       "claim": "Thermal processing of fresh produce at sustained internal temperature of 70°C (158°F) for minimum 2 minutes achieves >99.9% (3-log) inactivation of Cyclospora cayetanensis oocysts.",
       "source": "Linda S. Mansfield, Alvin A. Gajadhar \"Cyclospora cayetanensis, a food- and waterborne coccidian parasite\" (2004). doi:10.1016/j.vetpar.2004.09.011",
       "year": 2004,
-      "population": "Cyclospora cayetanensis oocysts on fresh agricultural produce",
-      "domain": "Food safety and parasitology",
-      "measure": "Oocyst inactivation rate (log reduction)",
-      "methodology": "Literature review and parasitology synthesis",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "As a review article, this paper does not present original experimental data on thermal inactivation or washing protocols. Specific quantitative findings on the nucleus claim are not present in the provided text."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal processing of fresh produce at 70°C (158°F) for 2 minutes achieves >99.9% (3-log) inactivation of Cyclospora cayetanensis oocysts.",
       "source": "Joan M. Shields, Betty H. Olson \"Cyclospora cayetanensis: a review of an emerging parasitic coccidian\" (2003). doi:10.1016/s0020-7519(02)00268-0",
       "year": 2003,
-      "population": "Cyclospora cayetanensis oocysts on fresh agricultural produce",
-      "domain": "Food safety and parasitology",
-      "measure": "Oocyst inactivation rate (log reduction)",
-      "methodology": "Literature review and synthesis",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "As a review article, findings are synthesized from existing literature rather than original experimental data; specific produce types and conditions may vary."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Washing protocols (using laboratory detergent) can recover Cyclospora cayetanensis oocysts from lettuce, herbs, and raspberries, indicating that oocysts remain on produce surfaces after washing.",
       "source": "Joan M. Shields, Michelle Minjung Lee, Helen Murphy \"Use of a common laboratory glassware detergent improves recovery of Cryptosporidium parvum and Cyclospora cayetanensis from lettuce, herbs and raspberries\" (2011). doi:10.1016/j.ijfoodmicro.2011.10.025",
       "year": 2011,
-      "population": "Lettuce, herbs (unspecified varieties), and raspberries artificially contaminated with C. cayetanensis oocysts",
-      "domain": "Food microbiology; parasitology",
-      "measure": "Recovery efficiency of C. cayetanensis oocysts from produce surfaces using detergent-based washing",
-      "methodology": "Laboratory recovery and detection study",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The paper focuses on recovery methodology rather than quantifying the absolute reduction rates achieved by washing protocols or thermal processing."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Elevated temperature alone (without high pressure) achieves log reductions in microbial populations, but the specific inactivation rate of Cyclospora cayetanensis oocysts at 70°C for 2 minutes is not quantified in this paper.",
       "source": "D. Wilson, L. Dabrowski, S. Stringer, R. Moezelaar, T. Brocklehurst \"High pressure in combination with elevated temperature as a method for the sterilisation of food\" (2008). doi:10.1016/J.TIFS.2008.01.005",
       "year": 2008,
-      "population": "Food sterilization systems (general)",
-      "domain": "Food science and microbial sterilization",
-      "measure": "Microbial inactivation via thermal and high-pressure processing",
-      "methodology": "Literature review and experimental design discussion",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The paper does not provide experimental data on Cyclospora cayetanensis oocyst inactivation at the specific temperature and duration stated in the nucleus claim."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal processing of mozzarella curd at 90–95°C for 5–10 minutes achieves log reductions of Shiga toxin-producing E. coli O157 and O26 ranging from 1.01 to >5.38 log MPN/g, with higher reductions at higher core temperatures (78–80°C).",
       "source": "M. Trevisani, A. Valero, Rocco Mancusi \"Effectiveness of the Thermal Treatments Used for Curd Stretching in the Inactivation of Shiga Toxin-Producing O157 and O26 Escherichia coli\" (2017). doi:10.1155/2017/1609836",
       "year": 2017,
-      "population": "Mozzarella cheese curd artificially contaminated with E. coli O157:H7 and O26:H11",
-      "domain": "Food microbiology; cheese processing",
-      "measure": "Log reduction (log MPN/g) of viable Shiga toxin-producing E. coli O157 and O26 after thermal treatment",
-      "methodology": "Challenge test with nonisothermal temperature profiling",
-      "relationship": "CONDITIONAL",
-      "sample_size": "9 curd samples (160–270 g each)",
-      "notes": "Study was limited to mozzarella curd and two STEC serotypes. Temperature range studied was 64–80°C for O26 and 67–80°C for O157. Data on STEC growth during pre-stretching processing steps were lacking. Strain-dependent variability in heat resistance was not fully characterized."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Standard commercial and consumer washing protocols fail to achieve a 99% (2-log) reduction of Cyclospora cayetanensis oocysts on basil.",
       "source": "Venessa Chandra, María P. Torres, Ynés R. Ortega \"Efficacy of Wash Solutions in Recovering Cyclospora cayetanensis, Cryptosporidium parvum, and Toxoplasma gondii from Basil\" (2014). doi:10.4315/0362-028x.jfp-13-381",
       "year": 2014,
-      "population": "Basil leaves artificially inoculated with Cyclospora cayetanensis oocysts",
-      "domain": "Food safety and parasitology",
-      "measure": "Percentage of Cyclospora cayetanensis oocysts recovered after washing with various solutions",
-      "methodology": "Experimental wash efficacy study",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The study was limited to basil as a single produce type and used artificially inoculated oocysts rather than naturally contaminated produce."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Standard commercial and consumer washing protocols fail to achieve 99% (2-log) reduction of Cyclospora cayetanensis oocysts on fresh produce.",
       "source": "Ynés R. Ortega, Lucy J. Robertson \"Assessing and Controlling the Risk of Cyclospora cayetanensis in the Food-Chain\" (2017). doi:10.1007/978-3-319-53587-6_7",
       "year": 2017,
-      "population": "Cyclospora cayetanensis oocysts on fresh agricultural produce",
-      "domain": "Food safety and parasitology",
-      "measure": "Log reduction of Cyclospora cayetanensis oocysts following washing protocols",
-      "methodology": "Literature review and comparative analysis of washing efficacy",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The review does not present original experimental data on washing efficacy; conclusions are based on synthesis of existing literature."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Washing vegetables does not completely remove Cyclospora cayetanensis oocysts from produce.",
       "source": "Ynés R. Ortega, Concepcion Roxas, Robert H. Gilman, Norma Miller, Lilia Cabrera \"Isolation of Cryptosporidium parvum and Cyclospora cayetanensis from Vegetables Collected in Markets of an Endemic Region in Peru\" (1997). doi:10.4269/ajtmh.1997.57.683",
       "year": 1997,
-      "population": "Vegetables collected from markets in periurban Peru",
-      "domain": "Food safety and parasitology",
-      "measure": "Presence of Cyclospora cayetanensis oocysts on vegetables after washing",
-      "methodology": "Market vegetable sampling and microscopic examination",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Multiple vegetables from several markets across three time periods",
-      "notes": "The study does not quantify the reduction percentage achieved by washing or compare washing efficacy to thermal processing. No specific log-reduction values are provided."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Washing green leafy vegetables in distilled water does not achieve a 99% (2-log) or greater reduction of Cyclospora cayetanensis oocysts.",
       "source": "Jeevan B. Sherchand, J. Helen Cross, Masamine Jimba, Shardulendra P. Sherchand, Milan Shrestha \"Study of Cyclospora cayetanensis in health care facilities, sewage water and green leafy vegetables in Nepal.\" (1999)",
       "year": 1999,
-      "population": "Green leafy vegetables from Nepal",
-      "domain": "Parasitology and food safety",
-      "measure": "Presence of Cyclospora cayetanensis oocysts in vegetable washings",
-      "methodology": "Cross-sectional environmental sampling and microscopic examination",
-      "relationship": "CONDITIONAL",
-      "sample_size": "4 sampling occasions",
-      "notes": "The study does not quantify the number of oocysts or the percentage reduction achieved by washing. No comparison to thermal processing or other decontamination methods is provided. The study acknowledges that further studies are needed to clarify the direct link between these sources and infection."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Washing protocols (commercial and consumer standard) fail to achieve 99% (2-log) reduction of Cyclospora cayetanensis oocysts on produce.",
       "source": "Ynés R. Ortega, Amy Mann, María P. Torres, Vitaliano Cama \"Efficacy of Gaseous Chlorine Dioxide as a Sanitizer against Cryptosporidium parvum, Cyclospora cayetanensis, and Encephalitozoon intestinalis on Produce\" (2008). doi:10.4315/0362-028x-71.12.2410",
       "year": 2008,
-      "population": "Fresh produce (lettuce, cilantro, berries) artificially contaminated with C. cayetanensis oocysts",
-      "domain": "Food safety and parasitology",
-      "measure": "Log reduction of Cyclospora cayetanensis oocysts on produce after washing",
-      "methodology": "Experimental contamination and washing trial",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "Study used artificially inoculated produce rather than naturally contaminated samples; oocyst enumeration methods not fully detailed."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Washing alone does not effectively remove C. cayetanensis oocysts from fresh produce.",
       "source": "S. Almerı́a, Hediye Nese Cinar, J. P. Dubey \"Cyclospora cayetanensis and Cyclosporiasis: An Update\" (2019). doi:10.3390/microorganisms7090317",
       "year": 2019,
-      "population": "Fresh produce (berries, leafy greens) contaminated with C. cayetanensis",
-      "domain": "Food safety and parasitology",
-      "measure": "Effectiveness of washing in removing C. cayetanensis oocysts from produce",
-      "methodology": "Literature review and epidemiological analysis",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "This is a review article synthesizing published outbreak data. The paper does not present quantitative data on the efficacy of washing protocols or specific log-reduction values. The paper does not directly compare washing efficacy to thermal processing in controlled experiments."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Commercial disinfectants show limited efficacy against Cryptosporidium oocysts.",
       "source": "Ayman Ahmed Shehata, Iqra Zafar, Hiroki Bochimoto, Kentaro Kato \"The Synergistic Effect of Tanabesol and Calcium Hydroxide on Cryptosporidium parvum Oocyst Inactivation.\" (2026). doi:10.4103/IJVSM.IJVSM_11_25",
       "year": 2026,
-      "population": "Cryptosporidium parvum oocysts",
-      "domain": "parasitology and food safety",
-      "measure": "efficacy of commercial disinfectants against oocyst inactivation",
-      "methodology": "Literature review and experimental assessment",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The paper does not provide specific quantitative efficacy data or comparative analysis with thermal processing methods."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Sanitizer washing (free chlorine or peracetic acid) of fresh-cut Brassica vegetables reduces initial pathogen populations but does not achieve sustained multi-log inactivation over storage periods.",
       "source": "Nirosha Ruwani Amarasekara, Deepak Subedi, Joshua B Gurtler, Xuetong Fan \"Effects of temperature and sanitizer wash treatments on foodborne pathogen survival during storage of work-in-process fresh-cut Brassica vegetables.\" (2026). doi:10.1016/j.fm.2026.105179",
       "year": 2026,
-      "population": "Work-in-process broccoli stalk, Brussels sprout, and kale inoculated with pathogen cocktails (ca. 8 log CFU/ml)",
-      "domain": "Food safety and produce microbiology",
-      "measure": "Pathogen population reduction (log CFU/g) following sanitizer washing and storage",
-      "methodology": "Experimental inoculation and sanitizer treatment study",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "Study focused on three Brassica vegetables and three specific pathogens; generalizability to other produce types and pathogens not addressed. Storage duration limited to 7 days."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Washing protocols using slightly acidic electrolysed water (SAEW) at 80 mg/L achieve a 4–8 log₁₀ CFU/g reduction in microbial load on whole tomatoes, mushrooms, carrots, and strawberries.",
       "source": "Harshveer Kaur, Juhi Saxena \"Effect of slightly acidic electrolysed water, ozonated water and sodium hypochlorite wash on microbial and physico-chemical quality of whole tomatoes, mushrooms, carrots and strawberries.\" (2026). doi:10.1177/10820132261452148",
       "year": 2026,
-      "population": "Whole tomatoes, mushrooms, carrots, and strawberries stored at 4°C and 22°C",
-      "domain": "Food safety and produce sanitization",
-      "measure": "Log₁₀ CFU/g microbial reduction (total plate count and E. coli)",
-      "methodology": "In vitro microbial reduction assay with storage monitoring",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The paper does not report sample size, replication number, or statistical power. Study duration for storage monitoring is not explicitly stated. The study measures general microbial load, not pathogen-specific inactivation rates."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Washing methods using vinegar or commercial benzalkonium chloride disinfectant achieve complete elimination of detectable Escherichia coli on fresh vegetables, whereas water, saline, and detergent show incomplete effectiveness.",
       "source": "Aziz Gharaei, M. Fasihi Karami, Mohammad Javad Boozhmehrani, M. Tavalla \"Comparative Efficacy of Washing Methods for Bacterial and Parasitic Decontamination of Fresh Vegetables\" (2026). doi:10.5812/jjnpp-170334",
       "year": 2026,
-      "population": "Seven varieties of fresh vegetables (lettuce, purslane, basil, mint, leek, radish, cress) sourced from retail outlets in Ahvaz, Iran",
-      "domain": "Food microbiology and safety",
-      "measure": "Escherichia coli elimination and log CFU/g reduction following washing treatments",
-      "methodology": "Cross-sectional experimental study with culture-based bacterial detection",
-      "relationship": "CONDITIONAL",
-      "sample_size": "2 kg total vegetables comprising 3 independent retail samples per vegetable type (approximately 250-300 g each)",
-      "notes": "Relatively small sample size and convenience sampling may limit generalizability. Parasitic identification relied on microscopy without molecular confirmation. Seasonal variation not evaluated. Single geographic region studied. Bacterial growth evaluated semi-quantitatively rather than by precise CFU enumeration."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Parasitic contamination, particularly Giardia lamblia cysts, persists across all washing methods (11.1-33.3% prevalence) despite complete elimination of detectable E. coli by vinegar and commercial disinfectant treatments.",
       "source": "Aziz Gharaei, M. Fasihi Karami, Mohammad Javad Boozhmehrani, M. Tavalla \"Comparative Efficacy of Washing Methods for Bacterial and Parasitic Decontamination of Fresh Vegetables\" (2026). doi:10.5812/jjnpp-170334",
       "year": 2026,
-      "population": "Seven varieties of fresh vegetables (lettuce, purslane, basil, mint, leek, radish, cress) sourced from retail outlets in Ahvaz, Iran",
-      "domain": "Food parasitology and safety",
-      "measure": "Giardia lamblia cyst persistence and prevalence following washing treatments",
-      "methodology": "Cross-sectional experimental study with sediment concentration microscopy for parasite detection",
-      "relationship": "CONTRADICTS",
-      "sample_size": "2 kg total vegetables comprising 3 independent retail samples per vegetable type (approximately 250-300 g each); 9 samples per washing treatment group",
-      "notes": "Parasitic identification relied on microscopy without molecular confirmation, which may underestimate species diversity. Seasonal variation in contamination patterns not evaluated. Study conducted in single geographic region. Analytical approach designed to recover parasites dislodged into washing solution rather than assess parasite inactivation directly."
+      "relationship": "CONTRADICTS"
     },
     {
       "claim": "Standard commercial and consumer washing protocols fail to achieve 99% (2-log) reduction of Cyclospora cayetanensis oocysts on fresh produce.",
       "source": "Joan M. Shields, Betty H. Olson \"Cyclospora cayetanensis: a review of an emerging parasitic coccidian\" (2003). doi:10.1016/s0020-7519(02)00268-0",
       "year": 2003,
-      "population": "Cyclospora cayetanensis oocysts on fresh agricultural produce",
-      "domain": "Food safety and parasitology",
-      "measure": "Oocyst removal/inactivation by washing (log reduction)",
-      "methodology": "Literature review and synthesis",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "As a review article, specific washing protocols and conditions are not uniformly detailed across cited studies; effectiveness may vary by produce type."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Chemical washing protocols (chlorine at 170 ppm for 180 seconds or PAA at 70 ppm for 180 seconds) achieve log reductions of 0.9–2.3 on mung bean sprouts, falling short of the 2-log (99%) reduction threshold claimed for maximum standard washing protocols.",
       "source": "Shan Yu Neo, Pei Yan Lim, Li Kai Phua, Gek Hoon Khoo, Su-Jung Kim \"Efficacy of chlorine and peroxyacetic acid on reduction of natural microflora, Escherichia coli O157:H7, Listeria monocyotgenes and Salmonella spp. on mung bean sprouts.\" (2013). doi:10.1016/j.fm.2013.05.001",
       "year": 2013,
-      "population": "Mung bean sprouts inoculated with E. coli O157:H7, L. monocytogenes, Salmonella spp., and natural microflora",
-      "domain": "Food safety and pathogen inactivation",
-      "measure": "Log reduction of pathogens and natural microflora on sprouts after chemical sanitizer treatment",
-      "methodology": "In vitro sanitizer efficacy trial",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "Study limited to mung bean sprouts and specific bacterial pathogens; does not address parasitic pathogens like Cyclospora or thermal processing methods."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Washing protocols using lactic acid (2%) combined with low-concentration sodium hypochlorite (4 mg/L) achieve approximately 1.77 log reduction of inoculated Listeria innocua on organic broccoli sprouts at day 0.",
       "source": "Lin Chen, Hongfei Zhang, Qin Liu, Xinyi Pang, Xue Zhao \"Sanitising efficacy of lactic acid combined with low-concentration sodium hypochlorite on Listeria innocua in organic broccoli sprouts.\" (2019). doi:10.1016/j.ijfoodmicro.2019.02.014",
       "year": 2019,
-      "population": "Organic broccoli sprouts inoculated with Listeria innocua",
-      "domain": "Food safety and sanitization",
-      "measure": "Log reduction (CFU/g fresh weight) of Listeria innocua on broccoli sprouts",
-      "methodology": "In vitro antimicrobial efficacy trial on inoculated produce",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The study used Listeria innocua as a surrogate organism rather than pathogenic species. Results are specific to broccoli sprouts and may not generalize to other produce types. The study did not compare efficacy to thermal processing or standard commercial washing protocols."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "The paper does not measure Cyclospora cayetanensis oocyst inactivation or washing protocol efficacy on fresh produce.",
       "source": "Chyer Kim, Rana Alrefaei, Mariam Bushlaibi, E. Ndegwa, P. Kaseloo \"Influence of growth temperature on thermal tolerance of leading foodborne pathogens\" (2019). doi:10.1002/fsn3.1268",
       "year": 2019,
-      "population": "Four bacterial species (E. coli O157:H7, L. monocytogenes, S. enterica, S. aureus) cultured in tryptic soy broth",
-      "domain": "Food microbiology and thermal processing",
-      "measure": "Thermal death time (D-value) and thermal death temperature (z-value) for bacterial pathogens",
-      "methodology": "In vitro bacterial culture and thermal inactivation study",
-      "relationship": "CONTRADICTS",
-      "sample_size": "3 or 4 strains per bacterial species; 3 independent replicate trials per condition",
-      "notes": "The study was conducted in laboratory broth (tryptic soy broth) rather than on actual food matrices. The authors note that further research is needed to validate findings on food matrices such as ground beef and roasted beef. The study did not assess thermal tolerance on fresh produce or compare washing protocols."
+      "relationship": "CONTRADICTS"
     },
     {
       "claim": "Household washing of lettuce with tap water at 8 L/min flow rate achieves approximately 80% (0.9 log₁₀) reduction in total aerobic count, which is substantially less than the >99.9% (3-log) reduction claimed for thermal processing.",
       "source": "Elisabeth Uhlig, Crister Olsson, Jiayi He, Therese Stark, Zuzanna Sadowska \"Effects of household washing on bacterial load and removal of Escherichia coli from lettuce and \"ready-to-eat\" salads.\" (2017). doi:10.1002/fsn3.514",
       "year": 2017,
-      "population": "Ready-to-eat mixed salad and romaine lettuce purchased from supermarket",
-      "domain": "Food microbiology; produce safety",
-      "measure": "Total aerobic count reduction (log₁₀ CFU/g) after household tap water washing",
-      "methodology": "Experimental bacterial culture and viable plate counting",
-      "relationship": "CONDITIONAL",
-      "sample_size": "6 packages per washing condition",
-      "notes": "The study was limited to two washing procedures feasible under household conditions. Only a limited number of isolates were sequenced. The study did not assess thermal processing or Cyclospora oocysts."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Household washing of lettuce with tap water at 2 L/min flow rate or by immersion in water does not achieve statistically significant reduction in bacterial load, failing to meet even a 99% (2-log) reduction threshold.",
       "source": "Elisabeth Uhlig, Crister Olsson, Jiayi He, Therese Stark, Zuzanna Sadowska \"Effects of household washing on bacterial load and removal of Escherichia coli from lettuce and \"ready-to-eat\" salads.\" (2017). doi:10.1002/fsn3.514",
       "year": 2017,
-      "population": "Ready-to-eat mixed salad and romaine lettuce purchased from supermarket",
-      "domain": "Food microbiology; produce safety",
-      "measure": "Total aerobic count and Enterobacteriaceae count reduction at low flow rate and immersion washing",
-      "methodology": "Experimental bacterial culture and viable plate counting",
-      "relationship": "SUPPORTS",
-      "sample_size": "6 packages per washing condition",
-      "notes": "Study limited to two washing procedures feasible under household conditions. Did not assess thermal processing or other decontamination methods."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Inoculated E. coli on romaine lettuce cannot be significantly reduced by household water immersion washing, even after five repeated 30-second immersions.",
       "source": "Elisabeth Uhlig, Crister Olsson, Jiayi He, Therese Stark, Zuzanna Sadowska \"Effects of household washing on bacterial load and removal of Escherichia coli from lettuce and \"ready-to-eat\" salads.\" (2017). doi:10.1002/fsn3.514",
       "year": 2017,
-      "population": "Romaine lettuce inoculated with nonpathogenic E. coli CCUG 29300",
-      "domain": "Food microbiology; produce safety",
-      "measure": "E. coli CFU/g reduction after repeated water immersion washing",
-      "methodology": "Experimental bacterial inoculation and viable plate counting",
-      "relationship": "SUPPORTS",
-      "sample_size": "6 separate heads of romaine lettuce (100 g per head)",
-      "notes": "Study used nonpathogenic E. coli rather than pathogenic strains. Limited to immersion washing method for inoculated samples. Did not assess thermal processing."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "The paper does not measure thermal processing or washing efficacy outcomes; it only detects C. cayetanensis DNA in produce and irrigation water using molecular methods.",
       "source": "Iffat Naz, Mina A. Almayouf, Abdul Rehman, Abdul Majid, Abdul Basit \"Molecular detection of Cyclospora cayetanensis in fresh produce and irrigation water in peri- urban settings: a One Health cross-sectional study\" (2026). doi:10.21203/rs.3.rs-9256916/v1",
       "year": 2026,
-      "population": "Fresh produce (coriander, mint, lettuce, spinach, cucumber, tomato) and irrigation water from peri-urban Khyber Pakhtunkhwa, Pakistan",
-      "domain": "Food safety microbiology; environmental surveillance",
-      "measure": "Presence/absence of C. cayetanensis DNA detected by nested PCR targeting 18S rRNA gene",
-      "methodology": "Cross-sectional molecular survey with nested PCR",
-      "relationship": "CONDITIONAL",
-      "sample_size": "300 produce samples and 120 irrigation water samples (420 total)",
-      "notes": "Study did not measure thermal inactivation or washing efficacy. Molecular detection sensitivity may be reduced by complex sample matrices and PCR inhibitors. Seasonal sampling duration was limited. Results not directly comparable with microscopy-based reports due to methodological differences."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "The BAM 19b method achieves detection of C. cayetanensis oocysts in fresh produce at a sensitivity of 100% when 200 oocysts are spiked onto berries.",
       "source": "Laura F. Lalonde, Jenna R. Oakley, Patrick Fries \"Verification and Use of the US-FDA BAM 19b Method for Detection of Cyclospora cayetanensis in a Survey of Fresh Produce by CFIA Laboratory\" (2022). doi:10.3390/microorganisms10030559",
       "year": 2022,
-      "population": "Fresh berries (raspberries, strawberries, blueberries) spiked with C. cayetanensis oocysts",
-      "domain": "Food microbiology and parasitology detection",
-      "measure": "Diagnostic sensitivity (percentage of spiked samples positive by qPCR)",
-      "methodology": "Laboratory spiking and qPCR verification study",
-      "relationship": "CONDITIONAL",
-      "sample_size": "85 berry samples across three types",
-      "notes": "Lower sensitivity at lower spike levels compared to FDA validation; oocyst stock was only 4% sporulated; use of different amplification platform than original FDA validation."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "The BAM 19b method achieves detection of C. cayetanensis oocysts in leafy greens at a sensitivity of 92.5% when 200 oocysts are spiked onto samples.",
       "source": "Laura F. Lalonde, Jenna R. Oakley, Patrick Fries \"Verification and Use of the US-FDA BAM 19b Method for Detection of Cyclospora cayetanensis in a Survey of Fresh Produce by CFIA Laboratory\" (2022). doi:10.3390/microorganisms10030559",
       "year": 2022,
-      "population": "Fresh leafy greens (romaine lettuce, spring mix, kale salad mix, coleslaw) spiked with C. cayetanensis oocysts",
-      "domain": "Food microbiology and parasitology detection",
-      "measure": "Diagnostic sensitivity (percentage of spiked samples positive by qPCR)",
-      "methodology": "Laboratory spiking and qPCR verification study",
-      "relationship": "CONDITIONAL",
-      "sample_size": "120 leafy green samples",
-      "notes": "Lower sensitivity at lower spike levels; oocyst stock was only 4% sporulated; differences in oocyst preparation procedures compared to FDA validation."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "UV radiation at 222, 254, and 282 nm significantly reduces the infectivity of Eimeria acervulina oocysts, achieving reductions ranging from 82% to >99.6% (0.76-log to near 3-log) in oocyst shedding when administered to chickens.",
       "source": "Aaron A. Baumann, Addison K Myers, Niloofar Khajeh-Kazerooni, Ashley Wise-Mitchell, Benjamin M. Rosenthal \"UV radiation at 222, 254, and 282 nm inhibits sporulation and suppresses infectivity of Eimeria acervulina oocysts\" (2025). doi:10.1128/spectrum.02439-24",
       "year": 2025,
-      "population": "2-week-old broiler chickens (HR308 strain), n=3 per treatment group",
-      "domain": "Parasitology; food safety; UV disinfection; poultry disease",
-      "measure": "Oocyst shedding (oocyst output per chicken) measured from fecal material collected days 5–7 post-inoculation",
-      "methodology": "In vivo infectivity assay in broiler chickens",
-      "relationship": "CONDITIONAL",
-      "sample_size": "3 chickens per treatment group; 500 oocysts per chicken inoculation",
-      "notes": "The study used a relatively low inoculation dose (500 oocysts) to allow comparison of oocyst fecundity without causing clinical signs such as intestinal lesions. Results may not generalize to higher infection doses or to natural transmission routes. The study was conducted in controlled laboratory conditions and does not account for real-world barriers to UV penetration in complex matrices."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal processing at ≥63°C for ≥5 minutes or ≥75°C for 5 minutes achieves effective inactivation of hepatitis E virus (HEV), with reductions >4 log₁₀ in genomic titre.",
       "source": "Audrey Fraisse, Marie Pellerin, Carole Feurer, Jean-Luc Martin, Virginie Doceul \"Optimization of a capsid integrity RT-qPCR method to quantify thermally inactivated hepatitis E virus in suspensions and in deli meat samples.\" (2026). doi:10.1016/j.fm.2026.105193",
       "year": 2026,
-      "population": "HEV-3c and HEV-3f strains in PBS, cell culture medium, cooked ham, and emulsified sausage",
-      "domain": "Food virology and thermal inactivation",
-      "measure": "Log₁₀ reduction in HEV genomic titre and infectivity",
-      "methodology": "Capsid-integrity RT-qPCR and cell culture assay",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The study focused on HEV-3 strains in specific food matrices (cooked ham and emulsified sausage). Further validation is needed for other HEV genotypes and complex food matrices."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Acid adaptation increases the thermal heat resistance of Listeria monocytogenes, Salmonella, and STEC in fruit juices.",
       "source": "Zeynal Topalcengiz \"Assessment of recommended thermal inactivation parameters for fruit juices\" (2019). doi:10.1016/J.LWT.2019.108475",
       "year": 2019,
-      "population": "STEC, Salmonella, and L. monocytogenes strains",
-      "domain": "Food microbiology and bacterial physiology",
-      "measure": "Heat resistance of acid-adapted versus non-adapted bacteria",
-      "methodology": "Experimental heat treatment with acid-adapted and non-adapted bacterial strains",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The study focused on juice rather than whole produce. The specific magnitude of increased heat resistance was not quantified."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal treatment at 60°C for 2 minutes achieves a 3.3–4.0 log reduction (99.97–99.99% inactivation) of Salmonella enterica populations in vitro.",
       "source": "A. Gill, S. Tamber, Xianqin Yang \"Relative response of populations of Escherichia coli and Salmonella enterica to exposure to thermal, alkaline and acidic treatments.\" (2019). doi:10.1016/j.ijfoodmicro.2019.01.007",
       "year": 2019,
-      "population": "Salmonella enterica strains (n=99) from humans, poultry, pork, and beef sources",
-      "domain": "Food microbiology; thermal decontamination",
-      "measure": "Log reduction (CFU/mL) of Salmonella enterica after heat exposure",
-      "methodology": "In vitro bacterial culture exposure to thermal treatment",
-      "relationship": "CONDITIONAL",
-      "sample_size": "99 Salmonella strains",
-      "notes": "Study used a model system with bacterial cultures in broth rather than on actual food matrices; results may not directly translate to produce or other food types."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal treatment at 60°C for 2 minutes achieves a 3.3–3.5 log reduction (99.9–99.97% inactivation) of Shiga toxin-producing E. coli populations in vitro.",
       "source": "A. Gill, S. Tamber, Xianqin Yang \"Relative response of populations of Escherichia coli and Salmonella enterica to exposure to thermal, alkaline and acidic treatments.\" (2019). doi:10.1016/j.ijfoodmicro.2019.01.007",
       "year": 2019,
-      "population": "Shiga toxin-producing E. coli strains (n=113) from cattle, beef, and human sources",
-      "domain": "Food microbiology; thermal decontamination",
-      "measure": "Log reduction (CFU/mL) of STEC after heat exposure",
-      "methodology": "In vitro bacterial culture exposure to thermal treatment",
-      "relationship": "CONDITIONAL",
-      "sample_size": "113 STEC strains",
-      "notes": "Study used bacterial cultures in broth rather than on actual food matrices; results may not directly translate to produce or other food types."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal treatment at 60°C for 2 minutes achieves a 2.3–3.8 log reduction (99.8–99.98% inactivation) of generic E. coli populations in vitro.",
       "source": "A. Gill, S. Tamber, Xianqin Yang \"Relative response of populations of Escherichia coli and Salmonella enterica to exposure to thermal, alkaline and acidic treatments.\" (2019). doi:10.1016/j.ijfoodmicro.2019.01.007",
       "year": 2019,
-      "population": "Generic E. coli strains (n=99) from beef carcasses and trim at small and large processing plants",
-      "domain": "Food microbiology; thermal decontamination",
-      "measure": "Log reduction (CFU/mL) of generic E. coli after heat exposure",
-      "methodology": "In vitro bacterial culture exposure to thermal treatment",
-      "relationship": "CONDITIONAL",
-      "sample_size": "99 generic E. coli strains",
-      "notes": "Study used bacterial cultures in broth rather than on actual food matrices; results may not directly translate to produce or other food types."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Ohmic heating of poultry meat can achieve bacterial inactivation of foodborne pathogens including Listeria, Salmonella, E. coli, and Campylobacter, with inactivation probability dependent on applied voltage, brine concentration, and processing time.",
       "source": "Sebahattin Serhat Turgut, A. H. Feyissa \"Stochastic inactivation evaluation of foodborne pathogens during ohmic heating of poultry meat\" (2023). doi:10.1515/ijfe-2023-0022",
       "year": 2023,
-      "population": "Chicken meat samples with 1000 virtual bacterial particles",
-      "domain": "Food safety and thermal processing",
-      "measure": "Probability of 7-log bacterial reduction during ohmic heating",
-      "methodology": "Computational fluid dynamics modeling with stochastic simulation",
-      "relationship": "CONDITIONAL",
-      "sample_size": "1000 particles per simulation",
-      "notes": "Model represents virtual bacterial particles rather than actual microbial behavior; validation against experimental data not reported in abstract."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal processing at 75°C achieves measurable but limited inactivation of fungal spores in strawberry puree, with thermal processing alone at 85°C producing only 0.2 log reduction of B. nivea ascospores over 10 minutes.",
       "source": "Evelyn, Filipa V. M. Silva \"Inactivation of Byssochlamys nivea ascospores in strawberry puree by high pressure, power ultrasound and thermal processing.\" (2015). doi:10.1016/j.ijfoodmicro.2015.07.031",
       "year": 2015,
-      "population": "B. nivea ascospores (four week old) in strawberry puree",
-      "domain": "Food microbiology and food safety",
-      "measure": "Log reduction of B. nivea ascospores",
-      "methodology": "Experimental inactivation study with thermal processing and high pressure processing",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The study used strawberry puree rather than whole fresh produce, and examined B. nivea ascospores rather than Cyclospora oocysts. The paper does not address washing protocols or compare thermal processing to washing effectiveness."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal processing of tomato juice and sauce at 80°C achieves measurable inactivation of Alicyclobacillus acidoterrestris spores, with D-values (decimal reduction time) of approximately 3.8-fold lower when combined with UV-C compared to heat alone.",
       "source": "Rose Daphnee Tchonkouang, Ferruh Erdogdu, Maria Dulce Antunes, Margarida Cortês Vieira \"Quality and safety of reformulated tomato products processed by continuous heat and UV-C pasteurization.\" (2026). doi:10.1016/j.foodres.2026.119247",
       "year": 2026,
-      "population": "Reformulated tomato juice (RTJ; pH 3.70 ± 0.06, °Brix 5.27 ± 0.21) and reformulated tomato sauce (RTS; pH 4.04 ± 0.02, °Brix 7.96 ± 0.16)",
-      "domain": "Food microbiology and thermal processing",
-      "measure": "D-value and z-value for Alicyclobacillus acidoterrestris spore inactivation at 80°C",
-      "methodology": "Kinetic modeling with Paired Equivalent Isothermal Exposures method",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "Study limited to two reformulated tomato products (juice and sauce); does not assess fresh whole produce or Cyclospora cayetanensis oocysts specifically."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Dual-frequency acoustic cavitation combined with mild heat (50–55 °C) achieves a 3.6-log reduction in yeast after 450 seconds of treatment in apple juice.",
       "source": "Sara Maghami, Kimmo Rumpunen, Örjan Johansson \"Reduced-temperature pasteurization of apple juice using a flow-through sonicator.\" (2026). doi:10.1016/j.ultsonch.2026.107926",
       "year": 2026,
-      "population": "Apple juice (Ingrid Marie variety)",
-      "domain": "Food microbiology and juice pasteurization",
-      "measure": "Log reduction of yeast, mold, and aerobic microorganisms",
-      "methodology": "Flow-through sonication with dual-frequency acoustic and hydrodynamic cavitation",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "Pure thermal pasteurization controls were not performed at the same temperature ranges; however, all treatment temperatures were below 60 °C, where thermal pasteurization alone is not expected to produce substantial microbial inactivation under comparable processing times. The study did not explicitly address how suspended solids and dissolved macromolecules in complex juice matrices modulate cavitation behavior. Bubbly apple juice acoustic properties were approximated using bubbly-water parameters in the absence of direct data."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Treatment at 50–55 °C with dual-frequency acoustic cavitation achieves microbial inactivation exceeding 99.9% (3-log reduction) for yeast in apple juice, whereas lower temperatures (30–40 °C) fail to achieve measurable reduction.",
       "source": "Sara Maghami, Kimmo Rumpunen, Örjan Johansson \"Reduced-temperature pasteurization of apple juice using a flow-through sonicator.\" (2026). doi:10.1016/j.ultsonch.2026.107926",
       "year": 2026,
-      "population": "Apple juice (Ingrid Marie variety)",
-      "domain": "Food microbiology and juice pasteurization",
-      "measure": "Presence or absence of microbial reduction trend across temperature ranges",
-      "methodology": "Flow-through sonication with dual-frequency acoustic and hydrodynamic cavitation",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "Pure thermal pasteurization controls were not performed at the same temperature ranges. All treatment temperatures were below 60 °C, where thermal pasteurization alone is not expected to produce substantial microbial inactivation. The study did not systematically isolate the individual contributions of temperature versus acoustic cavitation intensity."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal treatment at 71°C for 6 seconds in apple juice achieves a 5-log reduction of Salmonella.",
       "source": "Zeynal Topalcengiz \"Assessment of recommended thermal inactivation parameters for fruit juices\" (2019). doi:10.1016/J.LWT.2019.108475",
       "year": 2019,
-      "population": "Salmonella strains (non-adapted and acid-adapted)",
-      "domain": "Food microbiology and thermal processing",
-      "measure": "Log reduction of Salmonella viability",
-      "methodology": "Experimental heat treatment in microcapillary tubes",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The study focused on juice rather than whole produce. Results are specific to the bacterial strains and adaptation conditions tested. Applicability to other produce types or processing conditions is not addressed."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal treatment at 71°C for 6-12 seconds in orange juice achieves a 5-log reduction of STEC.",
       "source": "Zeynal Topalcengiz \"Assessment of recommended thermal inactivation parameters for fruit juices\" (2019). doi:10.1016/J.LWT.2019.108475",
       "year": 2019,
-      "population": "STEC strains (non-adapted and acid-adapted)",
-      "domain": "Food microbiology and thermal processing",
-      "measure": "Log reduction of STEC viability",
-      "methodology": "Experimental heat treatment in microcapillary tubes",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The study focused on juice rather than whole produce. Results are specific to the bacterial strains and adaptation conditions tested."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal processing at 90–98°C for 2.5–5 minutes reduces total mesophilic aerobic counts in mixed fruit and vegetable pulps by >2 log₁₀ cycles.",
       "source": "E. Gonçalves, I. Raposo, J. Pinheiro, Carla Alegria, Margarida Moldão \"Quality changes during thermal processing of two mixed formulas of fruits and vegetables pulps\" (2020). doi:10.9755/ejfa.2020.v32.i4.2093",
       "year": 2020,
-      "population": "Mixed fruit and vegetable pulps (pineapple, beetroot, strawberry, lemon juice, pear-based)",
-      "domain": "Food microbiology and thermal processing",
-      "measure": "Total mesophilic aerobic counts (TAPC) reduction in log₁₀ cycles",
-      "methodology": "Thermal degradation kinetics study with time-temperature intervals",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The study focused on mixed fruit and vegetable pulps rather than whole fresh produce; microbial reduction was measured as total mesophilic aerobic counts rather than pathogen-specific inactivation; Cyclospora cayetanensis was not specifically evaluated."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Micro-nano bubble treatment via high-speed vortex and ultrasound reduces microbial counts on lettuce and cherry tomatoes by 2.09 and 2.90 log CFU·g⁻¹, respectively.",
       "source": "Xiaolan Li, Yan Dong, Jiangning Shen, Lingzhi Zhang, Xianli Gao \"Synergistic micro-nano bubble treatment via high-speed vortex and ultrasound enhances quality and safety of lettuce and cherry tomatoes.\" (2026). doi:10.1016/j.foodres.2026.119672",
       "year": 2026,
-      "population": "Lettuce and cherry tomatoes (fresh produce)",
-      "domain": "Postharvest food safety and quality",
-      "measure": "Microbial count reduction (log CFU·g⁻¹)",
-      "methodology": "Experimental treatment comparison with microbial enumeration",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The paper does not specify which microbial species were targeted or reduced, and does not measure Cyclospora cayetanensis oocysts specifically."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Thermal processing of meat products at temperatures achieving 'done' preparation results in log reductions of Escherichia coli ranging from 5–9 depending on product type, whereas 'rare' and 'medium' preparations achieve only 1–4 log reductions.",
       "source": "M. Pesciaroli, J. Chardon, E.H.M. Delfgou, A.F.A. Kuijpers, L. Wijnands \"Home style frying of steak and meat products: Survival of Escherichia coli related to dynamic temperature profiles.\" (2019). doi:10.1016/j.ijfoodmicro.2019.03.020",
       "year": 2019,
-      "population": "Beefsteak, hamburgers (beef and 50% beef/50% pork), meatballs (beef and mixed), and crumbs inoculated with Escherichia coli O111:H2",
-      "domain": "Food microbiology; quantitative microbial risk assessment",
-      "measure": "Log reduction (inactivation) of Escherichia coli O111:H2 during home-style frying at different doneness levels",
-      "methodology": "Experimental thermal inactivation with dynamic temperature profiling",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "Limited measurements for some conditions; large variability in product properties and preparation styles in real life; further studies needed to analyze effect on survival and determine essential variables."
+      "relationship": "CONDITIONAL"
     }
   ],
   "isHealthDomain": true,

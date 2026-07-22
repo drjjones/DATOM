@@ -227,541 +227,271 @@
       "claim": "Dialysis patients with prior SARS-CoV-2 infection history show detectable spike-specific antibody and T-cell immunity at baseline before XBB.1.5 vaccination.",
       "source": "Saskia Bronder, Rebecca Urschel, Felix Reinhardt, Janine Mihm, Élora Schlienger \"SARS-CoV-2-specific immunity after XBB.1.5 vaccination is not significantly altered by subsequent influenza vaccination in dialysis patients.\" (2026). doi:10.1038/s41598-026-60726-0",
       "year": 2026,
-      "population": "Dialysis patients (n=56, mean age 69.1 years, 76.8% with prior SARS-CoV-2 infection history)",
-      "domain": "Immunology, vaccine effectiveness",
-      "measure": "Spike-specific IgG antibodies and CD4/CD8 T-cell levels at baseline",
-      "methodology": "Observational cohort study with flow cytometry and ELISA",
-      "relationship": "CONDITIONAL",
-      "sample_size": "56 participants",
-      "notes": "Study limited to dialysis patients; generalizability to immunocompetent populations unclear. Small sample sizes in some subgroups."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Older adults vaccinated against COVID-19 generate diminished antibody production and T-cell activation compared to younger individuals, resulting in lower vaccine effectiveness.",
       "source": "Jorge G. Ruiz, Melissa K. Andrew \"COVID-19 vaccination and hybrid immunity in older adults\" (2023). doi:10.1016/s2666-7568(23)00112-5",
       "year": 2023,
-      "population": "Older adults receiving COVID-19 vaccines",
-      "domain": "Immunology and vaccine effectiveness",
-      "measure": "Vaccine effectiveness, antibody production, T-cell activation",
-      "methodology": "Literature review and synthesis",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "Host factors including immunosenescence and underlying health status contribute to less effective vaccine responses in older adults."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Individuals with prior SARS-CoV-2 infection before November 2020 showed reduced risk of RT-PCR-detected BQ.1* infection compared to those without such early prior exposure.",
       "source": "Juan P. Aguilar Ticona, Meng Xiao, Dan Li, Nívison Nery, Matt D. T. Hitchings \"Extensive transmission of SARS-CoV-2 BQ.1* variant in a population with high levels of hybrid immunity: A prevalence survey\" (2023). doi:10.1016/j.ijid.2023.11.039",
       "year": 2023,
-      "population": "535 residents of Pau da Lima, Salvador, Brazil with documented prior SARS-CoV-2 exposure history from November 2020 onwards",
-      "domain": "Infectious disease epidemiology",
-      "measure": "Risk of RT-PCR-detected BQ.1* infection stratified by timing of prior infection",
-      "methodology": "Cohort study with logistic regression analysis",
-      "relationship": "CONDITIONAL",
-      "sample_size": "535 participants",
-      "notes": "Misclassification in identification of prior SARS-CoV-2 exposure using serosurveys due to inability to distinguish vaccination-induced from infection-induced seropositivity."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Individuals with prior SARS-CoV-2 infection plus vaccination (hybrid immunity) produce measurably higher neutralizing antibody levels compared to vaccination alone, six months after booster vaccination.",
       "source": "Amy May Lin Quek, Suqing Wang, Ooiean Teng, Bhuvaneshwari D O Shunmuganathan, B. Er \"Hybrid immunity augments cross-variant protection against COVID-19 among immunocompromised individuals\" (2024). doi:10.1016/j.jinf.2024.106238",
       "year": 2024,
-      "population": "Patients with autoimmune diseases, chronic comorbidities, and healthy controls; infected vs. non-infected participants",
-      "domain": "Immunology; COVID-19 vaccine effectiveness",
-      "measure": "Neutralizing antibody levels to wild-type SARS-CoV-2 and variants (Beta, Gamma, Delta, Omicron)",
-      "methodology": "Cohort study with serological analysis",
-      "relationship": "SUPPORTS",
-      "sample_size": "519 total participants (137 autoimmune, 153 multimorbidity, 229 healthy); 2,390 unvaccinated infected controls",
-      "notes": "The study focuses on serological measures (neutralizing antibodies) rather than clinical outcomes of reinfection or severe disease."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "The dominance of sequential infection pathways for COVID-19 transmission is robust across variations in model structure and relative pathogen transmissibility, with sequential sources accounting for 37.1% to 75.5% of COVID-19 incidence across tested scenarios.",
       "source": "Mani Dhakal, Brajendra K Singh, Rajeev K Azad \"Infection History Shapes Co-Epidemic Dynamics: A Transmission Source-Pathway Decomposition for COVID-19 and Influenza.\" (2026). doi:10.3390/microorganisms14061239",
       "year": 2026,
-      "population": "Homogeneously mixing population in co-epidemic model",
-      "domain": "Mathematical epidemiology; COVID-19 and influenza co-circulation",
-      "measure": "Proportion of COVID-19 incidence attributable to sequential infection pathway across model variants",
-      "methodology": "Deterministic compartmental co-infection model with sensitivity analysis across model structures and transmissibility scenarios",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The model assumes homogeneous mixing and equal R0 baseline for comparability. While precise percentages vary with alternative assumptions, the qualitative conclusions about infection sequence mattering are robust across tested frameworks."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Individuals with prior SARS-CoV-2 infection who receive mRNA vaccination show lower hospitalization rates compared to those vaccinated without prior infection.",
       "source": "Lucy L. Li, Chunlei Zheng, Jennifer La, Nhan V. Do, Paul A. Monach \"Impact of prior SARS-CoV-2 infection on incidence of hospitalization and adverse events following mRNA SARS-CoV-2 vaccination: A nationwide, retrospective cohort study\" (2022). doi:10.1016/j.vaccine.2022.01.026",
       "year": 2022,
-      "population": "US adults receiving mRNA SARS-CoV-2 vaccination with and without prior infection history",
-      "domain": "Vaccine effectiveness and safety",
-      "measure": "Hospitalization incidence following mRNA vaccination",
-      "methodology": "Retrospective cohort study",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "Retrospective design; potential unmeasured confounding; reliance on documented infection records which may underestimate prior infection prevalence."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Vaccine effectiveness studies typically do not account for behavioral changes induced by knowledge of vaccine protection, which may increase pathogen exposure and reduce measured vaccine effectiveness.",
       "source": "Bronner P Gonçalves, Piero L Olliaro, Sheena G Sullivan, Benjamin J Cowling \"Natural direct effects of vaccines and post-vaccination behaviour.\" (2026). doi:10.1016/j.vaccine.2026.128888",
       "year": 2026,
-      "population": "Vaccinated individuals in observational and cohort vaccine effectiveness studies",
-      "domain": "Vaccine epidemiology and behavioral epidemiology",
-      "measure": "Vaccine effectiveness estimates accounting for behavioral mediation",
-      "methodology": "Conceptual framework and literature review",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "This is a conceptual paper without empirical data collection or analysis. It does not provide quantitative estimates of the magnitude of behavioral confounding in existing vaccine effectiveness studies."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "COVID-19 vaccination reduces cumulative incidence of COVID-19 in a co-epidemic setting by disrupting sequential transmission pathways.",
       "source": "Mani Dhakal, Brajendra K Singh, Rajeev K Azad \"Infection History Shapes Co-Epidemic Dynamics: A Transmission Source-Pathway Decomposition for COVID-19 and Influenza.\" (2026). doi:10.3390/microorganisms14061239",
       "year": 2026,
-      "population": "Homogeneously mixing population in co-epidemic model",
-      "domain": "Mathematical epidemiology; COVID-19 and influenza co-circulation",
-      "measure": "Cumulative incidence of COVID-19 (fraction of population infected over 180 days)",
-      "methodology": "Deterministic compartmental co-infection model simulation",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The model assumes homogeneous mixing and does not incorporate country-specific demographic data, age structure, or gender differences in susceptibility."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "COVID-19 vaccination (two or more doses) is not associated with increased risk of acute myocardial infarction in young adults.",
       "source": "Tarun Bhatnagar, Janani Surya Ravichandran, Jeyashree Kathiresan, Manickam Ponnaiah, Hari Krishan Aggarwal \"Factors associated with thrombotic events among young adults in India, 2021-23: A multi-centric hospital-based matched case -control study.\" (2026). doi:10.25259/IJMR_2949_2025",
       "year": 2026,
-      "population": "Young adults aged 18-45 years hospitalized with thrombotic events in India",
-      "domain": "Cardiovascular epidemiology; vaccine safety",
-      "measure": "Association between COVID-19 vaccination and acute myocardial infarction risk",
-      "methodology": "Matched case-control study",
-      "relationship": "CONDITIONAL",
-      "sample_size": "432 cases with acute myocardial infarction and 1,293 matched controls",
-      "notes": "The study was conducted during a period of widespread SARS-CoV-2 infection, which may have affected the ability to isolate vaccination effects."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Individuals with hybrid immunity (prior MPXV infection plus MVA-BN vaccination) show higher magnitude of B6R-specific CD4+ T-cell responses than those with vaccination alone.",
       "source": "David da Fonseca Araújo, Christoph Schultheiß, Leon Cords, Hendrik Karsten, Robin Woost \"MPXV H3L elicits broadly directed CD4 T cell responses in mpox patients and MVA vaccinees.\" (2026). doi:10.1038/s44298-026-00205-5",
       "year": 2026,
-      "population": "Mpox-infected individuals stratified by MVA-BN vaccination history: 6 with prior MVA-BN vaccination, 9 without",
-      "domain": "Immunology; vaccine effectiveness",
-      "measure": "Number of B6R-specific CD4+ T-cell responses per individual",
-      "methodology": "Cohort study with peptide stimulation and intracellular cytokine staining",
-      "relationship": "SUPPORTS",
-      "sample_size": "15 mpox participants",
-      "notes": "Small subgroup sizes (n=6 hybrid immunity, n=9 infection-only); exclusively male cohort; cross-sectional design limits temporal inference."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "HLA-A*03:01 carriage is associated with reduced breakthrough SARS-CoV-2 infection risk after vaccination.",
       "source": "Anshika Srivastava, Demetra S M Chatzileontiadou, Anurag Adhikari, Rayo Suseno, Sean Lin \"COVID-19 Vaccine Reactogenicity Marks an Innate Inflammatory Response Associated With HLA Variation and Enhanced Protection.\" (2026). doi:10.21203/rs.3.rs-10085252/v1",
       "year": 2026,
-      "population": "57,938 vaccinated individuals across ancestries; subset with complete vaccination and infection date information",
-      "domain": "Vaccine immunogenetics and COVID-19 protection",
-      "measure": "Breakthrough infection (BTI) risk in vaccinated individuals",
-      "methodology": "Cohort study with logistic regression",
-      "relationship": "SUPPORTS",
-      "sample_size": "57,938 total vaccinated; 47,711 with complete date information after exclusions",
-      "notes": "Self-reported infection dates and breakthrough infection status. Modest effect size."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Individuals with hybrid immunity have a higher probability of detectable cellular immune response (reactive IGRA) compared to those with natural immunity alone.",
       "source": "Tobias Rothoeft, Claudia S. Maier, A Talarico, Armin Hoffmann, Anne Schlegtendal \"Natural and hybrid immunity after SARS-CoV-2 infection in children and adolescents\" (2024). doi:10.1007/s15010-024-02225-w",
       "year": 2024,
-      "population": "72 children and adolescents (aged 4-21 years) with PCR-confirmed SARS-CoV-2 infection; 37 with hybrid immunity (prior infection plus BNT162b2 vaccination), 35 with natural immunity only",
-      "domain": "Immunology; SARS-CoV-2 vaccine effectiveness",
-      "measure": "Reactive interferon-γ release assay (IGRA) indicating cellular immune response",
-      "methodology": "Cohort study with QuantiFERON-SARS-CoV-2 interferon-γ release assay",
-      "relationship": "SUPPORTS",
-      "sample_size": "71 participants (one excluded due to lack of material for IGRA)",
-      "notes": "Relatively small sample size; all infections occurred during Omicron era; IGRA may have lower sensitivity in detecting T cell responses in younger children due to higher percentage of naive T cells; different vaccination rates between age groups prevent full comparison."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Vaccination with rBCG/rChimera+Alum induces T cell-mediated protection against SARS-CoV-2 variants (Wuhan and JN.1) that is independent of neutralizing antibodies.",
       "source": "Fábio Mambelli, Alba M Gimenez, Ana Carolina V S C de Araujo, Karla K S Ramos, Jéssica P Farias \"T cell-associated immunity induced by heterologous recombinant BCG and purified protein vaccination confers cross-variant protection against SARS-CoV-2.\" (2026). doi:10.1080/21645515.2026.2697392",
       "year": 2026,
-      "population": "K18-hACE2 transgenic mice, including B cell-deficient, CD4+ T cell-deficient, CD8+ T cell-deficient, and IFN-γ knockout variants",
-      "domain": "Vaccine immunology and SARS-CoV-2 protection",
-      "measure": "Viral load reduction and cross-protection against JN.1 variant",
-      "methodology": "Knockout mouse model with viral challenge",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "Study conducted in transgenic mouse models with hACE2 expression; findings may not directly translate to human immune responses."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Prior SARS-CoV-2 vaccination is associated with earlier nasal Type II interferon initiation, which correlates with reduced viral replication during naturally acquired infection.",
       "source": "Alexander Viloria Winnett, Alexandra Tabachnikova, Jonathan Chen, Kerrie Greene, Anna E Romano \"Early Mucosal Type II Interferon Limits SARS-CoV-2 Replication in Humans.\" (2026). doi:10.64898/2026.06.29.26356894",
       "year": 2026,
-      "population": "16 individuals with naturally acquired SARS-CoV-2 infection and 16 age-, sex-, and vaccination-matched uninfected individuals",
-      "domain": "Virology and mucosal immunology",
-      "measure": "Viral load by RT-qPCR and Type II interferon expression by mRNA sequencing in upper respiratory sites",
-      "methodology": "Longitudinal cohort study with paired-site sampling",
-      "relationship": "SUPPORTS",
-      "sample_size": "32 individuals with 1,237 samples",
-      "notes": "Small sample size (n=16 infected individuals); temporal and anatomical antiviral dynamics require longitudinal paired-site sampling which may limit generalizability."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Among immunocompromised individuals, hybrid immunity (prior infection plus vaccination) provides cross-variant protection against COVID-19.",
       "source": "Amy May Lin Quek, Suqing Wang, Ooiean Teng, Bhuvaneshwari D O Shunmuganathan, B. Er \"Hybrid immunity augments cross-variant protection against COVID-19 among immunocompromised individuals\" (2024). doi:10.1016/j.jinf.2024.106238",
       "year": 2024,
-      "population": "Immunocompromised individuals including patients with autoimmune diseases and chronic comorbidities",
-      "domain": "Immunology; COVID-19 vaccine effectiveness",
-      "measure": "Neutralizing antibody levels and cross-variant serological immunity",
-      "methodology": "Cohort study with serological analysis",
-      "relationship": "CONDITIONAL",
-      "sample_size": "290 immunocompromised participants (137 autoimmune, 153 multimorbidity)",
-      "notes": "The study measures serological immunity (neutralizing antibodies) rather than clinical outcomes of reinfection or severe disease."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Children aged 5-11 years with prior SARS-CoV-2 infection who receive a single dose of BNT162b2 vaccine show non-inferior immunogenicity compared to a two-dose primary vaccination regimen.",
       "source": "Cristina Prat-Aymerich, Lusine Yeghiazaryan, Rishi Delan Pathirana, Virginie Gautier, Alejandro Abner Garcia Leon \"A prematurely terminated phase 2, randomised trial to evaluate immunogenicity and reactogenicity of a single versus two-dose primary vaccination regimen of the mRNA vaccine BNT162b2 in previously SARS-CoV-2 infected children 5-11 years old (CoVacc trial).\" (2026). doi:10.1016/j.vaccine.2026.128769",
       "year": 2026,
-      "population": "Children aged 5-11 years with prior SARS-CoV-2 infection",
-      "domain": "Vaccine immunology and safety",
-      "measure": "Immunogenicity (antibody response); safety and reactogenicity",
-      "methodology": "Randomized controlled trial, phase 2",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The trial was prematurely terminated, preventing completion of the planned immunogenicity and safety comparisons. The open-label design may introduce bias."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Individuals with hybrid immunity (prior SARS-CoV-2 infection plus vaccination) demonstrate higher protection against reinfection or severe COVID-19 disease compared to vaccination alone.",
       "source": "Grace Roberts, Lena Glaser \"Hybrid immunity: a combination of vaccination and prior infection probably offers the best protection against COVID\" (2022). doi:10.64628/ab.vr6h9u7rw",
       "year": 2022,
-      "population": "Individuals with prior SARS-CoV-2 infection and vaccination history",
-      "domain": "Immunology and vaccine effectiveness",
-      "measure": "Protection against reinfection or severe COVID-19 disease",
-      "methodology": "Literature review and synthesis",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "As a review article, the paper synthesizes existing evidence rather than presenting primary data; specific quantitative effect sizes and population details are not provided in the available text."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Individuals with lysosomal disorders show measurably higher risk of COVID-19 hospitalization compared to matched controls without lysosomal disorders.",
       "source": "Blake K Byer, Zachary Butzin-Dozier, Brenda M McGrath, Joseph Muenzer, Lorne Clarke \"Differential COVID-19 Outcomes Across Lysosomal Disorders.\" (2026). doi:10.64898/2026.06.22.26356274",
       "year": 2026,
-      "population": "5,460 patients with lysosomal disorders and 10,920 matched controls from U.S. electronic health records",
-      "domain": "Infectious disease epidemiology",
-      "measure": "Odds of COVID-19 hospitalization",
-      "methodology": "Retrospective cohort study",
-      "relationship": "SUPPORTS",
-      "sample_size": "16,380 individuals",
-      "notes": "The study does not report limitations explicitly in the provided abstract and results sections."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Hybrid immunity provides measurably higher protection against severe Omicron disease compared to vaccination alone or unvaccinated status.",
       "source": "Joshua Nealon, Yonatan M. Mefsin, Martina McMenamin, Kylie E. C. Ainslie, Benjamin J. Cowling \"Reported effectiveness of COVID-19 monovalent booster vaccines and hybrid immunity against mild and severe Omicron disease in adults: A systematic review and meta-regression analysis\" (2024). doi:10.1016/j.jvacx.2024.100451",
       "year": 2024,
-      "population": "Adults with hybrid immunity or third/fourth mRNA COVID-19 monovalent vaccine doses against Omicron",
-      "domain": "Infectious disease epidemiology; COVID-19 vaccine effectiveness",
-      "measure": "Vaccine effectiveness (VE) against severe Omicron disease",
-      "methodology": "Systematic review and meta-regression analysis",
-      "relationship": "CONDITIONAL",
-      "sample_size": "55 eligible studies reporting 269 VE estimates; 48 (18%) describing hybrid immunity",
-      "notes": "Limited data specifically on hybrid immunity (18% of estimates); most estimates from test-negative design studies; data collection ended 31 December 2022."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Spike-specific IgG antibodies and CD4 T-cell levels remain significantly elevated 6 months after XBB.1.5 vaccination compared to unvaccinated dialysis patients.",
       "source": "Saskia Bronder, Rebecca Urschel, Felix Reinhardt, Janine Mihm, Élora Schlienger \"SARS-CoV-2-specific immunity after XBB.1.5 vaccination is not significantly altered by subsequent influenza vaccination in dialysis patients.\" (2026). doi:10.1038/s41598-026-60726-0",
       "year": 2026,
-      "population": "Dialysis patients vaccinated with XBB.1.5 (n=18 at 6-month follow-up) compared to unvaccinated dialysis patients (n=23) recruited in same period",
-      "domain": "Immunology, vaccine effectiveness",
-      "measure": "Spike-specific IgG antibodies and CD4 T-cell levels at 6 months post-vaccination",
-      "methodology": "Observational cohort study with longitudinal follow-up",
-      "relationship": "SUPPORTS",
-      "sample_size": "41 participants (18 vaccinated, 23 unvaccinated)",
-      "notes": "Relatively small sample size for 6-month follow-up (n=18 vaccinated, n=23 unvaccinated). Two patients lost to follow-up (1 death, 1 transplant)."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Dirty mice co-housed with pet store mice show reduced serum spike-binding antibody titers after prime mRNA vaccination compared to specific-pathogen-free mice.",
       "source": "Beatriz Praena, Frances K Shepherd, Cera A McDonald, Devyani Joshi, Sneh Lata Gupta \"Dirty mice better recapitulate key features of mRNA vaccine immunogenicity observed in humans.\" (2026). doi:10.1128/mbio.00983-26",
       "year": 2026,
-      "population": "Laboratory mice co-housed with pet store mice (dirty mice) versus specific-pathogen-free mice",
-      "domain": "Vaccine immunogenicity and immunology",
-      "measure": "Serum spike-binding antibody titers post-prime vaccination",
-      "methodology": "Comparative animal model study",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The paper does not explicitly state limitations but focuses on demonstrating the dirty mouse model as a screening tool prior to human trials."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Individuals with prior SARS-CoV-2 infection demonstrate greater protection against reinfection than vaccination alone.",
       "source": " \"Having SARS-CoV-2 once confers much greater immunity than a vaccine, but vaccination remains vital\" (2021). doi:10.1126/science.abm1207",
       "year": 2021,
-      "population": "Individuals with prior SARS-CoV-2 infection compared to vaccinated individuals",
-      "domain": "Immunology and vaccine effectiveness",
-      "measure": "Protection against reinfection or severe disease",
-      "methodology": "Literature review and observational analysis",
-      "relationship": "CONTRADICTS",
-      "sample_size": "Not reported",
-      "notes": "Specific limitations are not detailed in the provided text."
+      "relationship": "CONTRADICTS"
     },
     {
       "claim": "A reduced homologous booster dose of BNT162b2 mRNA vaccine maintains immunogenicity comparable to standard dosing.",
       "source": "Stéphanie Depickère, Pieter Pannus, Sarah Houben, Alexia Charles, Leo Heyndrickx \"Safety and immunogenicity of a reduced, homologous booster dose of the BNT162b2 mRNA COVID-19 vaccine: a single blind, randomized, non-inferiority follow-up trial.\" (2026). doi:10.1016/j.vaccine.2026.128897",
       "year": 2026,
-      "population": "Individuals receiving BNT162b2 booster vaccination",
-      "domain": "Vaccine immunology",
-      "measure": "Immunogenicity and safety of reduced-dose booster",
-      "methodology": "Single-blind randomized non-inferiority trial",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The provided text is limited to the introduction and rationale; full results, limitations, and detailed methodology are not included in the excerpt."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Individuals carrying HLA-A*03:01 who report stronger vaccine side effects exhibit reduced risk of breakthrough SARS-CoV-2 infection independent of HLA genotype.",
       "source": "Anshika Srivastava, Demetra S M Chatzileontiadou, Anurag Adhikari, Rayo Suseno, Sean Lin \"COVID-19 Vaccine Reactogenicity Marks an Innate Inflammatory Response Associated With HLA Variation and Enhanced Protection.\" (2026). doi:10.21203/rs.3.rs-10085252/v1",
       "year": 2026,
-      "population": "50,535 vaccinated individuals self-identified as White, plus replication cohort of 4,575 individuals; U.S.-based NMDP bone marrow donors",
-      "domain": "Vaccine immunogenetics and COVID-19 protection",
-      "measure": "Breakthrough infection risk and COVID-19 symptom burden in infected individuals",
-      "methodology": "Cohort study with logistic regression",
-      "relationship": "SUPPORTS",
-      "sample_size": "50,535 participants in discovery cohort; 4,575 in replication cohort",
-      "notes": "Self-reported side effects and infection history subject to recall bias. Primarily White ancestry cohort limits generalizability."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Individuals with hybrid immunity have a higher probability of detectable neutralizing antibodies compared to those with natural immunity alone.",
       "source": "Tobias Rothoeft, Claudia S. Maier, A Talarico, Armin Hoffmann, Anne Schlegtendal \"Natural and hybrid immunity after SARS-CoV-2 infection in children and adolescents\" (2024). doi:10.1007/s15010-024-02225-w",
       "year": 2024,
-      "population": "71 children and adolescents (aged 4-21 years) with PCR-confirmed SARS-CoV-2 infection; 37 with hybrid immunity, 34 with natural immunity only",
-      "domain": "Immunology; SARS-CoV-2 vaccine effectiveness",
-      "measure": "Presence and titers of neutralizing antibodies (RLU)",
-      "methodology": "Cohort study with VSV pseudovirus-based neutralization assay",
-      "relationship": "SUPPORTS",
-      "sample_size": "71 participants (one excluded due to lack of material)",
-      "notes": "Relatively small sample size; all infections occurred during Omicron era; assays validated for wild-type virus may underestimate neutralization capacity against Omicron; cannot determine whether higher neutralization is due to vaccination, age, or both."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Individuals with prior SARS-CoV-2 infection show persistent IgG antibody responses measurable over 3-4 months.",
       "source": "Reshmi Dassaye, Terusha Chetty, Brodie Daniels, Trisha Ramraj, Samkelisiwe Buthelezi \"Longitudinal SARS-CoV-2 seroprevalence among learners, parents, and teachers in a South African school community.\" (2026). doi:10.3389/fpubh.2026.1770703",
       "year": 2026,
-      "population": "School community participants: learners (n=203), parents (n=71), teachers (n=18) in South Africa",
-      "domain": "Infectious disease epidemiology; immunology",
-      "measure": "Persistence of SARS-CoV-2 IgG antibodies from baseline to follow-up",
-      "methodology": "Longitudinal cohort study with paired serological testing",
-      "relationship": "SUPPORTS",
-      "sample_size": "287 participants with paired antibody results",
-      "notes": "The qualitative serological assay cannot differentiate antibodies from natural infection versus vaccination. The study lacks quantitative antibody measurements or assessment of antibody functionality."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Individuals with hybrid immunity (prior MPXV infection plus MVA-BN vaccination) show broader B6R-specific CD4+ T-cell responses compared to those with infection alone.",
       "source": "David da Fonseca Araújo, Christoph Schultheiß, Leon Cords, Hendrik Karsten, Robin Woost \"MPXV H3L elicits broadly directed CD4 T cell responses in mpox patients and MVA vaccinees.\" (2026). doi:10.1038/s44298-026-00205-5",
       "year": 2026,
-      "population": "28 adult males: 15 with mpox history (6 with additional MVA-BN vaccination), 7 MVA-BN-only vaccinees, 6 unexposed controls",
-      "domain": "Immunology; vaccine effectiveness",
-      "measure": "Breadth of B6R-specific CD4+ T-cell responses (number of reactive peptides)",
-      "methodology": "Cohort study with peptide stimulation and flow cytometry",
-      "relationship": "CONDITIONAL",
-      "sample_size": "28 participants",
-      "notes": "Small sample size (n=28); exclusively male cohort; limited temporal data on vaccination-to-infection intervals; TCR sequencing performed on only 8 individuals due to material constraints."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Individuals with documented prior SARS-CoV-2 exposure and vaccination (hybrid immunity) had lower odds of BQ.1* infection compared to those without both exposures, but the difference was not statistically significant.",
       "source": "Juan P. Aguilar Ticona, Meng Xiao, Dan Li, Nívison Nery, Matt D. T. Hitchings \"Extensive transmission of SARS-CoV-2 BQ.1* variant in a population with high levels of hybrid immunity: A prevalence survey\" (2023). doi:10.1016/j.ijid.2023.11.039",
       "year": 2023,
-      "population": "535 residents of Pau da Lima, Salvador, Brazil; 79 SARS-CoV-2 positive, 456 negative",
-      "domain": "Infectious disease epidemiology",
-      "measure": "Prevalence of BQ.1* infection stratified by hybrid immunity status (prior exposure and vaccination)",
-      "methodology": "Cross-sectional prevalence survey with chi-square test",
-      "relationship": "CONDITIONAL",
-      "sample_size": "535 participants (79 positive, 456 negative)",
-      "notes": "Misclassification in identification of prior SARS-CoV-2 exposure due to inability to distinguish vaccination-induced from infection-induced seropositivity after vaccines became available."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "COVID-19 vaccines and boosters reduce infection and mortality in populations.",
       "source": "Fulya Ipek-Erdem, Esra Erpek, Volkan Genç, Aybars Bars, Sabri Erdem \"Socioeconomic determinants of COVID-19 vaccination and mortality: a cross-national path analysis.\" (2026). doi:10.1186/s12889-026-28293-1",
       "year": 2026,
-      "population": "Population-level across multiple nations",
-      "domain": "Epidemiology and public health",
-      "measure": "Infection rates and mortality outcomes",
-      "methodology": "Literature review and cross-national path analysis",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The paper does not measure or compare hybrid immunity (prior infection plus vaccination) against vaccination alone, which is the specific outcome variable in the nucleus claim."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Children with mRNA vaccination followed by breakthrough SARS-CoV-2 infection develop enhanced Th1 responses and enriched CD4+ IFN-γ+IL10+ Spike-specific T cells, characteristic of hybrid immunity.",
       "source": "Martin Qui, Smrithi Hariharaputran, Shou Kit Hang, Jinyan Zhang, Chee Wah Tan \"T cell hybrid immunity against SARS-CoV-2 in children: a longitudinal study\" (2024). doi:10.1016/j.ebiom.2024.105203",
       "year": 2024,
-      "population": "mRNA-vaccinated children aged 5-11 years who experienced breakthrough SARS-CoV-2 infection",
-      "domain": "Immunology; SARS-CoV-2 vaccine response",
-      "measure": "Magnitude and cytokine profile of antigen-specific T cell responses (Th1, CD4+ IFN-γ+IL10+ cells)",
-      "methodology": "Prospective longitudinal cohort study with cytokine release assays and intracellular cytokine staining",
-      "relationship": "SUPPORTS",
-      "sample_size": "29 participants enrolled; 26 participants followed for at least 12 months with breakthrough infection; 159 blood samples analyzed",
-      "notes": "Study limited to pediatric population aged 5-11; relatively small sample size (n=29 enrolled, n=26 completed); specific quantitative comparisons to vaccination-alone controls not explicitly reported."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Hybrid immunity (prior SARS-CoV-2 infection plus vaccination) is present at widespread levels in populations transitioning to endemic COVID-19 phases.",
       "source": "Xueyin Mei, Sidu Feng, Wanrong Xie, Yi Sun, Liqing Wang \"A population-based retrospective machine learning study of COVID-19 severity using integrated clinical and viral genomic data in Jiangsu Province, China.\" (2026). doi:10.1186/s12866-026-05360-6",
       "year": 2026,
-      "population": "Residents of Jiangsu Province, China during endemic COVID-19 phase",
-      "domain": "Epidemiology, COVID-19 severity",
-      "measure": "Presence and prevalence of hybrid immunity in population",
-      "methodology": "Population-based retrospective machine learning study",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "The authors note that hybrid immunity is now a defining feature of endemic COVID-19 populations, necessitating region-specific approaches to understanding severe disease determinants."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Cumulative incidence of COVID-19 is lowest among individuals with both prior infection and vaccination compared to other groups.",
       "source": "Abinash Virk, Matthew G. Johnson, Daniel Roellinger, Christopher G. Scott, Priya Sampathkumar \"Hybrid Immunity Provides Protective Advantage Over Vaccination or Prior Remote Coronavirus Disease 2019 Alone\" (2023). doi:10.1093/ofid/ofad161",
       "year": 2023,
-      "population": "Vaccinated and unvaccinated patients of all ages with and without prior SARS-CoV-2 infection",
-      "domain": "Infectious disease epidemiology; vaccine effectiveness",
-      "measure": "Cumulative incidence of COVID-19 infection",
-      "methodology": "Retrospective cohort study with Simon-Makuch hazard plots",
-      "relationship": "SUPPORTS",
-      "sample_size": "101,941 individuals with at least 1 COVID-19 PCR test",
-      "notes": "The study was conducted during a specific time period and may not capture longer-term protection or protection against newer variants."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Individuals with prior SARS-CoV-2 infection and mRNA vaccination show 26-36% reduction in reinfection risk compared to previously infected individuals without vaccination.",
       "source": "Abinash Virk, Matthew G. Johnson, Daniel Roellinger, Christopher G. Scott, Priya Sampathkumar \"Hybrid Immunity Provides Protective Advantage Over Vaccination or Prior Remote Coronavirus Disease 2019 Alone\" (2023). doi:10.1093/ofid/ofad161",
       "year": 2023,
-      "population": "Vaccinated and unvaccinated patients of all ages with and without prior SARS-CoV-2 infection",
-      "domain": "Infectious disease epidemiology; vaccine effectiveness",
-      "measure": "Reinfection risk reduction (hazard ratio)",
-      "methodology": "Retrospective cohort study with multivariable Cox proportional hazards regression",
-      "relationship": "SUPPORTS",
-      "sample_size": "101,941 individuals with at least 1 COVID-19 PCR test",
-      "notes": "The study was conducted during a specific time period (December 2020 to March 2022) and may not capture longer-term protection or protection against newer variants beyond Omicron."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "HLA-A*03:01 carriage is associated with higher anti-Spike IgG antibody levels after COVID-19 vaccination.",
       "source": "Anshika Srivastava, Demetra S M Chatzileontiadou, Anurag Adhikari, Rayo Suseno, Sean Lin \"COVID-19 Vaccine Reactogenicity Marks an Innate Inflammatory Response Associated With HLA Variation and Enhanced Protection.\" (2026). doi:10.21203/rs.3.rs-10085252/v1",
       "year": 2026,
-      "population": "156 healthcare workers receiving two doses of Pfizer COVID-19 vaccine; stratified by anti-Spike IgG levels",
-      "domain": "Vaccine immunogenetics and humoral immunity",
-      "measure": "Anti-Spike IgG antibody levels post-vaccination",
-      "methodology": "Case-control study with logistic regression",
-      "relationship": "CONDITIONAL",
-      "sample_size": "156 healthcare workers (Group I: 50, Group II: 53, Group III: 53)",
-      "notes": "Small sample size (N=156) limits generalizability. Single vaccine platform (Pfizer) and single timepoint (post-dose 2) assessed."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Individuals with sequential infection history (prior influenza followed by COVID-19) account for approximately 73% of COVID-19 transmission and 76% of COVID-19 disease burden in a co-epidemic model.",
       "source": "Mani Dhakal, Brajendra K Singh, Rajeev K Azad \"Infection History Shapes Co-Epidemic Dynamics: A Transmission Source-Pathway Decomposition for COVID-19 and Influenza.\" (2026). doi:10.3390/microorganisms14061239",
       "year": 2026,
-      "population": "Homogeneously mixing population in co-epidemic model",
-      "domain": "Mathematical epidemiology; COVID-19 and influenza co-circulation",
-      "measure": "Proportion of COVID-19 incidence and disease burden attributable to sequentially infected source population",
-      "methodology": "Deterministic compartmental co-infection model simulation with source-pathway decomposition",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The model assumes homogeneous mixing and does not incorporate age structure, geographic variation, or behavioral differences in contact patterns."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Hybrid immunity (prior infection plus vaccination) produces higher SARS-CoV-2 IgG seroprevalence than vaccination alone or infection alone.",
       "source": "Reshmi Dassaye, Terusha Chetty, Brodie Daniels, Trisha Ramraj, Samkelisiwe Buthelezi \"Longitudinal SARS-CoV-2 seroprevalence among learners, parents, and teachers in a South African school community.\" (2026). doi:10.3389/fpubh.2026.1770703",
       "year": 2026,
-      "population": "Parents (n=71) and teachers (n=18) in a South African school community; learners (n=203) in grades 1-7",
-      "domain": "Infectious disease epidemiology; vaccine effectiveness",
-      "measure": "SARS-CoV-2 IgG seroprevalence (antibody detection via point-of-care test)",
-      "methodology": "Longitudinal cohort study with serological testing",
-      "relationship": "CONDITIONAL",
-      "sample_size": "292 participants (203 learners, 71 parents, 18 teachers)",
-      "notes": "The qualitative serological assay cannot differentiate antibodies arising from natural infection versus vaccination, preventing determination of the relative contribution of each source to observed seroprevalence."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Sequential XBB.1.5 vaccination followed by influenza vaccination does not reduce spike-specific antibody or T-cell responses compared to XBB.1.5 vaccination alone in dialysis patients.",
       "source": "Saskia Bronder, Rebecca Urschel, Felix Reinhardt, Janine Mihm, Élora Schlienger \"SARS-CoV-2-specific immunity after XBB.1.5 vaccination is not significantly altered by subsequent influenza vaccination in dialysis patients.\" (2026). doi:10.1038/s41598-026-60726-0",
       "year": 2026,
-      "population": "Dialysis patients receiving sequential XBB.1.5/influenza vaccination (n=28) compared to XBB.1.5 alone (n=17) and influenza alone (n=11)",
-      "domain": "Immunology, vaccine effectiveness",
-      "measure": "Spike-specific IgG antibodies and CD4/CD8 T-cell levels post-vaccination",
-      "methodology": "Observational cohort study with comparative analysis",
-      "relationship": "SUPPORTS",
-      "sample_size": "56 participants total (28 sequential, 17 XBB only, 11 Flu only)",
-      "notes": "Study limited to dialysis patients; results may not generalize to immunocompetent populations. Relatively small sample sizes in individual groups."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Individuals with hybrid immunity (prior SARS-CoV-2 infection plus vaccination) have significantly higher spike protein antibody titers compared to those with natural immunity alone.",
       "source": "Tobias Rothoeft, Claudia S. Maier, A Talarico, Armin Hoffmann, Anne Schlegtendal \"Natural and hybrid immunity after SARS-CoV-2 infection in children and adolescents\" (2024). doi:10.1007/s15010-024-02225-w",
       "year": 2024,
-      "population": "72 children and adolescents (aged 4-21 years) with PCR-confirmed SARS-CoV-2 infection; 37 with hybrid immunity (prior infection plus BNT162b2 vaccination), 35 with natural immunity only",
-      "domain": "Immunology; SARS-CoV-2 vaccine effectiveness",
-      "measure": "Spike protein-specific antibody titers (BAU/ml)",
-      "methodology": "Cohort study with cross-sectional antibody measurement",
-      "relationship": "SUPPORTS",
-      "sample_size": "72 participants",
-      "notes": "Relatively small sample size; all but one infection occurred during Omicron era in early 2022, limiting generalizability to other variants; assays validated for wild-type virus may not fully capture Omicron-specific responses."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Hybrid immunity (prior infection plus vaccination) induces higher frequencies of pan-endemic-coronavirus-reactive T cells compared to vaccination alone across all age groups.",
       "source": "Lucie Loyal, Julian Braun, Ulf Reimer, Lil Meyer-Arndt, Larissa Henze \"Hybrid immunity-based induction of durable pan-endemic-coronavirus immunity in the elderly\" (2025). doi:10.1016/j.celrep.2025.115314",
       "year": 2025,
-      "population": "Elderly individuals and mixed age groups with varying vaccination and infection histories",
-      "domain": "Immunology, vaccine effectiveness",
-      "measure": "Frequency and functional avidity of pan-human endemic coronavirus (PHEC)-reactive T cells",
-      "methodology": "Observational cohort study with peptide pool-based T cell assay",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The paper does not explicitly report clinical outcomes (reinfection or severe disease rates) but instead measures T cell immunogenicity as a mechanistic proxy for protection."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Prior SARS-CoV-2 infection is associated with protection against symptomatic reinfection.",
       "source": "Aidan T. Hanrath, Brendan A.I. Payne, Christopher J.A. Duncan \"Prior SARS-CoV-2 infection is associated with protection against symptomatic reinfection\" (2021). doi:10.1016/j.jinf.2020.12.023",
       "year": 2021,
-      "population": "Healthcare workers with prior SARS-CoV-2 infection",
-      "domain": "Infectious disease epidemiology",
-      "measure": "Protection against symptomatic reinfection",
-      "methodology": "Observational cohort study",
-      "relationship": "CONDITIONAL",
-      "sample_size": "Not reported",
-      "notes": "The study does not stratify results by vaccination status, making it impossible to compare hybrid immunity (prior infection plus vaccination) to vaccination alone as the nucleus claim requires."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "COVID-19 vaccination (two or more doses) is not associated with increased risk of any thrombotic event in young adults.",
       "source": "Tarun Bhatnagar, Janani Surya Ravichandran, Jeyashree Kathiresan, Manickam Ponnaiah, Hari Krishan Aggarwal \"Factors associated with thrombotic events among young adults in India, 2021-23: A multi-centric hospital-based matched case -control study.\" (2026). doi:10.25259/IJMR_2949_2025",
       "year": 2026,
-      "population": "Young adults aged 18-45 years hospitalized with thrombotic events in India",
-      "domain": "Cardiovascular epidemiology; vaccine safety",
-      "measure": "Association between COVID-19 vaccination and any thrombotic event risk",
-      "methodology": "Matched case-control study",
-      "relationship": "CONDITIONAL",
-      "sample_size": "767 cases with any thrombotic event and 2,144 matched controls",
-      "notes": "The study was conducted during a period of widespread SARS-CoV-2 infection, which may have affected the ability to isolate vaccination effects."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Hybrid immunity (prior SARS-CoV-2 infection plus vaccination) provides measurably higher protection against mild Omicron disease compared to vaccination alone or unvaccinated status.",
       "source": "Joshua Nealon, Yonatan M. Mefsin, Martina McMenamin, Kylie E. C. Ainslie, Benjamin J. Cowling \"Reported effectiveness of COVID-19 monovalent booster vaccines and hybrid immunity against mild and severe Omicron disease in adults: A systematic review and meta-regression analysis\" (2024). doi:10.1016/j.jvacx.2024.100451",
       "year": 2024,
-      "population": "Adults with hybrid immunity or third/fourth mRNA COVID-19 monovalent vaccine doses against Omicron",
-      "domain": "Infectious disease epidemiology; COVID-19 vaccine effectiveness",
-      "measure": "Vaccine effectiveness (VE) against mild and severe Omicron disease",
-      "methodology": "Systematic review and meta-regression analysis",
-      "relationship": "CONDITIONAL",
-      "sample_size": "55 eligible studies reporting 269 VE estimates",
-      "notes": "Limited data available specifically on hybrid immunity (only 18% of estimates); most estimates derived from test-negative design studies; data collection ended 31 December 2022."
+      "relationship": "CONDITIONAL"
     },
     {
       "claim": "Individuals reporting vaccine side effects show reduced total SARS-CoV-2 infection burden, including fewer reinfections, compared to those without side effects.",
       "source": "Anshika Srivastava, Demetra S M Chatzileontiadou, Anurag Adhikari, Rayo Suseno, Sean Lin \"COVID-19 Vaccine Reactogenicity Marks an Innate Inflammatory Response Associated With HLA Variation and Enhanced Protection.\" (2026). doi:10.21203/rs.3.rs-10085252/v1",
       "year": 2026,
-      "population": "50,535 vaccinated individuals in discovery cohort; 43,527 with no or single infection; 7,008 with repeated reinfections",
-      "domain": "Vaccine immunogenetics and COVID-19 protection",
-      "measure": "Repeated SARS-CoV-2 reinfection (two or more infections vs. zero or one infection)",
-      "methodology": "Cohort study with logistic regression",
-      "relationship": "SUPPORTS",
-      "sample_size": "50,535 discovery cohort participants; 43,527 never infected or single infection; 7,008 with repeated reinfections",
-      "notes": "Self-reported infection history subject to recall bias. Cross-sectional analysis cannot establish temporal causality."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "Hybrid immunity (prior infection plus vaccination) provides measurably higher protection against BA.5 infection compared to vaccination alone over an 8-month period.",
       "source": "João Malato, Ruy M. Ribeiro, Eugénia Fernandes, Pedro Pinto Leite, Pedro Casaca \"Stability of hybrid versus vaccine immunity against BA.5 infection over 8 months\" (2023). doi:10.1016/s1473-3099(22)00833-7",
       "year": 2023,
-      "population": "Individuals with prior SARS-CoV-2 infection and vaccination versus vaccinated-only individuals",
-      "domain": "Virology and vaccine effectiveness",
-      "measure": "Protection against BA.5 infection over 8 months",
-      "methodology": "Cohort study with longitudinal follow-up",
-      "relationship": "SUPPORTS",
-      "sample_size": "Not reported",
-      "notes": "Study limitations regarding generalizability to other variants or populations not fully detailed in title and abstract."
+      "relationship": "SUPPORTS"
     },
     {
       "claim": "In a population with high hybrid immunity (97% with prior infection and/or vaccination), the BQ.1* variant achieved 56% cumulative incidence over 5 weeks, demonstrating that hybrid immunity did not prevent widespread transmission.",
       "source": "Juan P. Aguilar Ticona, Meng Xiao, Dan Li, Nívison Nery, Matt D. T. Hitchings \"Extensive transmission of SARS-CoV-2 BQ.1* variant in a population with high levels of hybrid immunity: A prevalence survey\" (2023). doi:10.1016/j.ijid.2023.11.039",
       "year": 2023,
-      "population": "535 residents of Pau da Lima, Salvador, Brazil, aged 2 years and older; 54% with documented prior SARS-CoV-2 exposure, 74% vaccinated",
-      "domain": "Infectious disease epidemiology",
-      "measure": "Cumulative incidence of PCR-confirmed SARS-CoV-2 BQ.1* infection",
-      "methodology": "Population-based prevalence survey with RT-PCR and whole-genome sequencing",
-      "relationship": "CONTRADICTS",
-      "sample_size": "535 participants",
-      "notes": "Study conducted during peak outbreak, limiting full characterization. Misclassification in identification of prior SARS-CoV-2 exposure using previous serosurveys."
+      "relationship": "CONTRADICTS"
     }
   ],
   "isHealthDomain": true,
