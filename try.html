@@ -754,7 +754,12 @@
         successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       })
       .catch(function () {
-        try { localStorage.setItem('datom_failed_submission_' + Date.now(), JSON.stringify(payload)); } catch (err) {}
+        // Do NOT persist the payload. It was written to localStorage under a
+        // per-timestamp key on every failure, holding the applicant's name,
+        // email, institution and claim, was never read back, and was never
+        // cleaned up, so on a shared or lab machine it accumulated as plaintext
+        // PII with no lifetime. The answers are still in the in-memory chat
+        // state for an immediate retry, so nothing is lost by dropping this.
         var errorEl = document.getElementById(formType + '-form-error');
         errorEl.style.display = 'block';
         errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
