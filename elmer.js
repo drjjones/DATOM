@@ -256,11 +256,22 @@ function createUI() {
   const dock = document.createElement("button");
   dock.className = "elmer-dock";
   dock.id = "elmerDock";
+  dock.setAttribute("aria-expanded", "false");
+  dock.setAttribute("aria-controls", "elmerPanel");
   dock.innerHTML = `<svg class="elmer-dock-avatar" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="12" fill="#fff"/><ellipse cx="50" cy="50" rx="42" ry="16" fill="none" stroke="#fff" stroke-width="3" transform="rotate(-30 50 50)"/><ellipse cx="50" cy="50" rx="42" ry="16" fill="none" stroke="#fff" stroke-width="3" transform="rotate(30 50 50)"/><ellipse cx="50" cy="50" rx="42" ry="16" fill="none" stroke="#fff" stroke-width="3" transform="rotate(90 50 50)"/></svg> Ask Elmer`;
 
   const panel = document.createElement("div");
   panel.className = "elmer-panel";
   panel.id = "elmerPanel";
+  // The panel is always in the DOM (its open/closed state is a CSS transition,
+  // not a mount), so when closed it must be removed from the tab order and the
+  // accessibility tree or it leaves focusable dead stops on every page. `inert`
+  // does both without touching display, so the close animation does not snap.
+  // Starts closed, hence inert; toggle() flips it in lockstep with isOpen.
+  panel.setAttribute("role", "dialog");
+  panel.setAttribute("aria-label", "Ask Elmer");
+  panel.setAttribute("aria-hidden", "true");
+  panel.setAttribute("inert", "");
   panel.innerHTML = `
     <div class="elmer-header">
       <svg class="elmer-header-avatar" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="12" fill="#06b6d4"/><ellipse cx="50" cy="50" rx="42" ry="16" fill="none" stroke="#06b6d4" stroke-width="3" transform="rotate(-30 50 50)"/><ellipse cx="50" cy="50" rx="42" ry="16" fill="none" stroke="#06b6d4" stroke-width="3" transform="rotate(30 50 50)"/><ellipse cx="50" cy="50" rx="42" ry="16" fill="none" stroke="#06b6d4" stroke-width="3" transform="rotate(90 50 50)"/></svg>
@@ -296,6 +307,9 @@ function toggle(forceState) {
   const panel = document.getElementById("elmerPanel");
   if (isOpen) {
     dock.classList.add("hidden");
+    dock.setAttribute("aria-expanded", "true");
+    panel.removeAttribute("inert");
+    panel.removeAttribute("aria-hidden");
     panel.classList.add("open");
     // Elmer docks as a side rail on EVERY page: a column of floating text pinned
     // to the right, with the page shifted left to make room (body.elmer-rail-open).
@@ -336,7 +350,10 @@ function toggle(forceState) {
     setTimeout(() => document.getElementById("elmerInput")?.focus(), 120);
   } else {
     dock.classList.remove("hidden");
+    dock.setAttribute("aria-expanded", "false");
     panel.classList.remove("open");
+    panel.setAttribute("inert", "");
+    panel.setAttribute("aria-hidden", "true");
     exitFullMode();
   }
   persistElmer();
@@ -361,6 +378,9 @@ function askElmerWithClaim(text) {
   isOpen = true;
   elmerFullMode = true; // expand into full-page chat
   dock.classList.add("hidden");
+  dock.setAttribute("aria-expanded", "true");
+  panel.removeAttribute("inert");
+  panel.removeAttribute("aria-hidden");
   panel.classList.add("open");
   panel.classList.add("elmer-panel--full", "elmer-panel--float");
   if (backdrop) backdrop.classList.add("show");
@@ -474,8 +494,17 @@ function addBubble(text, who) {
   // is their own page), so there is no href to guard, only a whitelist check
   // against the sections we actually offered this page. At most one scroll per
   // reply. The token itself is stripped so the reader never sees it.
+  // Escape the raw text BEFORE any markdown runs, so the only HTML that reaches
+  // innerHTML is the small, fixed set of tags the markdown pass inserts
+  // (strong, a, br). Without this, a user message like "<img src=x onerror=...>"
+  // is echoed verbatim into innerHTML and executes; the same origin serves the
+  // /app dashboard, which keeps Cognito tokens in localStorage, so a self-XSS is
+  // not harmless. The markdown markers (**, [](), \n) are all ASCII-safe and
+  // survive escaping unchanged.
+  const escHtml = (s) => String(s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   let scrollKey = null;
-  let html = text.replace(/\[\[GO:([a-z0-9_-]+)\]\]/gi, function (_m, k) {
+  let html = escHtml(text).replace(/\[\[GO:([a-z0-9_-]+)\]\]/gi, function (_m, k) {
     if (!scrollKey) scrollKey = String(k).toLowerCase();
     return ' ';
   });
@@ -527,6 +556,11 @@ function removeTyping() {
 
 // ── Response handler ──
 async function handleSend(overrideText) {
+  // Do not fire a network request from a closed panel. With inert on the closed
+  // panel the input is not focusable, so a user cannot reach it, but a stray
+  // keybinding or a race could still call this; a programmatic overrideText send
+  // (the homepage answer box) always opens the panel first, so it is exempt.
+  if (!isOpen && !overrideText) return;
   const input = document.getElementById("elmerInput");
   const text = overrideText || input?.value?.trim();
   if (!text) return;
