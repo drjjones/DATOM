@@ -1109,7 +1109,16 @@
   function onVcReady(state, transcript, errCb) {
     var promoCode = (document.getElementById('vcPromoCode-hidden') || {}).value || '';
     var attachedFile = state.__attachedFile;
-    var isPitchDeck = state.evidenceType === 'pitch deck' || !!attachedFile;
+    // Match the server EXACTLY (handleConfidenceReportRequest: evidenceType
+    // includes 'pitch deck' AND a pitchDeckS3Key is present). The old `||` made
+    // the client treat "mentioned a deck but attached nothing" as a pitch-deck
+    // submission and drop scientificClaim, which the server then required, so the
+    // request dead-ended with a raw "scientificClaim is required" after the VC
+    // had already accepted terms. The extraction step (line ~944) sets
+    // evidenceType to 'pitch deck' only when a file is actually attached, so this
+    // is false exactly when there is no deck, and the claim fields below are
+    // sent instead.
+    var isPitchDeck = state.evidenceType === 'pitch deck' && !!attachedFile;
 
     function doSubmit(pitchDeckS3Key) {
       var payload = {
@@ -1183,14 +1192,13 @@
   }
   function startVcFlow() {
     runChat({ ns: 'vc', script: vcScript, allowFile: true,
-      followUpsFor: function (missing, fields) {
-        if (fields && fields.evidenceType === 'pitch deck') {
-          missing = missing.filter(function (k) {
-            return ['scientificClaim', 'decisionContext', 'claimConfidence', 'investmentImplication'].indexOf(k) < 0;
-          });
-        }
-        return buildFollowUp(missing);
-      },
+      // No pitch-deck field-skipping here. The extraction step already drops the
+      // text questions from `missing` when a deck is ACTUALLY attached (it keys
+      // off attachedFile, not evidenceType). Filtering again on evidenceType
+      // alone skipped the claim question whenever a VC merely MENTIONED a deck
+      // without attaching one, so the claim was never collected and the request
+      // dead-ended server-side. Ask for whatever is genuinely missing.
+      followUpsFor: function (missing) { return buildFollowUp(missing); },
       onReady: onVcReady });
   }
 
