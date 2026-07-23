@@ -73,17 +73,21 @@
 <main>
   <section class="reveal rec">
 
-    <!-- a. the claim, verbatim canonical form -->
-    <p class="rec-eyebrow">DATOM Record &middot; DTM-2026-0714-C3</p>
-    <h1 class="rec-claim">Does creatine supplementation improve memory in healthy adults?</h1>
+    <!-- a. the claim, verbatim canonical form. The static content below is the
+         example record (DTM-2026-0714-C3); when the page is opened with ?id=, the
+         script at the bottom fetches the real pending record and OVERWRITES the
+         claim, status label, status copy, and count. The literal status strings
+         stay in the static markup so statusCopyConsistency.test.ts still matches. -->
+    <p class="rec-eyebrow" id="pending-eyebrow">DATOM Record &middot; DTM-2026-0714-C3</p>
+    <h1 class="rec-claim" id="pending-claim">Does creatine supplementation improve memory in healthy adults?</h1>
 
     <!-- status ladder: this record is OPEN (pending). State only, no scheduling policy. -->
-    <div class="ladder" role="img" aria-label="Status: pending verification">
-      <div class="step now">Pending verification</div>
-      <div class="step">In verification</div>
-      <div class="step">Published</div>
+    <div class="ladder" id="pending-ladder" role="img" aria-label="Status: pending verification">
+      <div class="step now" data-step="OPEN">Pending verification</div>
+      <div class="step" data-step="IN_VERIFICATION">In verification</div>
+      <div class="step" data-step="PUBLISHED">Published</div>
     </div>
-    <p class="status-copy">
+    <p class="status-copy" id="pending-status-copy">
       On the record since 2026-07-14. Verification pending.<br>
       <span class="req">12 readers</span> have requested verification of this claim.
     </p>
@@ -94,24 +98,109 @@
       <a href="organizations.html" class="btn sec">Sponsor this verification</a>
     </div>
 
-    <!-- notify-me: fires on any status change -->
+    <!-- notify-me: fires on any status change. Posts to /api/notify (canonicalId +
+         email) for double opt-in; the static form action stays as a no-JS fallback. -->
     <div class="notify">
       <p>Notify me about this record</p>
-      <form action="try.html" method="get">
-        <input type="email" name="email" placeholder="you@example.com" aria-label="Notify me about this record">
+      <form id="pending-notify-form" action="try.html" method="get">
+        <input type="email" id="pending-notify-email" name="email" placeholder="you@example.com" aria-label="Notify me about this record" required>
         <button type="submit">Notify me</button>
       </form>
+      <p id="pending-notify-status" class="status-copy" style="margin-top:10px;display:none;" role="status" aria-live="polite"></p>
     </div>
 
     <!-- i. footer: category definition + the answer box again -->
     <p class="catdef">DATOM is the public record of scientific claims, checked independently, updated as evidence changes.</p>
-    <form class="answerbox" action="try.html" method="get">
-      <input type="text" name="q" placeholder="Paste a claim, a link&hellip;" aria-label="Check a claim">
+    <form class="answerbox" id="pending-answerbox" action="try.html" method="get">
+      <input type="text" id="pending-answerbox-input" name="q" placeholder="Paste a claim, a link&hellip;" aria-label="Check a claim">
       <button type="submit">Check</button>
     </form>
 
   </section>
 </main>
+
+<script>
+  // ── Dynamic pending record (directive 1): read ?id=, fetch the real pending
+  //    record, and overwrite the example content. The status LABEL and status
+  //    COPY come from the API (rendered server-side from the one statusCopy
+  //    module), never re-templated here, so there is no format drift. ──────────
+  (function () {
+    var API = 'https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com';
+    var params = new URLSearchParams(window.location.search);
+    var id = (params.get('id') || '').trim();
+
+    function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function isSafeHref(h) { return typeof h === 'string' && /^[a-z0-9_-]+\.html(\?[a-z0-9=&_.-]*)?$/i.test(h); }
+
+    if (id) {
+      fetch(API + '/api/record/' + encodeURIComponent(id))
+        .then(function (r) { if (!r.ok) throw new Error('not available'); return r.json(); })
+        .then(function (rec) {
+          if (rec.publishedHref && isSafeHref(rec.publishedHref)) { window.location.replace(rec.publishedHref); return; }
+          document.getElementById('pending-claim').textContent = rec.canonicalText || '';
+          document.getElementById('pending-eyebrow').textContent = 'DATOM Record · ' + (rec.canonicalId || '');
+          // Status copy: the server sends the deterministic lines; join with <br>.
+          var copy = Array.isArray(rec.statusCopy) ? rec.statusCopy : [];
+          document.getElementById('pending-status-copy').innerHTML = copy.map(esc).join('<br>');
+          // Ladder: mark the current step.
+          var steps = document.querySelectorAll('#pending-ladder .step');
+          for (var i = 0; i < steps.length; i++) {
+            steps[i].classList.toggle('now', steps[i].getAttribute('data-step') === rec.ladderStep);
+          }
+          document.getElementById('pending-notify-form').setAttribute('data-canonical-id', rec.canonicalId || '');
+          document.title = (rec.canonicalText ? rec.canonicalText.slice(0, 60) : 'Record') + ', DATOM';
+        })
+        .catch(function () { /* leave the static example in place on any error */ });
+    }
+
+    // Notify affordance -> POST /api/notify (canonicalId + email) for double opt-in.
+    var notifyForm = document.getElementById('pending-notify-form');
+    if (notifyForm) {
+      notifyForm.addEventListener('submit', function (e) {
+        var canonicalId = notifyForm.getAttribute('data-canonical-id') || id;
+        var email = (document.getElementById('pending-notify-email').value || '').trim();
+        if (!canonicalId || !email) return; // no-JS/edge fallback: let it submit
+        e.preventDefault();
+        var statusEl = document.getElementById('pending-notify-status');
+        fetch(API + '/api/notify', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ canonicalId: canonicalId, email: email })
+        }).then(function (r) { return r.ok; }).then(function (okr) {
+          statusEl.style.display = 'block';
+          statusEl.textContent = okr
+            ? 'Check your inbox to confirm. You will be notified when this record changes.'
+            : 'That did not go through. Reach us at info@datom.science.';
+        }).catch(function () {
+          statusEl.style.display = 'block';
+          statusEl.textContent = 'That did not go through. Reach us at info@datom.science.';
+        });
+      });
+    }
+
+    // Footer answer box -> the resolver route directly (directive 1). Hit or
+    // pending navigates; offer / not_checkable / error hands off to Elmer.
+    var ab = document.getElementById('pending-answerbox');
+    var abInput = document.getElementById('pending-answerbox-input');
+    if (ab && abInput) {
+      ab.addEventListener('submit', function (e) {
+        var q = (abInput.value || '').trim();
+        if (!q) return;
+        e.preventDefault();
+        fetch(API + '/api/claim/resolve', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ claimText: q })
+        }).then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+          if (data && (data.kind === 'hit' || data.kind === 'pending') && isSafeHref(data.href)) {
+            window.location.href = data.href; return;
+          }
+          if (typeof window.datomAskElmer === 'function') { window.datomAskElmer(q); }
+        }).catch(function () {
+          if (typeof window.datomAskElmer === 'function') { window.datomAskElmer(q); }
+        });
+      });
+    }
+  })();
+</script>
 
 <footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &middot; <a href="terms.html">Terms</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="firewall.html">Firewall</a> &middot; <a href="product.html">How it works</a></footer>
 

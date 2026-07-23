@@ -602,6 +602,20 @@ async function handleSend(overrideText) {
       return;
     }
 
+    // A pending resolution (3.1c/3.1d template lock): the miss opened or found a
+    // pending record. The reply is the deterministic statusCopy line (already
+    // shown above). In full-chat mode (from the answer box) LAND the reader ON
+    // the pending record page, where the notify affordance lives; in the corner
+    // dock, offer a one-click link instead of yanking them off the page they are
+    // reading. The href is validated the same way as a record match.
+    if (data.pending && typeof data.pending.href === "string" && isSafeRecordHref(data.pending.href)) {
+      if (elmerFullMode) {
+        window.setTimeout(function () { window.location.href = data.pending.href; }, 1500);
+        return;
+      }
+      addRecordSuggestion({ href: data.pending.href, question: "See this claim on the record" });
+    }
+
     // A suggestion means Elmer named a likely record but was not confident
     // enough to change the page on its own (an offer, or a miss with a related
     // record). Give the visitor a one-click way to open it, so "Elmer suggested

@@ -8,11 +8,11 @@
     "topic": "General science",
     "sourceCount": 96,
     "relatedIds": [
-      "DTM-2026-0703-2E",
       "D-3F426285",
-      "D-ECB9E015",
+      "D-EE363BAC",
+      "D-5CE0BCD1",
       "D-EC72DA5D",
-      "D-5CE0BCD1"
+      "D-ECB9E015"
     ]
   },
   {
@@ -24,11 +24,11 @@
     "topic": "Social science",
     "sourceCount": 93,
     "relatedIds": [
-      "D-540A117F",
-      "DTM-2026-0703-2E",
       "D-E5E9B06E",
-      "D-ECB9E015",
-      "D-EC72DA5D"
+      "D-540A117F",
+      "D-5CE0BCD1",
+      "D-EC72DA5D",
+      "D-ECB9E015"
     ]
   },
   {
@@ -40,11 +40,11 @@
     "topic": "Clinical medicine",
     "sourceCount": 40,
     "relatedIds": [
+      "D-3F426285",
       "DTM-2026-0703-2E",
-      "D-ECB9E015",
-      "D-EE363BAC",
       "D-E5E9B06E",
-      "D-3F426285"
+      "D-5CE0BCD1",
+      "D-EE363BAC"
     ]
   },
   {
@@ -56,10 +56,10 @@
     "topic": "Clinical medicine",
     "sourceCount": 28,
     "relatedIds": [
-      "DTM-2026-0703-2E",
+      "D-540A117F",
       "D-ECB9E015",
-      "D-EC72DA5D",
       "D-E5E9B06E",
+      "D-5CE0BCD1",
       "D-3F426285"
     ]
   },
@@ -72,11 +72,11 @@
     "topic": "Clinical medicine",
     "sourceCount": 91,
     "relatedIds": [
-      "DTM-2026-0703-2E",
-      "D-EC72DA5D",
+      "D-540A117F",
       "D-EE363BAC",
+      "D-3F426285",
       "D-E5E9B06E",
-      "D-3F426285"
+      "D-EC72DA5D"
     ]
   },
   {
@@ -88,11 +88,11 @@
     "topic": "Basic science (in vitro)",
     "sourceCount": 39,
     "relatedIds": [
-      "DTM-2026-0703-2E",
-      "D-E5E9B06E",
       "D-3F426285",
-      "D-ECB9E015",
-      "D-EC72DA5D"
+      "D-EE363BAC",
+      "D-E5E9B06E",
+      "D-EC72DA5D",
+      "D-540A117F"
     ]
   },
   {
@@ -104,11 +104,11 @@
     "topic": "Social science",
     "sourceCount": 4,
     "relatedIds": [
-      "D-3F426285",
-      "DTM-2026-0703-2E",
-      "D-E5E9B06E",
       "D-ECB9E015",
-      "D-EC72DA5D"
+      "D-EE363BAC",
+      "D-3F426285",
+      "D-E5E9B06E",
+      "DTM-2026-0703-2E"
     ]
   },
   {
@@ -120,11 +120,11 @@
     "topic": "Clinical medicine",
     "sourceCount": 102,
     "relatedIds": [
-      "D-ECB9E015",
       "D-EC72DA5D",
-      "D-EE363BAC",
       "D-E5E9B06E",
-      "D-3F426285"
+      "D-540A117F",
+      "D-3F426285",
+      "D-EE363BAC"
     ]
   }
 ]
