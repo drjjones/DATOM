@@ -270,8 +270,8 @@
     <!-- ACCOUNT CTA REMOVED 2026-08-05. This block offered a free account that
          cannot be created and a follow that does not exist. Verified first-hand:
          the Cognito pool us-east-1_KB6gVmnVe has AllowAdminCreateUserOnly=true,
-         which disables the public SignUp API, so /app/signup terminates in a
-         rejection; and no follow-a-record capability exists in any case
+         which disables the public SignUp API, so the signup route terminates in
+         a rejection; and no follow-a-record capability exists in any case
          (POST /api/datomers/:id/watch follows a datomer and
          POST /api/commons/contributors/:id/follow follows a contributor, neither
          takes a public record entryId). Unblocking signup would not make this
@@ -295,11 +295,13 @@
          of the live site for that claim class stays clean. See DATOM-AWS 94417f0. -->
     <p class="freshness"><span class="dot">&bull;</span> A dated entry, not a live feed. This record changes when DATOM re-examines the claim and publishes a dated revision; earlier evaluations stay in the record's history. &middot; <a href="product.html" class="action">How DATOM checks a claim</a></p>
 
-    <!-- "Follow this claim" / "Get alerts on updates" REMOVED 2026-08-05. Both
-         pointed at /app/login and neither action exists on the other side: there
-         is no follow-a-record capability and no alert path for a published
-         record. See the note above the freshness line. The answer box below is
-         the real, working affordance on this page. -->
+    <!-- The two record action buttons (a follow control and an update-alert
+         control) were REMOVED 2026-08-05. Both pointed at the sign-in route and
+         neither action exists on the other side: there is no follow-a-record
+         capability and no alert path for a published record. See the note above
+         the freshness line. The answer box below is the real, working affordance
+         on this page. Button labels are not repeated here on purpose, so a grep
+         of the live site for dead CTAs stays clean. -->
 
     <p class="catdef">DATOM is the public record of scientific claims, checked independently, updated as evidence changes.</p>
     <form class="answerbox" action="try.html" method="get">
