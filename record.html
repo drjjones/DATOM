@@ -267,9 +267,21 @@
     </details>
     <p class="rec-basis">Every study links to the original. The three highlighted weigh most. Some studies in the list bear on the claim only under certain conditions (tagged Conditional) and sit outside the 51 that directly tested it, which is why the sample and the bar above count different things. The complete evidence base is in the full Confidence Report.</p>
 
-    <div class="gate">
-      <strong>Don't lose track of this claim.</strong> A free account lets you follow this record and check back as new studies land and the verdict moves. No cost, no card. <a href="/app/signup" class="action">Open a free account &rarr;</a>
-    </div>
+    <!-- ACCOUNT CTA REMOVED 2026-08-05. This block offered a free account that
+         cannot be created and a follow that does not exist. Verified first-hand:
+         the Cognito pool us-east-1_KB6gVmnVe has AllowAdminCreateUserOnly=true,
+         which disables the public SignUp API, so /app/signup terminates in a
+         rejection; and no follow-a-record capability exists in any case
+         (POST /api/datomers/:id/watch follows a datomer and
+         POST /api/commons/contributors/:id/follow follows a contributor, neither
+         takes a public record entryId). Unblocking signup would not make this
+         copy true, it would make it more false.
+         Deliberately NOT replaced with an email-follow CTA: the working notify
+         loop (POST /api/notify -> confirm -> publish notification) is keyed on a
+         PendingRecords row, and a PUBLISHED record has none. Confirmed live:
+         POST /api/notify with canonicalId DTM-2026-0703-2E returns 404 "No such
+         record." Promising email here would require revision notification, which
+         does not exist. Restore a CTA here only when one of those is real. -->
 
     <!-- FRESHNESS COPY: this line previously asserted that the record was under
          observation and that its verdict and grade refreshed on their own as new
@@ -283,10 +295,11 @@
          of the live site for that claim class stays clean. See DATOM-AWS 94417f0. -->
     <p class="freshness"><span class="dot">&bull;</span> A dated entry, not a live feed. This record changes when DATOM re-examines the claim and publishes a dated revision; earlier evaluations stay in the record's history. &middot; <a href="product.html" class="action">How DATOM checks a claim</a></p>
 
-    <div class="rec-actions">
-      <a href="/app/login" class="btn">Follow this claim</a>
-      <a href="/app/login" class="btn sec">Get alerts on updates</a>
-    </div>
+    <!-- "Follow this claim" / "Get alerts on updates" REMOVED 2026-08-05. Both
+         pointed at /app/login and neither action exists on the other side: there
+         is no follow-a-record capability and no alert path for a published
+         record. See the note above the freshness line. The answer box below is
+         the real, working affordance on this page. -->
 
     <p class="catdef">DATOM is the public record of scientific claims, checked independently, updated as evidence changes.</p>
     <form class="answerbox" action="try.html" method="get">
