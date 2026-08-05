@@ -619,7 +619,14 @@
           <rect x="8" y="18" width="8" height="8" fill="var(--line-2)"/>
         </svg>
         <h3>Public.</h3>
-        <p>Every verified claim's verdict, its Evidence Grade, and when it was last confirmed, free to read. The full evidence opens with a free account. <a href="pricing.html" class="card-link">See what each tier includes &rarr;</a></p>
+        <!-- 2026-08-05: this previously said the full evidence opened with a free
+             account. False twice: no account can be self-created
+             (AllowAdminCreateUserOnly=true on the live Cognito pool), and there is
+             no account-gated evidence layer to open. The CHECK/EXPLORE/DEFEND ring
+             model in src/lib/evidenceRings.ts is a design artifact read by nothing
+             that ships. There are two real tiers here, not three: the free record
+             and the paid Confidence Report. -->
+        <p>Every verified claim's verdict, its Evidence Grade, and when it was last confirmed, free to read. The complete evidence base is in the Confidence Report. <a href="pricing.html" class="card-link">See what each tier includes &rarr;</a></p>
       </div>
     </div>
   </section>
@@ -693,7 +700,12 @@
         </details>
         <details>
           <summary>Is DATOM free to use? <span class="chev">&#x2304;</span></summary>
-          <div class="faq-body">Yes. Every record's verdict, grades, and summary evidence are free to read. A free account opens the full evidence tree. Paid tiers add sponsored verification and commissioned Confidence Reports.</div>
+          <!-- 2026-08-05: the middle sentence claimed an account-gated evidence
+               tree. No account can be self-created and no such gated layer exists.
+               Replaced with the free tier's real second half, verified end to end
+               on this date: ask about a claim, and be emailed when a record is
+               published for one that has none. -->
+          <div class="faq-body">Yes. Every record's verdict, grades, and summary evidence are free to read, with no account. You can also ask about any claim, and if there is no record yet, ask to be emailed when one is published. Paid tiers add sponsored verification and commissioned Confidence Reports.</div>
         </details>
         <details>
           <summary>How can my organization work with DATOM? <span class="chev">&#x2304;</span></summary>
