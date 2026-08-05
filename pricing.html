@@ -113,7 +113,15 @@
             <ul class="pricing-features">
               <li>Read the verdict, both grades, and the summary evidence on every published record</li>
               <li>See the sources that weigh most, each linked to the original study</li>
-              <li>Follow a record in a free account and check back as the evidence changes</li>
+              <!-- 2026-08-05: this bullet previously offered a record-following
+                   affordance inside a free account. Both halves were false. The
+                   Cognito pool has AllowAdminCreateUserOnly=true so no account can be
+                   self-created, and no follow-a-record capability exists regardless.
+                   Replaced with the affordance that is real and was verified end to
+                   end on this date: ask about a claim in the answer box, and if there
+                   is no record yet, ask to be emailed when one is published. Mirrors
+                   src/config/rateCard.ts, the source of truth for this column. -->
+              <li>Ask about any claim. If there is no record yet, ask to be emailed when one is published</li>
             </ul>
           </td>
           <td>
@@ -133,7 +141,13 @@
         </tr>
         <tr>
           <td>&nbsp;</td>
-          <td><a href="/app/signup" class="btn pricing-cta">Sign up free</a></td>
+          <!-- 2026-08-05: this CTA previously invited the reader to create a free
+               account and pointed at the signup route, which cannot succeed
+               (AllowAdminCreateUserOnly=true on the live Cognito pool). Points at
+               the answer box instead, which is the real entry point to the free
+               tier and needs no account. Removed label not repeated, so a grep of
+               the live site for dead CTAs stays clean. -->
+          <td><a href="try.html" class="btn pricing-cta">Ask about a claim</a></td>
           <td><a href="mailto:info@datom.science?subject=Sponsor%20a%20claim%20verification" class="btn pricing-cta">Sponsor a claim</a></td>
           <td><a href="organizations.html" class="btn pricing-cta">Commission a report</a></td>
         </tr>
