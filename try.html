@@ -332,7 +332,10 @@
 
   <section class="reveal gs-intro">
     <h1>Let's get you started.</h1>
-    <p class="lede" style="margin:0 auto;">Elmer will help you find the right way in, whether that's a free account or setting up your lab or firm.</p>
+    <!-- 2026-08-05: this lede named account creation as one of the ways in. No
+         account can be self-created (AllowAdminCreateUserOnly=true on the live
+         Cognito pool). Reading is the free way in and needs no account at all. -->
+    <p class="lede" style="margin:0 auto;">Elmer will help you find the right way in, whether that's reading the record for free or setting up your lab or firm.</p>
   </section>
 
   <div id="cancelled-message" style="display:none;max-width:720px;margin:0 auto 20px;padding:16px 20px;background:transparent;border:1px solid var(--verdict-contra);border-radius:0;font-size:14px;color:var(--ink);">
@@ -1220,19 +1223,30 @@
       onReady: onVcReady });
   }
 
-  // ── Observer: short conversational hand-off into the real signup flow
-  //    (signup.html actually creates the account and its Commons/social
-  //    access; this chat explains what happens and routes there, it doesn't
-  //    fake a multi-turn intake for something that's really just a one-page
-  //    form). ──────────────────────────────────────────────────────────────
+  // ── Read for free. Corrected 2026-08-05.
+  //    This branch used to promise a free named-tier account granting the public
+  //    ledger, a social surface, and a per-claim follow, then route to the signup
+  //    route. Every part of that was wrong: the Cognito pool has
+  //    AllowAdminCreateUserOnly=true so no account can be self-created, and no
+  //    follow-a-record capability exists to grant even if one could. It was
+  //    reached from the "Read for free" chip, so it was the most-travelled free
+  //    path on the site.
+  //    It now says the true thing, which is also the simpler thing: reading needs
+  //    no account at all, and the answer box on this page is the way in. The
+  //    email-when-published promise is real and was verified end to end on
+  //    2026-08-05 (ask -> pending record -> double opt-in -> published ->
+  //    notification delivered).
+  //    Restore an account hand-off only when an account can be created AND grants
+  //    something on a record. ────────────────────────────────────────────────
   function startObserverFlow() {
-    addMsg("Great choice. A free Observer account gets you the public ledger, the social feed, and following claims you care about. I'll take you to account setup, it takes about a minute.", 'bot');
+    addMsg("You don't need an account. Every published record is free to read in full: the verdict, both grades, and the evidence behind it.", 'bot');
+    addMsg("Ask me about any claim. If there is already a record I'll take you straight to it, and if there isn't, you can put your email on it and I'll write to you when one is published.", 'bot');
     clearInput();
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'chat-cta-btn';
-    btn.textContent = 'Continue to sign up →';
-    btn.onclick = function () { window.location.href = '/app/signup?plan=observer'; };
+    btn.textContent = 'Read an example record →';
+    btn.onclick = function () { window.location.href = 'record.html'; };
     inputEl.appendChild(btn);
   }
 
