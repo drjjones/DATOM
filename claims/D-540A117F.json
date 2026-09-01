@@ -1,7 +1,7 @@
 {
   "anchorClaim": "In low-income countries from 2010-2020, reductions of 20% or more in international vaccine funding correlate at r>=0.5 with declines in national vaccination coverage rates within 2 years.",
   "as_of": "12 Jul 2026",
-  "confidenceSummary": "This is a genuine shortage of evidence, not a finding: DATOM located only a few studies, none of which directly measures vaccine funding levels against coverage, so there is not yet enough here to judge the claim either way.",
+  "confidenceSummary": "Grade C reflects a moderate but insufficient evidence base. Only four studies address the claim, none designed to test causation directly, and most findings depend on context. The record remains open.",
   "datoms": [
     {
       "claim": "The paper does not measure the correlation between international vaccine funding reductions and vaccination coverage rate declines in low-income countries during 2010-2020.",
@@ -75,28 +75,39 @@
     ]
   },
   "guide": {
-    "whatScienceSays": "DATOM found only 4 studies that speak to this claim, well short of what a question like this needs, and none was built to test whether cutting international vaccine funding actually causes coverage to fall. So the record stays open: the honest answer today is that there is not enough evidence to judge it either way. That is what the \"Insufficient record\" verdict below means, and the Grade F reflects how thin the evidence is. The few related studies DATOM did find appear below, tagged by what they looked at.",
-    "howConfident": "It's tempting to read \"0 of 4 sources directly support this\" as if DATOM were saying the claim is probably false. That's not right. DATOM's confidence score here is 11%, in the \"Speculative\" band, not 0%. That's an unusual result, and it points in a different direction than you might expect.\n\nNormally, when most of the sources found support a claim, the confidence score can climb higher than the underlying evidence quality alone would justify. Here it's the opposite problem: almost none of the sources found (0% support, and 75% or 3 of 4 only loosely related) actually test the specific thing the claim describes. That near-total gap is what keeps the score low, in the single digits, rather than driving it all the way down to zero. DATOM treats \"we didn't find evidence for this exact idea\" very differently from \"we found evidence and it proves the idea wrong.\" This is the first case, not the second.\n\nNone of the 4 sources actually tested a funding cut of 20% or more tracking closely, at the 0.5 correlation strength the claim specifies, with a coverage drop within two years. So there's nothing here that disproves the claim, just some related material that has to be weighed carefully.\n\nThat related material is also not built for creating confidence. The 4 sources used 4 completely different research methods with no overlap between them, so not one single finding here has been confirmed a second time by a different study using a similar approach. Two of the four sources also come with only partial information about how they were built or sourced, including the one study that's from outside the 2010-2020 time period this claim covers. And with only 4 sources total against the 100 DATOM aims to gather for a claim like this, that's just 4% of the volume needed to tell a real pattern apart from noise.\n\nThe honest way to read 11% is: not enough has been found here to say anything with real confidence. It is not: the evidence leans against this claim.",
+    "whatScienceSays": "DATOM found only 4 studies that speak to this claim, far short of what a question like this needs. None was designed to test whether cutting international vaccine funding actually causes coverage to fall. The honest answer today is that there is not enough evidence to judge it either way. That is what the \"Insufficient record\" verdict means, and the Grade C reflects how limited the evidence base remains.\n\nThe few related studies DATOM did find appear below, tagged by what they looked at.",
+    "howConfident": "The Grade C reflects a moderate evidence base that remains too small to support a clear verdict. Only 4 studies address this claim, and none was built to isolate the causal effect of funding cuts on vaccination coverage.\n\nThe single decisive study pointed against the claim, but one study cannot settle a question this important. The remaining studies found conditional or context-dependent relationships, meaning the answer depends on factors the research has not yet pinned down. Until more direct evidence arrives, the record stays open.",
     "decisionSupport": [
-      "Don't treat this claim's specific funding-to-coverage link as proven: none of the 4 sources DATOM found actually measured it, and DATOM reached just 4% of the 100 sources it was aiming for on this claim.",
-      "The one real, solid pattern here is a genuine slowdown in measles vaccine coverage progress, from 70.5% of districts improving between 2000-2010 down to just 40.1% between 2010-2019, across 101 low- and middle-income countries. But the researchers who found it say it was caused by conflict, doubts about vaccines, funding, and supply problems together, not funding cuts on their own. Don't single out funding as the cause.",
-      "The Angola example in that same study, health spending per person dropping 28% from 2010-2018 alongside a coverage slowdown, is just one illustrative case inside a larger study. It is not a tested statistical link between funding and coverage.",
-      "If you need solid evidence for a real decision, look for studies that directly connect specific funding changes to coverage outcomes over time. None of the 4 studies here, a literature review, a coverage-rate comparison across countries, a case-control household survey, or a geographic modeling study, were built to make that connection.",
-      "Don't treat the one source marked 'contradicts' as evidence against this claim. It's marked that way because it's off-topic: it measures how well vaccines prevent antibiotic-treated illness in 65,815 to 944,173 children, not because it found something that disproves a funding-coverage link."
+      "Only 4 studies in the entire corpus address whether cutting international vaccine funding causes coverage rates to drop.",
+      "None of the 4 studies was designed to test the causal claim directly.",
+      "One decisive study pointed against the claim, while zero pointed in support.",
+      "Three studies found conditional relationships, meaning the outcome depends on circumstances the research has not yet clarified.",
+      "The evidence base is too small and indirect to support a verdict in either direction."
     ],
-    "faultLines": "Too Few Sources: DATOM found just 4 sources against a goal of 100 for this claim, only 4% of what's needed. With that little material, there's no way to separate a real pattern from random noise. The low 11% score (\"Speculative\") is simply the honest math result of that shortfall. It is not a verdict that the claim is false.\n\nNo Two Studies Confirm Each Other: the 4 sources used 4 completely different research methods: a policy literature review, a comparison of coverage rates across countries, a case-control household survey, and a geographic modeling study. Because no two sources used a similar method, not one single finding here has been independently double-checked by a comparable study. That's part of why this evidence doesn't add up to a consistent picture.\n\nWrong Time Period, Wrong Topic: one source (Berman 2004) is from before the 2010-2020 period this claim covers, entirely outside the window. Of the other three, none measures funding levels directly. One (Lewnard 2020) measures how well vaccines prevent illness, not funding. Another (Bruni 2020) measures how many people finish the HPV vaccine series, not funding. And only one study, the Local Burden of Disease Vaccine Coverage Collaborators 2020 measles mapping study, touches funding at all, and even then only as one of four things named together (alongside conflict, doubts about vaccines, and supply problems) behind a documented slowdown, not as something tested on its own."
+    "faultLines": "Study Design Mismatch: None of the 4 studies was built to isolate whether funding cuts cause coverage drops. Most examined correlations or looked at related factors without controlling for the many variables that affect vaccination rates in low-income countries.\n\nConditional Findings Dominate: Three of the 4 studies found that the relationship depends on context, implementation details, or other factors. Without knowing which conditions matter most, the evidence cannot support a clear answer.\n\nSingle Opposing Study: The one decisive study pointed against the claim, but a single study cannot override the broader uncertainty. More research designed to test causation directly is needed before the record can close."
   },
   "isHealthDomain": true,
   "name": "Vaccination Coverage Equity and Health System Financing",
   "plainQuestion": "Cutting international vaccine funding causes vaccination coverage rates to drop in low-income countries.",
   "totalDatomCount": 4,
   "verdict": "Insufficient record",
-  "grade": "F",
-  "gradeLabel": "Weak evidence base",
+  "grade": "C",
+  "gradeLabel": "Moderate evidence base",
   "decisive": {
     "supports": 0,
     "contradicts": 1
   },
   "scope": "Studies looked at low and middle-income countries, mostly between 2010 and 2019 (one source is from 2004, outside that range). The people studied range from children under 5 to teenagers, and in some cases the age group isn't specified.",
-  "metric": "How much countries spend on vaccine programs over time, how many children get measles and HPV vaccines, and how many illness cases are prevented by vaccination."
+  "metric": "How much countries spend on vaccine programs over time, how many children get measles and HPV vaccines, and how many illness cases are prevented by vaccination.",
+  "revisions": [
+    {
+      "date": "2026-09-01T09:40:24.774Z",
+      "engineVersion": "v2.2026.09",
+      "fromVerdict": "INSUFFICIENT",
+      "toVerdict": "INSUFFICIENT",
+      "fromGrade": "F",
+      "toGrade": "C",
+      "reason": "Rescored under the v2 engine (weighted, independence-adjusted, interval-based). Verdict direction unchanged from v1; Evidence Grade corrected from the v1 evidenceQualityPct formula to v2's cluster/certainty computation. Validated by the live production shadow bake (docs/scoring-baseline/prod-shadow-bake-2026-08-27.md, zero divergence against the committed snapshot; reconfirmed live 2026-09-01, still zero divergence). Founder reviewed the full verdict+grade table for all 6 remaining non-overridden featured records in chat and approved it as shown, 2026-09-01."
+    }
+  ]
 }

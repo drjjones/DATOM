@@ -4,7 +4,7 @@
     "plainQuestion": "CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) works efficiently and reproducibly across many different organisms, not just one well-studied species.",
     "href": "claim.html?id=D-E5E9B06E",
     "verdict": "Supported",
-    "grade": "D",
+    "grade": "A",
     "topic": "General science",
     "sourceCount": 96,
     "relatedIds": [
@@ -20,7 +20,7 @@
     "plainQuestion": "When a smallholder farming household becomes more productive or diversifies what it grows, it translates into a better, more varied diet and less hunger for the family.",
     "href": "claim.html?id=D-3F426285",
     "verdict": "Supported",
-    "grade": "D",
+    "grade": "A",
     "topic": "Social science",
     "sourceCount": 93,
     "relatedIds": [
@@ -36,7 +36,7 @@
     "plainQuestion": "Brain scans (MRI/fMRI) show measurable structural or functional differences in people with eating disorders compared to people without them.",
     "href": "claim.html?id=D-EC72DA5D",
     "verdict": "Supported",
-    "grade": "D",
+    "grade": "B",
     "topic": "Clinical medicine",
     "sourceCount": 40,
     "relatedIds": [
@@ -52,7 +52,7 @@
     "plainQuestion": "Having had a prior COVID-19 infection, on top of being vaccinated, gives extra protection against reinfection or severe disease compared to vaccination alone.",
     "href": "claim.html?id=D-EE363BAC",
     "verdict": "Supported",
-    "grade": "D",
+    "grade": "C",
     "topic": "Clinical medicine",
     "sourceCount": 28,
     "relatedIds": [
@@ -68,7 +68,7 @@
     "plainQuestion": "HPV vaccination coverage among university-age and catch-up-eligible populations falls short of public-health targets, and varies widely from one region to another.",
     "href": "claim.html?id=D-ECB9E015",
     "verdict": "Supported",
-    "grade": "F",
+    "grade": "B",
     "topic": "Clinical medicine",
     "sourceCount": 91,
     "relatedIds": [
@@ -100,7 +100,7 @@
     "plainQuestion": "Cutting international vaccine funding causes vaccination coverage rates to drop in low-income countries.",
     "href": "claim.html?id=D-540A117F",
     "verdict": "Insufficient record",
-    "grade": "F",
+    "grade": "C",
     "topic": "Social science",
     "sourceCount": 4,
     "relatedIds": [
