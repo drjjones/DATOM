@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>DATOM Readiness Record</title>
+  <meta name="description" content="How far along the chain of testing a scientific claim has actually got, and where that chain stops today."/>
+  <!-- This is a client-rendered template (the record varies by ?id=), so a
+       crawler that does not run JS sees only these static tags. They are
+       therefore generic and branded rather than per-record.
+
+       NOTHING in this file's static markup states a readiness status. The five
+       terms, the per-step readings and the legend are all rendered at runtime
+       from the record's own JSON. That is not a style choice: a status word
+       baked into the shell is a status that keeps saying itself after the
+       record it described has moved, which is exactly how record.html
+       contradicted its own conclusion for five weeks in 2026. The shell has
+       nothing to go stale.
+
+       This page also carries none of the Confidence Report's vocabulary. A
+       Readiness Record is a different artifact with a different question, and
+       the two blur the moment one borrows the other's words. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DATOM">
+  <meta property="og:title" content="A claim on the DATOM readiness ladder">
+  <meta property="og:description" content="How far along the chain of testing a claim has actually got, and where that chain stops today.">
+  <meta property="og:image" content="https://datom.science/og/home.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A claim on the DATOM readiness ladder">
+  <meta name="twitter:description" content="How far along the chain of testing a claim has actually got.">
+  <meta name="twitter:image" content="https://datom.science/og/home.png">
+  <link rel="canonical" id="canonical-link" href="https://datom.science/readiness.html">
+  <link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+  <link rel="icon" type="image/png" href="./Assets/favicon.png">
+  <link rel="stylesheet" href="global.css?v=5">
+  <style>
+    .rr-wrap { max-width: 780px; margin: 0 auto; padding: 40px 20px 80px; }
+    .rr-claim { font-size: 1.45rem; line-height: 1.35; font-weight: 700; margin: 0 0 14px; }
+    .rr-headline { font-size: 1.05rem; line-height: 1.6; margin: 0 0 28px; opacity: .92; }
+    .rr-ladder { border: 1px solid rgba(255,255,255,.14); border-radius: 8px; overflow: hidden; margin-bottom: 26px; }
+    .rr-d0 { padding: 12px 16px; font-size: .9rem; border-bottom: 1px solid rgba(255,255,255,.14); opacity: .85; }
+    .rr-row { display: flex; gap: 12px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,.09); }
+    .rr-row:last-child { border-bottom: none; }
+    .rr-rung { width: 30px; font-weight: 700; font-size: .85rem; opacity: .9; }
+    .rr-chip { flex: 0 0 auto; min-width: 96px; text-align: center; font-size: .74rem; font-weight: 700;
+               letter-spacing: .04em; text-transform: uppercase; border-radius: 4px; padding: 3px 8px;
+               border: 1px solid currentColor; }
+    .rr-body { flex: 1; font-size: .9rem; line-height: 1.55; opacity: .88; }
+    .rr-boundary { padding: 8px 16px; font-size: .76rem; font-weight: 700; letter-spacing: .08em;
+                   border-top: 2px solid #00D4FF; color: #00D4FF; background: rgba(0,212,255,.06); }
+    .rr-below { opacity: .62; }
+    .rr-sec { margin: 30px 0; }
+    .rr-sec h2 { font-size: .8rem; letter-spacing: .09em; text-transform: uppercase; opacity: .6; margin: 0 0 10px; }
+    .rr-legend li { font-size: .85rem; line-height: 1.6; margin-bottom: 5px; opacity: .85; }
+    .rr-note { font-size: .85rem; line-height: 1.6; opacity: .7; border-left: 2px solid rgba(255,255,255,.2); padding-left: 12px; }
+    .rr-refs li { font-size: .85rem; line-height: 1.7; }
+    .rr-meta { font-size: .76rem; opacity: .5; margin-top: 30px; line-height: 1.7; }
+    .rr-phase2 { font-size: .85rem; line-height: 1.6; opacity: .6; font-style: italic;
+                 padding: 12px 16px; border-top: 1px solid rgba(255,255,255,.09); }
+  </style>
+</head>
+<body>
+  <div class="rr-wrap">
+    <p><a href="/readiness-index.html">All readiness records</a></p>
+    <div id="rr-loading">Loading this record...</div>
+    <div id="rr-error" hidden></div>
+    <div id="rr-content" hidden></div>
+  </div>
+
+<script>
+(function () {
+  var API = 'https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com';
+  var id = new URLSearchParams(location.search).get('id') || '';
+  var loading = document.getElementById('rr-loading');
+  var errorEl = document.getElementById('rr-error');
+  var content = document.getElementById('rr-content');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function show(el) { el.hidden = false; }
+  function hide(el) { el.hidden = true; }
+
+  function fail(msg) {
+    hide(loading);
+    errorEl.textContent = msg;
+    show(errorEl);
+  }
+
+  if (!/^RR-[0-9A-F]{8}$/.test(id)) {
+    fail('That is not a readiness record id.');
+    return;
+  }
+
+  fetch(API + '/api/record/' + encodeURIComponent(id))
+    .then(function (r) {
+      if (r.status === 404) throw new Error('No published readiness record with that id.');
+      if (!r.ok) throw new Error('Could not load this record right now.');
+      return r.json();
+    })
+    .then(function (rec) {
+      // The title is built from the CLAIM, never from a status. A title of the
+      // form "<status>: <claim>" is a status assertion that search engines and
+      // link previews keep repeating long after the record moves.
+      document.title = rec.claimStatement + ' · Readiness Record';
+      var canon = document.getElementById('canonical-link');
+      if (canon) canon.href = 'https://datom.science/readiness.html?id=' + encodeURIComponent(rec.recordId);
+
+      var lex = (rec.domainParams && rec.domainParams.lexicon) || {};
+      var rungLines = lex.rungLines || {};
+      var statusLines = lex.statusLines || {};
+      var order = ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'];
+      var boundaryRung = rec.boundary && rec.boundary.boundaryRung;
+      var boundaryIndex = boundaryRung ? order.indexOf(boundaryRung) : -1;
+
+      var html = '';
+      html += '<h1 class="rr-claim">' + esc(rec.claimStatement) + '</h1>';
+      html += '<p class="rr-headline">' + esc(rec.layHeadline) + '</p>';
+
+      // ── the ladder ─────────────────────────────────────────────
+      html += '<div class="rr-ladder">';
+      html += '<div class="rr-d0"><strong>D0</strong> ' +
+              esc(rec.d0Passed ? (lex.d0PassedLine || '') : (rungLines.D0 || '')) + '</div>';
+
+      var byRung = {};
+      (rec.readings || []).forEach(function (r) { byRung[r.rung] = r; });
+
+      order.forEach(function (rung, i) {
+        var r = byRung[rung] || {};
+        var below = boundaryIndex >= 0 && i > boundaryIndex;
+        html += '<div class="rr-row' + (below ? ' rr-below' : '') + '">';
+        html += '<span class="rr-rung">' + esc(rung) + '</span>';
+        // The status label comes from the record's own JSON, never from a
+        // string in this file.
+        html += '<span class="rr-chip">' + esc(r.statusLabel || '') + '</span>';
+        html += '<span class="rr-body">' + esc(rungLines[rung] || '');
+        if (r.rationale) html += '<br><span style="opacity:.7">' + esc(r.rationale) + '</span>';
+        html += '</span></div>';
+
+        if (i === boundaryIndex) {
+          html += '<div class="rr-boundary">EVIDENCE STOPS HERE</div>';
+        }
+      });
+
+      if (boundaryIndex < order.indexOf('D4') && lex.phase2BlankLine) {
+        html += '<div class="rr-phase2">' + esc(lex.phase2BlankLine) + '</div>';
+      }
+      html += '</div>';
+
+      // ── plain language ─────────────────────────────────────────
+      if (rec.laySummary) {
+        html += '<div class="rr-sec"><h2>In plain language</h2><p>' + esc(rec.laySummary) + '</p></div>';
+      }
+
+      // ── the five-term legend, rendered from the record's lexicon ─
+      var terms = Object.keys(statusLines);
+      if (terms.length) {
+        html += '<div class="rr-sec"><h2>What each word means</h2><ul class="rr-legend">';
+        terms.forEach(function (term) {
+          var label = term.charAt(0) + term.slice(1).toLowerCase();
+          html += '<li><strong>' + esc(label) + '.</strong> ' + esc(statusLines[term]) + '</li>';
+        });
+        html += '</ul></div>';
+      }
+
+      if (lex.confidenceDistinction) {
+        html += '<div class="rr-sec"><p class="rr-note">' + esc(lex.confidenceDistinction) + '</p></div>';
+      }
+
+      // ── sources ────────────────────────────────────────────────
+      var bib = rec.bibliography || [];
+      if (bib.length) {
+        html += '<div class="rr-sec"><h2>Sources</h2><ul class="rr-refs">';
+        bib.forEach(function (b) {
+          var title = esc(b.title || b.doi || '');
+          html += '<li>' + (b.doi
+            ? '<a href="https://doi.org/' + esc(b.doi) + '" target="_blank" rel="noopener">' + title + '</a>'
+            : title) + (b.year ? ' (' + esc(b.year) + ')' : '') + '</li>';
+        });
+        html += '</ul></div>';
+      }
+
+      // ── provenance ─────────────────────────────────────────────
+      html += '<p class="rr-meta">';
+      html += 'Record ' + esc(rec.recordId) + ', version ' + esc(rec.version) + '.';
+      if (rec.publishedAt) html += ' Published ' + esc(String(rec.publishedAt).slice(0, 10)) + '.';
+      if (rec.ladderVersion) html += ' Ladder ' + esc(rec.ladderVersion) + '.';
+      if (rec.contentHash) html += ' Content hash ' + esc(String(rec.contentHash).slice(0, 16)) + '.';
+      if (rec.originator && rec.originator.unresolved && rec.originator.note) {
+        html += ' ' + esc(rec.originator.note) + '.';
+      }
+      var versions = rec.versions || [];
+      if (versions.length > 1) {
+        html += '<br>Earlier versions: ' + versions.map(function (v) {
+          return 'v' + esc(v.version) + ' (' + esc(String(v.publishedAt).slice(0, 10)) + ')';
+        }).join(', ') + '.';
+      }
+      html += '</p>';
+
+      content.innerHTML = html;
+      hide(loading);
+      show(content);
+    })
+    .catch(function (e) { fail(e.message || 'Could not load this record right now.'); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>DATOM Readiness Records</title>
+  <meta name="description" content="Public readiness records: how far along the chain of testing each claim has actually got, and where that chain stops today."/>
+  <!-- Client-rendered index. As with readiness.html, nothing in this static
+       shell states a readiness status: the list is fetched at runtime and every
+       word describing a record comes from that record's own JSON. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DATOM">
+  <meta property="og:title" content="DATOM Readiness Records">
+  <meta property="og:description" content="How far along the chain of testing each claim has actually got.">
+  <meta property="og:image" content="https://datom.science/og/home.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DATOM Readiness Records">
+  <meta name="twitter:description" content="How far along the chain of testing each claim has actually got.">
+  <meta name="twitter:image" content="https://datom.science/og/home.png">
+  <link rel="canonical" href="https://datom.science/readiness-index.html">
+  <link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+  <link rel="icon" type="image/png" href="./Assets/favicon.png">
+  <link rel="stylesheet" href="global.css?v=5">
+  <style>
+    .rr-wrap { max-width: 780px; margin: 0 auto; padding: 40px 20px 80px; }
+    .rr-lede { font-size: 1rem; line-height: 1.65; opacity: .8; margin: 0 0 30px; }
+    .rr-item { display: block; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,.1); text-decoration: none; color: inherit; }
+    .rr-item:hover { opacity: .82; }
+    .rr-item-lay { font-size: .92rem; line-height: 1.55; margin: 0 0 6px; }
+    .rr-item-meta { font-size: .76rem; opacity: .5; }
+    .rr-empty { font-size: .92rem; opacity: .65; padding: 24px 0; }
+  </style>
+</head>
+<body>
+  <div class="rr-wrap">
+    <h1>Readiness records</h1>
+    <p class="rr-lede">
+      Each record follows one public claim up a ladder of six testing steps and marks the step where the
+      evidence actually stops. It does not score how strong the evidence is.
+    </p>
+    <div id="rr-loading">Loading...</div>
+    <div id="rr-error" hidden></div>
+    <div id="rr-list" hidden></div>
+  </div>
+
+<script>
+(function () {
+  var API = 'https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com';
+  var loading = document.getElementById('rr-loading');
+  var errorEl = document.getElementById('rr-error');
+  var list = document.getElementById('rr-list');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  fetch(API + '/api/record/RR-index')
+    .then(function (r) {
+      if (!r.ok) throw new Error('Could not load the record list right now.');
+      return r.json();
+    })
+    .then(function (body) {
+      var entries = (body && body.entries) || [];
+      loading.hidden = true;
+      if (!entries.length) {
+        // An empty corpus is a real, honest state, not an error.
+        list.innerHTML = '<p class="rr-empty">No readiness records have been published yet.</p>';
+        list.hidden = false;
+        return;
+      }
+      list.innerHTML = entries.map(function (e) {
+        return '<a class="rr-item" href="/readiness.html?id=' + esc(e.recordId) + '">' +
+          '<p class="rr-item-lay">' + esc(e.layHeadline) + '</p>' +
+          '<p class="rr-item-meta">' + esc(e.recordId) +
+          (e.publishedAt ? ' · ' + esc(String(e.publishedAt).slice(0, 10)) : '') + '</p>' +
+        '</a>';
+      }).join('');
+      list.hidden = false;
+    })
+    .catch(function (e) {
+      loading.hidden = true;
+      errorEl.textContent = e.message || 'Could not load the record list right now.';
+      errorEl.hidden = false;
+    });
+})();
+</script>
+</body>
+</html>
