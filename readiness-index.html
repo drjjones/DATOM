@@ -26,10 +26,23 @@
   <style>
     .rr-wrap { max-width: 780px; margin: 0 auto; padding: 40px 20px 80px; }
     .rr-lede { font-size: 1rem; line-height: 1.65; opacity: .8; margin: 0 0 30px; }
-    .rr-item { display: block; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,.1); text-decoration: none; color: inherit; }
+    .rr-item { display: block; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,.1); text-decoration: none; color: inherit; }
     .rr-item:hover { opacity: .82; }
-    .rr-item-lay { font-size: .92rem; line-height: 1.55; margin: 0 0 6px; }
-    .rr-item-meta { font-size: .76rem; opacity: .5; }
+    /* The CLAIM leads. It is the only thing that tells a reader what the record
+       is about, and it is what they are scanning for. */
+    .rr-item-claim { font-size: 1rem; font-weight: 600; line-height: 1.45; margin: 0 0 10px; }
+    /* A six-segment strip standing in for the ladder. Filled to the boundary,
+       empty above. In a list of twenty records the prose lay headlines are
+       near-identical and unscannable; the strip is readable at a glance and
+       needs no reading at all. */
+    .rr-strip { display: inline-flex; gap: 3px; vertical-align: middle; margin-right: 10px; }
+    .rr-seg { width: 20px; height: 6px; border-radius: 1px; background: rgba(255,255,255,.13); }
+    .rr-seg.on { background: #00D4FF; }
+    .rr-seg.na { background: repeating-linear-gradient(45deg, rgba(255,255,255,.10) 0 3px, transparent 3px 6px); }
+    .rr-pos { font-size: .8rem; opacity: .78; vertical-align: middle; }
+    .rr-item-meta { font-size: .74rem; opacity: .45; margin: 8px 0 0; }
+    .rr-tag { display: inline-block; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase;
+              border: 1px solid rgba(255,255,255,.18); border-radius: 3px; padding: 1px 6px; margin-left: 8px; opacity: .75; }
     .rr-empty { font-size: .92rem; opacity: .65; padding: 24px 0; }
   </style>
 </head>
@@ -72,9 +85,28 @@
         list.hidden = false;
         return;
       }
+      var ORDER = ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'];
+
       list.innerHTML = entries.map(function (e) {
+        var reached = e.boundaryRung ? ORDER.indexOf(e.boundaryRung) + 1 : 0;
+        var strip = '', i;
+        for (i = 0; i < ORDER.length; i++) {
+          // A claim that is not testable as stated has no ladder position at
+          // all, so its strip is hatched rather than empty: "not applicable"
+          // and "nothing reached yet" are different statements about a record.
+          strip += '<span class="rr-seg' + (!e.d0Passed ? ' na' : (i < reached ? ' on' : '')) + '"></span>';
+        }
+        var position = !e.d0Passed
+          ? 'Too vague to test as stated'
+          : (reached > 0
+              ? 'Evidence stops at step ' + reached + ' of ' + ORDER.length
+              : 'No step reached yet');
+
         return '<a class="rr-item" href="/readiness.html?id=' + esc(e.recordId) + '">' +
-          '<p class="rr-item-lay">' + esc(e.layHeadline) + '</p>' +
+          '<p class="rr-item-claim">' + esc(e.claimStatement || e.recordId) + '</p>' +
+          '<div><span class="rr-strip">' + strip + '</span>' +
+          '<span class="rr-pos">' + esc(position) + '</span>' +
+          (e.domain ? '<span class="rr-tag">' + esc(e.domain) + '</span>' : '') + '</div>' +
           '<p class="rr-item-meta">' + esc(e.recordId) +
           (e.publishedAt ? ' · ' + esc(String(e.publishedAt).slice(0, 10)) : '') + '</p>' +
         '</a>';
