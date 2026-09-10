@@ -59,6 +59,13 @@
     .rr-meta { font-size: .76rem; opacity: .5; margin-top: 30px; line-height: 1.7; }
     .rr-phase2 { font-size: .85rem; line-height: 1.6; opacity: .6; font-style: italic;
                  padding: 12px 16px; border-top: 1px solid rgba(255,255,255,.09); }
+    .rr-follow p { font-size: .9rem; line-height: 1.6; margin: 0 0 10px; opacity: .88; }
+    .rr-follow form { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; }
+    .rr-follow input[type="email"] { flex: 1 1 220px; padding: 9px 12px; border-radius: 6px;
+                 border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.04); color: inherit; font: inherit; }
+    .rr-follow button { padding: 9px 14px; border-radius: 6px; border: 1px solid #00D4FF; color: #00D4FF;
+                 background: rgba(0,212,255,.08); font: inherit; font-weight: 700; cursor: pointer; }
+    .rr-follow a { color: #00D4FF; }
   </style>
 </head>
 <body>
@@ -156,6 +163,29 @@
         html += '<div class="rr-sec"><h2>In plain language</h2><p>' + esc(rec.laySummary) + '</p></div>';
       }
 
+      // ── follow, and go further ────────────────────────────────
+      // The two things a reader can DO with a record. A confirmed follower
+      // is emailed when a new version of this record is published, and that
+      // is the whole promise: no status word, no schedule, nothing this shell
+      // could get wrong on its own. The follower count is confirmed double
+      // opt-ins from the record's JSON, never sign-up attempts.
+      var followers = (rec.followers && rec.followers.confirmedRequestCount) || 0;
+      html += '<div class="rr-sec rr-follow"><h2>Follow this record</h2>';
+      if (rec.origin === 'demand') {
+        html += '<p>This record exists because a reader asked DATOM about the claim.</p>';
+      }
+      if (followers > 0) {
+        html += '<p>' + esc(followers) + (followers === 1 ? ' reader has' : ' readers have') +
+                ' asked to be emailed when this record changes.</p>';
+      }
+      html += '<form id="rr-follow-form">' +
+              '<input type="email" id="rr-follow-email" placeholder="you@example.com" aria-label="Email me when this record changes" required>' +
+              '<button type="submit">Email me when it changes</button></form>';
+      html += '<p id="rr-follow-status" role="status" aria-live="polite" hidden></p>';
+      html += '<p>A readiness record says how far the evidence goes. A full analysis reads the literature behind the claim and scores it. ' +
+              '<a href="try.html?q=' + encodeURIComponent(rec.claimStatement || '') + '">Ask for a full analysis of this claim</a>.</p>';
+      html += '</div>';
+
       // ── the five-term legend, rendered from the record's lexicon ─
       var terms = Object.keys(statusLines);
       if (terms.length) {
@@ -204,6 +234,32 @@
       content.innerHTML = html;
       hide(loading);
       show(content);
+
+      // Follow -> POST /api/notify with the RECORD id. The API resolves it to
+      // the row this record's followers live on and starts the same double
+      // opt-in every other notify request goes through; nothing is counted
+      // until the email is confirmed.
+      var followForm = document.getElementById('rr-follow-form');
+      if (followForm) {
+        followForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var email = (document.getElementById('rr-follow-email').value || '').trim();
+          var statusEl = document.getElementById('rr-follow-status');
+          if (!email) return;
+          fetch(API + '/api/notify', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recordId: rec.recordId, email: email })
+          }).then(function (r) { return r.ok; }).then(function (okr) {
+            statusEl.hidden = false;
+            statusEl.textContent = okr
+              ? 'Check your inbox to confirm. You will get an email when a new version of this record is published.'
+              : 'That did not go through. Reach us at info@datom.science.';
+          }).catch(function () {
+            statusEl.hidden = false;
+            statusEl.textContent = 'That did not go through. Reach us at info@datom.science.';
+          });
+        });
+      }
     })
     .catch(function (e) { fail(e.message || 'Could not load this record right now.'); });
 })();
