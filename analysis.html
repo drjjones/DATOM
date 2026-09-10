@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>The full analysis of a claim · DATOM</title>
+  <meta name="description" content="What a DATOM full analysis adds to a readiness record: every source weighed, a conclusion stated, and a private dossier if you want one."/>
+  <!-- THE PAY WALL. A reader arrives here from a readiness record (or from a
+       question with no record yet) by asking for the full analysis. The page
+       says what the reader already has for free, what the full analysis
+       adds, and hands off to the get-started flow that takes payment. It
+       takes no payment itself and prints no price: pricing.html and the
+       Stripe-backed flow are the source of truth for both, and a number here
+       would be a second place for it to go stale.
+
+       Client-rendered from the record's JSON (?rr=RR-...) or from the claim
+       text (?claim=...). Nothing about any record is baked into this shell. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DATOM">
+  <meta property="og:title" content="The full analysis of a claim">
+  <meta property="og:description" content="Every source weighed, a conclusion stated.">
+  <meta property="og:image" content="https://datom.science/og/home.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+  <link rel="icon" type="image/png" href="./Assets/favicon.png">
+  <link rel="stylesheet" href="global.css?v=5">
+  <style>
+    .fa-wrap { max-width: 780px; margin: 0 auto; padding: 40px 20px 80px; }
+    .fa-eyebrow { font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; opacity: .55; margin: 0 0 10px; }
+    .fa-claim { font-size: 1.4rem; line-height: 1.35; font-weight: 700; margin: 0 0 10px; }
+    .fa-asked { font-size: .95rem; line-height: 1.5; margin: 0 0 22px; opacity: .75; }
+    .fa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 26px 0; }
+    @media (max-width: 640px) { .fa-grid { grid-template-columns: 1fr; } }
+    .fa-col { border: 1px solid rgba(255,255,255,.14); border-radius: 10px; padding: 18px; }
+    .fa-col.fa-paid { border-color: rgba(0,212,255,.45); background: rgba(0,212,255,.05); }
+    .fa-col h2 { font-size: .8rem; letter-spacing: .09em; text-transform: uppercase; opacity: .65; margin: 0 0 12px; }
+    .fa-col ul { margin: 0; padding-left: 18px; }
+    .fa-col li { font-size: .9rem; line-height: 1.6; margin-bottom: 6px; }
+    .fa-score { font-size: 2rem; font-weight: 800; color: #00D4FF; line-height: 1; margin: 6px 0 2px; }
+    .fa-score-sub { font-size: .8rem; opacity: .7; margin-bottom: 12px; }
+    .fa-cta { display: inline-block; padding: 12px 18px; border-radius: 6px; font-weight: 700; text-decoration: none;
+              border: 1px solid #00D4FF; color: #0b1020; background: #00D4FF; margin: 6px 8px 6px 0; }
+    .fa-cta.sec { color: #00D4FF; background: rgba(0,212,255,.08); }
+    .fa-note { font-size: .85rem; line-height: 1.6; opacity: .7; border-left: 2px solid rgba(255,255,255,.2); padding-left: 12px; margin-top: 24px; }
+    .fa-note a { color: #00D4FF; }
+    .fa-back { font-size: .85rem; opacity: .7; }
+    .fa-back a { color: #00D4FF; }
+  </style>
+</head>
+<body>
+<main class="fa-wrap">
+  <p class="fa-back"><a href="/readiness-index.html">All readiness records</a></p>
+  <div id="fa-loading">Loading...</div>
+  <div id="fa-error" hidden></div>
+  <div id="fa-content" hidden></div>
+</main>
+<script>
+(function () {
+  var API = 'https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com';
+  var params = new URLSearchParams(location.search);
+  var rr = params.get('rr') || '';
+  var claimParam = (params.get('claim') || '').trim().slice(0, 500);
+  var loading = document.getElementById('fa-loading');
+  var errorEl = document.getElementById('fa-error');
+  var content = document.getElementById('fa-content');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function fail(msg) { loading.hidden = true; errorEl.textContent = msg; errorEl.hidden = false; }
+
+  // What the reader gets on each side of the wall. The free column states
+  // only what a readiness record actually contains; the paid column lists
+  // what the get-started flow's product delivers, in the words pricing.html
+  // uses for it.
+  function render(rec, claim, asked) {
+    var html = '';
+    html += '<p class="fa-eyebrow">The full analysis</p>';
+    html += '<h1 class="fa-claim">' + esc(claim) + '</h1>';
+    if (asked) html += '<p class="fa-asked">You asked: ' + esc(asked) + '</p>';
+
+    html += '<div class="fa-grid">';
+    html += '<div class="fa-col"><h2>What you have now, free</h2>';
+    if (rec) {
+      if (typeof rec.readinessScore === 'number' && rec.readinessStep) {
+        html += '<div class="fa-score">' + esc(rec.readinessScore) + '</div>';
+        html += '<div class="fa-score-sub">Readiness score, out of 100: step ' + esc(rec.readinessStep.reached) + ' of ' + esc(rec.readinessStep.of) + ' on the ladder.</div>';
+      }
+      html += '<ul>';
+      html += '<li>How far the evidence has got, step by step, and where it stops today.</li>';
+      html += '<li>A plain-language summary and the sources the ladder rests on.</li>';
+      html += '<li>An email when the record changes.</li>';
+      html += '</ul>';
+      html += '<p style="margin:12px 0 0"><a href="readiness.html?id=' + encodeURIComponent(rec.recordId) + '" style="color:#00D4FF">Back to the readiness record</a></p>';
+    } else {
+      html += '<ul>';
+      html += '<li>A place in the queue for a readiness record on this claim, and an email when one is published.</li>';
+      html += '</ul>';
+    }
+    html += '</div>';
+
+    html += '<div class="fa-col fa-paid"><h2>What the full analysis adds</h2><ul>';
+    html += '<li>Every relevant study read and weighed, with the ones that weigh most linked to the original.</li>';
+    html += '<li>A stated conclusion on the claim, with an evidence grade for how good the studies are.</li>';
+    html += '<li>The reasoning laid out so you can check it, not just a number.</li>';
+    html += '<li>Private by default: the report and its record publish only if you choose.</li>';
+    html += '</ul>';
+    html += '<p style="margin:14px 0 0">';
+    html += '<a class="fa-cta" href="try.html?flow=report&claim=' + encodeURIComponent(claim) + '">Request the full analysis</a>';
+    html += '<a class="fa-cta sec" href="pricing.html">See pricing</a>';
+    html += '</p></div>';
+    html += '</div>';
+
+    html += '<p class="fa-note">Payment buys the analysis, never a particular result: the conclusion comes from the evidence regardless of who paid. ' +
+            'If you would rather the record be public and sponsored than private, <a href="organizations.html">sponsored verification</a> does that.</p>';
+
+    content.innerHTML = html;
+    loading.hidden = true;
+    content.hidden = false;
+  }
+
+  if (/^RR-[0-9A-F]{8}$/.test(rr)) {
+    fetch(API + '/api/record/' + encodeURIComponent(rr))
+      .then(function (r) {
+        if (r.status === 404) throw new Error('No published readiness record with that id.');
+        if (!r.ok) throw new Error('Could not load this record right now.');
+        return r.json();
+      })
+      .then(function (rec) {
+        document.title = 'The full analysis: ' + rec.claimStatement + ' · DATOM';
+        render(rec, rec.claimStatement || '', rec.askedAs || '');
+      })
+      .catch(function (e) { fail(e.message || 'Could not load this record right now.'); });
+  } else if (claimParam.length >= 3) {
+    document.title = 'The full analysis: ' + claimParam + ' · DATOM';
+    render(null, claimParam, '');
+  } else {
+    fail('Nothing to analyse: open this page from a readiness record or a question.');
+  }
+})();
+</script>
+</body>
+</html>

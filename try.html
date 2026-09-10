@@ -699,9 +699,26 @@
   // arrives (an old bookmark or shared link), seed it into the landing box so it
   // is not lost, but do NOT auto-submit into the branch selector; the visitor
   // stays in control of the get-started choice.
+  // ?flow=report&claim=... arrives from the full-analysis page behind a
+  // readiness record. That visitor has already chosen the Confidence Report,
+  // so the branch selector would only be a detour: open the report flow and
+  // hold the claim for the step that asks for it. Any other arrival keeps the
+  // landing behaviour above.
+  var chatPrefill = null;
   (function () {
-    var handoff = new URLSearchParams(window.location.search).get('q');
+    var qs = new URLSearchParams(window.location.search);
+    var handoff = qs.get('q');
     if (handoff && handoff.trim()) landingInputEl.value = handoff.trim().slice(0, 500);
+    var claim = (qs.get('claim') || '').trim().slice(0, 500);
+    if (qs.get('flow') === 'report' && claim) {
+      chatPrefill = { ns: 'vc', step: 1, text: 'The claim I want evaluated: ' + claim };
+      // Deferred a tick: this block runs at load, before the script arrays
+      // below it (vcScript) have been assigned, and the flow needs them.
+      setTimeout(function () {
+        addMsg('Full analysis requested for: "' + claim + '"', 'user');
+        startVcFlow();
+      }, 0);
+    }
   })();
   landingChipsEl.appendChild(landingChip('Read for free', function () { startObserverFlow(); }));
   landingChipsEl.appendChild(landingChip("I'm a lab, company, or institution", function () {
@@ -870,6 +887,14 @@
       ta.className = 'chat-input-field';
       ta.rows = 1;
       ta.placeholder = 'Type your answer…';
+      // A claim handed over from a readiness record (analysis.html, ?flow=report
+      // &claim=...) is PREFILLED into the answer box at the step that asks for
+      // it, never submitted for the visitor: they can edit it, add the decision
+      // it supports, or attach a deck, exactly as if they had typed it.
+      if (chatPrefill && chatPrefill.ns === ns && chatPrefill.step === stepIndex) {
+        ta.value = chatPrefill.text;
+        chatPrefill = null;
+      }
       ta.addEventListener('input', function () {
         ta.style.height = 'auto';
         ta.style.height = Math.min(ta.scrollHeight, 160) + 'px';
