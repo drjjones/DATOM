@@ -715,6 +715,9 @@
       // Deferred a tick: this block runs at load, before the script arrays
       // below it (vcScript) have been assigned, and the flow needs them.
       setTimeout(function () {
+        // The same transition a landing chip makes: reveal the conversation
+        // first, or the flow's messages land in a hidden panel.
+        revealConversation();
         addMsg('Full analysis requested for: "' + claim + '"', 'user');
         startVcFlow();
       }, 0);
