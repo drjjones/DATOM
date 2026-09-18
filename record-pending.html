@@ -27,6 +27,32 @@
 <link rel="stylesheet" href="design-v1.1.css?v=9">
 
 <style>
+  /* SHARPEN card. Uses the page's existing tokens only, so it inherits the
+     site's light/dark handling rather than pinning colours of its own. */
+  /* [hidden] must actually hide. The site's .btn rule sets display:inline-flex
+     and lands later in source order than the UA's [hidden] { display:none },
+     so el.hidden = true set the attribute and changed nothing on screen: the
+     "Make this question precise" button stayed visible underneath the question
+     it had already been replaced by. Found by looking at the rendered page, not
+     by reading the DOM, which reported hidden:true throughout. */
+  #sharpen-card[hidden], .sharpen [hidden] { display:none !important; }
+  .sharpen { border:1px solid var(--line); border-radius:8px; padding:18px 20px; margin:22px 0 26px; }
+  .sharpen-lead { margin:0 0 14px; color:var(--muted); font-family:var(--font-body); line-height:1.55; }
+  .sharpen-q { margin:4px 0 6px; font-family:var(--font-display); font-size:1.05rem; color:var(--ink); }
+  .sharpen-options { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+  .sharpen-options button {
+    font:inherit; padding:8px 14px; border-radius:999px; cursor:pointer;
+    border:1px solid var(--line); background:var(--paper); color:var(--ink);
+  }
+  .sharpen-options button:hover { border-color:var(--ink); }
+  .sharpen-options button:focus-visible { outline:2px solid var(--focus); outline-offset:2px; }
+  .sharpen-other { display:flex; gap:8px; margin-top:10px; }
+  .sharpen-other input { flex:1 1 auto; min-width:0; font:inherit; padding:8px 12px;
+    border:1px solid var(--line); border-radius:6px; background:var(--paper); color:var(--ink); }
+  .sharpen-donelabel { margin:0 0 6px; color:var(--muted); font-size:.9rem; }
+  .sharpen-result { margin:0; font-family:var(--font-display); font-size:1.15rem; line-height:1.4; color:var(--ink); }
+  @media (max-width:520px) { .sharpen-other { flex-wrap:wrap; } }
+
   .rec { max-width: 720px; }
   .rec-eyebrow { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin: 0 0 var(--s2); }
   .rec-claim { font-family: var(--font-display); font-size: 30px; line-height: 1.25; color: var(--ink); margin: 0 0 var(--s4); }
@@ -81,6 +107,41 @@
     <p class="rec-eyebrow" id="pending-eyebrow">DATOM Record &middot; DTM-2026-0714-C3</p>
     <h1 class="rec-claim" id="pending-claim">Does creatine supplementation improve memory in healthy adults?</h1>
 
+    <!-- SHARPEN: the visitor makes their own question precise, with options drawn
+         from the literature (POST /api/claim/sharpen). Hidden by default and
+         revealed only when the endpoint answers, so with JS off, on an error, or
+         at the rate limit the page is exactly what it was before.
+
+         COPY CONSTRAINT: nothing here may say or imply that this claim will be
+         checked, reviewed, added, or arriving shortly (statusCopy.ts rule 5 and
+         BANNED_VOCABULARY, which this comment deliberately does not quote: an
+         HTML comment ships to the browser, so a banned phrase written here
+         would be served to the visitor and would trip the scanner that exists
+         to keep it off the page). The offer is to state the question precisely,
+         which is a thing the visitor does, not a promise about what DATOM will
+         do. -->
+    <div class="sharpen" id="sharpen-card" hidden>
+      <p class="sharpen-lead">Evidence can only speak to a precise question. Answer one or two questions and this one will be stated the way the research states it.</p>
+      <button type="button" class="btn sec" id="sharpen-start">Make this question precise</button>
+
+      <div id="sharpen-turn" hidden>
+        <p class="sharpen-q" id="sharpen-question"></p>
+        <p class="status-copy" id="sharpen-because"></p>
+        <div class="sharpen-options" id="sharpen-options"></div>
+        <form class="sharpen-other" id="sharpen-other">
+          <input type="text" id="sharpen-other-input" placeholder="Something else&hellip;" aria-label="Describe what you meant">
+          <button type="submit">Use this</button>
+        </form>
+      </div>
+
+      <div id="sharpen-done" hidden>
+        <p class="sharpen-donelabel">Your question, stated precisely</p>
+        <p class="sharpen-result" id="sharpen-result"></p>
+      </div>
+
+      <p class="status-copy" id="sharpen-status" role="status" aria-live="polite" hidden></p>
+    </div>
+
     <!-- status ladder: this record is OPEN (pending). State only, no scheduling policy. -->
     <div class="ladder" id="pending-ladder" role="img" aria-label="Status: pending verification">
       <div class="step now" data-step="OPEN">Pending verification</div>
@@ -132,6 +193,137 @@
     function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
     function isSafeHref(h) { return typeof h === 'string' && /^[a-z0-9_-]+\.html(\?[a-z0-9=&_.-]*)?$/i.test(h); }
 
+    // Defined BEFORE the record fetch below, deliberately. The fetch callback
+    // calls window.__datomRevealSharpen, and although a callback cannot run
+    // until this script finishes, relying on that is an ordering argument a
+    // reader has to reconstruct. Defining it first makes the dependency
+    // obvious and survives someone later moving the fetch into its own file.
+    // ── SHARPEN: the visitor makes their own question precise ──────────────
+    //
+    // PROGRESSIVE ENHANCEMENT, deliberately. The card starts hidden and is only
+    // revealed once the endpoint has actually answered. With JS off, on any
+    // error, or at the rate limit, this page is exactly what it was before:
+    // the claim, the ladder, notify, and the answer box. Sharpening can fail
+    // without costing the visitor anything they came for.
+    (function () {
+      var card = document.getElementById('sharpen-card');
+      if (!card || !id) return;   // no card without a real pending record
+
+      var startBtn = document.getElementById('sharpen-start');
+      var turn     = document.getElementById('sharpen-turn');
+      var qEl      = document.getElementById('sharpen-question');
+      var becauseEl= document.getElementById('sharpen-because');
+      var optsEl   = document.getElementById('sharpen-options');
+      var otherForm= document.getElementById('sharpen-other');
+      var otherIn  = document.getElementById('sharpen-other-input');
+      var doneEl   = document.getElementById('sharpen-done');
+      var resultEl = document.getElementById('sharpen-result');
+      var statusEl = document.getElementById('sharpen-status');
+
+      var answers = [];
+      var busy = false;
+
+      function say(msg) {
+        statusEl.textContent = msg;
+        statusEl.hidden = !msg;
+      }
+      function claimText() {
+        return (document.getElementById('pending-claim').textContent || '').trim();
+      }
+
+      function post(payload) {
+        return fetch(API + '/api/claim/sharpen', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(function (r) {
+          return r.json().then(function (body) { return { ok: r.ok, status: r.status, body: body }; });
+        });
+      }
+
+      function renderAsk(ask) {
+        qEl.textContent = ask.question || '';
+        becauseEl.textContent = ask.because || '';
+        becauseEl.hidden = !ask.because;
+        optsEl.innerHTML = '';
+        (ask.options || []).forEach(function (opt) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = opt;
+          b.addEventListener('click', function () { answer(opt); });
+          optsEl.appendChild(b);
+        });
+        turn.hidden = false;
+        // Focus the first option so a keyboard visitor lands where the choice is.
+        var first = optsEl.querySelector('button');
+        if (first) first.focus();
+      }
+
+      function finish(claim) {
+        turn.hidden = true;
+        resultEl.textContent = claim || claimText();
+        doneEl.hidden = false;
+        say('');
+        // The headline claim now reflects what they meant, so the page and the
+        // record agree about what question is being asked.
+        if (claim) document.getElementById('pending-claim').textContent = claim;
+      }
+
+      function step(payload) {
+        if (busy) return;
+        busy = true;
+        say('Working\u2026');
+        post(payload)
+          .then(function (res) {
+            busy = false;
+            if (res.status === 429) {
+              // Rate-limited or at the daily ceiling. The server's message
+              // already says the question was kept; show it and retire the card
+              // rather than leaving a dead button.
+              say((res.body && res.body.error) || 'Please try again later.');
+              startBtn.hidden = true;
+              turn.hidden = true;
+              return;
+            }
+            if (!res.ok || !res.body) { card.hidden = true; return; }
+            if (res.body.kind === 'ask' && res.body.ask) { say(''); renderAsk(res.body.ask); return; }
+            finish(res.body.claim);
+          })
+          .catch(function () {
+            // Any transport failure retires the card silently: the visitor is
+            // no worse off than before it existed.
+            busy = false;
+            card.hidden = true;
+          });
+      }
+
+      function answer(text) {
+        var t = String(text || '').trim();
+        if (!t) return;
+        answers.push(t);
+        step({ question: claimText(), answers: answers, canonicalId: id });
+      }
+
+      startBtn.addEventListener('click', function () {
+        startBtn.hidden = true;
+        step({ question: claimText(), answers: [], canonicalId: id });
+      });
+      otherForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var v = otherIn.value;
+        otherIn.value = '';
+        answer(v);
+      });
+
+      // Revealed by the record fetch itself (see window.__datomRevealSharpen
+      // below), never on a timer. The first version waited 600ms and then
+      // checked that the claim was non-empty, which the STATIC EXAMPLE always
+      // is: when the fetch failed the card appeared over the example claim and
+      // offered to sharpen a question no visitor had asked. A card whose
+      // precondition is "some text is on screen" has no precondition.
+      window.__datomRevealSharpen = function () { card.hidden = false; };
+    })();
+
     if (id) {
       fetch(API + '/api/record/' + encodeURIComponent(id))
         .then(function (r) { if (!r.ok) throw new Error('not available'); return r.json(); })
@@ -149,6 +341,9 @@
           }
           document.getElementById('pending-notify-form').setAttribute('data-canonical-id', rec.canonicalId || '');
           document.title = (rec.canonicalText ? rec.canonicalText.slice(0, 60) : 'Record') + ', DATOM';
+          // The record is real and on screen: only now may the sharpen card
+          // offer to make THIS question precise.
+          if (typeof window.__datomRevealSharpen === 'function') window.__datomRevealSharpen();
         })
         .catch(function () { /* leave the static example in place on any error */ });
     }
