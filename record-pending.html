@@ -40,17 +40,22 @@
   .sharpen-lead { margin:0 0 14px; color:var(--muted); font-family:var(--font-body); line-height:1.55; }
   .sharpen-q { margin:4px 0 6px; font-family:var(--font-display); font-size:1.05rem; color:var(--ink); }
   .sharpen-options { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+  /* Each option shows the plain wording AND the literature's own phrase under
+     it. Two lines, so these are rounded rectangles rather than pills. */
   .sharpen-options button {
-    font:inherit; padding:8px 14px; border-radius:999px; cursor:pointer;
+    font:inherit; padding:8px 14px; border-radius:10px; cursor:pointer;
+    display:flex; flex-direction:column; align-items:flex-start; gap:2px;
+    text-align:left; max-width:100%;
     border:1px solid var(--line); background:var(--paper); color:var(--ink);
   }
+  .sharpen-options .opt-label { line-height:1.3; }
+  .sharpen-options .opt-anchor { font-size:.78rem; line-height:1.3; color:var(--muted); }
   .sharpen-options button:hover { border-color:var(--ink); }
   .sharpen-options button:focus-visible { outline:2px solid var(--focus); outline-offset:2px; }
   .sharpen-other { display:flex; gap:8px; margin-top:10px; }
   .sharpen-other input { flex:1 1 auto; min-width:0; font:inherit; padding:8px 12px;
     border:1px solid var(--line); border-radius:6px; background:var(--paper); color:var(--ink); }
   .sharpen-donelabel { margin:0 0 6px; color:var(--muted); font-size:.9rem; }
-  .sharpen-result { margin:0; font-family:var(--font-display); font-size:1.15rem; line-height:1.4; color:var(--ink); }
   @media (max-width:520px) { .sharpen-other { flex-wrap:wrap; } }
 
   .rec { max-width: 720px; }
@@ -121,7 +126,7 @@
          which is a thing the visitor does, not a promise about what DATOM will
          do. -->
     <div class="sharpen" id="sharpen-card" hidden>
-      <p class="sharpen-lead">Evidence can only speak to a precise question. Answer one or two questions and this one will be stated the way the research states it.</p>
+      <p class="sharpen-lead" id="sharpen-lead">Evidence can only speak to a precise question. Answer one or two questions and this one will be stated the way the research states it.</p>
       <button type="button" class="btn sec" id="sharpen-start">Make this question precise</button>
 
       <div id="sharpen-turn" hidden>
@@ -134,9 +139,20 @@
         </form>
       </div>
 
+      <!-- The claim itself is written into the headline above, so this panel
+           does NOT repeat it. It did at first, and the sentence appeared twice
+           within a hundred pixels, which reads as a bug rather than as
+           confirmation. -->
       <div id="sharpen-done" hidden>
-        <p class="sharpen-donelabel">Your question, stated precisely</p>
-        <p class="sharpen-result" id="sharpen-result"></p>
+        <p class="sharpen-donelabel">Stated precisely. The question above now says what you meant, and that is what DATOM will assess.</p>
+      </div>
+
+      <!-- The run that improved nothing. Shown INSTEAD of the panel above,
+           because a question handed back unchanged under the words "stated
+           precisely" is the visitor reading their own sentence while we take
+           credit for it. Found live 2026-09-22. -->
+      <div id="sharpen-nochange" hidden>
+        <p class="sharpen-donelabel">We could not make this more precise from the research we can see. Your question stands as you asked it.</p>
       </div>
 
       <p class="status-copy" id="sharpen-status" role="status" aria-live="polite" hidden></p>
@@ -217,7 +233,8 @@
       var otherForm= document.getElementById('sharpen-other');
       var otherIn  = document.getElementById('sharpen-other-input');
       var doneEl   = document.getElementById('sharpen-done');
-      var resultEl = document.getElementById('sharpen-result');
+      var noChangeEl = document.getElementById('sharpen-nochange');
+      var leadEl = document.getElementById('sharpen-lead');
       var statusEl = document.getElementById('sharpen-status');
 
       var answers = [];
@@ -247,10 +264,28 @@
         becauseEl.hidden = !ask.because;
         optsEl.innerHTML = '';
         (ask.options || []).forEach(function (opt) {
+          // An option is {label, anchor}: plain words, and the phrase a paper
+          // actually uses. Both are shown. The visitor should not have to take
+          // our paraphrase on trust, and seeing the source wording is itself
+          // worth something even if they close the page here.
+          var label  = (typeof opt === 'string') ? opt : String((opt && opt.label) || '');
+          var anchor = (typeof opt === 'string') ? ''  : String((opt && opt.anchor) || '');
+          if (!label) return;
           var b = document.createElement('button');
           b.type = 'button';
-          b.textContent = opt;
-          b.addEventListener('click', function () { answer(opt); });
+          var l = document.createElement('span');
+          l.className = 'opt-label';
+          l.textContent = label;
+          b.appendChild(l);
+          if (anchor && anchor !== label) {
+            var a = document.createElement('span');
+            a.className = 'opt-anchor';
+            a.textContent = 'studied as: ' + anchor;
+            b.appendChild(a);
+          }
+          // The ANSWER is the plain wording: the claim is written in the
+          // visitor's language, not the literature's.
+          b.addEventListener('click', function () { answer(label); });
           optsEl.appendChild(b);
         });
         turn.hidden = false;
@@ -259,14 +294,39 @@
         if (first) first.focus();
       }
 
+      // Two sentences are "the same question" when they differ only in case,
+      // punctuation or spacing. Deliberately loose: the point is to catch a run
+      // that changed NOTHING, and a claim that differs only by a full stop has
+      // changed nothing a reader would notice.
+      function sameQuestion(a, b) {
+        function flat(t) {
+          return String(t || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+        }
+        return flat(a) === flat(b);
+      }
+
       function finish(claim) {
         turn.hidden = true;
-        resultEl.textContent = claim || claimText();
-        doneEl.hidden = false;
         say('');
+        // The lead offered to state the question precisely. Once the run is
+        // over that sentence is either redundant or, on the no-change path, an
+        // unkept promise sitting directly above the admission that we could
+        // not keep it.
+        leadEl.hidden = true;
+        var asked = claimText();
+        var got = String(claim || '').trim();
+
+        // Nothing was gained: say so, and do not dress the question up as a
+        // result. The card retires either way, so there is no dead button.
+        if (!got || sameQuestion(got, asked)) {
+          noChangeEl.hidden = false;
+          return;
+        }
+
+        doneEl.hidden = false;
         // The headline claim now reflects what they meant, so the page and the
         // record agree about what question is being asked.
-        if (claim) document.getElementById('pending-claim').textContent = claim;
+        document.getElementById('pending-claim').textContent = got;
       }
 
       function step(payload) {
