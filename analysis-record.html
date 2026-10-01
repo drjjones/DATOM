@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>DATOM Full Analysis</title>
+  <meta name="description" content="A full analysis of a scientific claim the public asked DATOM about: the literature behind it, weighed source by source."/>
+  <!-- A client-rendered template (the analysis varies by ?id=DA-...). NOTHING
+       in this static markup states a verdict or a grade: both are rendered at
+       runtime from the record's own JSON, which carries the verdict the
+       founder approved. A verdict baked into a shell keeps saying itself after
+       the record moves; that is how record.html contradicted its own
+       conclusion for five weeks in 2026. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DATOM">
+  <meta property="og:title" content="A full analysis on the DATOM public ledger">
+  <meta property="og:description" content="Enough people asked about this claim that DATOM ran a full analysis of it.">
+  <meta property="og:image" content="https://datom.science/og/home.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" id="canonical-link" href="https://datom.science/analysis-record.html">
+  <link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+  <link rel="icon" type="image/png" href="./Assets/favicon.png">
+  <link rel="stylesheet" href="global.css?v=5">
+  <style>
+    .da-wrap { max-width: 780px; margin: 0 auto; padding: 40px 20px 80px; }
+    .da-eyebrow { font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; opacity: .55; margin: 0 0 10px; }
+    .da-asked { font-size: 1rem; line-height: 1.5; margin: 0 0 8px; opacity: .8; }
+    .da-asked q { font-style: italic; }
+    .da-claim { font-size: 1.45rem; line-height: 1.35; font-weight: 700; margin: 0 0 18px; }
+    .da-verdict { display: flex; gap: 18px; align-items: center; padding: 16px 18px; margin: 0 0 26px;
+                  border: 1px solid rgba(0,212,255,.35); border-radius: 10px; background: rgba(0,212,255,.05); }
+    .da-verdict-word { font-size: 1.6rem; font-weight: 800; color: #00D4FF; }
+    .da-grade { font-size: 2.2rem; font-weight: 800; line-height: 1; min-width: 56px; text-align: center;
+                border: 1px solid rgba(255,255,255,.25); border-radius: 8px; padding: 6px 0; }
+    .da-label { font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; opacity: .65; margin-bottom: 2px; }
+    .da-receipt { font-size: .85rem; line-height: 1.5; opacity: .8; }
+    .da-sec { margin: 30px 0; }
+    .da-sec h2 { font-size: .8rem; letter-spacing: .09em; text-transform: uppercase; opacity: .6; margin: 0 0 10px; }
+    .da-sec p, .da-sec li { font-size: .95rem; line-height: 1.65; opacity: .9; }
+    .da-cta { display: inline-block; margin: 4px 8px 4px 0; padding: 10px 16px; border-radius: 6px; font-weight: 700;
+              border: 1px solid #00D4FF; color: #00D4FF; background: rgba(0,212,255,.08); text-decoration: none; cursor: pointer; font: inherit; }
+    .da-meta { font-size: .76rem; opacity: .5; margin-top: 30px; line-height: 1.7; }
+  </style>
+</head>
+<body>
+  <div class="da-wrap">
+    <p><a href="/readiness-index.html">All readiness records</a></p>
+    <div id="da-loading">Loading this analysis...</div>
+    <div id="da-error" hidden></div>
+    <div id="da-content" hidden></div>
+  </div>
+
+<script>
+(function () {
+  var API = 'https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com';
+  var id = new URLSearchParams(location.search).get('id') || '';
+  var loading = document.getElementById('da-loading');
+  var errorEl = document.getElementById('da-error');
+  var content = document.getElementById('da-content');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function fail(msg) { loading.hidden = true; errorEl.textContent = msg; errorEl.hidden = false; }
+
+  if (!/^DA-[0-9A-F]{16}$/.test(id)) { fail('That is not a full analysis id.'); return; }
+  document.getElementById('canonical-link').href = 'https://datom.science/analysis-record.html?id=' + encodeURIComponent(id);
+
+  fetch(API + '/api/record/' + encodeURIComponent(id))
+    .then(function (r) {
+      if (r.status === 404) throw new Error('No published full analysis with that id.');
+      if (!r.ok) throw new Error('This analysis could not be loaded. Try again shortly.');
+      return r.json();
+    })
+    .then(function (rec) {
+      var html = '<p class="da-eyebrow">Full analysis, asked for by the public</p>';
+      if (rec.askedAs && rec.askedAs !== rec.claim) {
+        html += '<p class="da-asked">You asked: <q>' + esc(rec.askedAs) + '</q></p>';
+      }
+      html += '<h1 class="da-claim">' + esc(rec.claim) + '</h1>';
+      document.title = 'DATOM Full Analysis: ' + String(rec.claim || '').slice(0, 60);
+
+      if (rec.verdictLabel) {
+        html += '<div class="da-verdict">';
+        if (rec.grade) html += '<div class="da-grade" aria-label="Evidence grade">' + esc(rec.grade) + '</div>';
+        html += '<div><div class="da-label">Verdict</div><div class="da-verdict-word">' + esc(rec.verdictLabel) + '</div>';
+        if (rec.receipt) html += '<div class="da-receipt">' + esc(rec.receipt) + '</div>';
+        html += '</div></div>';
+      }
+
+      if (rec.whatTheScienceSays) {
+        html += '<div class="da-sec"><h2>What the science says</h2><p>' + esc(rec.whatTheScienceSays) + '</p></div>';
+      }
+      if (rec.confidenceNarrative) {
+        html += '<div class="da-sec"><h2>How sure we can be</h2><p>' + esc(rec.confidenceNarrative) + '</p></div>';
+      }
+      if (rec.decisionSupportBullets && rec.decisionSupportBullets.length) {
+        html += '<div class="da-sec"><h2>What this means</h2><ul>';
+        rec.decisionSupportBullets.forEach(function (b) { html += '<li>' + esc(b) + '</li>'; });
+        html += '</ul></div>';
+      }
+
+      html += '<div class="da-sec">';
+      if (rec.hasPdf) html += '<button class="da-cta" id="da-pdf" type="button">Download the full report (PDF)</button>';
+      if (rec.readinessRecordUrl) html += '<a class="da-cta" href="' + esc(rec.readinessRecordUrl) + '">How far the testing has got</a>';
+      html += '</div>';
+
+      html += '<p class="da-meta">Analysis run because ' + esc(rec.followers) + ' ' + (rec.followers === 1 ? 'person' : 'people') +
+        ' confirmed they wanted it. Published ' + esc(String(rec.publishedAt || '').slice(0, 10)) + '. ' + esc(rec.recordId) + '.</p>';
+
+      content.innerHTML = html;
+      loading.hidden = true;
+      content.hidden = false;
+
+      var pdf = document.getElementById('da-pdf');
+      if (pdf) pdf.addEventListener('click', function () {
+        pdf.disabled = true;
+        fetch(API + '/api/record/' + encodeURIComponent(id) + '?pdf=1')
+          .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+          .then(function (j) { location.href = j.downloadUrl; })
+          .catch(function () { pdf.textContent = 'The PDF is not available right now'; })
+          .then(function () { pdf.disabled = false; });
+      });
+    })
+    .catch(function (e) { fail(e.message); });
+})();
+</script>
+</body>
+</html>
