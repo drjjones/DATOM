@@ -1,0 +1,13 @@
+{
+  "name": "DATOM Lens",
+  "short_name": "DATOM Lens",
+  "description": "Step by step instructions, label scans and an assistant for a frozen protocol contract.",
+  "start_url": "/app/lens/guide",
+  "scope": "/app/",
+  "display": "standalone",
+  "background_color": "#0a0f1a",
+  "theme_color": "#0d1526",
+  "icons": [
+    { "src": "brand/datom-icon.png", "sizes": "400x400", "type": "image/png", "purpose": "any" }
+  ]
+}
