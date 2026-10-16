@@ -69,7 +69,9 @@ function normalizeNavLinks(navBlock) {
 let failures = 0;
 
 // The canonical top nav, per the content-rules doc (global nav) and Batch 1:
-// Example, How it works, For Organizations, Pricing, Sign in. "How it works"
+// Example, How it works, For Organizations, Work with DATOM, Sign in. The
+// fourth label was "Pricing" until 2026-10-15 (ce1bb99: no prices published;
+// the page and its URL stay pricing.html). "How it works"
 // (product.html) MUST be in the nav and reachable from every record page: a
 // skeptic reading a verdict needs a path to the mechanism page. "Browse" stays
 // absent until the first topic page unlocks (amended threshold rule).
@@ -77,7 +79,7 @@ const CANONICAL_NAV = [
   'record.html::Example',
   'product.html::How it works',
   'organizations.html::For Organizations',
-  'pricing.html::Pricing',
+  'pricing.html::Work with DATOM',
   '/app/login::Sign in',
 ];
 
