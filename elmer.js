@@ -443,6 +443,36 @@ function addRecordSuggestion(suggest) {
   messages.scrollTop = messages.scrollHeight;
 }
 
+// The steering button (2026-10-15): "Start a Confidence Report" or "Book a
+// call with DATOM". The backend builds the link from a fixed map (ctaFor in
+// elmerMessageKind.ts) and this allowlist accepts exactly those shapes, so
+// neither the model nor a tampered response can point the button anywhere
+// else: the report form on this site (optionally with the claim prefilled),
+// or the one booking page the organizations page already uses.
+var CALL_BOOKING_URL = "https://calendly.com/datom/30min";
+function isSafeSteeringCta(cta) {
+  if (!cta || typeof cta.href !== "string" || typeof cta.label !== "string") return false;
+  if (cta.kind === "report") return /^try\.html(#vc|\?flow=report&claim=[A-Za-z0-9%._~!*'()-]+)$/.test(cta.href);
+  if (cta.kind === "call") return cta.href === CALL_BOOKING_URL;
+  return false;
+}
+function addSteeringButton(cta) {
+  if (!isSafeSteeringCta(cta)) return;
+  const messages = document.getElementById("elmerMessages");
+  if (!messages) return;
+  const a = document.createElement("a");
+  a.className = "elmer-record-cta elmer-steer-cta";
+  a.href = cta.href;
+  if (cta.kind === "call") { a.target = "_blank"; a.rel = "noopener"; }
+  const label = String(cta.label).slice(0, 60).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  a.innerHTML = '<span class="elmer-record-cta-body">' +
+                '<span class="elmer-record-cta-label">' + label + '</span>' +
+                '</span>' +
+                '<span class="elmer-record-cta-arrow" aria-hidden="true">&rarr;</span>';
+  messages.appendChild(a);
+  messages.scrollTop = messages.scrollHeight;
+}
+
 // ── Suggestions ──
 function showSuggestions() {
   const container = document.getElementById("elmerSuggestions");
@@ -625,6 +655,9 @@ async function handleSend(overrideText) {
     if (data.suggest && typeof data.suggest.href === "string") {
       addRecordSuggestion(data.suggest);
     }
+
+    // The steering button, when the visitor asked for a report or a call.
+    if (data.cta) addSteeringButton(data.cta);
 
   } catch (err) {
     removeTyping();
