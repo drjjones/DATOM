@@ -36,6 +36,13 @@
   .engage-features { margin: 0 0 var(--s3); padding-left: 18px; }
   .engage-features li { margin-bottom: 6px; color: var(--muted); font-size: 14px; }
   .engage-cta { margin-top: auto; }
+  .pro-band { margin-top: var(--s7); }
+  .pro-band h2 { margin: 0 0 8px; }
+  .pro-list { list-style: none; margin: var(--s3) 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 32px; }
+  .pro-list li { font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .pro-list strong { color: var(--ink); font-weight: 600; }
+  .pro-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  @media (max-width: 800px) { .pro-list { grid-template-columns: 1fr; } }
   .engage-note { font-size: 14px; color: var(--muted); margin: var(--s3) 0 0; line-height: 1.6; }
   @media (max-width: 800px) { .engage-grid.grid-3 { grid-template-columns: 1fr; } }
 </style>
@@ -62,7 +69,7 @@
   <!-- HERO -->
   <section class="reveal">
     <p class="section-label">Work with DATOM</p>
-    <h1>Read a claim, sponsor one, or commission your own.</h1>
+    <h1>For one claim, or for your whole organization.</h1>
   </section>
 
   <!-- WAYS TO ENGAGE. The three tiers mirror src/config/rateCard.ts, the
@@ -106,6 +113,27 @@
       </div>
     </div>
     <p class="engage-note">Commissioning a verification sets its priority and its privacy, never its outcome. Eight rules keep it that way, and they are written into every engagement letter. <a href="firewall.html" class="action">Read the firewall</a></p>
+  </section>
+
+  <!-- DATOM PRO. The ongoing engagements, in the words organizations.html uses
+       for them. They are scoped per organization and have no list price, so
+       this band states none (prices on this page are the rate card's only). -->
+  <section class="reveal pro-band" id="organizations">
+    <div class="card">
+      <p class="section-label">DATOM Pro</p>
+      <h2>For organizations</h2>
+      <p class="engage-tagline">Companies, labs, investors, agencies, and universities that verify claims continuously. Every engagement is scoped to the organization, starts with a call, and includes a private ledger for its own claims.</p>
+      <ul class="pro-list">
+        <li><strong>Verification Membership.</strong> Ongoing platform access for labs and portfolios that verify claims continuously.</li>
+        <li><strong>API access.</strong> Pull determinations and evidence directly into your own systems and workflows.</li>
+        <li><strong>Pilot.</strong> A defined evaluation period to validate internal IP and pre-prints against the record.</li>
+        <li><strong>Volume verification.</strong> Ongoing commitments for portfolios and pipelines that need claims checked at scale.</li>
+      </ul>
+      <div class="pro-actions">
+        <a href="https://calendly.com/datom/30min" class="btn" target="_blank" rel="noopener">Schedule a call</a>
+        <a href="organizations.html" class="action">More on DATOM Pro</a>
+      </div>
+    </div>
   </section>
 
 </main>
