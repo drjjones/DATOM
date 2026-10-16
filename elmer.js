@@ -473,6 +473,56 @@ function addSteeringButton(cta) {
   messages.scrollTop = messages.scrollHeight;
 }
 
+// The follow box under a pending claim (2026-10-15): the visitor types their
+// email and is subscribed through the same double opt-in as the pending page
+// (POST /api/notify, a confirmation email, then counted). The id is validated
+// to the pending-question shape so a tampered response cannot aim it at
+// anything else.
+var NOTIFY_URL = "https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/notify";
+function addFollowBox(canonicalId) {
+  if (!/^q-[0-9a-f]{16}$/.test(canonicalId)) return;
+  const messages = document.getElementById("elmerMessages");
+  if (!messages) return;
+  const form = document.createElement("form");
+  form.className = "elmer-follow";
+  form.noValidate = true;
+  form.innerHTML =
+    '<label class="elmer-follow-label" for="elmerFollow-' + canonicalId + '">Email me when this changes</label>' +
+    '<div class="elmer-follow-row">' +
+      '<input class="elmer-follow-input" id="elmerFollow-' + canonicalId + '" type="email" autocomplete="email" placeholder="you@example.com" required>' +
+      '<button class="elmer-follow-btn" type="submit">Follow</button>' +
+    '</div>' +
+    '<p class="elmer-follow-status" aria-live="polite"></p>';
+  const input = form.querySelector("input");
+  const button = form.querySelector("button");
+  const status = form.querySelector(".elmer-follow-status");
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const email = (input.value || "").trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { status.textContent = "That email does not look right."; input.focus(); return; }
+    button.disabled = true; input.disabled = true;
+    status.textContent = "Sending…";
+    try {
+      const res = await fetch(NOTIFY_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ canonicalId: canonicalId, email: email })
+      });
+      if (res.ok) {
+        status.textContent = "Check your inbox and confirm. Then you will hear when its status changes.";
+        form.classList.add("elmer-follow--done");
+        return;
+      }
+      status.textContent = res.status === 400 ? "That email does not look right." : "That did not go through. The claim's page has the same option.";
+    } catch (err) {
+      status.textContent = "That did not go through. The claim's page has the same option.";
+    }
+    button.disabled = false; input.disabled = false;
+  });
+  messages.appendChild(form);
+  messages.scrollTop = messages.scrollHeight;
+}
+
 // ── Suggestions ──
 function showSuggestions() {
   const container = document.getElementById("elmerSuggestions");
@@ -610,7 +660,7 @@ async function handleSend(overrideText) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: text,
-        history: conversationHistory.slice(-6),
+        history: conversationHistory.slice(-13), // the backend drops the echo of this message and keeps 12
         page: detectPage(), // pass page context so AI knows where the visitor is
         pageContext: buildPageContext() // the record being read + parts to scroll to
       })
@@ -640,11 +690,12 @@ async function handleSend(overrideText) {
     // dock, offer a one-click link instead of yanking them off the page they are
     // reading. The href is validated the same way as a record match.
     if (data.pending && typeof data.pending.href === "string" && isSafeRecordHref(data.pending.href)) {
-      if (elmerFullMode) {
-        window.setTimeout(function () { window.location.href = data.pending.href; }, 1500);
-        return;
-      }
+      // The conversation stays here (2026-10-15). Full chat used to carry the
+      // reader off to the pending page 1.5s after the reply, which ended the
+      // conversation mid-sentence. Now the page is a card, and following the
+      // claim is a box right under the reply: one step, not two.
       addRecordSuggestion({ href: data.pending.href, question: "See this claim on the record" });
+      if (typeof data.pending.canonicalId === "string") addFollowBox(data.pending.canonicalId);
     }
 
     // A suggestion means Elmer named a likely record but was not confident
