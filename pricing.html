@@ -30,6 +30,8 @@
   /* Layout-only rules; visual treatment lives in global.css and design-v1.1.css */
   .engage-grid { margin-top: var(--s3); }
   .engage-grid .card { display: flex; flex-direction: column; }
+  .engage-price { font-family: var(--font-data); font-size: 22px; color: var(--ink); margin: 0 0 8px; }
+  .engage-price span { font-size: 11px; letter-spacing: 0.04em; color: var(--faint); margin-left: 6px; }
   .engage-tagline { font-size: 14px; color: var(--muted); margin: 0 0 10px; line-height: 1.5; }
   .engage-features { margin: 0 0 var(--s3); padding-left: 18px; }
   .engage-features li { margin-bottom: 6px; color: var(--muted); font-size: 14px; }
@@ -63,16 +65,16 @@
     <h1>Featured public claims are free. Verification is commissioned.</h1>
   </section>
 
-  <!-- WAYS TO ENGAGE. The three tiers mirror src/config/rateCard.ts by NAME
-       only. Prices are deliberately not published here or anywhere on the
-       site (founder decision, 2026-10-15: keep it minimal, an interested
-       customer will ask). The price a customer pays is shown at checkout and
-       in conversation. rateCardConsistency.test.ts fails the build if a
-       dollar figure from the rate card reappears on any public page. -->
+  <!-- WAYS TO ENGAGE. The three tiers mirror src/config/rateCard.ts, the
+       source of truth for names and prices. THIS PAGE IS THE ONLY PUBLIC PAGE
+       THAT MAY SHOW A PRICE (founder decision, 2026-10-15, reversing the
+       earlier "no price anywhere"). rateCardConsistency.test.ts requires every
+       rate-card price here and fails if one appears on any other page. -->
   <section class="reveal" id="comparison">
     <div class="grid-3 engage-grid">
       <div class="card reveal reveal-d1">
         <h3>Free</h3>
+        <p class="engage-price">$0</p>
         <p class="engage-tagline">Featured public claims. Read the verdict, its grades, and the summary evidence. Nothing else is free.</p>
         <ul class="engage-features">
           <li>Read the verdict, both grades, and the summary evidence on every featured public claim</li>
@@ -82,6 +84,7 @@
       </div>
       <div class="card reveal reveal-d2">
         <h3>Sponsored Verification</h3>
+        <p class="engage-price">$1,000<span>flat</span></p>
         <p class="engage-tagline">Move a pending claim into active verification. Sponsorship is printed on the record, and the result publishes whatever it finds.</p>
         <ul class="engage-features">
           <li>Moves a queue item into active verification</li>
@@ -92,6 +95,7 @@
       </div>
       <div class="card reveal reveal-d3">
         <h3>Confidence Report</h3>
+        <p class="engage-price">$2,500<span>flat</span></p>
         <p class="engage-tagline">A private, in-depth report on one claim. Private by default: the report and its record publish only at your choice.</p>
         <ul class="engage-features">
           <li>Full private Confidence Report dossier</li>
