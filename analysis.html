@@ -8,10 +8,9 @@
   <!-- THE PAY WALL. A reader arrives here from a readiness record (or from a
        question with no record yet) by asking for the full analysis. The page
        says what the reader already has for free, what the full analysis
-       adds, and hands off to the get-started flow that takes payment. It
-       takes no payment itself and prints no price: pricing.html and the
-       Stripe-backed flow are the source of truth for both, and a number here
-       would be a second place for it to go stale.
+       adds, and hands off to the get-started flow. It prints no price: the
+       site publishes none (founder decision, 2026-10-15), and the checkout
+       flow is the one place a customer sees one.
 
        Client-rendered from the record's JSON (?rr=RR-...) or from the claim
        text (?claim=...). Nothing about any record is baked into this shell. -->
@@ -72,7 +71,7 @@
   function fail(msg) { loading.hidden = true; errorEl.textContent = msg; errorEl.hidden = false; }
 
   // What the reader gets on each side of the wall. The free column states
-  // only what a readiness record actually contains; the paid column lists
+  // only what a readiness record actually contains; the other column lists
   // what the get-started flow's product delivers, in the words pricing.html
   // uses for it.
   function render(rec, claim, asked) {
@@ -82,7 +81,7 @@
     if (asked) html += '<p class="fa-asked">You asked: ' + esc(asked) + '</p>';
 
     html += '<div class="fa-grid">';
-    html += '<div class="fa-col"><h2>What you have now, free</h2>';
+    html += '<div class="fa-col"><h2>What you have now</h2>';
     if (rec) {
       if (typeof rec.readinessScore === 'number' && rec.readinessStep) {
         html += '<div class="fa-score">' + esc(rec.readinessScore) + '</div>';
@@ -109,11 +108,10 @@
     html += '</ul>';
     html += '<p style="margin:14px 0 0">';
     html += '<a class="fa-cta" href="try.html?flow=report&claim=' + encodeURIComponent(claim) + '">Request the full analysis</a>';
-    html += '<a class="fa-cta sec" href="pricing.html">See pricing</a>';
     html += '</p></div>';
     html += '</div>';
 
-    html += '<p class="fa-note">Payment buys the analysis, never a particular result: the conclusion comes from the evidence regardless of who paid. ' +
+    html += '<p class="fa-note">The conclusion comes from the evidence, never from who asked for the analysis. ' +
             'If you would rather the record be public and sponsored than private, <a href="organizations.html">sponsored verification</a> does that.</p>';
 
     content.innerHTML = html;

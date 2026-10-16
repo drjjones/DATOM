@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Pricing, DATOM</title>
+<title>Work with DATOM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="DATOM pricing: the public record is free to read. Sponsored Verification moves a claim into production for a flat $1,000. A full private Confidence Report is a flat $5,000. Payment moves priority, never outcome.">
+<meta name="description" content="Featured public claims are free to read. Sponsored Verification moves a pending claim into active verification. A Confidence Report is a private, in-depth report on one claim. Commissioning sets priority, never outcome.">
 <link rel="canonical" href="https://datom.science/pricing.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DATOM">
-<meta property="og:title" content="DATOM pricing">
-<meta property="og:description" content="The public record is free to read. Sponsored Verification moves a claim into production for a flat $1,000; a full private Confidence Report is a flat $5,000. Payment moves priority, never outcome.">
+<meta property="og:title" content="Work with DATOM">
+<meta property="og:description" content="Featured public claims are free to read. Sponsored Verification moves a pending claim into active verification. A Confidence Report is a private, in-depth report on one claim. Commissioning sets priority, never outcome.">
 <meta property="og:url" content="https://datom.science/pricing.html">
 <meta property="og:image" content="https://datom.science/og/home.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="DATOM pricing">
-<meta name="twitter:description" content="The public record is free to read. Sponsored Verification moves a claim into production for a flat $1,000; a full private Confidence Report is a flat $5,000. Payment moves priority, never outcome.">
+<meta name="twitter:title" content="Work with DATOM">
+<meta name="twitter:description" content="Featured public claims are free to read. Sponsored Verification moves a pending claim into active verification. A Confidence Report is a private, in-depth report on one claim. Commissioning sets priority, never outcome.">
 <meta name="twitter:image" content="https://datom.science/og/home.png">
 <link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
 <link rel="icon" type="image/png" href="./Assets/favicon.png">
@@ -27,35 +27,15 @@
 <link rel="stylesheet" href="design-v1.1.css?v=9">
 
 <style>
-  /* Layout-only rules; visual treatment lives in design-v1.1.css */
-  table.pricing-table th, table.pricing-table td { text-align: left; vertical-align: top; }
-  table.pricing-table th:not(:first-child), table.pricing-table td:not(:first-child) { min-width: 200px; }
-  .pricing-price { font-family: var(--font-data); font-size: 22px; color: var(--ink); }
-  .pricing-cta { margin-top: var(--s3); }
-  .pricing-features { margin: 0; padding-left: 18px; }
-  .pricing-features li { margin-bottom: 6px; color: var(--muted); font-size: 14px; }
-  .pricing-accumulate {
-    font-family: var(--font-data);
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    color: var(--faint);
-    margin: 0 0 8px;
-    text-transform: none;
-  }
-  .pricing-tagline { font-size: 14px; color: var(--muted); margin: 0 0 10px; line-height: 1.5; }
-  .pricing-terms { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.02em; color: var(--faint); margin: var(--s3) 0 0; line-height: 1.6; }
-
-  /* firewall summary */
-  .firewall-list { list-style: none; margin: var(--s3) 0 0; padding: 0; }
-  .firewall-list li { border-top: 1px solid var(--line); padding: var(--s3) 0; }
-  .firewall-list li:last-child { border-bottom: 1px solid var(--line); }
-  .firewall-rule-id { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; color: var(--signal); margin-right: 10px; }
-  .firewall-rule-head { font-family: var(--font-display); font-size: 16px; color: var(--ink); }
-  .firewall-rule-text { font-size: 14px; color: var(--muted); margin: 6px 0 0; line-height: 1.6; }
-
-  @media (max-width: 800px) {
-    table.pricing-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  }
+  /* Layout-only rules; visual treatment lives in global.css and design-v1.1.css */
+  .engage-grid { margin-top: var(--s3); }
+  .engage-grid .card { display: flex; flex-direction: column; }
+  .engage-tagline { font-size: 14px; color: var(--muted); margin: 0 0 10px; line-height: 1.5; }
+  .engage-features { margin: 0 0 var(--s3); padding-left: 18px; }
+  .engage-features li { margin-bottom: 6px; color: var(--muted); font-size: 14px; }
+  .engage-cta { margin-top: auto; }
+  .engage-note { font-size: 14px; color: var(--muted); margin: var(--s3) 0 0; line-height: 1.6; }
+  @media (max-width: 800px) { .engage-grid.grid-3 { grid-template-columns: 1fr; } }
 </style>
 </head>
 
@@ -70,7 +50,7 @@
     <a href="record.html">Example</a>
     <a href="product.html">How it works</a>
     <a href="organizations.html">For Organizations</a>
-    <a href="pricing.html">Pricing</a>
+    <a href="pricing.html">Work with DATOM</a>
     <a href="/app/login" class="btn-login">Sign in</a>
   </nav>
 </header>
@@ -79,123 +59,49 @@
 
   <!-- HERO -->
   <section class="reveal">
-    <p class="section-label">Pricing</p>
-    <h1>The record is free. Paying moves priority, never outcome.</h1>
+    <p class="section-label">Work with DATOM</p>
+    <h1>Featured public claims are free. Verification is commissioned.</h1>
   </section>
 
-  <!-- RATE CARD -->
+  <!-- WAYS TO ENGAGE. The three tiers mirror src/config/rateCard.ts by NAME
+       only. Prices are deliberately not published here or anywhere on the
+       site (founder decision, 2026-10-15: keep it minimal, an interested
+       customer will ask). The price a customer pays is shown at checkout and
+       in conversation. rateCardConsistency.test.ts fails the build if a
+       dollar figure from the rate card reappears on any public page. -->
   <section class="reveal" id="comparison">
-    <table class="table-glass pricing-table">
-      <thead>
-        <tr>
-          <th>&nbsp;</th>
-          <th>Free</th>
-          <th>Sponsored Verification</th>
-          <th>Confidence Report</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Price</strong></td>
-          <td><span class="pricing-price">$0</span></td>
-          <td><span class="pricing-price">$1,000</span> <span class="pricing-accumulate">flat</span></td>
-          <td><span class="pricing-price">$5,000</span> <span class="pricing-accumulate">flat</span></td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td><p class="pricing-tagline">The public record. Read any verdict, its grades, and the evidence behind it.</p></td>
-          <td><p class="pricing-tagline">Move a pending claim into production. Sponsorship is printed on the record. No private deliverable.</p></td>
-          <td><p class="pricing-tagline">The full private dossier, private by default: the engagement and its record publish only at your choice (see R8).</p></td>
-        </tr>
-        <tr>
-          <td><strong>What's included</strong></td>
-          <td>
-            <ul class="pricing-features">
-              <li>Read the verdict, both grades, and the summary evidence on every published record</li>
-              <li>See the sources that weigh most, each linked to the original study</li>
-              <!-- 2026-08-05: this bullet previously offered a record-following
-                   affordance inside a free account. Both halves were false. The
-                   Cognito pool has AllowAdminCreateUserOnly=true so no account can be
-                   self-created, and no follow-a-record capability exists regardless.
-                   Replaced with the affordance that is real and was verified end to
-                   end on this date: ask about a claim in the answer box, and if there
-                   is no record yet, ask to be emailed when one is published. Mirrors
-                   src/config/rateCard.ts, the source of truth for this column. -->
-              <li>Ask about any claim. If there is no record yet, ask to be emailed when one is published</li>
-            </ul>
-          </td>
-          <td>
-            <ul class="pricing-features">
-              <li>Moves a queue item into active verification</li>
-              <li>Sponsorship disclosed on the public record</li>
-              <li>The resulting record is public, like any other</li>
-            </ul>
-          </td>
-          <td>
-            <ul class="pricing-features">
-              <li>Full private Confidence Report dossier</li>
-              <li>Complete methodology, evidence tree, and grading basis</li>
-              <li>Private by default; you choose whether the record publishes</li>
-            </ul>
-          </td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <!-- 2026-08-05: this CTA previously invited the reader to create a free
-               account and pointed at the signup route, which cannot succeed
-               (AllowAdminCreateUserOnly=true on the live Cognito pool). Points at
-               the answer box instead, which is the real entry point to the free
-               tier and needs no account. Removed label not repeated, so a grep of
-               the live site for dead CTAs stays clean. -->
-          <td><a href="try.html" class="btn pricing-cta">Ask about a claim</a></td>
-          <td><a href="mailto:info@datom.science?subject=Sponsor%20a%20claim%20verification" class="btn pricing-cta">Sponsor a claim</a></td>
-          <td><a href="organizations.html" class="btn pricing-cta">Commission a report</a></td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="pricing-terms">All prices are flat and one-time. Payments are upfront, non-refundable, and independent of the verdict. There are no discount codes; flexibility is in scope, never price.</p>
-  </section>
-
-  <!-- FIREWALL SUMMARY -->
-  <section class="reveal" id="firewall">
-    <p class="section-label">The firewall</p>
-    <h2>How payment and outcome stay separate</h2>
-    <p class="pricing-tagline">Eight rules govern the boundary between who pays and what the record says. They are published in full and written into every engagement letter.</p>
-    <ul class="firewall-list">
-      <li>
-        <span class="firewall-rule-id">R1</span><span class="firewall-rule-head">Payment moves priority, never outcome</span>
-        <p class="firewall-rule-text">Paying moves a claim up the queue. It has no effect on the verdict, the grades, or the evidence.</p>
-      </li>
-      <li>
-        <span class="firewall-rule-id">R2</span><span class="firewall-rule-head">Public demand triggers verification too</span>
-        <p class="firewall-rule-text">When enough people ask for a claim to be checked, it gets verified whether or not the claim's subject pays.</p>
-      </li>
-      <li>
-        <span class="firewall-rule-id">R3</span><span class="firewall-rule-head">Commissioning and sponsorship are disclosed</span>
-        <p class="firewall-rule-text">Every record states who commissioned it and who sponsored it, or that no one did.</p>
-      </li>
-      <li>
-        <span class="firewall-rule-id">R4</span><span class="firewall-rule-head">The ledger is append-only</span>
-        <p class="firewall-rule-text">An unfavorable result can never be withdrawn. It can only be appended to as new evidence arrives.</p>
-      </li>
-      <li>
-        <span class="firewall-rule-id">R5</span><span class="firewall-rule-head">Classification and grading basis are printed</span>
-        <p class="firewall-rule-text">Every record shows how its domain was classified and what field it was graded against.</p>
-      </li>
-      <li>
-        <span class="firewall-rule-id">R6</span><span class="firewall-rule-head">Public sentiment carries zero weight</span>
-        <p class="firewall-rule-text">How the public phrases a claim is measured, but it carries no weight in the verdict or the grades. The scorer has no read path to sentiment at all.</p>
-      </li>
-      <li>
-        <span class="firewall-rule-id">R7</span><span class="firewall-rule-head">Sentiment buyers get measurement, never influence</span>
-        <p class="firewall-rule-text">A sentiment customer buys the aggregate measurement, never influence over a verdict, and never early access to an unpublished result.</p>
-      </li>
-      <li>
-        <span class="firewall-rule-id">R8</span><span class="firewall-rule-head">Commissioned engagements are private by default</span>
-        <p class="firewall-rule-text">A commissioned Confidence Report publishes only at the customer's choice. Queue-demand and sponsored verifications always publish, and a private commission never blocks public demand-triggered verification of the same claim.</p>
-      </li>
-    </ul>
-    <p class="pricing-cta"><a href="firewall.html" class="action">Read the full firewall policy &rarr;</a></p>
+    <div class="grid-3 engage-grid">
+      <div class="card reveal reveal-d1">
+        <h3>Free</h3>
+        <p class="engage-tagline">Featured public claims. Read the verdict, its grades, and the summary evidence. Nothing else is free.</p>
+        <ul class="engage-features">
+          <li>Read the verdict, both grades, and the summary evidence on every featured public claim</li>
+          <li>See the sources that weigh most, each linked to the original study</li>
+        </ul>
+        <p class="engage-cta"><a href="ledger.html" class="btn">Read the featured claims</a></p>
+      </div>
+      <div class="card reveal reveal-d2">
+        <h3>Sponsored Verification</h3>
+        <p class="engage-tagline">Move a pending claim into active verification. Sponsorship is printed on the record.</p>
+        <ul class="engage-features">
+          <li>Moves a queue item into active verification</li>
+          <li>Sponsorship disclosed on the public record</li>
+          <li>The resulting record is public, like any other</li>
+        </ul>
+        <p class="engage-cta"><a href="mailto:info@datom.science?subject=Sponsor%20a%20claim%20verification" class="btn">Sponsor a claim</a></p>
+      </div>
+      <div class="card reveal reveal-d3">
+        <h3>Confidence Report</h3>
+        <p class="engage-tagline">A private, in-depth report on one claim. Private by default: the report and its record publish only at your choice.</p>
+        <ul class="engage-features">
+          <li>Full private Confidence Report dossier</li>
+          <li>Complete methodology, evidence tree, and grading basis</li>
+          <li>Private by default; you choose whether the record publishes</li>
+        </ul>
+        <p class="engage-cta"><a href="organizations.html" class="btn">Commission a report</a></p>
+      </div>
+    </div>
+    <p class="engage-note">Commissioning a verification sets its priority and its privacy, never its outcome. Eight rules keep it that way, and they are written into every engagement letter. <a href="firewall.html" class="action">Read the firewall</a></p>
   </section>
 
 </main>
