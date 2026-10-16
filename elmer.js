@@ -76,6 +76,7 @@ const CLAIM_SECTIONS = [
 const RECORD_SECTIONS = [
   { key: "verdict",  label: "the verdict and Evidence Grade",                  sel: "#rec-verdict" },
   { key: "evidence", label: "what the evidence looks like (support vs against)", sel: "#rec-evidence" },
+  { key: "graph",    label: "the knowledge graph of every finding and how they connect", sel: "#rec-graph" },
   { key: "sources",  label: "the sources behind the record",                   sel: "#rec-sources" },
   { key: "details",  label: "the record details and where it came from",       sel: "#rec-details" },
 ];

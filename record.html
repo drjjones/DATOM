@@ -173,6 +173,9 @@
   .answerbox { display: flex; gap: 0; margin: var(--s3) 0; }
   .answerbox input { flex: 1; font-family: var(--font-body); font-size: 15px; padding: 12px 14px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); }
   .answerbox input:focus-visible { outline: 2px solid var(--focus); outline-offset: -1px; }
+  /* knowledge graph mount: reserves room before the embed loads (embed/ styles the rest) */
+  .rg { position: relative; min-height: 420px; margin: var(--s2) 0; }
+  .rg-msg { font-family: var(--font-data); font-size: 12px; color: var(--muted); padding: var(--s4); margin: 0; border: 1px solid var(--line); }
   .answerbox button { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 12px 20px; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); cursor: pointer; }
 </style>
 </head>
@@ -283,6 +286,25 @@
     </div>
     <!-- /BUILD:RECORD_COUNTS -->
 
+    <!-- KNOWLEDGE GRAPH, restored 2026-10-15. The example used to carry a 3D
+         graph; it went with example.html's redirect on 2026-07-21 and its data
+         (frozen in that page) predated the reframe, so it could not come back
+         as it was. This one IS the dashboard's knowledge graph
+         (DatomerKnowledgeGraph3D), built by `npm run build:embed` in
+         DATOM-AWS/dashboard into embed/, drawn from
+         graphs/DTM-2026-0703-2E.json, which scripts/build-record-graph.ts
+         (DATOM-AWS) writes from the live datomer and refuses to write unless its
+         counted findings equal the bar above and its sources equal 102.
+         It keeps the one counting basis: only the 51 counted findings are
+         coloured for or against. Every other finding is Conditional, the tag the
+         study list below already gives them, never "for" or "against", because
+         those labels were never rechecked after the reframe.
+         src/tests/recordGraph.test.ts fails if this mount, the embed, or the
+         data file goes missing. -->
+    <h2 class="rec-h" id="rec-graph">The knowledge graph &middot; every finding, and how they connect</h2>
+    <div class="rg" id="record-graph" data-src="graphs/DTM-2026-0703-2E.json?v=20261015b">
+      <noscript><p class="rg-msg">The knowledge graph needs JavaScript to draw. The studies are listed below.</p></noscript>
+    </div>
 
     <h2 class="rec-h" id="rec-sources">The studies &middot; a sample of the evidence base, the three that weigh most first</h2>
     <ul class="bib">
@@ -361,7 +383,8 @@
 
 <script src="fog-bg.js?v=2"></script>
 <script src="shared.js?v=20260719a"></script>
-<script src="elmer.js?v=20260721a"></script>
+<script src="elmer.js?v=20261015a"></script>
 <script src="related.js?v=20260719a"></script>
+<script type="module" src="embed/record-graph.js?v=20261015b"></script>
 </body>
 </html>
