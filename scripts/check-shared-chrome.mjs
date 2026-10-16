@@ -44,6 +44,7 @@ const PAGES = [
   'terms.html',
   'thankyou.html',
   'signup.html',
+  'edu.html',
 ];
 
 // Nav is allowed to differ in exactly these page-specific ways. Anything

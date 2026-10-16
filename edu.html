@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DATOM+edu, for schools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="DATOM+edu is a teaching platform that runs on the teacher's own computer. The program proposes a mark, the teacher decides, and the record shows how often they agreed. Student work never leaves the teacher's machine in the background.">
+<link rel="canonical" href="https://datom.science/edu.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DATOM">
+<meta property="og:title" content="DATOM+edu, for schools">
+<meta property="og:description" content="DATOM+edu is a teaching platform that runs on the teacher's own computer. The program proposes a mark, the teacher decides, and the record shows how often they agreed. Student work never leaves the teacher's machine in the background.">
+<meta property="og:url" content="https://datom.science/edu.html">
+<meta property="og:image" content="https://datom.science/og/home.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DATOM+edu, for schools">
+<meta name="twitter:description" content="DATOM+edu is a teaching platform that runs on the teacher's own computer. The program proposes a mark, the teacher decides, and the record shows how often they agreed. Student work never leaves the teacher's machine in the background.">
+<meta name="twitter:image" content="https://datom.science/og/home.png">
+<link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+<link rel="icon" type="image/png" href="./Assets/favicon.png">
+<link rel="apple-touch-icon" href="./Assets/favicon-180.png">
+<link rel="stylesheet" href="global.css?v=5">
+<link rel="stylesheet" href="elmer.css?v=20260719a">
+<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="design-v1.1.css?v=9">
+
+<style>
+  /* Layout-only rules; visual treatment lives in design-v1.1.css.
+     The nest-* flow and the FAQ rules are copied from index.html, which keeps
+     them inline too; the site has no shared partials. */
+  .nest-flow { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s4); }
+  .nest-step { flex: 1 1 0; min-width: 0; }
+  .nest-glyph { display: block; margin: 0 auto var(--s3); }
+  .nest-arrow { flex: 0 0 auto; margin-top: 76px; font-family: var(--font-data); }
+  .nest-step .diagram-node { text-align: center; }
+  .nest-note { font-family: var(--font-body); font-size: 13px; line-height: 1.5; color: var(--muted); margin: var(--s2) 0 0; text-align: center; }
+  .nest-caption {
+    font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--muted);
+    margin: var(--s5) 0 0; padding-top: var(--s4); border-top: 1px solid var(--line);
+  }
+  .edu-panels .card h3 { margin-bottom: 10px; }
+  .edu-data { max-width: 760px; margin-top: 28px; }
+  .edu-data .workflow-list li { margin-bottom: 10px; }
+  .edu-prose { max-width: 68ch; }
+  .edu-talk .card { display: flex; flex-direction: column; }
+  .edu-talk .card p { flex: 1; }
+  .edu-talk .btn { align-self: flex-start; }
+
+  .faq-section .faq-column { max-width: 760px; margin-top: 28px; }
+  .faq-section details {
+    margin-bottom: 8px;
+    border-radius: 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .faq-section details:hover { border-color: var(--line-2); }
+  .faq-section summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 12px 16px;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .faq-section summary::-webkit-details-marker { display: none; }
+  .faq-section .faq-body {
+    padding: 0 16px 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .faq-section .chev {
+    font-family: var(--font-data);
+    font-weight: 500;
+    color: var(--muted);
+    transition: transform 0.2s ease;
+  }
+  .faq-section details[open] .chev { transform: rotate(180deg); }
+
+  @media (max-width: 800px) {
+    .nest-flow { flex-direction: column; align-items: stretch; gap: var(--s4); }
+    .nest-arrow { margin-top: 0; align-self: center; transform: rotate(90deg); }
+    .edu-panels.grid-3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="record.html">Example</a>
+    <a href="product.html">How it works</a>
+    <a href="organizations.html">For Organizations</a>
+    <a href="pricing.html">Work with DATOM</a>
+    <a href="/app/login" class="btn-login">Sign in</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO. Copy rules for this page (2026-10-15): describe only what the
+       shipped platform does; no school name, no student facts, no vendor or
+       model names, no price or "free", no dates or "coming soon" (ROADMAP.md
+       B3/A4). Data claims are the careful versions: what leaves the Mac is a
+       file the teacher chose to make. -->
+  <section class="reveal">
+    <p class="section-label">DATOM+edu</p>
+    <h1>The program proposes a mark. <span class="text-gradient">The teacher decides.</span></h1>
+    <p class="lede">DATOM+edu is DATOM's teaching line. Its first piece is a teaching platform for a science course that runs on the teacher's own computer: grading of scanned and typed work with the teacher in the loop, a gradebook with retakes and a Canvas handoff, a course assistant, and an evidence view of what the class's work shows. The models run on that same machine. Names and student records stay there.</p>
+  </section>
+
+  <!-- THE POSITION: the one place the positioning sentence appears. -->
+  <section class="reveal" id="position">
+    <div class="diagram">
+      <div class="nest-flow">
+        <div class="nest-step">
+          <svg class="nest-glyph" viewBox="0 0 64 64" width="48" height="48" fill="none" aria-hidden="true">
+            <rect x="14" y="8" width="36" height="48" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="20" y1="18" x2="44" y2="18" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="20" y1="26" x2="44" y2="26" stroke="var(--line-2)" stroke-width="1"/>
+            <rect x="20" y="30" width="6" height="6" fill="var(--signal)"/>
+            <line x1="29" y1="33" x2="44" y2="33" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="20" y1="42" x2="44" y2="42" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="20" y1="50" x2="38" y2="50" stroke="var(--line-2)" stroke-width="1"/>
+          </svg>
+          <div class="diagram-node">Program proposes</div>
+          <p class="nest-note">A mark, the evidence for it, and how sure the program is.</p>
+        </div>
+        <div class="diagram-arrow nest-arrow" aria-hidden="true">&rarr;</div>
+        <div class="nest-step">
+          <svg class="nest-glyph" viewBox="0 0 64 64" width="48" height="48" fill="none" aria-hidden="true">
+            <rect x="14" y="8" width="36" height="48" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="20" y1="18" x2="44" y2="18" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="20" y1="26" x2="44" y2="26" stroke="var(--line-2)" stroke-width="1"/>
+            <rect x="20" y="30" width="6" height="6" fill="var(--signal)"/>
+            <path d="M30 33 L34 37 L43 27" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="20" y1="42" x2="44" y2="42" stroke="var(--line-2)" stroke-width="1"/>
+            <line x1="20" y1="50" x2="38" y2="50" stroke="var(--line-2)" stroke-width="1"/>
+          </svg>
+          <div class="diagram-node">Teacher decides</div>
+          <p class="nest-note">Every mark is checked before it counts. A grade stays preliminary until the review is finished.</p>
+        </div>
+        <div class="diagram-arrow nest-arrow" aria-hidden="true">&rarr;</div>
+        <div class="nest-step">
+          <svg class="nest-glyph" viewBox="0 0 64 64" width="48" height="48" fill="none" aria-hidden="true">
+            <line x1="10" y1="54" x2="54" y2="54" stroke="var(--line-2)" stroke-width="1"/>
+            <rect x="14" y="32" width="8" height="22" stroke="var(--line-2)" stroke-width="1"/>
+            <rect x="28" y="16" width="8" height="38" fill="var(--signal)"/>
+            <rect x="42" y="38" width="8" height="16" stroke="var(--line-2)" stroke-width="1"/>
+          </svg>
+          <div class="diagram-node">Record shows</div>
+          <p class="nest-note">How often the program's marks stood, measured per job.</p>
+        </div>
+      </div>
+      <p class="nest-caption">AI cannot be fully trusted in science, and it cannot be fully trusted with a student's grade. That is where the verification layer comes in: the teacher's review is the check, and the platform keeps a measured record of how often the program's marks stood.</p>
+    </div>
+  </section>
+
+  <!-- WHAT IT DOES: the six panels of the shipped build (datom-edu README,
+       "What it does"). Features hidden from the pilot build are not listed. -->
+  <section class="reveal" id="what">
+    <p class="section-label">What it does</p>
+    <h2>Six panels. One course folder.</h2>
+    <div class="grid-3 edu-panels" style="margin-top:28px;">
+      <div class="card reveal reveal-d1">
+        <h3>Grading</h3>
+        <p>Scanned paper exams and typed work, graded against the teacher's answer key or criteria. The teacher reads each proposed mark on the answer check screen and corrects it in place. Feedback is written for each student and read back against the facts before it goes out.</p>
+      </div>
+      <div class="card reveal reveal-d2">
+        <h3>Gradebook</h3>
+        <p>Course grades by marking period from the grading policy the teacher wrote, with retakes, scores entered by hand, and an export in Canvas's import format. Formative work is practice only and never moves the grade.</p>
+      </div>
+      <div class="card reveal reveal-d3">
+        <h3>Students</h3>
+        <p>Each student's year on one screen, and a progress report for the family.</p>
+      </div>
+      <div class="card reveal reveal-d1">
+        <h3>Evidence</h3>
+        <p>What the class's work shows: by standard, by question, by mistake, and what to reteach. A teaching brief for a teacher working outside their own subject.</p>
+      </div>
+      <div class="card reveal reveal-d2">
+        <h3>Assistant</h3>
+        <p>Ask anything about the course, a grading job, a student, or the gradebook. It answers only from the course record, cites the document for every policy statement, and says when the answer is not in the record.</p>
+      </div>
+      <div class="card reveal reveal-d3">
+        <h3>Department view</h3>
+        <p>A department head sees the evidence and the aggregate, with no student named. Groups under five are dropped. Access is a key the teacher issues and can revoke.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHERE THE DATA LIVES -->
+  <section class="reveal" id="data">
+    <p class="section-label">Where the data lives</p>
+    <h2>On the teacher's computer.</h2>
+    <div class="card edu-data">
+      <ul class="workflow-list">
+        <li>Scans, rosters, grades and the models stay on the teacher's Mac. There is no account and no cloud copy.</li>
+        <li>Nothing about a student is sent anywhere in the background. What leaves is a file the teacher chose to make: grades for Canvas, a family's progress report, or a counts only summary for the department.</li>
+        <li>The program never writes into Canvas or any gradebook. It makes files the teacher uploads.</li>
+        <li>A grade stays preliminary until the teacher's review is finished.</li>
+        <li>Student names appear only to the teacher. They are never in the department view, in logs, or in any shared file.</li>
+        <li>Every write into the course folder is backed up first and needs the teacher's approval. Delete moves to the Trash; nothing is erased.</li>
+        <li>DATOM+edu never touches DATOM's cloud. It is a separate program on a separate machine.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BEYOND WRITTEN WORK: the trainer, named once. No dates, no pilot, and
+       no mechanism beyond this altitude (ROADMAP.md B3/A4). -->
+  <section class="reveal" id="technique">
+    <p class="section-label">Beyond written work</p>
+    <h2>Technique, graded against the protocol.</h2>
+    <p class="edu-prose">The same scoring engine that grades a laboratory run for a research group grades technique against a written protocol, step by step. A classroom trainer built on it is being built. A run in a trainer shows procedural competency; it is never presented as a real result. <a href="organizations.html" class="card-link">What DATOM does for research groups &rarr;</a></p>
+  </section>
+
+  <!-- QUESTIONS -->
+  <section class="reveal faq-section" id="faq">
+    <p class="section-label">Questions</p>
+    <h2>Frequently asked questions</h2>
+    <div class="faq-column">
+      <details>
+        <summary>Does it send student work to an AI company? <span class="chev">&#x2304;</span></summary>
+        <div class="faq-body">No. The models run on the teacher's computer. Nothing about a student goes to any online service in the background.</div>
+      </details>
+      <details>
+        <summary>Does the program decide grades? <span class="chev">&#x2304;</span></summary>
+        <div class="faq-body">No. It proposes a mark with its evidence and how sure it is. The teacher accepts or corrects every one before it counts, and the record shows how often the program's marks stood.</div>
+      </details>
+      <details>
+        <summary>Does it work with Canvas? <span class="chev">&#x2304;</span></summary>
+        <div class="faq-body">It makes files in Canvas's import format for grades and feedback. The teacher uploads them. It never writes into Canvas.</div>
+      </details>
+      <details>
+        <summary>What does a department head see? <span class="chev">&#x2304;</span></summary>
+        <div class="faq-body">The evidence view and the aggregate, with no student named and small groups dropped, through a key the teacher issues and can revoke.</div>
+      </details>
+      <details>
+        <summary>Is this the same product as DATOM's ledger? <span class="chev">&#x2304;</span></summary>
+        <div class="faq-body">No. DATOM reads the evidence behind scientific claims and publishes what it finds. DATOM+edu applies the same position, that AI output is checked before it is trusted, to a teacher's grading, on the teacher's own machine. The two never share data.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- WHO IS BEHIND IT. No pronoun for the founder; no school name. -->
+  <section class="reveal" id="who">
+    <p class="section-label">Who is behind it</p>
+    <p class="edu-prose">DATOM, Inc. builds verification software for science. The founder, Jordan D. Jones, PhD, teaches high school biology, built DATOM+edu for that course, and grades with it.</p>
+  </section>
+
+  <!-- TALK TO US: mailto and the site's existing Calendly link. No form, so
+       no new collection point and no privacy.html change. -->
+  <section class="reveal edu-talk" id="talk">
+    <p class="section-label">Talk to us</p>
+    <h2>Two ways to start</h2>
+    <div class="grid-2" style="margin-top:28px;">
+      <div class="card card-accent reveal reveal-d1">
+        <h3>For a teacher</h3>
+        <p>Write to us about your course and what you grade. A person reads every message and replies.</p>
+        <a href="mailto:info@datom.science?subject=DATOM%2Bedu%20for%20my%20course" class="btn">Write to us &rarr;</a>
+      </div>
+      <div class="card card-accent reveal reveal-d2">
+        <h3>For a school or department</h3>
+        <p>A call to walk through where the data lives, the department view, and what a pilot in your building would need.</p>
+        <a href="https://calendly.com/datom/30min" class="btn" target="_blank" rel="noopener">Schedule a call &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &middot; <a href="terms.html">Terms</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="firewall.html">Firewall</a> &middot; <a href="product.html">How it works</a></footer>
+
+<script src="fog-bg.js?v=2"></script>
+<script src="shared.js?v=20260719a"></script>
+<script src="elmer.js?v=20261015a"></script>
+</body>
+</html>

@@ -35,6 +35,13 @@ const NAV_MAP = {
   "example:summary":       { page: "example.html",  selector: "#summary" },
   // try.html
   "try:top":               { page: "try.html",      selector: "main" },
+  // edu.html
+  "edu:position":          { page: "edu.html",      selector: "#position" },
+  "edu:what":              { page: "edu.html",      selector: "#what" },
+  "edu:data":              { page: "edu.html",      selector: "#data" },
+  "edu:technique":         { page: "edu.html",      selector: "#technique" },
+  "edu:faq":               { page: "edu.html",      selector: "#faq" },
+  "edu:talk":              { page: "edu.html",      selector: "#talk" },
 };
 
 // ── Detect current page ──
@@ -49,12 +56,13 @@ function detectPage() {
   if (path.includes("organizations")) return "organizations";
   if (path.includes("pricing"))   return "pricing";
   if (path.includes("try"))       return "try";
+  if (path.includes("edu"))       return "edu";
   return "home";
 }
 
 function getCurrentPageFile() {
   const page = detectPage();
-  const map = { home: "index.html", record: "record.html", claim: "claim.html", example: "example.html", product: "product.html", organizations: "organizations.html", pricing: "pricing.html", try: "try.html" };
+  const map = { home: "index.html", record: "record.html", claim: "claim.html", example: "example.html", product: "product.html", organizations: "organizations.html", pricing: "pricing.html", try: "try.html", edu: "edu.html" };
   return map[page] || "index.html";
 }
 
