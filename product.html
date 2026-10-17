@@ -49,6 +49,20 @@
   .grade-list { list-style: none; margin: var(--s3) 0 var(--s3); padding: 0; border-top: 1px solid var(--line); }
   .grade-row { border-bottom: 1px solid var(--line); padding: var(--s3) 0; max-width: 72ch; }
   .grade-name { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.06em; color: var(--signal); display: block; margin-bottom: 4px; }
+  /* The How it works film: a labelled button opens it in a dialog (the same block as record.html). */
+  .tour-open { display: inline-flex; align-items: center; gap: 12px; white-space: nowrap; font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 20px; border: 1px solid var(--ink); border-radius: 0; background: var(--paper); color: var(--ink); cursor: pointer; margin: 0 0 var(--s4); transition: background 0.2s, color 0.2s; }
+  .tour-open .len { color: var(--faint); white-space: nowrap; }
+  .tour-open:hover, .tour-open:focus-visible { background: var(--ink); color: var(--paper); outline: none; }
+  .tour-open:hover .len, .tour-open:focus-visible .len { color: inherit; opacity: 0.7; }
+  .tour-open[hidden] { display: none; }
+  .tour-film { width: min(1100px, 94vw); max-width: none; padding: 0; border: 1px solid var(--line); background: var(--paper); color: var(--ink); box-shadow: 0 24px 70px rgba(19, 37, 58, 0.22); }
+  .tour-film::backdrop { background: rgba(230, 236, 244, 0.8); backdrop-filter: blur(3px); }
+  .tour-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 8px 8px 16px; border-bottom: 1px solid var(--line); font-family: var(--font-data); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+  .tour-close { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 14px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); cursor: pointer; }
+  .tour-close:hover, .tour-close:focus-visible { background: var(--ink); color: var(--paper); outline: none; }
+  .tour-film video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: var(--paper); }
+  @media (max-width: 400px) { .tour-open { font-size: 11px; gap: 10px; padding: 11px 14px; max-width: 100%; } }
+  @media (max-width: 340px) { .tour-open { white-space: normal; text-align: left; letter-spacing: 0.05em; } }
 </style>
 </head>
 
@@ -73,17 +87,66 @@
   <h1>How a record is made</h1>
   <p class="lead">Every entry in the ledger is a receipt for one claim: the claim in canonical form, a verdict, two grades, and the evidence they rest on. This page explains where each part comes from, what can never influence it, and how a record changes over time.</p>
 
+    <!-- The How it works film ("How a record is made", media/how-film.mp4): one act per section of
+         this page, each titled by its heading, the verdict rule as the rows below state it. Its
+         numbers and words are pinned in media/how-film.numbers.json and checked against this page,
+         the record pages and the v2 engine's band constants by
+         DATOM-AWS/src/tests/howFilmNumbers.test.ts, so it fails the suite the day any of them moves.
+         A button opens it in an overlay, so the page's own layout stays as it is. -->
+    <button type="button" class="tour-open" id="how-open" aria-haspopup="dialog" aria-controls="how-film">
+      <svg width="14" height="14" viewBox="0 0 22 22" aria-hidden="true"><path d="M7 4.5v13l10-6.5z" fill="currentColor"/></svg>
+      <span>Watch how it works</span><span class="len" aria-hidden="true">2½ min</span>
+    </button>
+    <dialog class="tour-film" id="how-film" aria-label="How a record is made, a film of two and a half minutes">
+      <div class="tour-bar">
+        <span>How a record is made</span>
+        <button type="button" class="tour-close" id="how-close">Close</button>
+      </div>
+      <video id="how-film-video" controls preload="none" playsinline width="1920" height="1080" poster="media/how-film-poster.jpg">
+        <source src="media/how-film.mp4" type="video/mp4">
+        <track kind="captions" src="media/how-film.vtt" srclang="en" label="English">
+        <a href="media/how-film.mp4">Watch the film (MP4).</a>
+      </video>
+    </dialog>
+    <script>
+      (function () {
+        var open = document.getElementById('how-open');
+        var dlg = document.getElementById('how-film');
+        var v = document.getElementById('how-film-video');
+        var close = document.getElementById('how-close');
+        if (!open || !dlg || !v || !close) return;
+        // a browser without <dialog> gets no button rather than a broken one
+        if (typeof dlg.showModal !== 'function') { open.hidden = true; return; }
+        // phones get the 720p encode (set before anything loads: preload is none)
+        var small = window.matchMedia && matchMedia('(max-width: 700px)').matches;
+        if (small) v.querySelector('source').src = 'media/how-film-720.mp4';
+        open.addEventListener('click', function () {
+          // the browser may have chosen the 1080p source before the line above ran (a race seen on
+          // product.html, 2026-10-16); re-run the choice on the click that plays it, never on load
+          if (small && v.currentSrc.indexOf('-720.mp4') === -1) v.load();
+          dlg.showModal();
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        });
+        close.addEventListener('click', function () { dlg.close(); });
+        // Esc closes a modal dialog natively; a click on the backdrop closes it too
+        dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+        dlg.addEventListener('close', function () { v.pause(); open.focus(); });
+      })();
+    </script>
+
+
   <h2>The verdict: which way the evidence points</h2>
   <p>A verdict is a statement of direction, nothing more. There are exactly four:</p>
   <ul class="verdict-list">
-    <!-- BUILD:VERDICT_BANDS (generated by scripts/build-methodology.ts from PUBLIC_VERDICT_RANGES; do not hand-edit) -->
-    <li class="verdict-row" data-verdict="SUPPORTED" data-lo="55" data-hi="100"><span class="verdict-term">Supported.</span> <span class="verdict-desc">The weight of evidence points toward the claim.</span><span class="verdict-band">Decisive support share of 55% or above.</span></li>
-    <li class="verdict-row" data-verdict="CONTESTED" data-lo="46" data-hi="54"><span class="verdict-term">Contested.</span> <span class="verdict-desc">Substantial evidence points both ways.</span><span class="verdict-band">Decisive support share from 46% to 54%.</span></li>
-    <li class="verdict-row" data-verdict="UNSUPPORTED" data-lo="0" data-hi="45"><span class="verdict-term">Unsupported.</span> <span class="verdict-desc">The weight of evidence points against the claim.</span><span class="verdict-band">Decisive support share of 45% or below.</span></li>
+    <!-- BUILD:VERDICT_BANDS (generated by scripts/build-methodology.ts from the v2 band constants; do not hand-edit) -->
+    <li class="verdict-row" data-verdict="SUPPORTED" data-lower-at-least="55"><span class="verdict-term">Supported.</span> <span class="verdict-desc">The weight of evidence points toward the claim.</span><span class="verdict-band">The bottom of the weighted support range is at 55% or above.</span></li>
+    <li class="verdict-row" data-verdict="CONTESTED" data-lower-under="55" data-upper-over="45"><span class="verdict-term">Contested.</span> <span class="verdict-desc">The evidence does not settle the claim either way.</span><span class="verdict-band">The bottom of the range is under 55% and its top is over 45%.</span></li>
+    <li class="verdict-row" data-verdict="UNSUPPORTED" data-upper-at-most="45"><span class="verdict-term">Unsupported.</span> <span class="verdict-desc">The weight of evidence points against the claim.</span><span class="verdict-band">The top of the weighted support range is at 45% or below.</span></li>
     <li class="verdict-row verdict-row--insufficient" data-verdict="INSUFFICIENT"><span class="verdict-term">Insufficient record.</span> <span class="verdict-desc">There is not yet enough qualifying evidence to state a direction. This determination comes first: if the evidence base does not meet our sufficiency requirements, no direction is stated at all.</span></li>
     <!-- /BUILD:VERDICT_BANDS -->
   </ul>
-  <p>Each term is bound to published numeric thresholds over the support and contradiction structure of the evidence, shown above. The thresholds are calibrated against a fixed suite of claims with well-established status, spanning settled findings, collapsed findings, and live controversies, so that a settled claim cannot render as doubtful and a collapsed one cannot render as supported.</p>
+  <p>Each study is weighted for its design, its size, how directly it tests the claim, and how independent it is of the others, so the support share is a range, not a single number. Each term is bound to published thresholds on that range, shown above. The thresholds are calibrated against a fixed suite of claims with well-established status, spanning settled findings, collapsed findings, and live controversies, so that a settled claim cannot render as doubtful and a collapsed one cannot render as supported.</p>
 
   <h2>The two grades: how strong the ground is</h2>
   <p>A verdict tells you which way the evidence points. The grades tell you how solid the ground is under it. There are two, and they answer different questions.</p>

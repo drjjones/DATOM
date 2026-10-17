@@ -251,10 +251,12 @@
         // a browser without <dialog> gets no button rather than a broken one
         if (typeof dlg.showModal !== 'function') { open.hidden = true; return; }
         // phones get the 720p encode (set before anything loads: preload is none)
-        if (window.matchMedia && matchMedia('(max-width: 700px)').matches) {
-          v.querySelector('source').src = 'media/record-film-720.mp4';
-        }
+        var small = window.matchMedia && matchMedia('(max-width: 700px)').matches;
+        if (small) v.querySelector('source').src = 'media/record-film-720.mp4';
         open.addEventListener('click', function () {
+          // the browser may have chosen the 1080p source before the line above ran (a race seen on
+          // product.html, 2026-10-16); re-run the choice on the click that plays it, never on load
+          if (small && v.currentSrc.indexOf('-720.mp4') === -1) v.load();
           dlg.showModal();
           var p = v.play();
           if (p && p.catch) p.catch(function () {});

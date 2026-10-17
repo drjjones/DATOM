@@ -1,0 +1,62 @@
+{
+ "recordId": "DTM-2026-0703-2E",
+ "film": "how-film",
+ "lines": {
+  "supported": 55,
+  "unsupported": 45
+ },
+ "rules": {
+  "supported": "The bottom of the weighted support range is at 55% or above.",
+  "contested": "The bottom of the range is under 55% and its top is over 45%.",
+  "unsupported": "The top of the weighted support range is at 45% or below."
+ },
+ "contestedDesc": "The evidence does not settle the claim either way.",
+ "h1": "How a record is made",
+ "headings": {
+  "verdict": "The verdict: which way the evidence points",
+  "evidence": "The evidence",
+  "never": "What can never touch a score",
+  "change": "How records change",
+  "enter": "How claims enter verification",
+  "notDo": "What we do not do"
+ },
+ "gradeName": "Evidence grade (A to F)",
+ "supports": 44,
+ "contradicts": 7,
+ "counted": 51,
+ "pointTenths": 651,
+ "loTenths": 546,
+ "hiTenths": 750,
+ "verdictLabel": "Contested",
+ "grade": "B",
+ "gradeCaption": "Grade B \u00b7 solid evidence base, wide range",
+ "sourceCount": 102,
+ "claim": "GLP-1 weight-loss drugs cause you to lose muscle while you lose weight.",
+ "exactClaim": "GLP-1 receptor agonist therapy at clinically approved doses reduces skeletal muscle mass during weight loss in overweight and obese adults, as measured by lean body mass or appendicular skeletal muscle mass over a treatment period of 12 to 68 weeks.",
+ "disclosure": "Not commissioned or sponsored.",
+ "published": "2026-07-03",
+ "revised": "4 Aug 2026",
+ "bib": [
+  "10.1111/dom.15829",
+  "10.1016/j.jnha.2025.100652",
+  "10.1016/j.metabol.2024.156057"
+ ],
+ "insufficient": {
+  "id": "D-540A117F",
+  "question": "Cutting international vaccine funding causes vaccination coverage rates to drop in low-income countries.",
+  "verdict": "Insufficient record",
+  "findings": 4,
+  "supports": 0,
+  "contradicts": 1,
+  "conditional": 3
+ },
+ "dataHash": "38aae0651c39bde1",
+ "files": {
+  "mp4": "media/how-film.mp4",
+  "mp4_720": "media/how-film-720.mp4",
+  "posterJpg": "media/how-film-poster.jpg",
+  "vtt": "media/how-film.vtt"
+ },
+ "mp4Bytes": 15527018,
+ "mp4Sha256": "ffd75e3dacb6223b528d0916d2e678fe958253be11a55ca5195b632417260863"
+}
