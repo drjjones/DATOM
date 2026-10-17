@@ -1,0 +1,57 @@
+{
+ "recordId": "DTM-2026-0703-2E",
+ "supports": 44,
+ "contradicts": 7,
+ "counted": 51,
+ "pct": 86,
+ "pointTenths": 651,
+ "loTenths": 546,
+ "hiTenths": 750,
+ "shownPoint": 65,
+ "verdictLabel": "Contested",
+ "grade": "B",
+ "sourceCount": 102,
+ "clusters": 43,
+ "findings": 224,
+ "bonds": 839,
+ "groups": {
+  "multi": 6,
+  "members": 14,
+  "sizes": {
+   "2": 4,
+   "3": 2
+  }
+ },
+ "claim": "GLP-1 weight-loss drugs cause you to lose muscle while you lose weight.",
+ "revised": "4 Aug 2026",
+ "published": "2026-07-03",
+ "disclosure": "Not commissioned or sponsored.",
+ "bib": [
+  "10.1111/dom.15829",
+  "10.1016/j.jnha.2025.100652",
+  "10.1016/j.metabol.2024.156057"
+ ],
+ "film": "record-film",
+ "pageUrl": "datom.science/record.html",
+ "exactClaim": "GLP-1 receptor agonist therapy at clinically approved doses reduces skeletal muscle mass during weight loss in overweight and obese adults, as measured by lean body mass or appendicular skeletal muscle mass over a treatment period of 12 to 68 weeks.",
+ "domain": "clinical medicine",
+ "missTenths": 4,
+ "gradeCaption": "Grade B \u00b7 solid evidence base, wide range",
+ "graphOther": 173,
+ "otherStudies": 11,
+ "readFinding": {
+  "index": 5,
+  "text": "GLP-1 receptor agonists at clinically approved doses may cause sarcopenia as a potential concern when weight loss exceeds 20%.",
+  "link": "doi.org/10.1111/dom.15829",
+  "links": 2
+ },
+ "dataHash": "449d0fcda2b8cd4a",
+ "files": {
+  "mp4": "media/record-film.mp4",
+  "mp4_720": "media/record-film-720.mp4",
+  "posterJpg": "media/record-film-poster.jpg",
+  "vtt": "media/record-film.vtt"
+ },
+ "mp4Bytes": 14992218,
+ "mp4Sha256": "ccdb6de2daf97141a51ce00b4fb4ba706bf25725fe8b82c4e47efaec152c6992"
+}
