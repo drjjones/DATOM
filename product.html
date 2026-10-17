@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <title>How it works, DATOM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="How a DATOM record is made: where the verdict and the two grades come from, what can never influence them, and how a record changes over time.">
+<meta name="description" content="How a DATOM record is made: where the verdict and the evidence grade come from, what can never influence them, and how a record changes over time.">
 <link rel="canonical" href="https://datom.science/product.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DATOM">
 <meta property="og:title" content="How a DATOM record is made">
-<meta property="og:description" content="Where the verdict and the two grades come from, what can never influence them, and how a record changes over time.">
+<meta property="og:description" content="Where the verdict and the evidence grade come from, what can never influence them, and how a record changes over time.">
 <meta property="og:url" content="https://datom.science/product.html">
 <meta property="og:image" content="https://datom.science/og/home.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="How a DATOM record is made">
-<meta name="twitter:description" content="Where the verdict and the two grades come from, what can never influence them, and how a record changes over time.">
+<meta name="twitter:description" content="Where the verdict and the evidence grade come from, what can never influence them, and how a record changes over time.">
 <meta name="twitter:image" content="https://datom.science/og/home.png">
 <link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
 <link rel="icon" type="image/png" href="./Assets/favicon.png">
@@ -45,7 +45,7 @@
   .verdict-band { display: block; margin-top: 6px; font-family: var(--font-data); font-size: 12px; letter-spacing: 0.02em; color: var(--muted); }
   .verdict-row--insufficient .verdict-desc { color: var(--muted); }
 
-  /* The two grades, same receipt treatment. */
+  /* The evidence grade, same receipt treatment. */
   .grade-list { list-style: none; margin: var(--s3) 0 var(--s3); padding: 0; border-top: 1px solid var(--line); }
   .grade-row { border-bottom: 1px solid var(--line); padding: var(--s3) 0; max-width: 72ch; }
   .grade-name { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.06em; color: var(--signal); display: block; margin-bottom: 4px; }
@@ -85,7 +85,7 @@
 <main class="doc">
 
   <h1>How a record is made</h1>
-  <p class="lead">Every entry in the ledger is a receipt for one claim: the claim in canonical form, a verdict, two grades, and the evidence they rest on. This page explains where each part comes from, what can never influence it, and how a record changes over time.</p>
+  <p class="lead">Every entry in the ledger is a receipt for one claim: the claim in canonical form, a verdict, an evidence grade, and the evidence they rest on. This page explains where each part comes from, what can never influence it, and how a record changes over time.</p>
 
     <!-- The How it works film ("How a record is made", media/how-film.mp4): one act per section of
          this page, each titled by its heading, the verdict rule as the rows below state it. Its
@@ -146,35 +146,31 @@
     <li class="verdict-row verdict-row--insufficient" data-verdict="INSUFFICIENT"><span class="verdict-term">Insufficient record.</span> <span class="verdict-desc">There is not yet enough qualifying evidence to state a direction. This determination comes first: if the evidence base does not meet our sufficiency requirements, no direction is stated at all.</span></li>
     <!-- /BUILD:VERDICT_BANDS -->
   </ul>
-  <p>Each study is weighted for its design, its size, how directly it tests the claim, and how independent it is of the others, so the support share is a range, not a single number. Each term is bound to published thresholds on that range, shown above. The thresholds are calibrated against a fixed suite of claims with well-established status, spanning settled findings, collapsed findings, and live controversies, so that a settled claim cannot render as doubtful and a collapsed one cannot render as supported.</p>
+  <p>Each study is weighted for its design, its size, how directly it tests the claim, and how independent it is of the others, so the support share is a range, not a single number. Each term is bound to published thresholds on that range, shown above.</p>
 
-  <h2>The two grades: how strong the ground is</h2>
-  <p>A verdict tells you which way the evidence points. The grades tell you how solid the ground is under it. There are two, and they answer different questions.</p>
+  <h2>The evidence grade: how strong the ground is</h2>
+  <p>A verdict tells you which way the evidence points. The evidence grade tells you how solid the ground is under it.</p>
   <ul class="grade-list">
     <li class="grade-row">
       <span class="grade-name">Evidence grade (A to F)</span>
-      <span class="verdict-desc">Measures the evidence against a single strict standard applied identically to every claim in every field: replication, independence of the groups involved, methodological quality, and the stability of results. It never adjusts for any field's customs. A weak evidence base grades low no matter how popular its conclusion.</span>
-    </li>
-    <li class="grade-row">
-      <span class="grade-name">Field-relative grade (A to F)</span>
-      <span class="verdict-desc">Measures the same evidence against the strongest form evidence can realistically take for that kind of question. Some questions permit controlled trials; some can only ever be studied observationally; fields differ in how much replication their structures produce. The ceiling for each field is derived empirically from the literature itself, not chosen by us, and every field-relative grade carries a basis line stating what it was measured against.</span>
+      <span class="verdict-desc">Starts from how close the best evidence comes to the strongest kind of study the question allows: some questions permit controlled trials, some can only ever be studied by observation. It is lowered when independent groups disagree, when the evidence tests the claim only indirectly, when the weighted range is wide, or when there are signs that unfavorable results went unpublished, and it is raised when several independent groups using different kinds of study agree. The same rules apply to every claim, and a weak evidence base grades low no matter how popular its conclusion.</span>
     </li>
   </ul>
-  <p>Reading them together is the point. A claim can be the best its field can offer and still rest on limited ground; the two grades say both things at once instead of hiding one inside the other. Grades are letters, never percentages, because a percentage reads as the probability a claim is true, and that is not what a grade measures.</p>
+  <p>Grades are letters, never percentages, because a percentage reads as the probability a claim is true, and that is not what a grade measures.</p>
 
   <h2>The evidence</h2>
-  <p>Every published record lists its sources: title, authors, year, venue, and a resolvable identifier, in public, on the record. Every citation on every record is machine-verified to resolve to a real publication with matching title and year before the record can publish. A record whose sources cannot be verified does not ship.</p>
+  <p>Every published record lists its sources in public, on the record: title, authors, year, and a resolvable identifier. The sources come from the scholarly databases themselves, with the titles, years and identifiers those databases hold. Every citation must carry a DOI, an identifier any reader can follow to the paper: a record with a missing, placeholder or malformed identifier cannot publish, and the published pages are checked for the same defect.</p>
 
   <h2>What can never touch a score</h2>
-  <p>Who commissioned a verification, and whether anyone did, has no path into the verdict or the grades. Every record states who commissioned or sponsored it.</p>
-  <p>Public opinion carries zero weight. We measure what people believe about claims, but that data is stored where the scoring system has no ability to read it, and we prove it continuously: the pipeline is run with that data present and with it removed, and the verdict and grades must be identical to the last bit, or the system fails its own tests.</p>
+  <p>Who commissioned a verification, and whether anyone did, has no path into the verdict or the grade. Every record states who commissioned or sponsored it.</p>
+  <p>Public opinion carries zero weight. We measure what people believe about claims, but that data is stored where the scoring system has no ability to read it, and we prove it continuously: the pipeline is run with that data present and with it removed, and the verdict and the grade must be identical to the last bit, or the system fails its own tests.</p>
   <p>The classification of a claim into its field is printed on the record, so the standard it was graded against can be inspected, not taken on trust.</p>
 
   <h2>How records change</h2>
-  <p>The ledger is append-only. A published record can be added to, never rewritten and never withdrawn. When new evidence changes a verdict or a grade, the change is made in public, dated, with the triggering evidence named, and the record's full history remains visible. We treat corrections as a feature of the record, not an embarrassment to it: a ledger that cannot change its entries cannot follow the evidence.</p>
+  <p>The ledger is append only. A published record can be added to, never rewritten. When new evidence changes a verdict or a grade, the change is made in public, dated, with the triggering evidence named, and the record's full history remains visible. A record found to be in error can be retracted: it leaves public view, but nothing is deleted, and the retraction and its reason are kept in the audit ledger. We treat corrections as a feature of the record, not an embarrassment to it: a ledger that cannot change its entries cannot follow the evidence.</p>
 
   <h2>How claims enter verification</h2>
-  <p>Entries advance through continuous prioritization across three paths: editorial selection, reader demand, and sponsorship. Commissioned work is private by default and publishes at the customer's choice, with two permanent rules. A displayed verification mark always requires a published record. And privacy attaches to the engagement, never to the claim: no one can prevent a claim itself from being verified through public demand, and once a record is published, it is published forever.</p>
+  <p>Entries advance through continuous prioritization across three paths: editorial selection, reader demand, and sponsorship. Commissioned work is private by default and publishes at the customer's choice, with two permanent rules. A displayed verification mark always requires a published record. And privacy attaches to the engagement, never to the claim: no one can prevent a claim itself from being verified through public demand, and once a record is published, no customer can have it taken down.</p>
 
   <h2>What we do not do</h2>
   <p>We do not decide what is true. A record states which way the evidence points and how strong the ground is; the conclusion remains yours. Responsibility for decisions stays human. We provide the record that makes them defensible.</p>
