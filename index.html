@@ -374,6 +374,13 @@
     .det-in { padding: var(--s4) var(--s4); }
     .diagram-loop, .diagram-loop-label { display: none; }
     .det-carousel-wrap { max-width: 100%; }
+    /* At this width the carousel halo (::before, inset -28px) reaches past the
+       screen edge, so the page scrolls sideways; on a phone the layout viewport
+       then widens to fit it and every fixed element (Elmer's dock, panel and
+       backdrop) is placed against that wider box. main spans the viewport here,
+       so clipping it cuts only what was already off screen. clip, not hidden:
+       it makes no scroll container, so nothing sticky inside main changes. */
+    main { overflow-x: clip; }
     .det-carousel { gap: var(--s2); }
     .carousel-arrow { width: 30px; height: 30px; font-size: 14px; }
   }
