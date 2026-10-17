@@ -56,6 +56,7 @@
 <link rel="stylesheet" href="elmer.css?v=20260719a">
 <link rel="stylesheet" href="tokens.css?v=1">
 <link rel="stylesheet" href="design-v1.1.css?v=9">
+<link rel="stylesheet" href="film.css?v=1">
 
 <style>
   /* Record page: receipt style. Layout only; tokens do the visual work. */
@@ -180,19 +181,9 @@
   /* The record page film: a labelled button in the site's button style (mono, uppercase, hairline
      ink, square), and an overlay that plays it over the page, so the page's layout stays as it is
      (founder, 2026-10-16). The title bar holds the close control, so nothing sits on the film. */
-  .tour-open { display: inline-flex; align-items: center; gap: 12px; white-space: nowrap; font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 20px; border: 1px solid var(--ink); border-radius: 0; background: var(--paper); color: var(--ink); cursor: pointer; margin: 0 0 var(--s4); transition: background 0.2s, color 0.2s; }
-  .tour-open .len { color: var(--faint); white-space: nowrap; }
-  .tour-open:hover, .tour-open:focus-visible { background: var(--ink); color: var(--paper); outline: none; }
-  .tour-open:hover .len, .tour-open:focus-visible .len { color: inherit; opacity: 0.7; }
-  .tour-open[hidden] { display: none; }
-  .tour-film { width: min(1100px, 94vw); max-width: none; padding: 0; border: 1px solid var(--line); background: var(--paper); color: var(--ink); box-shadow: 0 24px 70px rgba(19, 37, 58, 0.22); }
-  .tour-film::backdrop { background: rgba(230, 236, 244, 0.8); backdrop-filter: blur(3px); }
-  .tour-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 8px 8px 16px; border-bottom: 1px solid var(--line); font-family: var(--font-data); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
-  .tour-close { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 14px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); cursor: pointer; }
-  .tour-close:hover, .tour-close:focus-visible { background: var(--ink); color: var(--paper); outline: none; }
-  .tour-film video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: var(--paper); }
-  @media (max-width: 400px) { .tour-open { font-size: 11px; gap: 10px; padding: 11px 14px; max-width: 100%; } }
-  @media (max-width: 340px) { .tour-open { white-space: normal; text-align: left; letter-spacing: 0.05em; } }
+  /* The film card sits in the free space right of the record's column (the column is 720 wide in a
+     980 wide main), so the record's text keeps its width (film.css). */
+  @media (min-width: 1100px) { .rec .film-head { width: calc(100% + 260px); --film-card-w: 300px; --film-card-top: 30px; } }
 </style>
 </head>
 
@@ -215,58 +206,33 @@
 <main>
   <section class="reveal rec">
 
-    <p class="rec-eyebrow">DATOM Record &middot; DTM-2026-0703-2E</p>
-    <h1 class="rec-claim">GLP-1 weight-loss drugs cause you to lose muscle while you lose weight.</h1>
-    <p class="rec-lay-summary">DATOM looked at 51 studies that directly tested this claim. Of those, 44 (86%) support the idea that GLP-1 weight-loss drugs cause you to lose muscle while you lose weight; 7 (14%) point the other way. That headline count leans clearly one way &mdash; but the verdict below is <b>Contested</b>, and the gap between those two facts is the point of this record. Counting studies treats 51 findings as 51 independent tests, and they are not: many share authors, labs and cohorts. Once they are weighted and grouped by how independent they actually are, the honest estimate carries a range rather than a single number, and that range runs from 54.6% to 75.0%. A claim is only called Supported when the <i>bottom</i> of its range clears 55%. This one comes in at 54.6% &mdash; it misses by four tenths of a percentage point. So the evidence leans toward the claim and may well end up supporting it, but as it stands it is not settled enough to say so.</p>
-    <p class="rec-precise"><span class="k">Exact claim checked</span> GLP-1 receptor agonist therapy at clinically approved doses reduces skeletal muscle mass during weight loss in overweight and obese adults, as measured by lean body mass or appendicular skeletal muscle mass over a treatment period of 12 to 68 weeks.</p>
-    <p class="rec-domain"><span class="k">Domain</span>clinical medicine</p>
-
-    <!-- The record page film (media/record-film*): how to read this record, a two minute tour of
-         this page. Built in datom-confidence-video (src/recordtour/); its words and numbers are
-         pinned in media/record-film.numbers.json and checked against this page by
-         DATOM-AWS/src/tests/recordFilmNumbers.test.ts, so it fails the suite the day this page or
-         the record moves. A button opens it in an overlay, so the page's own layout stays as it is. -->
-    <button type="button" class="tour-open" id="tour-open" aria-haspopup="dialog" aria-controls="tour-film">
-      <svg width="14" height="14" viewBox="0 0 22 22" aria-hidden="true"><path d="M7 4.5v13l10-6.5z" fill="currentColor"/></svg>
-      <span>How to read this record</span><span class="len" aria-hidden="true">2 min</span>
-    </button>
-    <dialog class="tour-film" id="tour-film" aria-label="How to read this record, a two minute film">
-      <div class="tour-bar">
-        <span>How to read this record</span>
-        <button type="button" class="tour-close" id="tour-close">Close</button>
+    <!-- The record page film ("How to read this record", media/record-film.mp4): a guided tour of this
+         page from the top. Its numbers and words are pinned in media/record-film.numbers.json and
+         checked against this page by DATOM-AWS/src/tests/recordFilmNumbers.test.ts, so it fails the
+         suite the day this page or the record moves. Its poster frame sits beside the record's
+         heading; pressing play grows it into a large player above the heading, and it returns when
+         the film ends or Close is pressed (film.js). -->
+    <div class="film-head">
+      <div class="film-head-text">
+      <p class="rec-eyebrow">DATOM Record &middot; DTM-2026-0703-2E</p>
+      <h1 class="rec-claim">GLP-1 weight-loss drugs cause you to lose muscle while you lose weight.</h1>
+      <p class="rec-lay-summary">DATOM looked at 51 studies that directly tested this claim. Of those, 44 (86%) support the idea that GLP-1 weight-loss drugs cause you to lose muscle while you lose weight; 7 (14%) point the other way. That headline count leans clearly one way &mdash; but the verdict below is <b>Contested</b>, and the gap between those two facts is the point of this record. Counting studies treats 51 findings as 51 independent tests, and they are not: many share authors, labs and cohorts. Once they are weighted and grouped by how independent they actually are, the honest estimate carries a range rather than a single number, and that range runs from 54.6% to 75.0%. A claim is only called Supported when the <i>bottom</i> of its range clears 55%. This one comes in at 54.6% &mdash; it misses by four tenths of a percentage point. So the evidence leans toward the claim and may well end up supporting it, but as it stands it is not settled enough to say so.</p>
+      <p class="rec-precise"><span class="k">Exact claim checked</span> GLP-1 receptor agonist therapy at clinically approved doses reduces skeletal muscle mass during weight loss in overweight and obese adults, as measured by lean body mass or appendicular skeletal muscle mass over a treatment period of 12 to 68 weeks.</p>
+      <p class="rec-domain"><span class="k">Domain</span>clinical medicine</p>
       </div>
-      <video id="tour-film-video" controls preload="none" playsinline width="1920" height="1080" poster="media/record-film-poster.jpg">
-        <source src="media/record-film.mp4" type="video/mp4">
-        <track kind="captions" src="media/record-film.vtt" srclang="en" label="English">
-        <a href="media/record-film.mp4">Watch the film (MP4).</a>
-      </video>
-    </dialog>
-    <script>
-      (function () {
-        var open = document.getElementById('tour-open');
-        var dlg = document.getElementById('tour-film');
-        var v = document.getElementById('tour-film-video');
-        var close = document.getElementById('tour-close');
-        if (!open || !dlg || !v || !close) return;
-        // a browser without <dialog> gets no button rather than a broken one
-        if (typeof dlg.showModal !== 'function') { open.hidden = true; return; }
-        // phones get the 720p encode (set before anything loads: preload is none)
-        var small = window.matchMedia && matchMedia('(max-width: 700px)').matches;
-        if (small) v.querySelector('source').src = 'media/record-film-720.mp4';
-        open.addEventListener('click', function () {
-          // the browser may have chosen the 1080p source before the line above ran (a race seen on
-          // product.html, 2026-10-16); re-run the choice on the click that plays it, never on load
-          if (small && v.currentSrc.indexOf('-720.mp4') === -1) v.load();
-          dlg.showModal();
-          var p = v.play();
-          if (p && p.catch) p.catch(function () {});
-        });
-        close.addEventListener('click', function () { dlg.close(); });
-        // Esc closes a modal dialog natively; a click on the backdrop closes it too
-        dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
-        dlg.addEventListener('close', function () { v.pause(); open.focus(); });
-      })();
-    </script>
+      <figure class="film-card" id="tour-film" data-film>
+        <video id="tour-film-video" preload="none" playsinline width="1920" height="1080" poster="media/record-film-poster.jpg" data-src-720="media/record-film-720.mp4" aria-label="How to read this record, a two minute film">
+          <source src="media/record-film.mp4" type="video/mp4">
+          <track kind="captions" src="media/record-film.vtt" srclang="en" label="English">
+          <a href="media/record-film.mp4">Watch the film (MP4).</a>
+        </video>
+        <button type="button" class="film-card-play" id="tour-open" aria-label="Play the film: how to read this record, two minutes">
+          <svg width="13" height="13" viewBox="0 0 22 22" aria-hidden="true"><path d="M7 4.5v13l10-6.5z" fill="currentColor"/></svg>
+          <span>How to read this record</span><span class="len" aria-hidden="true">2 min</span>
+        </button>
+        <button type="button" class="film-card-close" aria-label="Close the film">Close</button>
+      </figure>
+    </div>
 
     <div class="stamp" id="rec-verdict">
       <span class="stamp-label">Verdict</span>
@@ -447,6 +413,7 @@
 <script src="fog-bg.js?v=2"></script>
 <script src="shared.js?v=20260719a"></script>
 <script src="elmer.js?v=20261015a"></script>
+<script src="film.js?v=1"></script>
 <script src="related.js?v=20260719a"></script>
 <script type="module" src="embed/record-graph.js?v=20261015b"></script>
 </body>

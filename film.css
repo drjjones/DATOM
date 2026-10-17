@@ -1,0 +1,60 @@
+/* film.css: the page films, shown where a page has room for them (founder, 2026-10-17: "we are not
+   making good use of the space on the website ... the video just needs to be displayed in a way
+   that makes better use of the space"). Behaviour in film.js.
+
+   A FILM CARD is the film's own poster frame with a labelled play button, placed in the free space
+   beside a page's heading (.film-head, wide screens) or under it (narrow screens, and pages whose
+   column is narrow). Pressing play grows it into a large player across the head's full width; when
+   the film ends, or Close is pressed, it shrinks back into the card. No autoplay: the narration is
+   the point. */
+
+.film-card { position: relative; margin: 0; }
+.film-card video {
+  display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
+  background: var(--paper2, #EDF1F5); border: 1px solid var(--line); cursor: pointer;
+}
+.film-card.is-open video { cursor: auto; }
+/* the label sits under the frame, never on it: the poster is a real frame of the film */
+.film-card-play {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: var(--s2, 8px);
+  font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 10px 16px; border: 1px solid var(--ink); border-radius: 0;
+  background: var(--paper); color: var(--ink); cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.film-card-play .len { color: var(--faint); white-space: nowrap; }
+.film-card-play:hover, .film-card-play:focus-visible { background: var(--ink); color: var(--paper); outline: none; }
+.film-card-play:hover .len, .film-card-play:focus-visible .len { color: inherit; opacity: 0.7; }
+.film-card-close {
+  display: none; position: absolute; top: 10px; right: 10px; z-index: 2;
+  font-family: var(--font-data); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 8px 14px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); cursor: pointer;
+}
+.film-card-close:hover, .film-card-close:focus-visible { background: var(--ink); color: var(--paper); outline: none; }
+.film-card.is-open .film-card-close { display: block; }
+.film-card.is-open .film-card-play { display: none; }
+.film-card-cap { font-family: var(--font-body); font-size: 12px; color: var(--faint); margin: var(--s1, 4px) 0 0; }
+.film-card.is-open .film-card-cap { display: none; }
+
+/* The page head: the heading's text and the card side by side where there is room. The text
+   column keeps its own width; the card takes the free space to its right. When the film plays,
+   the card spans the whole head above the text, then returns. */
+.film-head { margin-bottom: var(--s5, 24px); }
+@media (min-width: 1100px) {
+  .film-head {
+    display: grid; grid-template-columns: minmax(0, 1fr) var(--film-card-w, 360px);
+    column-gap: 28px; align-items: start;
+  }
+  .film-head > .film-card { grid-column: 2; grid-row: 1; margin-top: var(--film-card-top, 6px); }
+  .film-head > .film-head-text { grid-column: 1; grid-row: 1; }
+  .film-head.film-playing > .film-card { grid-column: 1 / -1; grid-row: 1; margin-top: 0; margin-bottom: var(--s4, 16px); }
+  .film-head.film-playing > .film-head-text { grid-row: 2; }
+}
+@media (max-width: 1099px) {
+  .film-head > .film-card { margin-top: var(--s3, 12px); }
+}
+@media (max-width: 400px) {
+  .film-card-play { font-size: 11px; gap: 8px; padding: 10px 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .film-card, .film-head > * { transition: none !important; }
+}

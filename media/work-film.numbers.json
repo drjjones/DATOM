@@ -1,0 +1,40 @@
+{
+ "film": "work-film",
+ "recordId": "DTM-2026-0703-2E",
+ "h1": "For one claim, or for your whole organization.",
+ "tiers": [
+  "Free",
+  "Sponsored Verification",
+  "Confidence Report"
+ ],
+ "proH2": "For organizations",
+ "pro": [
+  "Verification Membership",
+  "API access",
+  "Pilot",
+  "Volume verification"
+ ],
+ "firewallSentence": "Commissioning a verification sets its priority and its privacy, never its outcome. Eight rules keep it that way, and they are written into every engagement letter.",
+ "firewallRules": 8,
+ "firewallLink": "Read the firewall",
+ "freeTagline": "Featured public claims. Read the verdict, its evidence grade, and the summary evidence. Nothing else is free.",
+ "sponsorLine": "Sponsorship disclosed on the public record",
+ "reportLine": "Private by default; you choose whether the record publishes",
+ "verdictLabel": "Contested",
+ "grade": "B",
+ "claim": "GLP-1 weight-loss drugs cause you to lose muscle while you lose weight.",
+ "bib": [
+  "10.1111/dom.15829",
+  "10.1016/j.jnha.2025.100652",
+  "10.1016/j.metabol.2024.156057"
+ ],
+ "dataHash": "59f121e806470b78",
+ "files": {
+  "mp4": "media/work-film.mp4",
+  "mp4_720": "media/work-film-720.mp4",
+  "posterJpg": "media/work-film-poster.jpg",
+  "vtt": "media/work-film.vtt"
+ },
+ "mp4Bytes": 6682696,
+ "mp4Sha256": "310e08254702c86c8779c4022912db9655746a3bca2e0ff0c93b96d0d228d096"
+}

@@ -1,0 +1,35 @@
+{
+ "film": "org-film",
+ "h1": "DATOM Pro, for every institution.",
+ "audiences": [
+  "Research Labs",
+  "Investors & Decision Makers",
+  "Government Agencies",
+  "Universities",
+  "Schools and teachers"
+ ],
+ "edu": "DATOM+edu",
+ "engageH2": "Two ways to engage",
+ "startH2": "Two ways to start",
+ "engagements": [
+  "Confidence Report",
+  "Pilot",
+  "Verification Membership",
+  "API access",
+  "Volume verification"
+ ],
+ "privateLedger": "Every engagement includes a private ledger for internal or proprietary claims, alongside full access to the public one.",
+ "call": {
+  "text": "Schedule a call",
+  "href": "https://calendly.com/datom/30min"
+ },
+ "dataHash": "89b9066312f987d4",
+ "files": {
+  "mp4": "media/org-film.mp4",
+  "mp4_720": "media/org-film-720.mp4",
+  "posterJpg": "media/org-film-poster.jpg",
+  "vtt": "media/org-film.vtt"
+ },
+ "mp4Bytes": 8226620,
+ "mp4Sha256": "487f745f00453bc36bdf3bc94ab7e059c15ec3b6c658ae67d0c7a41084889e07"
+}

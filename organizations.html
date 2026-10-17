@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="elmer.css?v=20260719a">
 <link rel="stylesheet" href="tokens.css?v=1">
 <link rel="stylesheet" href="design-v1.1.css?v=9">
+<link rel="stylesheet" href="film.css?v=1">
 
 <style>
   /* Layout-only rules; visual treatment lives in design-v1.1.css */
@@ -64,9 +65,26 @@
 
   <!-- HERO -->
   <section class="reveal">
-    <p class="section-label">DATOM Pro</p>
-    <h1>DATOM Pro, for <span class="text-gradient">every institution.</span></h1>
-    <p class="lede">DATOM Pro is the version of DATOM built for organizations: companies, research labs, investors, institutions, and government agencies that act on scientific claims, plus universities that want to put evidence literacy directly in front of their students, and schools whose teachers grade with DATOM+edu. The mission lives on the ledger. This page is how you engage.</p>
+    <!-- The For organizations film (media/org-film.mp4): who DATOM Pro is for and how to engage, in the page's own words; pinned in media/org-film.numbers.json and checked against this page by DATOM-AWS/src/tests/orgFilmNumbers.test.ts. Its poster frame sits beside the heading; play grows it into a large player (film.js). -->
+    <div class="film-head" style="--film-card-w: 380px">
+      <div class="film-head-text">
+        <p class="section-label">DATOM Pro</p>
+        <h1>DATOM Pro, for <span class="text-gradient">every institution.</span></h1>
+        <p class="lede">DATOM Pro is the version of DATOM built for organizations: companies, research labs, investors, institutions, and government agencies that act on scientific claims, plus universities that want to put evidence literacy directly in front of their students, and schools whose teachers grade with DATOM+edu. The mission lives on the ledger. This page is how you engage.</p>
+      </div>
+      <figure class="film-card" id="org-film" data-film>
+        <video id="org-film-video" preload="none" playsinline width="1920" height="1080" poster="media/org-film-poster.jpg" data-src-720="media/org-film-720.mp4" aria-label="how organizations use DATOM, a film of a minute and a quarter">
+          <source src="media/org-film.mp4" type="video/mp4">
+          <track kind="captions" src="media/org-film.vtt" srclang="en" label="English">
+          <a href="media/org-film.mp4">Watch the film (MP4).</a>
+        </video>
+        <button type="button" class="film-card-play" id="org-film-open" aria-label="Play the film: how organizations use DATOM, a film of a minute and a quarter">
+          <svg width="13" height="13" viewBox="0 0 22 22" aria-hidden="true"><path d="M7 4.5v13l10-6.5z" fill="currentColor"/></svg>
+          <span>How organizations use DATOM</span><span class="len" aria-hidden="true">1&frac14; min</span>
+        </button>
+        <button type="button" class="film-card-close" aria-label="Close the film">Close</button>
+      </figure>
+    </div>
   </section>
 
   <!-- AUDIENCE (moved from index.html) -->
@@ -407,5 +425,6 @@
 <script src="fog-bg.js?v=2"></script>
 <script src="shared.js?v=20260719a"></script>
 <script src="elmer.js?v=20261015a"></script>
+<script src="film.js?v=1"></script>
 </body>
 </html>

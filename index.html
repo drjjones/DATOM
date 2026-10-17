@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="elmer.css?v=20260719a">
 <link rel="stylesheet" href="tokens.css?v=1">
 <link rel="stylesheet" href="design-v1.1.css?v=9">
+<link rel="stylesheet" href="film.css?v=1">
 <style>
   /* ── Hero ──
      Layout only; visual treatment (color, gradient removal, card/diagram
@@ -58,33 +59,41 @@
     color: var(--signal);
     margin: var(--s4) 0 0;
   }
-  /* The film: the site's pitch in about two minutes, click to play (no autoplay: the narration is the
-     point). After the answer box, so the box stays above the fold on a laptop and the film's
-     poster is the next thing seen; full width on phones. width/height on the element plus
-     aspect-ratio hold the space before the poster loads. */
-  .hero-film { position: relative; width: 100%; max-width: 720px; margin: var(--s6) auto 0; }
-  /* No frame, no fill, no controls until play: the film's first frame and its background are
-     the page's own background, so the hero looks like the plain site with one small play mark
-     (founder, 2026-10-16). */
-  .hero-film video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: transparent; border: 0; }
-  /* The one sign of the film until play: a labelled play button in the site's own button style
-     (mono, uppercase, hairline ink, square), so a visitor knows a film is there (founder,
-     2026-10-16: "there should be text that lets the visitor know there is a video there"). */
+  /* THE HERO STAGE (founder, 2026-10-17): the DATOM logo is the film's thumbnail. Pressing it, or the
+     label under it, grows the logo into a large player; the film ends on the logo over the fog,
+     and the stage shrinks back into the hero logo. No autoplay: the narration is the point.
+     Behaviour in film.js; the fade in sits on the stage, not the logo, because a finished CSS
+     animation would pin the logo's opacity and it could not fade out as the film appears. */
+  .hero-stage {
+    position: relative; width: 540px; max-width: 86%; margin: 0 auto var(--s2);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .hero-stage.is-open { max-width: none; }
+  .hero-stage .hero-logo {
+    display: block; width: 100%; max-width: none; height: auto; margin: 0; cursor: pointer;
+    transition: opacity 0.35s ease, transform 0.3s ease;
+  }
+  .hero-stage .hero-logo:hover { transform: scale(1.015); }
+  .hero-stage.is-open .hero-logo { opacity: 0; pointer-events: none; }
+  .hero-stage video {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+    background: transparent; border: 0; opacity: 0; pointer-events: none; transition: opacity 0.45s ease 0.2s;
+  }
+  .hero-stage.is-open video { opacity: 1; pointer-events: auto; }
+  .hero-stage .film-card-close { display: none; }
+  .hero-stage.is-open .film-card-close { display: block; }
+  /* the one sign of the film: a labelled play button under the logo, in the site's button style */
   .hero-film-play {
-    position: absolute; left: 50%; top: calc(50% - 14px); transform: translate(-50%, -50%);
-    display: inline-flex; align-items: center; gap: 12px; white-space: nowrap;
-    font-family: var(--font-data); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 14px 22px; border: 1px solid var(--ink); border-radius: 0;
-    background: var(--paper); color: var(--ink); cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    display: inline-flex; align-items: center; gap: 12px; white-space: nowrap; margin: 0 auto var(--s3);
+    font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 11px 18px; border: 1px solid var(--ink); border-radius: 0;
+    background: var(--paper); color: var(--ink); cursor: pointer; transition: background 0.2s, color 0.2s;
   }
   .hero-film-play .len { color: var(--faint); }
   .hero-film-play:hover, .hero-film-play:focus-visible { background: var(--ink); color: var(--paper); outline: none; }
   .hero-film-play:hover .len, .hero-film-play:focus-visible .len { color: inherit; opacity: 0.7; }
   .hero-film-play[hidden] { display: none; }
-  @media (max-width: 400px) { .hero-film-play { font-size: 12px; gap: 10px; padding: 12px 16px; } }
-  .hero-film-cap { font-family: var(--font-body); font-size: 12px; color: var(--faint); margin: var(--s2) 0 0; text-align: center; }
-  @media (max-width: 800px) { .hero-film { max-width: 100%; margin-top: var(--s4); } }
+  @media (max-width: 400px) { .hero-film-play { font-size: 11px; gap: 10px; padding: 10px 14px; } }
 
   /* .diagram-flow layout + its mobile stacking now live in
      design-v1.1.css, shared with product.html's copy of the diagram. */
@@ -360,7 +369,7 @@
 
   @media (max-width: 800px) {
     .hero { padding: var(--s6) 0 20px; }
-    .hero-logo { width: 340px; }
+    .hero-stage { width: 340px; }
     .determination { margin-top: 28px; }
     .det-in { padding: var(--s4) var(--s4); }
     .diagram-loop, .diagram-loop-label { display: none; }
@@ -389,7 +398,27 @@
 <main>
   <!-- HERO: plain question + tagline, then one real determination, then one plain sentence -->
   <section class="hero">
-    <img src="./Assets/logo.png" class="hero-logo condense condense-d1" alt="DATOM">
+    <!-- The film (media/datom-film*): what DATOM is, how a reader and an organization use it, and
+         why it matters, in about two minutes. Built in datom-confidence-video (src/website/); its
+         numbers are pinned in media/datom-film.numbers.json and checked against the published record
+         by DATOM-AWS/src/tests/websiteFilmNumbers.test.ts. The DATOM logo is its thumbnail: pressing
+         it grows the logo into the film, which ends on the logo and shrinks back into it (film.js).
+         No verdict word may appear in this markup's visible text or attributes (publicVerdictDrift:
+         this page has no record subject). -->
+    <div class="hero-stage condense condense-d1" id="hero-stage" data-film-hero="hero-film-play">
+      <img src="./Assets/logo.png" class="hero-logo" alt="DATOM. Press to play a two minute film about DATOM.">
+      <video id="hero-film-video" preload="none" playsinline width="1920" height="1080"
+             poster="media/datom-film-poster.webp" data-src-720="media/datom-film-720.mp4" aria-label="DATOM in two minutes">
+        <source src="media/datom-film.mp4" type="video/mp4">
+        <track kind="captions" src="media/datom-film.vtt" srclang="en" label="English">
+        <a href="media/datom-film.mp4">Watch the film (MP4).</a>
+      </video>
+      <button type="button" class="film-card-close" aria-label="Close the film">Close</button>
+    </div>
+    <button type="button" class="hero-film-play condense condense-d1" id="hero-film-play" aria-label="Play the film: learn about DATOM in two minutes">
+      <svg width="13" height="13" viewBox="0 0 22 22" aria-hidden="true"><path d="M7 4.5v13l10-6.5z" fill="currentColor"/></svg>
+      <span>Learn about DATOM</span><span class="len" aria-hidden="true">2 min</span>
+    </button>
     <h1 class="condense condense-d2">Science, verified. For everyone.</h1>
     <p class="hero-slogan condense condense-d2">How sure are we, really?</p>
 
@@ -445,55 +474,6 @@
          a hand-typed snapshot showing a maturity label ("Emerging") in a verdict
          slot next to a bare confidence percentage. Both are gone by construction
          now, not by care. -->
-    <!-- The film (media/datom-film*): what DATOM is, how a reader and an organization use it, and
-         why it matters, in about two minutes. Built in datom-confidence-video (src/website/); its numbers
-         are pinned in media/datom-film.numbers.json and checked against the published record by
-         DATOM-AWS/src/tests/websiteFilmNumbers.test.ts. It sits after the answer box so the box
-         stays above the fold on a laptop (measured 2026-10-16: above the box it pushed the box to
-         1040 px on a 900 px screen). No verdict word may appear in this markup's visible text or
-         attributes (publicVerdictDrift: this page has no record subject). -->
-    <figure class="hero-film" id="hero-film">
-      <video id="hero-film-video" preload="metadata" playsinline width="1920" height="1080"
-             poster="media/datom-film-poster.webp" aria-label="DATOM in two minutes">
-        <source src="media/datom-film.mp4" type="video/mp4">
-        <track kind="captions" src="media/datom-film.vtt" srclang="en" label="English">
-        <a href="media/datom-film.mp4">Watch the film (MP4).</a>
-      </video>
-      <!-- Until play, the poster is fully transparent, so the page itself shows through the video
-           and this labelled button is the only sign of the film. Native controls (with captions)
-           appear once it is playing; when it ends the element reloads so the page shows through. -->
-      <button type="button" class="hero-film-play" id="hero-film-play" aria-label="Play the film: learn about DATOM in two minutes">
-        <svg width="14" height="14" viewBox="0 0 22 22" aria-hidden="true"><path d="M7 4.5v13l10-6.5z" fill="currentColor"/></svg>
-        <span>Learn about DATOM</span><span class="len" aria-hidden="true">2 min</span>
-      </button>
-      <figcaption class="hero-film-cap">A two minute film. Captions available.</figcaption>
-    </figure>
-    <script>
-      (function () {
-        var v = document.getElementById('hero-film-video');
-        var play = document.getElementById('hero-film-play');
-        if (!v || !play) return;
-        // Phones get the 720p encode: the same film at a third of the bytes.
-        if (window.matchMedia && matchMedia('(max-width: 700px)').matches) {
-          var s = v.querySelector('source');
-          s.src = 'media/datom-film-720.mp4';
-          v.load();
-        }
-        play.addEventListener('click', function () {
-          v.controls = true;
-          play.hidden = true;
-          v.play();
-        });
-        v.addEventListener('ended', function () {
-          // back to the page: load() returns the element to its (transparent) poster, where
-          // currentTime = 0 would leave the first frame showing
-          v.controls = false;
-          v.load();
-          play.hidden = false;
-        });
-      })();
-    </script>
-
     <div class="det-carousel-wrap condense condense-d3" id="featured-entry">
       <div class="det-carousel">
         <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous record">&larr;</button>
@@ -998,5 +978,6 @@
 <script src="fog-bg.js?v=2"></script>
 <script src="shared.js?v=20260719a"></script>
 <script src="elmer.js?v=20261015a"></script>
+<script src="film.js?v=1"></script>
 </body>
 </html>

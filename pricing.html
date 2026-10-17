@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="elmer.css?v=20260719a">
 <link rel="stylesheet" href="tokens.css?v=1">
 <link rel="stylesheet" href="design-v1.1.css?v=9">
+<link rel="stylesheet" href="film.css?v=1">
 
 <style>
   /* Layout-only rules; visual treatment lives in global.css and design-v1.1.css */
@@ -68,8 +69,25 @@
 
   <!-- HERO -->
   <section class="reveal">
-    <p class="section-label">Work with DATOM</p>
-    <h1>For one claim, or for your whole organization.</h1>
+    <!-- The Work with DATOM film (media/work-film.mp4): the ways to work with DATOM, in the page's own words and with no price (the prices are on the cards below); pinned in media/work-film.numbers.json and checked against this page by DATOM-AWS/src/tests/workFilmNumbers.test.ts. Its poster frame sits beside the heading; play grows it into a large player (film.js). -->
+    <div class="film-head" style="--film-card-w: 420px">
+      <div class="film-head-text">
+        <p class="section-label">Work with DATOM</p>
+        <h1>For one claim, or for your whole organization.</h1>
+      </div>
+      <figure class="film-card" id="work-film" data-film>
+        <video id="work-film-video" preload="none" playsinline width="1920" height="1080" poster="media/work-film-poster.jpg" data-src-720="media/work-film-720.mp4" aria-label="the ways to work with DATOM, a one minute film">
+          <source src="media/work-film.mp4" type="video/mp4">
+          <track kind="captions" src="media/work-film.vtt" srclang="en" label="English">
+          <a href="media/work-film.mp4">Watch the film (MP4).</a>
+        </video>
+        <button type="button" class="film-card-play" id="work-film-open" aria-label="Play the film: the ways to work with DATOM, a one minute film">
+          <svg width="13" height="13" viewBox="0 0 22 22" aria-hidden="true"><path d="M7 4.5v13l10-6.5z" fill="currentColor"/></svg>
+          <span>The ways to work with DATOM</span><span class="len" aria-hidden="true">1 min</span>
+        </button>
+        <button type="button" class="film-card-close" aria-label="Close the film">Close</button>
+      </figure>
+    </div>
   </section>
 
   <!-- WAYS TO ENGAGE. The three tiers mirror src/config/rateCard.ts, the
@@ -82,7 +100,7 @@
       <div class="card reveal reveal-d1">
         <h3>Free</h3>
         <p class="engage-price">$0</p>
-        <p class="engage-tagline">Featured public claims. Read the verdict, its grades, and the summary evidence. Nothing else is free.</p>
+        <p class="engage-tagline">Featured public claims. Read the verdict, its evidence grade, and the summary evidence. Nothing else is free.</p>
         <ul class="engage-features">
           <li>Read the verdict, the evidence grade, and the summary evidence on every featured public claim</li>
           <li>See the sources that weigh most, each linked to the original study</li>
@@ -143,5 +161,6 @@
 <script src="fog-bg.js?v=2"></script>
 <script src="shared.js?v=20260719a"></script>
 <script src="elmer.js?v=20261015a"></script>
+<script src="film.js?v=1"></script>
 </body>
 </html>
