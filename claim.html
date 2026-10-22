@@ -315,10 +315,13 @@
       el.style.display = 'none';
       return;
     }
+    // FINDINGS, not studies: one paper can report several findings, so this
+    // count is larger than the number of studies behind it (44 findings from 21
+    // studies on D-EC72DA5D). The page said "studies" until 2026-10-21.
     el.setAttribute('aria-label',
-      'Of ' + total + ' studies that directly tested this claim: ' + s + ' support, ' + c + ' against.');
+      'Of ' + total + ' findings that directly tested this claim: ' + s + ' support, ' + c + ' against.');
     el.innerHTML =
-      '<p class="split-intro">Of the ' + total + ' stud' + (total === 1 ? 'y' : 'ies') + ' that directly tested this claim:</p>' +
+      '<p class="split-intro">Of the ' + total + ' finding' + (total === 1 ? '' : 's') + ' that directly tested this claim:</p>' +
       '<div class="split-bar">' +
       (s ? '<div class="split-seg support" style="flex-grow:' + s + '"></div>' : '') +
       (c ? '<div class="split-seg contra" style="flex-grow:' + c + '"></div>' : '') +

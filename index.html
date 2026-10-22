@@ -162,9 +162,15 @@
   .spectrum-zone.z-cont  { width: 10%; font-size: 8px; letter-spacing: 0; }
   .spectrum-zone.z-sup   { width: 45%; }
   .spectrum-zone.active { background: var(--paper-2); font-weight: 700; color: var(--ink); }
-  /* currentColor, not inherit: the JS sets the mark's color to the verdict
-     colour and both the stem and the arrowhead have to follow it. */
-  .spectrum-mark { position: absolute; top: -6px; bottom: -6px; width: 2px; background: currentColor; color: var(--verdict-mixed); z-index: 2; }
+  /* The same figure record.html draws: the 90% range as a band, its two bounds
+     drawn heavier than the point, because the verdict is read off where the
+     BOUNDS fall (lower bound at or above 55 is Supported). The card used to mark
+     the raw count share instead, which put GLP-1's mark at 86%, inside the
+     Supported zone, beside the word Contested. currentColor throughout: the JS
+     paints each piece in the verdict colour. */
+  .spectrum-range { position: absolute; top: 10px; height: 14px; background: currentColor; opacity: 0.2; z-index: 1; }
+  .spectrum-bound { position: absolute; top: 4px; bottom: 4px; width: 2px; background: currentColor; z-index: 2; }
+  .spectrum-mark { position: absolute; top: 2px; bottom: 2px; width: 1px; background: var(--faint); color: var(--verdict-mixed); z-index: 2; }
   .spectrum-mark::after { content: ""; position: absolute; top: -5px; left: -4px; border: 5px solid transparent; border-top-color: currentColor; }
   .spectrum-cap { display: flex; justify-content: space-between; gap: var(--s3); font-family: var(--font-data); font-size: 11px; color: var(--muted); margin-top: 6px; }
   .spectrum-cap .now { text-align: center; }
@@ -494,6 +500,9 @@
             <p class="det-fl" style="margin:0 0 6px;">Verdict</p>
             <div class="spectrum">
               <div class="spectrum-track" id="det-track">
+                <div class="spectrum-range" id="det-range"></div>
+                <div class="spectrum-bound" id="det-lo"></div>
+                <div class="spectrum-bound" id="det-hi"></div>
                 <div class="spectrum-mark" id="det-mark"></div>
                 <div class="spectrum-zone z-unsup" id="det-z-unsup">Unsupported</div>
                 <div class="spectrum-zone z-cont" id="det-z-cont">Contested</div>
@@ -530,10 +539,10 @@
          it in the page (rather than only in the JS) means the gate reads exactly
          what ships. Generated: do not hand-edit. -->
     <script type="application/json" id="featured-entries">
-[{"entryId":"DTM-2026-0703-2E","plainQuestion":"GLP-1 receptor agonist therapy reduces skeletal muscle mass during weight loss.","href":"record.html","verdictLabel":"Contested","gradeAbsolute":"B","decisiveSharePct":86,"sourceCount":102,"supports":44,"contradicts":7},
-{"entryId":"D-EE363BAC","plainQuestion":"Having had a prior COVID-19 infection, on top of being vaccinated, gives extra protection against reinfection or severe disease compared to vaccination alone.","href":"claim.html?id=D-EE363BAC","verdictLabel":"Supported","gradeAbsolute":"C","decisiveSharePct":89,"sourceCount":28,"supports":16,"contradicts":2},
-{"entryId":"D-E5E9B06E","plainQuestion":"CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) works efficiently and reproducibly across many different organisms, not just one well-studied species.","href":"claim.html?id=D-E5E9B06E","verdictLabel":"Supported","gradeAbsolute":"A","decisiveSharePct":95,"sourceCount":96,"supports":41,"contradicts":2},
-{"entryId":"D-EC72DA5D","plainQuestion":"Brain scans (MRI/fMRI) show measurable structural or functional differences in people with eating disorders compared to people without them.","href":"claim.html?id=D-EC72DA5D","verdictLabel":"Supported","gradeAbsolute":"B","decisiveSharePct":95,"sourceCount":40,"supports":42,"contradicts":2}]
+[{"entryId":"DTM-2026-0703-2E","plainQuestion":"GLP-1 receptor agonist therapy reduces skeletal muscle mass during weight loss.","href":"record.html","verdictLabel":"Contested","gradeAbsolute":"B","decisiveSharePct":86,"sourceCount":102,"supports":44,"contradicts":7,"studies":43,"weightedPct":65.1,"rangeLoPct":54.6,"rangeHiPct":75},
+{"entryId":"D-EE363BAC","plainQuestion":"Having had a prior COVID-19 infection, on top of being vaccinated, gives extra protection against reinfection or severe disease compared to vaccination alone.","href":"claim.html?id=D-EE363BAC","verdictLabel":"Supported","gradeAbsolute":"C","decisiveSharePct":89,"sourceCount":28,"supports":16,"contradicts":2,"studies":14,"weightedPct":82.3,"rangeLoPct":71.4,"rangeHiPct":90.5},
+{"entryId":"D-E5E9B06E","plainQuestion":"CRISPR-based genome editing (Cas9 and related tools like TALENs and TnpB) works efficiently and reproducibly across many different organisms, not just one well-studied species.","href":"claim.html?id=D-E5E9B06E","verdictLabel":"Supported","gradeAbsolute":"A","decisiveSharePct":95,"sourceCount":96,"supports":41,"contradicts":2,"studies":32,"weightedPct":95.6,"rangeLoPct":90.5,"rangeHiPct":98.7},
+{"entryId":"D-EC72DA5D","plainQuestion":"Brain scans (MRI/fMRI) show measurable structural or functional differences in people with eating disorders compared to people without them.","href":"claim.html?id=D-EC72DA5D","verdictLabel":"Supported","gradeAbsolute":"B","decisiveSharePct":95,"sourceCount":40,"supports":42,"contradicts":2,"studies":21,"weightedPct":86,"rangeLoPct":71.5,"rangeHiPct":96}]
     </script>
 
     <p class="plain-what condense condense-d3">DATOM checks whether scientific claims hold up, <b>by someone with no stake in the answer</b>, and records the result in one place anyone can read.</p>
@@ -853,6 +862,9 @@
     var elEntry = document.getElementById('det-entry');
     var elClaim = document.getElementById('det-claim');
     var elMark  = document.getElementById('det-mark');
+    var elRange = document.getElementById('det-range');
+    var elLo    = document.getElementById('det-lo');
+    var elHi    = document.getElementById('det-hi');
     var elNow   = document.getElementById('det-now');
     var elAbs   = document.getElementById('det-grade-abs');
     var elCap   = document.getElementById('det-grade-cap');
@@ -866,6 +878,8 @@
       'Supported':   document.getElementById('det-z-sup')
     };
     var idx = 0, timer = null;
+
+    function plural(n, one, many) { return n + ' ' + (n === 1 ? one : (many || one + 's')); }
 
     function gradeScale(host, letter) {
       host.innerHTML = '';
@@ -894,6 +908,7 @@
       // it means. So the spectrum carries no mark and no active zone here.
       if (e.verdictLabel === 'Insufficient record') {
         elMark.style.display = 'none';
+        elRange.style.display = elLo.style.display = elHi.style.display = 'none';
         elNow.textContent = 'Not enough on the record to say either way';
         // The axis ends are hidden too. With no mark, a leftover "0% agree"
         // sitting beside "not enough on the record" reads as "0% agree", which
@@ -901,10 +916,20 @@
         elAxLo.style.visibility = 'hidden';
         elAxHi.style.visibility = 'hidden';
       } else {
+        // The verdict's own basis, exactly as record.html draws it: the weighted
+        // estimate and its 90% range. The raw count (e.g. 44 of 51) is printed
+        // below as a count; plotting it on this axis is the 2026-10-21 defect.
         elMark.style.display = '';
-        elMark.style.left = e.decisiveSharePct + '%';
-        elMark.style.color = color; // stem and arrowhead both read currentColor
-        elNow.textContent = e.decisiveSharePct + '% of the studies that tested it agree · ' + e.verdictLabel;
+        elRange.style.display = elLo.style.display = elHi.style.display = '';
+        elMark.style.left = e.weightedPct + '%';
+        elMark.style.color = color; // the arrowhead reads currentColor
+        elRange.style.left = e.rangeLoPct + '%';
+        elRange.style.width = (e.rangeHiPct - e.rangeLoPct) + '%';
+        elLo.style.left = e.rangeLoPct + '%';
+        elHi.style.left = e.rangeHiPct + '%';
+        elRange.style.color = elLo.style.color = elHi.style.color = color;
+        elNow.textContent = Math.round(e.weightedPct) + '% weighted · range ' + e.rangeLoPct.toFixed(1) +
+          '–' + e.rangeHiPct.toFixed(1) + '% · ' + e.verdictLabel;
         elAxLo.style.visibility = '';
         elAxHi.style.visibility = '';
       }
@@ -913,9 +938,15 @@
       gradeScale(elAbs, e.gradeAbsolute);
       elCap.textContent = GRADE_CAPTION[e.gradeAbsolute] || '';
 
-      elSrc.textContent = e.sourceCount === 1
-        ? 'Checked against 1 source. Read the record to see every one.'
-        : 'Checked against ' + e.sourceCount + ' sources. Read the record to see every one.';
+      // Findings, not studies: one paper can report several findings, so the
+      // count that decides the direction (e.g. 51 findings) comes from fewer
+      // studies (43). The card said "86% of the studies" until 2026-10-21.
+      var findings = e.supports + e.contradicts;
+      var counted = (e.verdictLabel === 'Insufficient record' || !findings) ? '' :
+        'Of ' + plural(findings, 'finding') + ' from ' + plural(e.studies, 'study', 'studies') +
+        ' that tested it directly, ' + e.supports + ' agree. ';
+      elSrc.textContent = counted + 'Checked against ' + plural(e.sourceCount, 'source') +
+        '. Read the record to see every one.';
 
       Array.prototype.forEach.call(dotsEl.children, function (d, i) {
         d.classList.toggle('active', i === idx);
