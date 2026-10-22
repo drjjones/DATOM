@@ -24,18 +24,18 @@
  "supports": 44,
  "contradicts": 7,
  "counted": 51,
- "pointTenths": 651,
- "loTenths": 546,
- "hiTenths": 750,
- "verdictLabel": "Contested",
- "grade": "B",
- "gradeCaption": "Grade B \u00b7 solid evidence base, wide range",
+ "pointTenths": 678,
+ "loTenths": 606,
+ "hiTenths": 747,
+ "verdictLabel": "Supported",
+ "grade": "A",
+ "gradeCaption": "Grade A \u00b7 strong evidence base, narrow range",
  "sourceCount": 102,
  "claim": "GLP-1 weight-loss drugs cause you to lose muscle while you lose weight.",
  "exactClaim": "GLP-1 receptor agonist therapy at clinically approved doses reduces skeletal muscle mass during weight loss in overweight and obese adults, as measured by lean body mass or appendicular skeletal muscle mass over a treatment period of 12 to 68 weeks.",
  "disclosure": "Not commissioned or sponsored.",
  "published": "2026-07-03",
- "revised": "4 Aug 2026",
+ "revised": "21 Oct 2026",
  "bib": [
   "10.1111/dom.15829",
   "10.1016/j.jnha.2025.100652",
@@ -50,13 +50,13 @@
   "contradicts": 1,
   "conditional": 3
  },
- "dataHash": "38aae0651c39bde1",
+ "dataHash": "f519509e8a329500",
  "files": {
   "mp4": "media/how-film.mp4",
   "mp4_720": "media/how-film-720.mp4",
   "posterJpg": "media/how-film-poster.jpg",
   "vtt": "media/how-film.vtt"
  },
- "mp4Bytes": 14096569,
- "mp4Sha256": "0f97ccdc583fcf672d8c8ff8b064ee03b0b6cecbbf46667af06bb83e69ac53f5"
+ "mp4Bytes": 14143958,
+ "mp4Sha256": "f425905e1ab0d1e7123c3f1d0dff4b82835d2bbdd2a00ebf882774f240206883"
 }

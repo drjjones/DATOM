@@ -4,12 +4,12 @@
  "contradicts": 7,
  "counted": 51,
  "pct": 86,
- "pointTenths": 651,
- "loTenths": 546,
- "hiTenths": 750,
- "shownPoint": 65,
- "verdictLabel": "Contested",
- "grade": "B",
+ "pointTenths": 678,
+ "loTenths": 606,
+ "hiTenths": 747,
+ "shownPoint": 68,
+ "verdictLabel": "Supported",
+ "grade": "A",
  "sourceCount": 102,
  "clusters": 43,
  "findings": 224,
@@ -23,7 +23,7 @@
   }
  },
  "claim": "GLP-1 weight-loss drugs cause you to lose muscle while you lose weight.",
- "revised": "4 Aug 2026",
+ "revised": "21 Oct 2026",
  "published": "2026-07-03",
  "disclosure": "Not commissioned or sponsored.",
  "bib": [
@@ -31,8 +31,8 @@
   "10.1016/j.jnha.2025.100652",
   "10.1016/j.metabol.2024.156057"
  ],
- "dataHash": "5a912f844aff378f",
- "renderedAt": "2026-10-16",
+ "dataHash": "276a3b9a9e251e25",
+ "renderedAt": "2026-10-22",
  "files": {
   "mp4": "media/datom-film.mp4",
   "mp4_720": "media/datom-film-720.mp4",
@@ -40,6 +40,6 @@
   "posterJpg": "media/datom-film-poster.jpg",
   "vtt": "media/datom-film.vtt"
  },
- "mp4Bytes": 19708933,
- "mp4Sha256": "f74ecb3c75ab625be37a49a5d49ba0f958898c27df5af336e5fb9ddf63989b81"
+ "mp4Bytes": 20135937,
+ "mp4Sha256": "9acbc335223617a44200bb73619a145e9d0045fa6d817f711ee27e18733d61f8"
 }

@@ -1,0 +1,12 @@
+{
+  "entryId": "DTM-2026-0703-2E",
+  "claim": "GLP-1 receptor agonist therapy reduces skeletal muscle mass during weight loss.",
+  "verdictLabel": "Supported",
+  "grade": "A",
+  "gradeCaption": "strong evidence base",
+  "supports": 44,
+  "findings": 51,
+  "studies": 43,
+  "sourceCount": 102,
+  "pngSha256": "ed0194f5322f29fa0b5ba95c2a8b653d1a4f79f12ecd0710f830bbd225707b4b"
+}

@@ -20,21 +20,21 @@
  "freeTagline": "Featured public claims. Read the verdict, its evidence grade, and the summary evidence. Nothing else is free.",
  "sponsorLine": "Sponsorship disclosed on the public record",
  "reportLine": "Private by default; you choose whether the record publishes",
- "verdictLabel": "Contested",
- "grade": "B",
+ "verdictLabel": "Supported",
+ "grade": "A",
  "claim": "GLP-1 weight-loss drugs cause you to lose muscle while you lose weight.",
  "bib": [
   "10.1111/dom.15829",
   "10.1016/j.jnha.2025.100652",
   "10.1016/j.metabol.2024.156057"
  ],
- "dataHash": "59f121e806470b78",
+ "dataHash": "ed9d2731d9ef0333",
  "files": {
   "mp4": "media/work-film.mp4",
   "mp4_720": "media/work-film-720.mp4",
   "posterJpg": "media/work-film-poster.jpg",
   "vtt": "media/work-film.vtt"
  },
- "mp4Bytes": 6682696,
- "mp4Sha256": "310e08254702c86c8779c4022912db9655746a3bca2e0ff0c93b96d0d228d096"
+ "mp4Bytes": 6673620,
+ "mp4Sha256": "f6763fd281d0be303e784ca5b27d9f1faf4fe7768dd5cfa3eaac2671ef6abb3c"
 }
