@@ -445,7 +445,7 @@
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ claimText: q })
         }).then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
-          if (data && (data.kind === 'hit' || data.kind === 'pending') && isSafeHref(data.href)) {
+          if (data && (data.kind === 'hit' || data.kind === 'pending' || data.kind === 'figure') && isSafeHref(data.href)) {
             window.location.href = data.href; return;
           }
           if (typeof window.datomAskElmer === 'function') { window.datomAskElmer(q); }
