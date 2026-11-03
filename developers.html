@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Developers, DATOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Read every published DATOM record from your own code: a documented, read only API, no key needed, and an MCP server for AI assistants.">
+<link rel="canonical" href="https://datom.science/developers.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DATOM">
+<meta property="og:title" content="DATOM for developers">
+<meta property="og:description" content="Read every published DATOM record from your own code: a documented, read only API, no key needed, and an MCP server for AI assistants.">
+<meta property="og:url" content="https://datom.science/developers.html">
+<meta property="og:image" content="https://datom.science/og/home.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DATOM for developers">
+<meta name="twitter:description" content="Read every published DATOM record from your own code: a documented, read only API, no key needed, and an MCP server for AI assistants.">
+<meta name="twitter:image" content="https://datom.science/og/home.png">
+<link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
+<link rel="icon" type="image/png" href="./Assets/favicon.png">
+<link rel="stylesheet" href="global.css?v=5">
+<link rel="stylesheet" href="elmer.css?v=20260721a">
+<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="design-v1.1.css?v=9">
+<!-- NOTE TO MAINTAINERS: this page describes only what exists and needs no
+     login today. The full contract is developers/openapi.yaml, kept in step
+     with DATOM-AWS docs/api/openapi.yaml. Do not list a route here until it is
+     live, public and read only. -->
+<style>
+  main.doc { max-width: 760px; }
+  .doc h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(26px, 4vw, 34px); line-height: 1.15; margin: 0 0 10px; }
+  .doc h2 { font-family: var(--font-display); font-weight: 500; font-size: 20px; margin: var(--s5) 0 var(--s2); padding-top: var(--s3); border-top: 1px solid var(--line); }
+  .doc p, .doc li { font-size: 15px; line-height: 1.7; color: var(--ink); }
+  .doc p { margin: 0 0 var(--s3); max-width: 70ch; }
+  .doc ul { margin: 0 0 var(--s3); padding-left: 20px; }
+  .doc li { margin-bottom: 8px; max-width: 68ch; }
+  .doc strong { font-weight: 600; }
+  .doc a { color: var(--signal); }
+  .doc .lead { font-size: 17px; line-height: 1.66; color: var(--ink); margin-bottom: var(--s4); }
+  .doc table { width: 100%; border-collapse: collapse; margin: 0 0 var(--s3); font-size: 14px; }
+  .doc th, .doc td { text-align: left; vertical-align: top; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); }
+  .doc th { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
+  .doc code { font-family: var(--font-data); font-size: 13px; overflow-wrap: anywhere; }
+  .doc .note { border: 1px solid var(--line); border-left: 4px solid var(--signal); background: var(--nest); padding: 14px 16px; font-size: 14px; line-height: 1.6; margin: var(--s3) 0; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="record.html">Example</a>
+    <a href="product.html">How it works</a>
+    <a href="organizations.html">For Organizations</a>
+    <a href="pricing.html">Work with DATOM</a>
+    <a href="/app/login" class="btn-login">Sign in</a>
+  </nav>
+</header>
+
+<main class="doc">
+  <h1>Read the record from your own code</h1>
+
+  <p class="lead">Every record DATOM has published can be read by a program. The interface is read only, needs no key and no account, and returns exactly what the published record says.</p>
+
+  <p>AI helps DATOM read studies and draft summaries. AI cannot be fully trusted in science on its own, which is why every finding on a record is tied to a named study anyone can open and check. When you show a DATOM verdict, link to its record so your reader can do the same.</p>
+
+  <h2>What you can read</h2>
+  <table>
+    <thead><tr><th>Request</th><th>What comes back</th></tr></thead>
+    <tbody>
+      <tr><td><code>GET https://datom.science/records-index.json</code></td><td>Every published record, with its claim, verdict and grade.</td></tr>
+      <tr><td><code>GET https://datom.science/claims/{id}.json</code></td><td>One record in full: its findings and the studies behind them. Not every record in the index has one yet; the index entry and the record page are always there.</td></tr>
+      <tr><td><code>GET https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/record/{id}</code></td><td>A readiness record (<code>RR-</code>), a question someone asked (<code>q-</code>), or the list of readiness records (<code>RR-index</code>, up to 100).</td></tr>
+      <tr><td><code>GET https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/figure/{id}</code></td><td>A Figure Record: a statistical claim checked against the official series it names.</td></tr>
+      <tr><td><code>GET https://ebv5sdivvc.execute-api.us-east-1.amazonaws.com/api/board</code></td><td>The questions people have asked DATOM to check, most requested first. Takes an optional <code>limit</code> from 1 to 100.</td></tr>
+    </tbody>
+  </table>
+  <p>The full contract, with every field and status code, is the <a href="developers/openapi.yaml">OpenAPI specification</a>.</p>
+
+  <h2>Connect an AI assistant</h2>
+  <p>An MCP server reads the same published records for an AI assistant. It has three read only tools: search the records, get one record, and get one Figure Record. Every answer carries the address it came from, and the server never forms a verdict of its own: it repeats the published one or says it has none. It is available on request from <a href="mailto:info@datom.science">info@datom.science</a>.</p>
+
+  <h2>What this is not</h2>
+  <ul>
+    <li>It cannot write anything, and it never sees a private ledger. An organization's private records are not available through it.</li>
+    <li>It has no version number yet and no uptime commitment. Fields may be added; we will not silently change what a field means.</li>
+    <li>Requests are rate limited. If you get HTTP 429, or a 5xx status, wait and retry with a growing delay.</li>
+    <li>The files on datom.science are cached for up to ten minutes.</li>
+  </ul>
+
+  <p class="note">Questions, or a use this does not cover: <a href="mailto:info@datom.science">info@datom.science</a>.</p>
+</main>
+
+<footer>&copy; 2026 DATOM &middot; Science, verified. For everyone. &middot; <a href="terms.html">Terms</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="firewall.html">Firewall</a> &middot; <a href="product.html">How it works</a></footer>
+
+<script src="fog-bg.js?v=2"></script>
+<script src="shared.js?v=20260719a"></script>
+<script src="elmer.js?v=20261015a"></script>
+</body>
+</html>

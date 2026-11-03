@@ -53,6 +53,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://datom.science/developers.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://datom.science/privacy.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
