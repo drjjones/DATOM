@@ -72,6 +72,26 @@
   .rec-h { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin: var(--s5) 0 var(--s2); border-bottom: 1px solid var(--line); padding-bottom: 6px; }
 
   /* determination stamp */
+  /* The answer box and key messages under the heading (2026-11-04). */
+  .glance { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line); border-top: var(--rule-double) solid var(--ink); margin: 0 0 var(--s4); }
+  .glance > div { padding: var(--s3) var(--s4); }
+  .glance-claim { border-right: 1px solid var(--line); }
+  .glance-claim .rec-precise { margin: 0 0 var(--s2); font-size: 14px; color: var(--ink); max-width: none; }
+  .glance-claim .rec-domain { margin: 0; }
+  .glance-verdict { background: var(--nest); }
+  .glance-k, .keymsg-k, .rec-plain-k { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin: 0 0 6px; }
+  .glance-word { font-family: var(--font-display); font-size: 30px; line-height: 1.1; margin: 0 0 6px; }
+  .glance-grade { font-family: var(--font-data); font-size: 12px; color: var(--ink); margin: 0 0 var(--s2); }
+  .glance-why { font-family: var(--font-body); font-size: 14px; line-height: 1.55; color: var(--ink); margin: 0 0 var(--s2); }
+  .glance-more { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--signal); text-decoration: none; }
+  .glance-more:hover { text-decoration: underline; }
+  .keymsg { margin: 0 0 var(--s4); }
+  .keymsg ul { margin: 0; padding-left: 20px; max-width: 72ch; }
+  .keymsg li { font-family: var(--font-body); font-size: 16px; line-height: 1.55; color: var(--ink); margin: 0 0 6px; }
+  @media (max-width: 640px) {
+    .glance { grid-template-columns: minmax(0, 1fr); }
+    .glance-claim { border-right: 0; border-bottom: 1px solid var(--line); }
+  }
   .stamp { border-top: var(--rule-double) solid var(--ink); border-bottom: 1px solid var(--line); padding: var(--s4) 0; margin: var(--s4) 0; }
   .stamp-label { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
   .rec-basis { font-family: var(--font-data); font-size: 12px; color: var(--faint); margin: var(--s3) 0 0; line-height: 1.5; }
@@ -186,7 +206,7 @@
 </style>
 </head>
 
-<body data-med-gate="health">
+<body>
 
 <header>
   <a href="index.html"><img src="./Assets/logo.png" class="header-logo" alt="DATOM"></a>
@@ -215,9 +235,6 @@
       <div class="film-head-text">
       <p class="rec-eyebrow">DATOM Record &middot; DTM-2026-0703-2E</p>
       <h1 class="rec-claim">GLP-1 weight-loss drugs cause you to lose muscle while you lose weight.</h1>
-      <p class="rec-lay-summary">DATOM found 51 findings, from 43 studies, that directly tested this claim. Of those findings, 44 (86%) support the idea that GLP-1 weight-loss drugs cause you to lose muscle while you lose weight; 7 (14%) point the other way. Counting findings treats them as 51 independent tests, and they are not: several come from the same paper, and many share authors, labs and cohorts. Once the evidence is weighted and grouped by how independent it actually is, the honest estimate carries a range rather than a single number, and that range runs from 60.6% to 74.7%. A claim is called Supported only when the <i>bottom</i> of its range clears 55%, and this one does, so the verdict is <b>Supported</b>. The weighted range sits below the headline 86% because many of the agreeing findings come from overlapping groups; it is the range, not the headline count, that the verdict rests on.</p>
-      <p class="rec-precise"><span class="k">Exact claim checked</span> GLP-1 receptor agonist therapy at clinically approved doses reduces skeletal muscle mass during weight loss in overweight and obese adults, as measured by lean body mass or appendicular skeletal muscle mass over a treatment period of 12 to 68 weeks.</p>
-      <p class="rec-domain"><span class="k">Domain</span>clinical medicine</p>
       </div>
       <figure class="film-card" id="tour-film" data-film>
         <video id="tour-film-video" preload="none" playsinline width="1920" height="1080" poster="media/record-film-poster.jpg" data-src-720="media/record-film-720.mp4" aria-label="How to read this record, a two minute film">
@@ -232,6 +249,44 @@
         <button type="button" class="film-card-close" aria-label="Close the film">Close</button>
       </figure>
     </div>
+
+    <!-- THE ANSWER FIRST (2026-11-04). Fact checking desks put the verdict
+         directly under the claim, before any prose: PolitiFact's meter under
+         the quoted claim, Full Fact's "What was claimed" beside "Our verdict".
+         This page used to open with a 180 word paragraph and reach the verdict
+         below the fold. The exact claim (hand-authored, and read by
+         recordFilmNumbers.test.ts by its class) sits on the left; the verdict,
+         grade and one sentence of why are generated on the right from the same
+         figure as the stamp below, so the two cannot disagree. -->
+    <div class="glance" id="rec-glance">
+      <div class="glance-claim">
+        <p class="rec-precise"><span class="k">Exact claim checked</span> GLP-1 receptor agonist therapy at clinically approved doses reduces skeletal muscle mass during weight loss in overweight and obese adults, as measured by lean body mass or appendicular skeletal muscle mass over a treatment period of 12 to 68 weeks.</p>
+        <p class="rec-domain"><span class="k">Domain</span>clinical medicine</p>
+      </div>
+      <div class="glance-verdict">
+      <!-- BUILD:RECORD_GLANCE (generated by scripts/build-record-body.ts from featuredRecords.ts + approvedOverrides.ts + the v2 shadow figures; do not hand-edit) -->
+      <p class="glance-k">Verdict</p>
+      <p class="glance-word" data-verdict="Supported" style="color:var(--signal);">Supported</p>
+      <p class="glance-grade">Evidence Grade A &middot; strong evidence base</p>
+      <p class="glance-why">Even the bottom of the weighted range, 60.6%, clears the 55% line for Supported.</p>
+      <a class="glance-more" href="#rec-verdict">How the verdict is read</a>
+      <!-- /BUILD:RECORD_GLANCE -->
+      </div>
+    </div>
+
+    <!-- BUILD:RECORD_KEY_MESSAGES (generated by scripts/build-record-body.ts from featuredRecords.ts + approvedOverrides.ts + the v2 shadow figures; do not hand-edit) -->
+    <div class="keymsg" id="rec-key">
+      <p class="keymsg-k">Key messages</p>
+      <ul>
+        <li>44 of the 51 findings that directly tested this claim support it, and 7 point the other way. They come from 43 studies.</li>
+        <li>Many of those findings share papers, authors or cohorts. Weighted for that, the evidence gives a range of 60.6% to 74.7%, and the verdict rests on that range, not on the raw count.</li>
+        <li>The verdict would change only if new independent studies pulled the bottom of the range below 55%. Today it clears that line by 5.6 points.</li>
+      </ul>
+    </div>
+    <!-- /BUILD:RECORD_KEY_MESSAGES -->
+
+    <p class="rec-plain-k">In plain language</p>
+    <p class="rec-lay-summary">DATOM found 51 findings, from 43 studies, that directly tested this claim. Of those findings, 44 (86%) support the idea that GLP-1 weight-loss drugs cause you to lose muscle while you lose weight; 7 (14%) point the other way. Counting findings treats them as 51 independent tests, and they are not: several come from the same paper, and many share authors, labs and cohorts. Once the evidence is weighted and grouped by how independent it actually is, the honest estimate carries a range rather than a single number, and that range runs from 60.6% to 74.7%. A claim is called Supported only when the <i>bottom</i> of its range clears 55%, and this one does, so the verdict is <b>Supported</b>. The weighted range sits below the headline 86% because many of the agreeing findings come from overlapping groups; it is the range, not the headline count, that the verdict rests on.</p>
 
     <div class="stamp" id="rec-verdict">
       <span class="stamp-label">Verdict</span>

@@ -107,6 +107,19 @@
     }
     section.block{ margin-top: 34px; }
 
+    /* The answer box and key messages under the heading (2026-11-04). */
+    .glance{ display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 16px; margin-top: 20px; align-items: start; }
+    .glance .verdict-block{ margin-top: 0; }
+    .glance-claim{ border: 1px solid var(--line); padding: 20px 22px; }
+    .glance-claim .rec-h{ margin-top: 0; }
+    .keymsg{ margin-top: 26px; }
+    .keymsg ul{ margin: 0; padding-left: 20px; max-width: 72ch; }
+    .keymsg li{ font-size: 16px; line-height: 1.55; color: var(--ink); margin: 0 0 6px; }
+    .keymsg-k{ font-family: var(--font-data); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin: 0 0 6px; }
+    #claim-plain-k{ margin-top: 26px; }
+    #claim-plain-k + .claim-lay-summary{ margin-top: 0; }
+    @media (max-width: 760px){ .glance{ grid-template-columns: minmax(0,1fr); } }
+
     /* What this checks. */
     .claim-scope{ font-size: 15px; line-height: 1.6; color: var(--ink); margin: 0; max-width: 70ch; }
     .exact-claim{ margin-top: 12px; }
@@ -181,34 +194,45 @@
       </div>
     </section>
 
+    <!-- THE ANSWER FIRST (2026-11-04): what this checks beside the verdict, then
+         key messages, then the plain summary. Fact checking desks put the
+         verdict directly under the claim, before any prose. -->
+    <div class="glance">
+      <!-- What this checks. -->
+      <section class="glance-claim" id="claim-what">
+        <h2 class="rec-h">What this checks</h2>
+        <p class="claim-scope" id="claim-scope"></p>
+        <details class="exact-claim" id="claim-exact">
+          <summary>See the exact claim wording</summary>
+          <p id="claim-anchor-text"></p>
+        </details>
+      </section>
+
+      <!-- Verdict: the plain answer + one honest sentence + which way the studies point. -->
+      <section class="verdict-block" id="verdict">
+        <h2 class="rec-h" style="margin-bottom:10px;">Verdict</h2>
+        <span class="verdict-label" id="claim-verdict-label"></span>
+        <p class="verdict-summary" id="claim-summary-text"></p>
+        <div class="grade-block" id="claim-grade" style="display:none;">
+          <p class="grade-label">Evidence Grade</p>
+          <div class="grade-scale" id="claim-grade-scale" role="img"></div>
+          <p class="grade-caption" id="claim-grade-caption"></p>
+        </div>
+        <div class="evidence-split" id="claim-evidence-split" role="img"></div>
+      </section>
+    </div>
+
+    <div class="keymsg" id="claim-key" style="display:none;">
+      <p class="keymsg-k">Key messages</p>
+      <ul id="claim-key-list"></ul>
+    </div>
+
+    <p class="keymsg-k" id="claim-plain-k">In plain language</p>
     <p class="claim-lay-summary" id="claim-lay-summary"></p>
 
     <p class="medical-note" id="claim-medical-note" style="display:none;">
       <strong>Is this medical advice?</strong> No. This looks at whether current evidence supports one specific claim. It does not cover safety, dosing, or side effects, and it is not a recommendation to use or avoid anything. Talk to a doctor before making a decision about your health.
     </p>
-
-    <!-- Verdict: the plain answer + one honest sentence + which way the studies point. -->
-    <section class="verdict-block" id="verdict">
-      <h2 class="rec-h" style="margin-bottom:10px;">Verdict</h2>
-      <span class="verdict-label" id="claim-verdict-label"></span>
-      <p class="verdict-summary" id="claim-summary-text"></p>
-      <div class="grade-block" id="claim-grade" style="display:none;">
-        <p class="grade-label">Evidence Grade</p>
-        <div class="grade-scale" id="claim-grade-scale" role="img"></div>
-        <p class="grade-caption" id="claim-grade-caption"></p>
-      </div>
-      <div class="evidence-split" id="claim-evidence-split" role="img"></div>
-    </section>
-
-    <!-- What this checks. -->
-    <section class="block" id="claim-what">
-      <h2 class="rec-h">What this checks</h2>
-      <p class="claim-scope" id="claim-scope"></p>
-      <details class="exact-claim" id="claim-exact">
-        <summary>See the exact claim wording</summary>
-        <p id="claim-anchor-text"></p>
-      </details>
-    </section>
 
     <!-- The studies. -->
     <section class="block" id="studies">
@@ -364,6 +388,42 @@
     }).join('');
   }
 
+  // Key messages (2026-11-04): the short version a reader can stop at. Built
+  // ONLY from fields featuredRecordGate.test.ts checks against the record (the
+  // verdict, the grade and its label, the decisive counts), plus sentences about
+  // what the verdict word means. No number is computed here that the JSON does
+  // not already state, and no study count is claimed (the JSON has none).
+  function renderKeyMessages(data) {
+    var items = [];
+    var d = data.decisive || {};
+    var s = Number(d.supports), c = Number(d.contradicts);
+    var kind = verdictKind(data);
+    if (isFinite(s) && isFinite(c)) {
+      var total = s + c;
+      if (kind === 'insufficient') {
+        items.push('Only ' + total + ' finding' + (total === 1 ? '' : 's') + ' tested this claim directly, too few to give it a direction.');
+      } else if (total > 0) {
+        items.push(s + ' of the ' + total + ' findings that directly tested this claim support it, and ' + c + ' point' + (c === 1 ? 's' : '') + ' the other way.');
+      }
+    }
+    var g = String(data.grade || '').toUpperCase();
+    if (['A', 'B', 'C', 'D', 'F'].indexOf(g) !== -1) {
+      var label = data.gradeLabel ? String(data.gradeLabel).toLowerCase() : '';
+      items.push('The evidence grade is ' + g + (label ? ', a ' + label : '') + '. The grade says how good the studies are; the verdict says which way they point.');
+    }
+    var v = data.verdict ? String(data.verdict) : '';
+    if (kind === 'insufficient') {
+      items.push('More studies that test the claim directly are needed before it can be given a direction.');
+    } else if (kind === 'mixed' && v) {
+      items.push(v + ' means the evidence does not settle the claim. New independent studies could move it in either direction.');
+    } else if (v) {
+      items.push(v + ' does not mean every study agrees or that the question is closed. New independent studies could still move it.');
+    }
+    if (!items.length) return;
+    document.getElementById('claim-key-list').innerHTML = items.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
+    document.getElementById('claim-key').style.display = 'block';
+  }
+
   function render(data) {
     document.title = data.name + ', DATOM';
     // Self-referential canonical per record, so ?id= pages are not treated as
@@ -397,6 +457,7 @@
       laySummaryEl.textContent = String(whatScienceSays).split(/\n\s*\n/)[0].trim();
     } else {
       laySummaryEl.style.display = 'none';
+      document.getElementById('claim-plain-k').style.display = 'none';
     }
 
     // Verdict block: label + colour + one honest sentence.
@@ -425,6 +486,7 @@
 
     renderGrade(data);
     renderSplit(data);
+    renderKeyMessages(data);
 
     // What this checks: plain scope, with the exact wording on demand.
     var scope = data.scope || '';
@@ -449,8 +511,6 @@
 
     if (data.isHealthDomain) {
       document.getElementById('claim-medical-note').style.display = 'block';
-      // Blocking, once-per-session acknowledgment before a health claim is read.
-      if (window.datomMedicalGate) { window.datomMedicalGate(); }
     }
     if (total <= 3) {
       var note = document.createElement('p');
