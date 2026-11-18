@@ -80,17 +80,45 @@
 
   /* SHORT ANSWER. Page tokens only; [hidden] must hide (see the sharpen note above). */
   .shortanswer[hidden], .shortanswer [hidden] { display:none !important; }
-  .shortanswer { border:1px solid var(--line); padding:var(--s3) var(--s4); margin:var(--s4) 0; }
+  .shortanswer { border:1px solid var(--line); padding:var(--s3) var(--s4); margin:0 0 var(--s4); }
   .sa-label { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); margin: 0 0 6px; }
   .sa-note { font-family: var(--font-body); color: var(--muted); line-height: 1.55; margin: 0 0 12px; }
   .sa-lean { font-family: var(--font-display); font-size: 17px; line-height: 1.5; color: var(--ink); margin: 0 0 10px; }
   .sa-bar { display:flex; height:10px; border:1px solid var(--line-2); margin:6px 0; }
   .sa-bar span { display:block; height:100%; }
   .sa-bar .sa-for { background: var(--ink); } .sa-bar .sa-against { background: var(--line-2); } .sa-bar .sa-cond { background: var(--line); }
-  .sa-studies { list-style: decimal; padding-left: 22px; margin: 8px 0; }
-  .sa-studies li { margin: 0 0 10px; font-family: var(--font-body); line-height: 1.45; color: var(--ink); }
-  .sa-studies .sa-sub { display:block; font-family: var(--font-data); font-size: 12px; color: var(--muted); }
-  .sa-studies a { color: var(--ink); }
+  .sa-checked { font-family: var(--font-body); font-size: 15px; line-height: 1.5; color: var(--muted); margin: 0 0 14px; }
+  .sa-checked b { font-weight: 600; color: var(--ink); }
+  /* While the answer is computed (about ten seconds on a new claim). */
+  .sa-loading p { font-family: var(--font-body); font-size: 15px; line-height: 1.5; color: var(--ink); margin: 0 0 10px; }
+  .sa-wait { height: 2px; background: var(--line); overflow: hidden; }
+  .sa-wait span { display:block; width: 30%; height: 100%; background: var(--ink); animation: sa-wait 1.4s ease-in-out infinite; }
+  @keyframes sa-wait { from { transform: translateX(-100%); } to { transform: translateX(340%); } }
+  @media (prefers-reduced-motion: reduce) { .sa-wait span { animation: none; width: 100%; opacity: 0.35; } }
+  /* HOW FAR THE CLAIM HAS BEEN TESTED: one step per kind of study, taller for a
+     stronger kind of test, filled when a study of that kind is shown below.
+     Counts only. It is not a verdict scale and plots no share. */
+  .sa-reach { margin: 6px 0 18px; }
+  .sa-reach-head { font-family: var(--font-display); font-size: 19px; line-height: 1.35; color: var(--ink); margin: 0 0 12px; }
+  .sa-rungs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; align-items: end; }
+  .sa-rung { min-width: 0; }
+  .sa-rung i { display: flex; align-items: flex-end; justify-content: center; box-sizing: border-box; padding-bottom: 3px; border: 1px solid var(--line-2); font-style: normal; font-family: var(--font-data); font-size: 13px; color: var(--faint); }
+  .sa-rung.has i { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .sa-rung span { display: block; font-family: var(--font-body); font-size: 12px; line-height: 1.25; color: var(--faint); margin-top: 6px; }
+  .sa-rung.has span { color: var(--ink); }
+  .sa-reach-foot, .sa-tally, .sa-more { font-family: var(--font-body); font-size: 14px; line-height: 1.55; color: var(--muted); margin: 10px 0 0; }
+  .sa-tally { color: var(--ink); margin: 0 0 12px; }
+  .sa-studies { list-style: none; padding: 0; margin: 0 0 12px; border-top: 1px solid var(--line); }
+  .sa-studies li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .sa-kind { display: flex; flex-wrap: wrap; gap: 2px 14px; font-family: var(--font-data); font-size: 12px; color: var(--muted); margin: 0 0 5px; }
+  .sa-kind b { font-weight: 600; color: var(--ink); }
+  .sa-finding { font-family: var(--font-display); font-size: 17px; line-height: 1.45; color: var(--ink); margin: 0 0 6px; }
+  .sa-title { font-family: var(--font-body); font-size: 14px; line-height: 1.45; color: var(--muted); margin: 0 0 8px; }
+  .sa-title.lead { font-size: 16px; color: var(--ink); }
+  .sa-title a { color: inherit; }
+  .sa-dir { display: inline-block; font-family: var(--font-data); font-size: 12px; padding: 2px 8px; border: 1px solid var(--line-2); color: var(--muted); }
+  .sa-dir.agrees { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .sa-dir.conflicts { border-color: var(--ink); color: var(--ink); }
   /* The email invitation reuses the notify form, but sits INSIDE the short answer
      box: no second border, and its sentence reads as a sentence, not a label. */
   .shortanswer .notify { border: none; padding: 0; margin: 4px 0 0; }
@@ -134,6 +162,47 @@
          so statusCopyConsistency.test.ts still matches. -->
     <p class="rec-eyebrow" id="pending-eyebrow">DATOM Record</p>
     <h1 class="rec-claim" id="pending-claim">A question on the DATOM record</h1>
+
+    <!-- SHORT ANSWER (POST /api/quick-answer, free). It sits directly under the
+         claim (2026-11-18): a visitor who asks gets what the research says FIRST,
+         and the record's status after it. With JS off, past a cap, paused, or on
+         any error the section is hidden and the page is the pending state alone.
+         It carries the quick read's own label and note, the kinds of study that
+         test the claim, what each found, and never a verdict, grade or confidence
+         figure on a literature-only answer. -->
+    <section class="shortanswer" id="short-answer" hidden aria-labelledby="sa-heading">
+      <p class="rec-eyebrow" id="sa-heading">Short answer</p>
+      <div class="sa-loading" id="sa-loading" hidden role="status" aria-live="polite">
+        <p>Reading the research on this claim. This takes about ten seconds.</p>
+        <div class="sa-wait" aria-hidden="true"><span></span></div>
+      </div>
+      <div id="sa-answer" hidden>
+        <p class="sa-label" id="sa-label"></p>
+        <p class="sa-note" id="sa-note"></p>
+        <p class="sa-checked" id="sa-checked" hidden></p>
+        <p class="sa-lean" id="sa-lean" hidden></p>
+        <div class="sa-bar" id="sa-bar" hidden role="img"><span class="sa-for"></span><span class="sa-against"></span><span class="sa-cond"></span></div>
+        <p class="status-copy" id="sa-bar-text" hidden></p>
+        <div class="sa-reach" id="sa-reach" hidden>
+          <p class="sa-reach-head" id="sa-reach-head"></p>
+          <div class="sa-rungs" id="sa-rungs" role="img"></div>
+          <p class="sa-reach-foot" id="sa-reach-foot"></p>
+        </div>
+        <p class="sa-tally" id="sa-tally" hidden></p>
+        <ol class="sa-studies" id="sa-studies"></ol>
+        <p class="sa-more" id="sa-more" hidden>A short answer reads each study&rsquo;s abstract once. A Confidence Report reads every relevant study in full and weighs them into a verdict.</p>
+        <p class="status-copy" id="sa-meta" hidden></p>
+      </div>
+      <p class="status-copy" id="sa-cap" hidden></p>
+      <div class="notify" id="sa-email" hidden>
+        <p>Enter your email for five short answers a month, and to be told when the status of this record changes.</p>
+        <form id="sa-email-form">
+          <input type="email" id="sa-email-input" name="email" placeholder="you@example.com" aria-label="Your email for short answers" required>
+          <button type="submit">Send me a link</button>
+        </form>
+        <p class="status-copy" id="sa-email-status" role="status" aria-live="polite" hidden></p>
+      </div>
+    </section>
 
     <!-- SHARPEN: the visitor makes their own question precise, with options drawn
          from the literature (POST /api/claim/sharpen). Hidden by default and
@@ -188,33 +257,6 @@
       <div class="step" data-step="PUBLISHED">Published</div>
     </div>
     <p class="status-copy" id="pending-status-copy" hidden>On the record since 2026-07-14. Verification pending.</p>
-
-    <!-- SHORT ANSWER (POST /api/quick-answer, free). Hidden until the endpoint
-         has actually answered: with JS off, past a cap, paused, or on any error
-         the page is exactly the pending state above. It carries the quick read's
-         own label and note, a list of studies, and never a verdict, grade or
-         confidence figure on a literature-only answer. -->
-    <section class="shortanswer" id="short-answer" hidden aria-labelledby="sa-heading">
-      <p class="rec-eyebrow" id="sa-heading">Short answer</p>
-      <div id="sa-answer" hidden>
-        <p class="sa-label" id="sa-label"></p>
-        <p class="sa-note" id="sa-note"></p>
-        <p class="sa-lean" id="sa-lean" hidden></p>
-        <div class="sa-bar" id="sa-bar" hidden role="img"><span class="sa-for"></span><span class="sa-against"></span><span class="sa-cond"></span></div>
-        <p class="status-copy" id="sa-bar-text" hidden></p>
-        <ol class="sa-studies" id="sa-studies"></ol>
-        <p class="status-copy" id="sa-meta" hidden></p>
-      </div>
-      <p class="status-copy" id="sa-cap" hidden></p>
-      <div class="notify" id="sa-email" hidden>
-        <p>Enter your email for five short answers a month, and to be told when the status of this record changes.</p>
-        <form id="sa-email-form">
-          <input type="email" id="sa-email-input" name="email" placeholder="you@example.com" aria-label="Your email for short answers" required>
-          <button type="submit">Send me a link</button>
-        </form>
-        <p class="status-copy" id="sa-email-status" role="status" aria-live="polite" hidden></p>
-      </div>
-    </section>
 
     <!-- acceleration by presence, action form, no declaimed trigger sentence -->
     <div class="accel">
@@ -434,10 +476,10 @@
     //
     // The request names the question by id only; the server reads the claim from
     // the question's own row, so nothing typed here can steer a model call.
-    // PROGRESSIVE ENHANCEMENT: the section starts hidden and is revealed only by
-    // an answer, an invitation to enter an email, or a used up month. Anything
-    // else (paused, over a cap, an error, JS off) leaves the pending page exactly
-    // as it was. The reader token (an email only account, no password, not the
+    // PROGRESSIVE ENHANCEMENT: the section starts hidden. While the answer is
+    // computed it shows one line saying so; it stays for an answer, an invitation
+    // to enter an email, or a used up month. Anything else (paused, over a cap,
+    // an error, JS off) hides it again and leaves the pending page as it was. The reader token (an email only account, no password, not the
     // dashboard sign in) lives in localStorage when it is allowed to.
     (function () {
       var sec = document.getElementById('short-answer');
@@ -449,6 +491,10 @@
         bar: document.getElementById('sa-bar'), barText: document.getElementById('sa-bar-text'),
         studies: document.getElementById('sa-studies'), meta: document.getElementById('sa-meta'),
         cap: document.getElementById('sa-cap'), email: document.getElementById('sa-email'),
+        loading: document.getElementById('sa-loading'), checked: document.getElementById('sa-checked'),
+        reach: document.getElementById('sa-reach'), reachHead: document.getElementById('sa-reach-head'),
+        rungs: document.getElementById('sa-rungs'), reachFoot: document.getElementById('sa-reach-foot'),
+        tally: document.getElementById('sa-tally'), more: document.getElementById('sa-more'),
         form: document.getElementById('sa-email-form'), input: document.getElementById('sa-email-input'),
         status: document.getElementById('sa-email-status'), commission: document.getElementById('commission-report')
       };
@@ -459,31 +505,98 @@
       function isHttps(u) { return typeof u === 'string' && /^https:\/\/[^\s<>"']+$/.test(u); }
       function num(v) { var n = Number(v); return isFinite(n) ? n : 0; }
 
-      var DIRECTION = { agrees: 'agrees with the claim', conflicts: 'conflicts with the claim', unclear: 'unclear from the abstract' };
+      var DIRECTION = { agrees: 'Agrees with the claim', conflicts: 'Conflicts with the claim', unclear: 'Unclear from the abstract' };
+      function el(tag, cls, txt) { var n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; }
+      function okStudy(s) { return !!s && typeof s.title === 'string' && !!s.title; }
 
       function renderStudies(list) {
         els.studies.innerHTML = '';
-        (Array.isArray(list) ? list : []).forEach(function (s) {
-          if (!s || typeof s.title !== 'string' || !s.title) return;
+        list.forEach(function (s) {
           var li = document.createElement('li');
-          if (isHttps(s.url)) {
-            var a = document.createElement('a');
-            a.href = s.url; a.rel = 'noopener noreferrer'; a.target = '_blank';
-            a.textContent = s.title;
-            li.appendChild(a);
-          } else {
-            li.appendChild(document.createTextNode(s.title));
+          var kind = el('p', 'sa-kind');
+          if (typeof s.design === 'string' && s.design) kind.appendChild(el('b', '', s.design));
+          if (typeof s.sampleSize === 'string' && s.sampleSize) {
+            var size = s.sampleSize.replace(/^n\s*=\s*/i, '');
+            kind.appendChild(el('span', '', /^[\d,]+$/.test(size) ? 'sample of ' + size : size));
           }
-          var parts = [];
-          if (s.year) parts.push(String(num(s.year)));
-          if (typeof s.sampleSize === 'string' && s.sampleSize) parts.push('sample ' + s.sampleSize);
-          parts.push(DIRECTION[s.direction] || DIRECTION.unclear);
-          var sub = document.createElement('span');
-          sub.className = 'sa-sub';
-          sub.textContent = parts.join(' · ');
-          li.appendChild(sub);
+          if (s.year) kind.appendChild(el('span', '', String(num(s.year))));
+          if (kind.childNodes.length) li.appendChild(kind);
+          var finding = typeof s.finding === 'string' ? s.finding : '';
+          if (finding) li.appendChild(el('p', 'sa-finding', finding));
+          var title = el('p', finding ? 'sa-title' : 'sa-title lead');
+          if (isHttps(s.url)) {
+            var a = el('a', '', s.title);
+            a.href = s.url; a.rel = 'noopener noreferrer'; a.target = '_blank';
+            title.appendChild(a);
+          } else {
+            title.appendChild(document.createTextNode(s.title));
+          }
+          li.appendChild(title);
+          var dir = DIRECTION[s.direction] ? s.direction : 'unclear';
+          li.appendChild(el('span', 'sa-dir ' + dir, DIRECTION[dir]));
           els.studies.appendChild(li);
         });
+        show(els.studies, list.length > 0);
+      }
+
+      // HOW FAR THE CLAIM HAS BEEN TESTED. One step per kind of study, in the order
+      // research usually proceeds; a step is filled when a study of that kind is in
+      // the list below. Counts of the studies shown, nothing weighed.
+      var RUNGS = [
+        { label: 'Lab studies', h: 18 }, { label: 'Animal studies', h: 26 }, { label: 'Observed in people', h: 34 },
+        { label: 'Trials in people', h: 42 }, { label: 'Pooled analyses', h: 50 }
+      ];
+      function rungOf(s) {
+        if (s.design === 'Lab study') return 0;
+        if (s.design === 'Animal study') return 1;
+        if (s.subjects === 'cells') return 0;
+        if (s.subjects === 'animals') return 1;
+        if (s.subjects !== 'people') return -1;
+        if (s.design === 'Observational study') return 2;
+        if (s.design === 'Randomized trial') return 3;
+        if (s.design === 'Pooled analysis') return 4;
+        return -1;
+      }
+      function renderReach(snapshot, list) {
+        var tested = snapshot && typeof snapshot.tested === 'string' ? snapshot.tested : '';
+        if (!tested || list.length === 0) { show(els.reach, false); return; }
+        var counts = [0, 0, 0, 0, 0];
+        list.forEach(function (s) { var r = rungOf(s); if (r >= 0) counts[r] += 1; });
+        els.reachHead.textContent = 'Furthest this claim has been tested: ' + tested.charAt(0).toLowerCase() + tested.slice(1) + '.';
+        els.rungs.innerHTML = '';
+        var spoken = [];
+        RUNGS.forEach(function (r, i) {
+          var cell = el('div', 'sa-rung' + (counts[i] > 0 ? ' has' : ''));
+          var block = el('i', '', counts[i] > 0 ? String(counts[i]) : '');
+          block.style.height = r.h + 'px';
+          cell.appendChild(block); cell.appendChild(el('span', '', r.label));
+          els.rungs.appendChild(cell);
+          spoken.push(r.label + ': ' + counts[i]);
+        });
+        els.rungs.setAttribute('aria-label', 'Studies shown, by kind. ' + spoken.join(', ') + '.');
+        var newest = num(snapshot.newest);
+        els.reachFoot.textContent = 'Counted among the ' + (list.length === 1 ? 'one study' : list.length + ' studies') + ' below.' +
+          (newest > 1800 ? ' The newest is from ' + newest + '.' : '');
+        show(els.reach, true);
+      }
+
+      // What the studies shown say, as a count. It is a count of abstracts read
+      // once, so it never becomes a lean, a share or a verdict.
+      function renderTally(list, thin) {
+        if (thin || list.length === 1) {
+          els.tally.textContent = 'Only one study that tests this claim directly turned up, so read it as a lead and not as an answer.';
+          show(els.tally, list.length > 0); return;
+        }
+        var n = { agrees: 0, conflicts: 0, unclear: 0 };
+        list.forEach(function (s) { n[DIRECTION[s.direction] ? s.direction : 'unclear'] += 1; });
+        var parts = [];
+        if (n.agrees) parts.push(n.agrees + (n.agrees === 1 ? ' agrees' : ' agree') + ' with the claim');
+        if (n.conflicts) parts.push(n.conflicts + (n.conflicts === 1 ? ' conflicts' : ' conflict') + ' with it');
+        if (n.unclear) parts.push(n.unclear + (n.unclear === 1 ? ' is' : ' are') + ' unclear from the abstract');
+        if (!parts.length) { show(els.tally, false); return; }
+        var last = parts.pop();
+        els.tally.textContent = 'Of the ' + list.length + ' studies shown, ' + (parts.length ? parts.join(', ') + ' and ' : '') + last + '.';
+        show(els.tally, true);
       }
 
       function renderAnswer(res) {
@@ -504,12 +617,24 @@
         } else {
           show(els.lean, false); show(els.bar, false); show(els.barText, false);
         }
-        renderStudies(a.studies);
+        var list = (Array.isArray(a.studies) ? a.studies : []).filter(okStudy);
+        var heading = claimText();
+        var checkedAs = typeof a.checkedAs === 'string' ? a.checkedAs.trim() : '';
+        if (checkedAs && checkedAs !== heading) {
+          els.checked.innerHTML = '';
+          els.checked.appendChild(document.createTextNode('Checked as the claim: '));
+          els.checked.appendChild(el('b', '', checkedAs));
+          show(els.checked, true);
+        } else { show(els.checked, false); }
+        if (a.mode === 'full') { show(els.reach, false); show(els.tally, false); }
+        else { renderReach(a.snapshot, list); renderTally(list, a.thin === true); }
+        renderStudies(list);
+        show(els.more, list.length > 0);
         if (res.reader && res.reader.cap) {
           els.meta.textContent = 'You have used ' + num(res.reader.used) + ' of ' + num(res.reader.cap) + ' short answers this month.';
           show(els.meta, true);
         } else { show(els.meta, false); }
-        show(els.answer, true); show(els.cap, false); show(els.email, false);
+        show(els.loading, false); show(els.answer, true); show(els.cap, false); show(els.email, false);
         show(sec, true);
       }
 
@@ -517,6 +642,7 @@
         var tok = getToken();
         var body = { canonicalId: id };
         if (tok) body.readerToken = tok;
+        show(els.answer, false); show(els.cap, false); show(els.email, false); show(els.loading, true); show(sec, true);
         fetch(API + '/api/quick-answer', {
           method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
         }).then(function (r) {
@@ -525,13 +651,13 @@
           var b = res.body || {};
           if (res.status === 401 && tok) { dropToken(); load(); return; }   // a stale token: try once more as a visitor
           if (b.kind === 'answer' && b.answer) { renderAnswer(b); return; }
-          if (b.kind === 'needs_email') { show(els.answer, false); show(els.cap, false); show(els.email, true); show(sec, true); return; }
+          if (b.kind === 'needs_email') { show(els.loading, false); show(els.answer, false); show(els.cap, false); show(els.email, true); show(sec, true); return; }
           if (b.kind === 'reader_cap') {
             els.cap.textContent = 'You have used your ' + num(b.cap) + ' short answers this month. They return on ' + String(b.resetsOn || 'the first of next month') + '.';
-            show(els.answer, false); show(els.email, false); show(els.cap, true); show(sec, true); return;
+            show(els.loading, false); show(els.answer, false); show(els.email, false); show(els.cap, true); show(sec, true); return;
           }
-          // unavailable, unknown or anything else: the pending state, unchanged.
-        }).catch(function () { /* transport failure: the pending state, unchanged */ });
+          show(sec, false);   // unavailable, unknown or anything else: the pending state alone
+        }).catch(function () { show(sec, false); /* transport failure: the pending state alone */ });
       }
 
       els.form.addEventListener('submit', function (e) {
@@ -654,6 +780,6 @@
 
 <script src="fog-bg.js?v=2"></script>
 <script src="shared.js?v=20260719a"></script>
-<script src="elmer.js?v=20261015a"></script>
+<script src="elmer.js?v=20261118a"></script>
 </body>
 </html>

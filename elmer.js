@@ -702,7 +702,19 @@ async function handleSend(overrideText) {
       // reader off to the pending page 1.5s after the reply, which ended the
       // conversation mid-sentence. Now the page is a card, and following the
       // claim is a box right under the reply: one step, not two.
-      addRecordSuggestion({ href: data.pending.href, question: "See this claim on the record" });
+      //
+      // 2026-11-18: the pending page now OPENS with a short answer from the
+      // current research, so from the homepage answer box the reader is taken
+      // to it. Leaving them in the chat meant asking a question and being told
+      // only that nothing is on the record. The corner dock still does not move
+      // the page under a reader: it offers the same page as a card.
+      if (elmerFullMode) {
+        addBubble("Opening this claim's page to read the current research on it…", "elmer");
+        var pendingHref = data.pending.href;
+        window.setTimeout(function () { window.location.href = pendingHref; }, 1400);
+        return;
+      }
+      addRecordSuggestion({ href: data.pending.href, question: "See what current research says about this claim" });
       if (typeof data.pending.canonicalId === "string") addFollowBox(data.pending.canonicalId);
     }
 
