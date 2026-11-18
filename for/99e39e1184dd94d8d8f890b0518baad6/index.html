@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DATOM: a short film for King &amp; Spalding LLP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/Assets/favicon.svg">
+<link rel="icon" type="image/png" href="/Assets/favicon.png">
+<link rel="stylesheet" href="/global.css?v=5">
+<link rel="stylesheet" href="/tokens.css?v=1">
+<link rel="stylesheet" href="/design-v1.1.css?v=9">
+<link rel="stylesheet" href="/film.css?v=1">
+<style>
+  main.doc { max-width: 760px; margin: var(--s5) auto; }
+  .sf-eyebrow { margin: 0 0 var(--s3); }
+  .sf-claim-lead { font-size: 15px; line-height: 1.7; margin: var(--s4) 0 var(--s2); color: var(--muted); }
+  .sf-claim { margin: 0 0 var(--s4); padding: var(--s3) var(--s4); border-left: 2px solid var(--line); font-size: 17px; line-height: 1.6; color: var(--ink); }
+  .sf-actions { display: flex; flex-wrap: wrap; gap: var(--s3); margin: var(--s4) 0 var(--s2); }
+  .sf-reply { font-size: 15px; line-height: 1.7; margin: 0 0 var(--s4); color: var(--ink); }
+  .sf-posture { font-size: 15px; line-height: 1.7; margin: 0 0 var(--s4); max-width: 70ch; color: var(--ink); }
+  .sf-note { font-size: 13px; color: var(--faint); margin: 0; }
+  .doc .film-card { margin: 0 0 var(--s4); }
+</style>
+</head>
+<body>
+<header>
+  <a href="/index.html"><img src="/Assets/logo.png" class="header-logo" alt="DATOM"></a>
+  <button class="menu-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <nav>
+    <a href="/record.html">Example</a>
+    <a href="/product.html">How it works</a>
+    <a href="/organizations.html">For Organizations</a>
+    <a href="/pricing.html">Work with DATOM</a>
+    <a href="/app/login" class="btn-login">Sign in</a>
+  </nav>
+</header>
+
+<main class="doc">
+  <p class="k sf-eyebrow" id="eyebrow">For Dale Giali, King &amp; Spalding LLP</p>
+
+  <figure class="film-card" id="sales-film" data-film>
+    <video id="sales-film-video" preload="none" playsinline width="1280" height="720" poster="poster.jpg" aria-label="A short film for King &amp; Spalding LLP, 1 and a half min">
+      <source src="film.mp4" type="video/mp4">
+      <track kind="captions" src="film.vtt" srclang="en" label="English">
+      <a href="film.mp4">Watch the film (MP4).</a>
+    </video>
+    <button type="button" class="film-card-play" id="sales-open" aria-label="Play the film made for King &amp; Spalding LLP">
+      <svg width="13" height="13" viewBox="0 0 22 22" aria-hidden="true"><path d="M7 4.5v13l10-6.5z" fill="currentColor"/></svg>
+      <span>Watch the film</span><span class="len" aria-hidden="true">1&frac12; min</span>
+    </button>
+    <button type="button" class="film-card-close" aria-label="Close the film">Close</button>
+  </figure>
+
+  <div class="sf-actions">
+    <a class="btn" id="start" href="/try.html">Start a review</a>
+    <a class="btn sec" id="book" href="https://calendly.com/datom/30min">Book 30 minutes</a>
+  </div>
+  <p class="sf-reply">Or reply to Jordan's email.</p>
+
+  <p class="sf-posture">AI reads papers quickly and cannot be fully trusted at the moment of decision. DATOM is the check, with every finding tied to the paper it came from.</p>
+  <p class="sf-note">This page was made for you. It is not listed anywhere and will be removed after 60 days.</p>
+</main>
+
+<footer>&copy; 2026 DATOM &middot; <a href="/terms.html">Terms</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/firewall.html">Firewall</a> &middot; <a href="/product.html">How it works</a></footer>
+
+<script src="/shared.js?v=20260719a"></script>
+<script src="/film.js?v=1"></script>
+</body>
+</html>
