@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Creatine and Memory, DATOM Record</title>
+<title>DATOM Record</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="DATOM record: does creatine supplementation improve memory in healthy adults? On the record, awaiting verification.">
+<meta name="description" content="A claim on the DATOM record. On the record, awaiting verification.">
 <!-- Pending records are unlisted and noindex until a confirmed request (3.1c listing safeguard). -->
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/svg+xml" href="./Assets/favicon.svg">
@@ -14,12 +14,12 @@
 <!-- Pending unfurl (3.4): status instead of verdict. A growth surface. -->
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="DATOM">
-<meta property="og:title" content="Does creatine supplementation improve memory in healthy adults?">
-<meta property="og:description" content="On the record, awaiting verification. 12 readers have requested verification of this claim.">
+<meta property="og:title" content="A claim on the DATOM record">
+<meta property="og:description" content="On the record, awaiting verification.">
 <meta property="og:url" content="https://datom.science/record-pending.html">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Does creatine supplementation improve memory in healthy adults?">
-<meta name="twitter:description" content="On the record, awaiting verification. 12 readers have requested verification of this claim.">
+<meta name="twitter:title" content="A claim on the DATOM record">
+<meta name="twitter:description" content="On the record, awaiting verification.">
 
 <link rel="stylesheet" href="global.css?v=5">
 <link rel="stylesheet" href="elmer.css?v=20260719a">
@@ -78,6 +78,26 @@
   .notify input:focus-visible { outline: 2px solid var(--focus); outline-offset: -1px; }
   .notify button { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 11px 18px; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); cursor: pointer; }
 
+  /* SHORT ANSWER. Page tokens only; [hidden] must hide (see the sharpen note above). */
+  .shortanswer[hidden], .shortanswer [hidden] { display:none !important; }
+  .shortanswer { border:1px solid var(--line); padding:var(--s3) var(--s4); margin:var(--s4) 0; }
+  .sa-label { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); margin: 0 0 6px; }
+  .sa-note { font-family: var(--font-body); color: var(--muted); line-height: 1.55; margin: 0 0 12px; }
+  .sa-lean { font-family: var(--font-display); font-size: 17px; line-height: 1.5; color: var(--ink); margin: 0 0 10px; }
+  .sa-bar { display:flex; height:10px; border:1px solid var(--line-2); margin:6px 0; }
+  .sa-bar span { display:block; height:100%; }
+  .sa-bar .sa-for { background: var(--ink); } .sa-bar .sa-against { background: var(--line-2); } .sa-bar .sa-cond { background: var(--line); }
+  .sa-studies { list-style: decimal; padding-left: 22px; margin: 8px 0; }
+  .sa-studies li { margin: 0 0 10px; font-family: var(--font-body); line-height: 1.45; color: var(--ink); }
+  .sa-studies .sa-sub { display:block; font-family: var(--font-data); font-size: 12px; color: var(--muted); }
+  .sa-studies a { color: var(--ink); }
+  /* The email invitation reuses the notify form, but sits INSIDE the short answer
+     box: no second border, and its sentence reads as a sentence, not a label. */
+  .shortanswer .notify { border: none; padding: 0; margin: 4px 0 0; }
+  .shortanswer .notify p { font-family: var(--font-body); font-size: 15px; line-height: 1.55; letter-spacing: 0; text-transform: none; color: var(--muted); margin: 0 0 12px; }
+  .shortanswer .notify p.status-copy { margin: 10px 0 0; color: var(--ink); }
+  .shortanswer > .status-copy { margin: 0; }
+
   .catdef { font-family: var(--font-display); font-size: 16px; color: var(--muted); line-height: 1.6; margin: var(--s5) 0 var(--s3); }
   .answerbox { display: flex; gap: 0; margin: var(--s3) 0; }
   .answerbox input { flex: 1; font-family: var(--font-body); font-size: 15px; padding: 12px 14px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); }
@@ -104,13 +124,16 @@
 <main>
   <section class="reveal rec">
 
-    <!-- a. the claim, verbatim canonical form. The static content below is the
-         example record (DTM-2026-0714-C3); when the page is opened with ?id=, the
-         script at the bottom fetches the real pending record and OVERWRITES the
-         claim, status label, status copy, and count. The literal status strings
-         stay in the static markup so statusCopyConsistency.test.ts still matches. -->
-    <p class="rec-eyebrow" id="pending-eyebrow">DATOM Record &middot; DTM-2026-0714-C3</p>
-    <h1 class="rec-claim" id="pending-claim">Does creatine supplementation improve memory in healthy adults?</h1>
+    <!-- a. the claim, verbatim canonical form. The static content below is a
+         NEUTRAL SHELL: it names no claim and states no count. When the page is
+         opened with ?id=, the script at the bottom fetches the real pending
+         record and fills in the claim, status label, status copy and count.
+         (It used to ship one particular example claim and an invented reader
+         count, which a visitor saw whenever the fetch failed.) The literal
+         status strings stay in the static markup, hidden until the record loads,
+         so statusCopyConsistency.test.ts still matches. -->
+    <p class="rec-eyebrow" id="pending-eyebrow">DATOM Record</p>
+    <h1 class="rec-claim" id="pending-claim">A question on the DATOM record</h1>
 
     <!-- SHARPEN: the visitor makes their own question precise, with options drawn
          from the literature (POST /api/claim/sharpen). Hidden by default and
@@ -164,14 +187,38 @@
       <div class="step" data-step="IN_VERIFICATION">In verification</div>
       <div class="step" data-step="PUBLISHED">Published</div>
     </div>
-    <p class="status-copy" id="pending-status-copy">
-      On the record since 2026-07-14. Verification pending.<br>
-      <span class="req">12 readers</span> have requested verification of this claim.
-    </p>
+    <p class="status-copy" id="pending-status-copy" hidden>On the record since 2026-07-14. Verification pending.</p>
+
+    <!-- SHORT ANSWER (POST /api/quick-answer, free). Hidden until the endpoint
+         has actually answered: with JS off, past a cap, paused, or on any error
+         the page is exactly the pending state above. It carries the quick read's
+         own label and note, a list of studies, and never a verdict, grade or
+         confidence figure on a literature-only answer. -->
+    <section class="shortanswer" id="short-answer" hidden aria-labelledby="sa-heading">
+      <p class="rec-eyebrow" id="sa-heading">Short answer</p>
+      <div id="sa-answer" hidden>
+        <p class="sa-label" id="sa-label"></p>
+        <p class="sa-note" id="sa-note"></p>
+        <p class="sa-lean" id="sa-lean" hidden></p>
+        <div class="sa-bar" id="sa-bar" hidden role="img"><span class="sa-for"></span><span class="sa-against"></span><span class="sa-cond"></span></div>
+        <p class="status-copy" id="sa-bar-text" hidden></p>
+        <ol class="sa-studies" id="sa-studies"></ol>
+        <p class="status-copy" id="sa-meta" hidden></p>
+      </div>
+      <p class="status-copy" id="sa-cap" hidden></p>
+      <div class="notify" id="sa-email" hidden>
+        <p>Enter your email for five short answers a month, and to be told when the status of this record changes.</p>
+        <form id="sa-email-form">
+          <input type="email" id="sa-email-input" name="email" placeholder="you@example.com" aria-label="Your email for short answers" required>
+          <button type="submit">Send me a link</button>
+        </form>
+        <p class="status-copy" id="sa-email-status" role="status" aria-live="polite" hidden></p>
+      </div>
+    </section>
 
     <!-- acceleration by presence, action form, no declaimed trigger sentence -->
     <div class="accel">
-      <a href="try.html?flow=report" class="btn">Commission a report on this claim</a>
+      <a href="try.html?flow=report" class="btn" id="commission-report">Commission a report on this claim</a>
     </div>
 
     <!-- notify-me: fires on any status change. Posts to /api/notify (canonicalId +
@@ -383,6 +430,148 @@
       window.__datomRevealSharpen = function () { card.hidden = false; };
     })();
 
+    // ── SHORT ANSWER: POST /api/quick-answer { canonicalId, readerToken? } ──────
+    //
+    // The request names the question by id only; the server reads the claim from
+    // the question's own row, so nothing typed here can steer a model call.
+    // PROGRESSIVE ENHANCEMENT: the section starts hidden and is revealed only by
+    // an answer, an invitation to enter an email, or a used up month. Anything
+    // else (paused, over a cap, an error, JS off) leaves the pending page exactly
+    // as it was. The reader token (an email only account, no password, not the
+    // dashboard sign in) lives in localStorage when it is allowed to.
+    (function () {
+      var sec = document.getElementById('short-answer');
+      if (!sec || !id) return;
+      var TOKEN_KEY = 'datomReaderToken';
+      var els = {
+        answer: document.getElementById('sa-answer'), label: document.getElementById('sa-label'),
+        note: document.getElementById('sa-note'), lean: document.getElementById('sa-lean'),
+        bar: document.getElementById('sa-bar'), barText: document.getElementById('sa-bar-text'),
+        studies: document.getElementById('sa-studies'), meta: document.getElementById('sa-meta'),
+        cap: document.getElementById('sa-cap'), email: document.getElementById('sa-email'),
+        form: document.getElementById('sa-email-form'), input: document.getElementById('sa-email-input'),
+        status: document.getElementById('sa-email-status'), commission: document.getElementById('commission-report')
+      };
+      function getToken() { try { return window.localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } }
+      function dropToken() { try { window.localStorage.removeItem(TOKEN_KEY); } catch (e) { /* storage blocked: nothing to drop */ } }
+      function show(el, on) { el.hidden = !on; }
+      function claimText() { return (document.getElementById('pending-claim').textContent || '').trim(); }
+      function isHttps(u) { return typeof u === 'string' && /^https:\/\/[^\s<>"']+$/.test(u); }
+      function num(v) { var n = Number(v); return isFinite(n) ? n : 0; }
+
+      var DIRECTION = { agrees: 'agrees with the claim', conflicts: 'conflicts with the claim', unclear: 'unclear from the abstract' };
+
+      function renderStudies(list) {
+        els.studies.innerHTML = '';
+        (Array.isArray(list) ? list : []).forEach(function (s) {
+          if (!s || typeof s.title !== 'string' || !s.title) return;
+          var li = document.createElement('li');
+          if (isHttps(s.url)) {
+            var a = document.createElement('a');
+            a.href = s.url; a.rel = 'noopener noreferrer'; a.target = '_blank';
+            a.textContent = s.title;
+            li.appendChild(a);
+          } else {
+            li.appendChild(document.createTextNode(s.title));
+          }
+          var parts = [];
+          if (s.year) parts.push(String(num(s.year)));
+          if (typeof s.sampleSize === 'string' && s.sampleSize) parts.push('sample ' + s.sampleSize);
+          parts.push(DIRECTION[s.direction] || DIRECTION.unclear);
+          var sub = document.createElement('span');
+          sub.className = 'sa-sub';
+          sub.textContent = parts.join(' · ');
+          li.appendChild(sub);
+          els.studies.appendChild(li);
+        });
+      }
+
+      function renderAnswer(res) {
+        var a = res.answer || {};
+        els.label.textContent = String(a.label || '');
+        els.note.textContent = a.mode === 'full' ? '' : String(a.note || '');
+        show(els.note, a.mode !== 'full' && !!a.note);
+        // The lean and the bar exist ONLY on a full answer (stored ledger findings). A
+        // literature-only answer has neither: no lean, no verdict, no grade, no confidence.
+        if (a.mode === 'full' && a.lean) {
+          els.lean.textContent = String(a.lean); show(els.lean, true);
+          var b = a.evidenceBar || {};
+          var f = num(b.supportsPct), g = num(b.againstPct), c = num(b.conditionalPct);
+          els.bar.children[0].style.width = f + '%'; els.bar.children[1].style.width = g + '%'; els.bar.children[2].style.width = c + '%';
+          els.bar.setAttribute('aria-label', f + '% toward the claim, ' + g + '% against it, ' + c + '% conditional');
+          els.barText.textContent = 'Of the closest findings: ' + f + '% toward the claim, ' + g + '% against it, ' + c + '% conditional.';
+          show(els.bar, true); show(els.barText, true);
+        } else {
+          show(els.lean, false); show(els.bar, false); show(els.barText, false);
+        }
+        renderStudies(a.studies);
+        if (res.reader && res.reader.cap) {
+          els.meta.textContent = 'You have used ' + num(res.reader.used) + ' of ' + num(res.reader.cap) + ' short answers this month.';
+          show(els.meta, true);
+        } else { show(els.meta, false); }
+        show(els.answer, true); show(els.cap, false); show(els.email, false);
+        show(sec, true);
+      }
+
+      function load() {
+        var tok = getToken();
+        var body = { canonicalId: id };
+        if (tok) body.readerToken = tok;
+        fetch(API + '/api/quick-answer', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+        }).then(function (r) {
+          return r.json().then(function (b) { return { status: r.status, body: b }; });
+        }).then(function (res) {
+          var b = res.body || {};
+          if (res.status === 401 && tok) { dropToken(); load(); return; }   // a stale token: try once more as a visitor
+          if (b.kind === 'answer' && b.answer) { renderAnswer(b); return; }
+          if (b.kind === 'needs_email') { show(els.answer, false); show(els.cap, false); show(els.email, true); show(sec, true); return; }
+          if (b.kind === 'reader_cap') {
+            els.cap.textContent = 'You have used your ' + num(b.cap) + ' short answers this month. They return on ' + String(b.resetsOn || 'the first of next month') + '.';
+            show(els.answer, false); show(els.email, false); show(els.cap, true); show(sec, true); return;
+          }
+          // unavailable, unknown or anything else: the pending state, unchanged.
+        }).catch(function () { /* transport failure: the pending state, unchanged */ });
+      }
+
+      els.form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = (els.input.value || '').trim();
+        if (!email) return;
+        els.status.hidden = false; els.status.textContent = 'Sending…';
+        fetch(API + '/api/reader/start', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, canonicalId: id })
+        }).then(function (r) {
+          return r.json().then(function (b) { return { ok: r.ok, body: b }; });
+        }).then(function (res) {
+          els.status.textContent = res.ok
+            ? 'Check your inbox for a link. It works once and expires in 24 hours. Come back through it and your short answer will be here.'
+            : String((res.body && res.body.error) || 'That did not go through. Reach us at info@datom.science.');
+        }).catch(function () {
+          els.status.textContent = 'That did not go through. Reach us at info@datom.science.';
+        });
+      });
+
+      // A reader's click on the report button is one usage note (a question id and
+      // an action from a closed list, never wording). Fire and forget: it never delays the page.
+      if (els.commission) els.commission.addEventListener('click', function () {
+        var tok = getToken();
+        if (!tok) return;
+        try {
+          fetch(API + '/api/reader/event', {
+            method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ readerToken: tok, canonicalId: id, action: 'report_click' })
+          }).catch(function () { /* a usage note is a signal, not a transaction */ });
+        } catch (err) { /* same */ }
+      });
+
+      // Started by the record fetch (below), never on its own: a question that
+      // is already published redirects to its record, and an id that names no
+      // record gets no request at all.
+      window.__datomLoadShortAnswer = load;
+    })();
+
     if (id) {
       fetch(API + '/api/record/' + encodeURIComponent(id))
         .then(function (r) { if (!r.ok) throw new Error('not available'); return r.json(); })
@@ -392,7 +581,11 @@
           document.getElementById('pending-eyebrow').textContent = 'DATOM Record · ' + (rec.canonicalId || '');
           // Status copy: the server sends the deterministic lines; join with <br>.
           var copy = Array.isArray(rec.statusCopy) ? rec.statusCopy : [];
-          document.getElementById('pending-status-copy').innerHTML = copy.map(esc).join('<br>');
+          var statusEl = document.getElementById('pending-status-copy');
+          statusEl.innerHTML = copy.map(esc).join('<br>');
+          statusEl.hidden = copy.length === 0;   // the static line is a hidden shell, never shown as if it were this record's
+          var cr = document.getElementById('commission-report');
+          if (cr && rec.canonicalText) cr.href = 'try.html?flow=report&claim=' + encodeURIComponent(rec.canonicalText);
           // Ladder: mark the current step.
           var steps = document.querySelectorAll('#pending-ladder .step');
           for (var i = 0; i < steps.length; i++) {
@@ -403,6 +596,7 @@
           // The record is real and on screen: only now may the sharpen card
           // offer to make THIS question precise.
           if (typeof window.__datomRevealSharpen === 'function') window.__datomRevealSharpen();
+          if (typeof window.__datomLoadShortAnswer === 'function') window.__datomLoadShortAnswer();
         })
         .catch(function () { /* leave the static example in place on any error */ });
     }

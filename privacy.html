@@ -75,6 +75,7 @@
     <li>We do not use advertising cookies, trackers, or analytics. The only third-party script on the public site is the scheduling widget on the Get Started page.</li>
     <li>We collect what you give us: the questions you ask, the details you submit to request a report or a pilot, and any file you upload.</li>
     <li>We never sell information that identifies you, and payment never changes what a verification finds. We do measure how the public phrases the claims it searches for, identity-dissociated, and may sell that only as aggregates (see <a href="#sentiment">Aggregate search sentiment</a>).</li>
+    <li>A reader account is optional. It is your email and nothing else, with no password. It keeps the list of claims you asked about, never your wording, and you can delete it yourself at any time (see <a href="#reader">Reader accounts</a>).</li>
     <li>To ask what we hold about you, or to have it deleted, email <a href="mailto:legal@datom.science">legal@datom.science</a>.</li>
   </ul>
 
@@ -86,10 +87,11 @@
       <tr><td>Your name, email, organization, and the free-text answers you give (the claim, its context, your decision)</td><td>When you request a Confidence Report or a pilot on the Get Started page</td></tr>
       <tr><td>A file you upload, such as a pitch deck or a document</td><td>Only when you attach one</td></tr>
       <tr><td>Your email and name for an account</td><td>Only if you create one</td></tr>
+      <tr><td>Your email, and the list of claims whose short answer you opened (which claim and which day, never what you typed)</td><td>Only if you start a reader account for short answers</td></tr>
       <tr><td>Standard web-server request data, including your IP address</td><td>On every request, like any website</td></tr>
     </tbody>
   </table>
-  <p>Your IP address is used to limit how often the chat and the public forms can be used. For that it is held in a usage counter that deletes itself after two days, and it can appear in our server logs, which are kept for up to 90 days. When you accept our terms on a form, we keep your IP address and browser type with that acceptance, as the record that you accepted. We do not ask for, and you should not send, government IDs, financial account numbers, or passwords through any chat or form.</p>
+  <p>Your IP address is used to limit how often the chat and the public forms can be used. For that it is held in a usage counter that deletes itself after two days, and it can appear in our server logs, which are kept for up to 90 days. An email address you enter is counted the same way, as a one-way code rather than the address itself, to limit how many confirmation emails can be sent to it in a day; that counter also deletes itself after two days. When you accept our terms on a form, we keep your IP address and browser type with that acceptance, as the record that you accepted. We do not ask for, and you should not send, government IDs, financial account numbers, or passwords through any chat or form.</p>
 
   <div class="note"><strong>A note on health questions.</strong> You can ask Elmer about health claims, and the wording of your question may be kept in our operational logs to improve how questions are matched to records. Please do not include personal health information about yourself or anyone else, or anything that identifies you, in what you type.</div>
 
@@ -100,6 +102,11 @@
     <li>To take payment when you commission a paid report.</li>
     <li>To understand, in aggregate and without identifying you, what people ask about, so we know which claims to check next.</li>
   </ul>
+
+  <h2 id="reader">Reader accounts</h2>
+  <p>A reader account exists so that you can read more short answers and be told when the status of a record you asked about changes. It is your email address and nothing else: no password and no name. It does not sign you in to the dashboard or to anything other than short answers.</p>
+  <p>With a reader account we keep your email, the date you confirmed it, and a list of the claims whose short answer you opened: which claim, which day, and whether you pressed the button to commission a report. We keep the day, not the time. We do not keep your wording with your account: the list names claims on the record, not what you typed. Each claim on that list is an entry with its own page, and the wording on that page is the question as it was first asked on the site, by whoever asked it first.</p>
+  <p>To delete your account, that list, and your notification requests, use the delete button on <a href="reader-confirm.html?manage=1">your reader account page</a>, or email <a href="mailto:legal@datom.science">legal@datom.science</a>. One thing outlives the account for up to two months: a count of how many short answers were used in the month, held against a one-way code of the address and nothing else, so that deleting and starting again does not reset the monthly limit.</p>
 
   <h2 id="sentiment">Aggregate search sentiment</h2>
   <p>When your question resolves to a claim on the record, we keep the wording of that search as a measure of public interest in the claim. It is stored identity-dissociated by design: attached to the claim you searched, a timestamp, and how the match was made, and nothing else. Your IP address, your account, and any identifier are never attached to it, so it cannot be traced back to you.</p>
@@ -117,10 +124,10 @@
   </ul>
 
   <h2>What stays in your browser</h2>
-  <p>We set no cookies. Elmer keeps your current chat in your browser's session storage so the conversation survives moving between pages; it is cleared when you close the tab. The "this is not medical advice" notice records that you have acknowledged it, for the session. That is all.</p>
+  <p>We set no cookies. Elmer keeps your current chat in your browser's session storage so the conversation survives moving between pages; it is cleared when you close the tab. The "this is not medical advice" notice records that you have acknowledged it, for the session. If you confirm a reader account, your browser also keeps a sign-in token for it in local storage for up to 90 days, so that you are not asked for your email on every page; signing out or deleting the account on your reader account page removes it. That is all.</p>
 
   <h2>How long we keep it</h2>
-  <p>Records you asked us to check, and the details of a request or account, are kept while they remain useful for the service and our records. Generated report files are deleted after 90 days. Operational logs are kept for troubleshooting and to plan what to verify next. To have information about you deleted sooner, email us at the address below and we will act on it.</p>
+  <p>Records you asked us to check, and the details of a request or account, are kept while they remain useful for the service and our records. Generated report files are deleted after 90 days. A reader account is kept until you delete it. Operational logs are kept for troubleshooting and to plan what to verify next. To have information about you deleted sooner, email us at the address below and we will act on it.</p>
 
   <h2>Your choices</h2>
   <p>You can ask us what personal information we hold about you, ask us to correct it, or ask us to delete it, by emailing <a href="mailto:legal@datom.science">legal@datom.science</a>. If you are a California resident, the CCPA rights described in our <a href="terms.html#sec-4-1">Terms</a> apply, and requests go to the same address. We do not sell or share personal information as those terms are defined under the CCPA.</p>
