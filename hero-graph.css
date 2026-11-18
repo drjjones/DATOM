@@ -1,0 +1,67 @@
+/* hero-graph.css: the homepage hero (hero-graph.js).
+   Each featured claim's own knowledge graph, staged: the claim is asked, the fog
+   parts, the graph assembles, the findings that test the claim directly leave it
+   for the scale, the count is weighed into a range, and the range lands on a
+   verdict. Then the next claim.
+   The static record card below it (#featured-entry) is what this replaces when it
+   can run, and what shows when it cannot. */
+
+.hero-live #featured-entry { display: none; }
+
+/* the answer box gains a layer the example types into; the input is never written to */
+.hero-live .hero-answerbox { position: relative; z-index: 3; }
+.ab-field { position: relative; flex: 1; min-width: 0; display: flex; }
+.ab-field input { width: 100%; }
+.ab-demo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-end; pointer-events: none; color: var(--ink); font: inherit; overflow: hidden; text-align: left; }
+.ab-demo.fits, .ab-demo.done { justify-content: flex-start; }
+.ab-demo b { font-weight: inherit; white-space: nowrap; flex: none; }
+.ab-demo.done b { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.ab-demo i { flex: none; width: 1px; height: 1.1em; background: var(--ink); margin-left: 2px; animation: ev-caret 1s steps(1) infinite; }
+.ab-demo:empty, .ab-demo.off { display: none; }
+/* the page's own placeholder rule is as specific as a single class, so this names the form too */
+.hero-answerbox.demoing input::placeholder { color: transparent; }
+.hero-answerbox.sending button { transform: scale(1.14); filter: brightness(1.25); }
+@keyframes ev-caret { 50% { opacity: 0; } }
+
+.ev { --vc: var(--signal); position: relative; max-width: 640px; margin: 16px auto 0; color: var(--ink); text-align: left; }
+.ev[hidden] { display: none; }
+#ev-canvas { position: absolute; left: 50%; top: -110px; width: min(100vw, 1040px); height: calc(100% + 150px); transform: translateX(-50%); pointer-events: none; z-index: 2; }
+.ev-claim { font-family: var(--font-display); font-weight: 500; font-size: 18px; line-height: 1.3; text-align: center; margin: 0; min-height: 2.6em; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; opacity: 0; transition: opacity 0.6s; }
+.ev-claim.on { opacity: 1; }
+.ev-stage { height: 290px; position: relative; }
+#record-graph { position: absolute; left: 50%; top: 50%; width: min(100vw, 640px); transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.9s; }
+#record-graph.on { opacity: 1; }
+.ev-cap { font-family: var(--font-body); font-size: 14px; font-variant-numeric: tabular-nums; color: var(--faint); text-align: center; min-height: 21px; margin: 0 0 16px; }
+.ev-track { position: relative; display: flex; height: 36px; border: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 60%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.ev-zone { display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); border-right: 1px solid var(--line); transition: background 0.6s, color 0.6s; }
+.ev-zone:last-of-type { border-right: none; }
+.ev-zone.z-u, .ev-zone.z-s { width: 45%; }
+.ev-zone.z-c { width: 10%; font-size: 8px; letter-spacing: 0; overflow: hidden; }
+.ev-zone.active { background: color-mix(in srgb, var(--vc) 10%, transparent); color: var(--vc); font-weight: 700; }
+.ev-range { position: absolute; top: 7px; bottom: 7px; box-sizing: border-box; border-radius: 2px; opacity: 0;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--vc) 58%, transparent), color-mix(in srgb, var(--vc) 20%, transparent) 50%, color-mix(in srgb, var(--vc) 58%, transparent));
+  box-shadow: 0 0 20px color-mix(in srgb, var(--vc) 42%, transparent);
+  transition: left 1s cubic-bezier(0.3, 0.7, 0.2, 1), width 1s cubic-bezier(0.3, 0.7, 0.2, 1), opacity 0.4s; }
+.ev-tick { position: absolute; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--vc); opacity: 0;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--paper) 85%, transparent), 0 0 14px var(--vc); transition: opacity 0.3s; }
+.ev-range.on, .ev-tick.on { opacity: 1; }
+.ev-scale { display: flex; justify-content: space-between; font-family: var(--font-data); font-size: 10px; color: var(--faint); margin-top: 4px; }
+.ev-verdict { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin: 16px 0 0; min-height: 44px; text-align: left; }
+.ev-verdict > * { opacity: 0; transition: opacity 0.5s; }
+.ev-verdict .v { display: inline-block; padding-bottom: 0.12em; font-family: var(--font-display); font-weight: 500; font-size: 34px; line-height: 1; color: var(--vc); clip-path: inset(0 100% 0 0); transition: clip-path 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.2s; }
+.ev-verdict .g { font-family: var(--font-body); font-size: 14px; color: var(--faint); }
+.ev-verdict a { margin-left: auto; font-family: var(--font-body); font-size: 14px; color: var(--signal); text-decoration: none; position: relative; z-index: 3; }
+.ev-verdict a:hover { text-decoration: underline; }
+.ev-verdict.on > * { opacity: 1; }
+.ev-verdict.on .v { clip-path: inset(0 0 0 0); }
+.ev-verdict.on .g { transition-delay: 0.5s; }
+.ev-verdict.on a { transition-delay: 0.8s; }
+.ev-ctl { display: flex; gap: 2px; align-items: center; justify-content: center; margin-top: 10px; position: relative; z-index: 3; }
+.ev-ctl button { all: unset; cursor: pointer; width: 28px; height: 28px; display: grid; place-items: center; color: var(--faint); border-radius: 50%; }
+.ev-ctl button:focus-visible { outline: 2px solid var(--signal); outline-offset: -2px; }
+.ev-ctl .pick::before { content: ""; width: 7px; height: 7px; border-radius: 50%; border: 1px solid currentColor; }
+.ev-ctl .pick[aria-current="true"]::before { background: var(--ink); border-color: var(--ink); }
+.ev-ctl .pp { font-family: var(--font-body); font-size: 13px; width: auto; padding: 0 8px; border-radius: 4px; }
+.ev .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 480px) { .ev-claim { font-size: 17px; } .ev-stage { height: 250px; } .ev-zone.z-c { font-size: 0; } .ev-verdict .v { font-size: 28px; } }
+@media (prefers-reduced-motion: reduce) { .ev *, .hero-answerbox * { transition: none !important; animation: none !important; } }

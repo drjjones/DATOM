@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="tokens.css?v=1">
 <link rel="stylesheet" href="design-v1.1.css?v=9">
 <link rel="stylesheet" href="film.css?v=1">
+<link rel="stylesheet" href="hero-graph.css?v=2">
 <style>
   /* ── Hero ──
      Layout only; visual treatment (color, gradient removal, card/diagram
@@ -467,6 +468,12 @@
         });
       })();
     </script>
+
+    <!-- THE HERO (hero-graph.js, hero-graph.css). Each featured claim's own knowledge graph, staged, one
+         claim after another, from the same generated #featured-entries list the record card below prints.
+         It builds itself here and hides that card when it can run; the card is what shows when it cannot
+         (no script, no WebGL, no graph built). This element is empty on purpose: it states nothing itself. -->
+    <div class="ev" id="hero-ev" role="group" aria-label="An example: how a claim on the record reaches its verdict" hidden></div>
 
     <!-- FEATURED RECORD CAROUSEL. Real public-ledger records, cross-fading on a
          timer; any manual prev/next/dot resets the timer.
@@ -1017,5 +1024,6 @@
 <script src="shared.js?v=20260719a"></script>
 <script src="elmer.js?v=20261015a"></script>
 <script src="film.js?v=1"></script>
+<script src="hero-graph.js?v=1"></script>
 </body>
 </html>

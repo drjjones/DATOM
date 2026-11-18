@@ -391,6 +391,15 @@
      so the fog reads as parting, not as a stencil glued to the mouse. */
   const pointerClear = { x: -9999, y: -9999, strength: 0 };
 
+  /* A clearing a page can ask for: the hero parts the fog around the claim it
+     is showing. It eases open and shut like the pointer's. Nothing calls it
+     unless a page does, so every other page is unchanged. */
+  const askedClear = { x: -9999, y: -9999, r: 0, strength: 0, target: 0 };
+  window.datomFog = {
+    clear(x, y, r) { askedClear.x = x; askedClear.y = y; askedClear.r = r; askedClear.target = 1; },
+    release() { askedClear.target = 0; },
+  };
+
   /* Two autonomous clearings wander on lissajous paths so the network
      keeps being revealed even with no cursor (touch devices). */
   const wanderers = [
@@ -540,11 +549,13 @@
       punchClear(cx, cy, z.r, 0.92);
     }
     punchClear(pointerClear.x, pointerClear.y, POINTER_CLEAR_R, pointerClear.strength);
+    punchClear(askedClear.x, askedClear.y, askedClear.r, askedClear.strength);
 
     fctx.globalCompositeOperation = 'source-over';
   }
 
   function updatePointerClear() {
+    askedClear.strength += (askedClear.target - askedClear.strength) * 0.035;
     const hasMouse = mouse.x > -9000;
     if (hasMouse) {
       if (pointerClear.strength === 0) {
